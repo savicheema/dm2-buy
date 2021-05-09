@@ -57,7 +57,12 @@ export default function Home() {
             <h2>Neikimlhing (Kim)</h2>
             <div className="handle">@neikimlhing_</div>
 
-            <Details summary="Keeping things whacky">Lorem Ipsum</Details>
+            <Details summary="Keeping things whacky">
+              Rem et eius explicabo eligendi. Non aut est possimus aut ea magni
+              fuga et. Excepturi voluptas eaque fuga adipisci saepe autem sint.
+              Accusamus nemo saepe et. Ut itaque doloremque accusantium nobis ea
+              consequatur perspiciatis laboriosam. Ipsam et aut quo molestias.
+            </Details>
           </div>
         </div>
 
