@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="61" height="33" viewBox="0 0 61 33">
+    <g fill="none" fill-rule="evenodd">
+        <g fill="#000">
+            <g>
+                <text font-family="AppleColorEmoji, Apple Color Emoji" font-size="24" transform="translate(-20 -187) translate(20 183) rotate(1 48.5 23)">
+                    <tspan x="36" y="31">💕</tspan>
+                </text>
+                <text font-family="Roboto-Bold, Roboto" font-size="15" font-weight="bold" transform="translate(-20 -187) translate(20 183)">
+                    <tspan x="0" y="18">dm</tspan>
+                </text>
+                <text font-family="Roboto-Bold, Roboto" font-size="15" font-weight="bold" transform="translate(-20 -187) translate(20 183)">
+                    <tspan x="3" y="33">buy</tspan>
+                </text>
+                <text font-family="Roboto-Bold, Roboto" font-size="22" font-weight="bold" transform="translate(-20 -187) translate(20 183)">
+                    <tspan x="22" y="20">2</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

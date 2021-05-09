@@ -1,0 +1,18 @@
+.flat {
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.raised {
+  border: none;
+  background: none;
+  outline: none;
+
+  border-radius: 50%;
+  border: 1px solid var(--border);
+
+  padding: 12px 14px;
+
+  /* opacity: 0.4; */
+}

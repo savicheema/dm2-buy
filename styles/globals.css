@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --dm2buy-pink: hsl(323.2, 82%, 54.3%);
+  --border: hsla(0, 0%, 59.2%, 0.4);
+  --bg-color: #f8f6f7;
+}

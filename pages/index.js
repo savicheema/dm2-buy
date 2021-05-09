@@ -1,6 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+
+import Span from "../components/Span";
+import ImageButton from "../components/ImageButton";
+import Details from "../components/Details";
+import StoreItem from "../components/StoreItem";
 
 export default function Home() {
   return (
@@ -11,59 +16,77 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <header className={styles.header}>
+        <div className={styles.notice}>
+          30% of all sales from <Span>Kim's store</Span> will be donated to{" "}
+          <Span>Give India</Span> as a part of{" "}
+          <Span>COVID-19 Relief Fundraiser</Span>{" "}
+        </div>
+        <div className={styles.siteHeader}>
+          <img
+            src="/logo.png"
+            srcset="/logo@2x.png 2x, /logo@3x.png 3x"
+            className={styles.logo}
+            alt="logo"
+          />
+          <ImageButton type="flat" action={() => {}}>
+            <Image src="/shopping-bag.png" width="24" height="28" />
+          </ImageButton>
+        </div>
+      </header>
+
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <div className={styles.profile}>
+          <div className={styles.social}>
+            <img
+              src="/profile-pic.jpg"
+              alt="profile-pic"
+              className={styles.profilePic}
+            />
+            <div className={styles.socialButtons}>
+              <ImageButton type="raised" action={() => {}}>
+                <Image src="/instagram.png" width="24" height="24" />
+              </ImageButton>
+              <ImageButton type="raised" action={() => {}}>
+                <Image src="/share.png" width="24" height="24" />
+              </ImageButton>
+            </div>
+          </div>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+          <div className="userInfo">
+            <h2>Neikimlhing (Kim)</h2>
+            <div className="handle">@neikimlhing_</div>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+            <Details summary="Keeping things whacky">Lorem Ipsum</Details>
+          </div>
+        </div>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        <div className={styles.store}>
+          <h2 className={styles.storeHeading}>4 products listed</h2>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <div className={styles.storeItems}>
+            <StoreItem imgUrl="/camo/bitmap.png" />
+            <StoreItem imgUrl="/camo/bitmap.png" />
+            <StoreItem imgUrl="/camo/bitmap.png" />
+            <StoreItem imgUrl="/camo/bitmap.png" />
+          </div>
         </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+        <div className={styles.tagline}>
+          <span>Take your sidehustle to a whole new level.</span>
+
+          <div className={styles.instruction}>
+            <span>Setup your own store.</span>
+            <span>FOR FREE</span>
+          </div>
+        </div>
+
+        <input placeholder="Your whatsapp number" />
+
+        <button>GET INVITE</button>
       </footer>
     </div>
-  )
+  );
 }

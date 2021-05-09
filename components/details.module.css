@@ -1,0 +1,13 @@
+.details {
+  margin-top: 20px;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  outline: none;
+
+  color: var(--dm2buy-pink);
+
+  margin: 12px 0;
+}
