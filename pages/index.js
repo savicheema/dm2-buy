@@ -88,9 +88,12 @@ export default function Home() {
           </div>
         </div>
 
-        <input placeholder="Your whatsapp number" />
+        <input
+          placeholder="Your whatsapp number"
+          className={styles.numberInput}
+        />
 
-        <button>GET INVITE</button>
+        <button className={styles.inviteButton}>GET INVITE</button>
       </footer>
     </div>
   );
