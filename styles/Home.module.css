@@ -19,13 +19,9 @@
   /* justify-content: center; */
   align-items: center;
   width: 100vw;
-  max-width: 480px;
+  max-width: var(--max-width);
 
   margin: 12px 0;
-
-  /* min-height: 200vh; */
-  /* overflow-y: auto; */
-  /* overflow-x: hidden; */
 }
 
 .profile {
@@ -33,7 +29,7 @@
 }
 
 .header {
-  max-width: 480px;
+  max-width: var(--max-width);
   background-color: white;
 }
 
@@ -100,7 +96,7 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
-  max-width: 480px;
+  max-width: var(--max-width);
 
   background-color: var(--dm2buy-pink);
   padding: 44px 36px;
@@ -115,7 +111,7 @@
 
 .store {
   width: 100vw;
-  max-width: 480px;
+  max-width: var(--max-width);
 }
 
 .storeItems {
