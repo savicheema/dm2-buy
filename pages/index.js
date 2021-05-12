@@ -2,10 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
-import Span from "../components/Span";
 import ImageButton from "../components/ImageButton";
 import Details from "../components/Details";
 import StoreItem from "../components/StoreItem";
+
+import Header from "../components/Header";
 
 export default function Home() {
   return (
@@ -16,24 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.header}>
-        <div className={styles.notice}>
-          30% of all sales from <Span>Kim's store</Span> will be donated to{" "}
-          <Span>Give India</Span> as a part of{" "}
-          <Span>COVID-19 Relief Fundraiser</Span>{" "}
-        </div>
-        <div className={styles.siteHeader}>
-          <img
-            src="/logo.png"
-            srcset="/logo@2x.png 2x, /logo@3x.png 3x"
-            className={styles.logo}
-            alt="logo"
-          />
-          <ImageButton type="flat" action={() => {}}>
-            <Image src="/shopping-bag.png" width="24" height="28" />
-          </ImageButton>
-        </div>
-      </header>
+      <Header />
 
       <main className={styles.main}>
         <div className={styles.profile}>
@@ -76,25 +60,25 @@ export default function Home() {
             <StoreItem imgUrl="/camo/bitmap.png" />
           </div>
         </div>
-      </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.tagline}>
-          <span>Take your sidehustle to a whole new level.</span>
+        <footer className={styles.footer}>
+          <div className={styles.tagline}>
+            <span>Take your sidehustle to a whole new level.</span>
 
-          <div className={styles.instruction}>
-            <span>Setup your own store.</span>
-            <span>FOR FREE</span>
+            <div className={styles.instruction}>
+              <span>Setup your own store.</span>
+              <span>FOR FREE</span>
+            </div>
           </div>
-        </div>
 
-        <input
-          placeholder="Your whatsapp number"
-          className={styles.numberInput}
-        />
+          <input
+            placeholder="Your whatsapp number"
+            className={styles.numberInput}
+          />
 
-        <button className={styles.inviteButton}>GET INVITE</button>
-      </footer>
+          <button className={styles.inviteButton}>GET INVITE</button>
+        </footer>
+      </main>
     </div>
   );
 }

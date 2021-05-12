@@ -1,49 +1,31 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: var(--bg-color);
-  /* height: 100vh; */
 }
 
 .main {
   padding: 8px 20px;
 
-  /* padding: 5rem 0; */
-  flex: 1;
+  flex: auto;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   width: 100vw;
   max-width: var(--max-width);
 
   margin: 12px 0;
+
+  max-height: 80vh;
+
+  overflow-y: auto;
 }
 
 .profile {
   width: 100%;
-}
-
-.header {
-  max-width: var(--max-width);
-  background-color: white;
-}
-
-.siteHeader {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 20px;
-}
-
-.logo {
-  height: 40px;
-  width: 75px;
-  background-position: center;
-  background-size: cover;
 }
 
 .cart {
@@ -69,14 +51,6 @@
   border-radius: 50%;
 }
 
-.notice {
-  background-color: var(--dm2buy-pink);
-  color: white;
-  padding: 28px 14px;
-  text-align: center;
-  font-size: 14px;
-}
-
 .socialButtons {
   display: flex;
   justify-content: space-around;
@@ -90,7 +64,7 @@
 }
 
 .footer {
-  width: 100%;
+  width: calc(100% + 44px);
   /* height: 100px; */
   display: flex;
   justify-content: space-between;

@@ -1,0 +1,27 @@
+.header {
+  max-width: var(--max-width);
+  background-color: white;
+
+  flex: 1 0 144px;
+}
+
+.notice {
+  background-color: var(--dm2buy-pink);
+  color: white;
+  padding: 28px 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.siteHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 20px;
+}
+
+.logo {
+  height: 40px;
+  width: 75px;
+  background-position: center;
+  background-size: cover;
+}
