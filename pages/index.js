@@ -28,7 +28,12 @@ export default function Home() {
               className={styles.profilePic}
             />
             <div className={styles.socialButtons}>
-              <ImageButton type="raised" action={() => {}}>
+              <ImageButton
+                type="raised"
+                action={() => {
+                  window.open("https://www.instagram.com/bindilife/");
+                }}
+              >
                 <Image src="/instagram.png" width="24" height="24" />
               </ImageButton>
               <ImageButton type="raised" action={() => {}}>
