@@ -34,15 +34,17 @@ class Details extends React.Component {
   componentDidMount() {}
   componentWillUnmount() {}
 
-  toggleDetails = () => {
+  toggleDetails = (e) => {
     let { isOpen } = this.state;
     if (!isOpen) {
       this.setState({ isOpen: true }, () => {
         this.detailsRef.current.setAttribute("open", true);
+        e.target.classList.add("underline-button");
       });
     } else {
       this.setState({ isOpen: false }, () => {
         this.detailsRef.current.removeAttribute("open");
+        e.target.classList.remove("underline-button");
       });
     }
   };

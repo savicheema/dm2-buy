@@ -23,6 +23,10 @@ a {
   box-sizing: border-box;
 }
 
+.underline-button {
+  text-decoration: underline;
+}
+
 :root {
   --dm2buy-pink: hsl(323.2, 82%, 54.3%);
   --border: hsla(0, 0%, 59.2%, 0.4);
