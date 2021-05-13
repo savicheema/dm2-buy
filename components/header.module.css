@@ -2,7 +2,7 @@
   max-width: var(--max-width);
   background-color: white;
 
-  flex: 1 0 144px;
+  flex: 1 0 auto;
 }
 
 .notice {
