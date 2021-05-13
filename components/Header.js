@@ -8,42 +8,50 @@ import ImageButton from "./ImageButton";
 const Header = () => {
   const [store, setStore] = useState({});
 
-  const fetchStore = () => {
-    fetch(
-      "https://api.airtable.com/v0/appgXTWF83485iHfy/Table%201/recvPq1aVPifDwUAY",
-      {
-        headers: {
-          Authorization: "Bearer keyHNrvrv1BoUngfq",
-        },
-      }
-    )
-      .then((response) => {
-        console.log("STORE RESPONSE", response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log("STORE DATA", data);
-        setStore(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  // const fetchStore = () => {
+  //   fetch(
+  //     "https://api.airtable.com/v0/appgXTWF83485iHfy/Table%201/recvPq1aVPifDwUAY",
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer keyHNrvrv1BoUngfq",
+  //       },
+  //     }
+  //   )
+  //     .then((response) => {
+  //       console.log("STORE RESPONSE", response);
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log("STORE DATA", data);
+  //       setStore(data);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
-  useEffect(() => {
-    fetchStore();
-  }, []);
+  // useEffect(() => {
+  //   fetchStore();
+  // }, []);
+
   return (
     <header className={styles.header}>
+      {/*
+        <div className={styles.notice}>
+          <Span>
+            {store.fields && `${store.fields.store_charity_percentage}`}
+          </Span>{" "}
+          of all sales from{" "}
+          <Span>{store.fields && `${store.fields.store_name}`}</Span> will be
+          donated to{" "}
+          <Span>{store.fields && `${store.fields.store_charity_name}`}</Span> as a
+          part of <Span>COVID-19 Relief Fundraiser</Span>{" "}
+        </div>
+        */}
       <div className={styles.notice}>
-        <Span>
-          {store.fields && `${store.fields.store_charity_percentage}`}
-        </Span>{" "}
-        of all sales from{" "}
-        <Span>{store.fields && `${store.fields.store_name}`}</Span> will be
-        donated to{" "}
-        <Span>{store.fields && `${store.fields.store_charity_name}`}</Span> as a
-        part of <Span>COVID-19 Relief Fundraiser</Span>{" "}
+        <Span>30%</Span> of all sales from <Span>Kim's store</Span> will be
+        donated to <Span>Give India</Span> as a part of{" "}
+        <Span>COVID-19 Relief Fundraiser</Span>{" "}
       </div>
       <div className={styles.siteHeader}>
         <img
