@@ -10,7 +10,7 @@ const Main = () => {
   const [mainClass, setMainClass] = useState(styles.main);
 
   const measureScroll = (e) => {
-    if (e.target.scrollTop > 144) setMainClass(styles.scrollMain);
+    if (e.target.scrollTop > 180) setMainClass(styles.scrollMain);
     else setMainClass(styles.main);
   };
 
