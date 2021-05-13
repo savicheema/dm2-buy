@@ -7,27 +7,6 @@
   background-color: var(--bg-color);
 }
 
-.main {
-  padding: 8px 20px;
-
-  flex: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
-  max-width: var(--max-width);
-
-  margin: 12px 0;
-
-  max-height: 80vh;
-
-  overflow-y: auto;
-}
-
-.profile {
-  width: 100%;
-}
-
 .cart {
   height: 28px;
   width: 24px;
@@ -40,109 +19,10 @@
   background-size: cover;
 }
 
-.social {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-.profilePic {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-}
-
-.socialButtons {
-  display: flex;
-  justify-content: space-around;
-  width: 140px;
-}
-
 .about {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.footer {
-  width: calc(100% + 44px);
-  /* height: 100px; */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: column;
-  max-width: var(--max-width);
-
-  background-color: var(--dm2buy-pink);
-  padding: 44px 36px;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.store {
-  width: 100vw;
-  max-width: var(--max-width);
-}
-
-.storeItems {
-  display: grid;
-
-  grid-template-columns: 50% 50%;
-}
-
-.storeHeading {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.tagline {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-
-  height: 105px;
-  width: 300px;
-
-  margin-bottom: 44px;
-}
-
-.instruction {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.inviteButton {
-  width: 100%;
-  height: 52px;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ea2ba0;
-
-  margin: 24px 0;
-}
-
-.numberInput {
-  width: 100%;
-  height: 51px;
-  margin: 25px 16px 23px 0;
-  padding: 14px 81px 16px 14px;
-  border-radius: 20px;
-  background-color: #f2f3f5;
 }
 
 @media (max-width: 600px) {
