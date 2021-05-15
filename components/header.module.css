@@ -19,7 +19,7 @@
 
   flex: 1 0 auto;
 
-  max-height: 18vh;
+  max-height: 17vh;
 }
 
 .siteHeader {
@@ -27,7 +27,7 @@
   justify-content: space-between;
   padding: 8px 20px;
 
-  max-height: 7vh;
+  max-height: 8vh;
 }
 
 .logo {
