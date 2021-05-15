@@ -55,6 +55,9 @@
   display: flex;
   justify-content: space-around;
   width: 140px;
+
+  position: relative;
+  top: -8px;
 }
 
 .store {
@@ -137,4 +140,23 @@
   padding: 14px 81px 16px 14px;
   border-radius: 20px;
   background-color: #f2f3f5;
+}
+
+.instagramHandle {
+  font-size: 15px;
+  font-weight: 300;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #979797;
+}
+
+.userName {
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
 }

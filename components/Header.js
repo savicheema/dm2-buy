@@ -5,30 +5,7 @@ import Image from "next/image";
 import Span from "./Span";
 import ImageButton from "./ImageButton";
 
-const Header = () => {
-  const [store, setStore] = useState({});
-
-  const fetchStore = () => {
-    console.log("ENV", process, process.env);
-
-    fetch("/api/airtable/getRecord")
-      .then((response) => {
-        console.log("STORE RESPONSE", response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log("STORE DATA", data);
-        setStore(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  useEffect(() => {
-    fetchStore();
-  }, []);
-
+const Header = ({ store }) => {
   return (
     <header className={styles.header}>
       <div className={styles.notice}>

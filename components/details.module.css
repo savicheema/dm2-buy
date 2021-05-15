@@ -11,3 +11,22 @@
 
   margin: 12px 0;
 }
+
+.summary {
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #333333;
+}
+
+.summary::marker {
+  display: inline;
+  opacity: 0;
+}
+
+.hideSummary {
+  display: none;
+}

@@ -8,12 +8,14 @@ class Details extends React.Component {
 
     const { summary, children } = this.props;
 
+    const summaryClass = isOpen ? styles.hideSummary : styles.summmary;
+
     return (
       <div className={styles.details}>
-        <details ref={this.detailsRef}>
-          <summary>{summary}</summary>
-          <p>{children}</p>
-        </details>
+        <div ref={this.detailsRef}>
+          {!isOpen && <div className={summaryClass}>{summary}</div>}
+          {isOpen && <p>{children}</p>}
+        </div>
         <button onClick={this.toggleDetails} className={styles.toggleButton}>
           {isOpen ? "Show Less" : "Show More"}
         </button>
