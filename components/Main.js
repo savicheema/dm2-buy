@@ -15,7 +15,13 @@ const Main = () => {
   };
 
   return (
-    <main className={mainClass} onScroll={measureScroll}>
+    <main
+      className={mainClass}
+      onScroll={measureScroll}
+      style={{
+        transition: "max-height 0.2s",
+      }}
+    >
       <div className={styles.profile}>
         <div className={styles.social}>
           <img

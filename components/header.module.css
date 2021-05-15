@@ -3,6 +3,11 @@
   background-color: white;
 
   flex: 1 0 auto;
+
+  max-height: 25vh;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .notice {
@@ -11,6 +16,10 @@
   padding: 28px 14px;
   text-align: center;
   font-size: 14px;
+
+  flex: 1 0 auto;
+
+  max-height: 18vh;
 }
 
 .siteHeader {
@@ -18,7 +27,7 @@
   justify-content: space-between;
   padding: 8px 20px;
 
-  max-height: 5vh;
+  max-height: 7vh;
 }
 
 .logo {
