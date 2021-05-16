@@ -4,7 +4,7 @@
 
   flex: 1 0 auto;
 
-  max-height: 25vh;
+  max-height: 24vh;
 
   display: flex;
   flex-direction: column;
@@ -13,13 +13,13 @@
 .notice {
   background-color: var(--dm2buy-pink);
   color: white;
-  padding: 28px 14px;
+  padding: 20px 14px;
   text-align: center;
   font-size: 14px;
 
   flex: 1 0 auto;
 
-  max-height: 17vh;
+  max-height: 16vh;
 }
 
 .siteHeader {

@@ -5,8 +5,10 @@ import Image from "next/image";
 import ImageButton from "./ImageButton";
 import Details from "./Details";
 import StoreItem from "./StoreItem";
+import EmptyStore from "./EmptyStore";
 
-import LinesEllipsis from "react-lines-ellipsis";
+// import EllipsisText from "react-lines-ellipsis";
+import EllipsisText from "react-ellipsis-text";
 
 const Main = ({ store }) => {
   const [mainClass, setMainClass] = useState(styles.main);
@@ -36,7 +38,9 @@ const Main = ({ store }) => {
               <ImageButton
                 type="raised"
                 action={() => {
-                  window.open("https://www.instagram.com/bindilife/");
+                  window.open(
+                    `https://www.instagram.com/${store.fields.store_instagram_handle}/`
+                  );
                 }}
               >
                 <Image src="/instagram.png" width="24" height="24" />
@@ -51,12 +55,10 @@ const Main = ({ store }) => {
         {store.fields && (
           <div className="userInfo">
             <h2 className={styles.userName}>
-              <LinesEllipsis
+              <EllipsisText
                 text={store.fields.store_name}
-                maxLine="1"
-                ellipsis="..."
-                trimRight
-                basedOn="letters"
+                length="20"
+                tail="..."
               />
             </h2>
             <div className={styles.instagramHandle}>
@@ -65,12 +67,10 @@ const Main = ({ store }) => {
 
             <Details
               summary={
-                <LinesEllipsis
+                <EllipsisText
                   text={store.fields.store_bio}
-                  maxLine="2"
-                  ellipsis="..."
-                  trimRight
-                  basedOn="letters"
+                  length="35"
+                  tail="..."
                 />
               }
             >
@@ -85,9 +85,13 @@ const Main = ({ store }) => {
 
         <div className={styles.storeItems}>
           {store.fields &&
-            store.fields.Products.map((product, index) => {
-              return <StoreItem productId={product} key={index} />;
-            })}
+            (!store.fields.Products.length ? (
+              store.fields.Products.map((product, index) => {
+                return <StoreItem productId={product} key={index} />;
+              })
+            ) : (
+              <EmptyStore />
+            ))}
         </div>
       </div>
 

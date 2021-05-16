@@ -10,6 +10,7 @@
   color: var(--dm2buy-pink);
 
   margin: 12px 0;
+  padding: 0;
 }
 
 .summary {
