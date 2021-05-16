@@ -4,8 +4,7 @@ import Image from "next/image";
 
 import ImageButton from "./ImageButton";
 import Details from "./Details";
-import StoreItem from "./StoreItem";
-import EmptyStore from "./EmptyStore";
+import StoreProducts from "./StoreProducts";
 
 // import EllipsisText from "react-lines-ellipsis";
 import EllipsisText from "react-ellipsis-text";
@@ -80,24 +79,7 @@ const Main = ({ store }) => {
         )}
       </div>
 
-      <div className={styles.store}>
-        {store.fields && store.fields.Products.length && (
-          <h2
-            className={styles.storeHeading}
-          >{`${store.fields.Products.length} products listed`}</h2>
-        )}
-
-        <div className={styles.storeItems}>
-          {store.fields &&
-            (store.fields.Products.length ? (
-              store.fields.Products.map((product, index) => {
-                return <StoreItem productId={product} key={index} />;
-              })
-            ) : (
-              <EmptyStore />
-            ))}
-        </div>
-      </div>
+      {store.fields && <StoreProducts store={store} />}
 
       <footer className={styles.footer}>
         <div className={styles.tagline}>

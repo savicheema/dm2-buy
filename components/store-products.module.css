@@ -1,0 +1,10 @@
+.storeItems {
+  display: grid;
+
+  grid-template-columns: 50% 50%;
+}
+
+.storeHeading {
+  /* margin-left: 20px;
+  margin-right: 20px; */
+}
