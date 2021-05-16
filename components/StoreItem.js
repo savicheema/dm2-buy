@@ -3,6 +3,8 @@ import styles from "./store-item.module.css";
 
 import Image from "next/image";
 
+import LinesEllipsis from "react-lines-ellipsis";
+
 const StoreItem = ({ productId }) => {
   const [product, setproduct] = useState({});
 
@@ -27,13 +29,13 @@ const StoreItem = ({ productId }) => {
     fetchproduct();
   }, []);
 
-  if (!product) return "";
+  if (!product.fields || product.fields.Status != "for-sale") return "";
   return (
     <div className={styles.storeItem}>
       <div className="thumbnail">
-        {product.fields && (
-          <img
-            src={product.fields["Other photos"][0].url}
+        {product.fields && product.fields["Other photos"][0].url && (
+          <Image
+            src={`${product.fields["Other photos"][0].url}`}
             width="152"
             height="204"
             alt="store product"
@@ -41,12 +43,21 @@ const StoreItem = ({ productId }) => {
         )}
       </div>
 
-      <div className="details">
+      <div className={styles.details}>
         <div className={styles.title}>
-          {product.fields && `${product.fields.Name}`}
+          {product.fields && (
+            <LinesEllipsis
+              text={`${product.fields.Name}`}
+              maxLine="2"
+              ellipsis="..."
+              trimRight
+              basedOn="letters"
+            />
+          )}
         </div>
         <div className={styles.price}>
-          {product.fields && `${product.fields.Price}`}
+          {product.fields &&
+            `${String.fromCharCode(0x20b9)}${product.fields.Price}`}
         </div>
       </div>
     </div>

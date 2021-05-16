@@ -81,11 +81,15 @@ const Main = ({ store }) => {
       </div>
 
       <div className={styles.store}>
-        <h2 className={styles.storeHeading}>4 products listed</h2>
+        {store.fields && store.fields.Products.length && (
+          <h2
+            className={styles.storeHeading}
+          >{`${store.fields.Products.length} products listed`}</h2>
+        )}
 
         <div className={styles.storeItems}>
           {store.fields &&
-            (!store.fields.Products.length ? (
+            (store.fields.Products.length ? (
               store.fields.Products.map((product, index) => {
                 return <StoreItem productId={product} key={index} />;
               })
