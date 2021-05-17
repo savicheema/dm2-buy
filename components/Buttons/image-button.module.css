@@ -16,3 +16,15 @@
 
   /* opacity: 0.4; */
 }
+
+.disabled {
+  border: none;
+  background: none;
+  outline: none;
+
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background-color: var(--border);
+
+  padding: 12px 14px;
+}

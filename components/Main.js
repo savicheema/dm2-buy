@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./main.module.css";
 import Image from "next/image";
 
-import ImageButton from "./ImageButton";
 import Details from "./Details";
 import StoreProducts from "./StoreProducts";
+import { ShareButton, ImageButton } from "./Buttons";
 
 // import EllipsisText from "react-lines-ellipsis";
 import EllipsisText from "react-ellipsis-text";
@@ -44,9 +44,7 @@ const Main = ({ store }) => {
               >
                 <Image src="/instagram.png" width="24" height="24" />
               </ImageButton>
-              <ImageButton type="raised" action={() => {}}>
-                <Image src="/share.png" width="24" height="24" />
-              </ImageButton>
+              <ShareButton />
             </div>
           </div>
         )}

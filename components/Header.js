@@ -3,7 +3,7 @@ import styles from "./header.module.css";
 import Image from "next/image";
 
 import Span from "./Span";
-import ImageButton from "./ImageButton";
+import { ImageButton } from "./Buttons";
 
 const Header = ({ store }) => {
   return (
