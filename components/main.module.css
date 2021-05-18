@@ -10,7 +10,7 @@
 
   margin: 12px 0;
 
-  max-height: 73vh;
+  max-height: 89vh;
 
   overflow-y: auto;
 
@@ -69,12 +69,12 @@
   width: calc(100% + 44px);
   /* height: 100px; */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
-  flex-direction: column;
   max-width: var(--max-width);
 
-  background-color: var(--dm2buy-pink);
+  background-color: #e0dede;
+
   padding: 44px 36px;
 }
 
@@ -148,4 +148,12 @@
   line-height: normal;
   letter-spacing: normal;
   color: #000000;
+}
+
+.footerTagline {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 16px;
+  font-weight: bold;
 }

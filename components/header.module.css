@@ -4,7 +4,7 @@
 
   flex: 1 0 auto;
 
-  max-height: 24vh;
+  max-height: 8vh;
 
   display: flex;
   flex-direction: column;
@@ -28,6 +28,9 @@
   padding: 8px 20px;
 
   max-height: 8vh;
+  width: 100vw;
+
+  border: solid 1px rgba(151, 151, 151, 0.5);
 }
 
 .logo {

@@ -80,21 +80,11 @@ const Main = ({ store }) => {
       {store.fields && <StoreProducts store={store} />}
 
       <footer className={styles.footer}>
-        <div className={styles.tagline}>
-          <span>Take your sidehustle to a whole new level.</span>
-
-          <div className={styles.instruction}>
-            <span>Setup your own store.</span>
-            <span>FOR FREE</span>
-          </div>
+        <Image src="/instagram.png" width="36" height="36" />
+        <div className={styles.footerTagline}>
+          <span>Follow us on IG</span>
+          <span>@dm2buydotcom</span>
         </div>
-
-        <input
-          placeholder="Your whatsapp number"
-          className={styles.numberInput}
-        />
-
-        <button className={styles.inviteButton}>GET INVITE</button>
       </footer>
     </main>
   );

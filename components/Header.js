@@ -8,6 +8,7 @@ import { ImageButton } from "./Buttons";
 const Header = ({ store }) => {
   return (
     <header className={styles.header}>
+      {/*
       <div className={styles.notice}>
         <Span>
           {store.fields && `${store.fields.store_charity_percentage}`}
@@ -18,6 +19,7 @@ const Header = ({ store }) => {
         <Span>{store.fields && `${store.fields.store_charity_name}`}</Span> as a
         part of <Span>COVID-19 Relief Fundraiser</Span>{" "}
       </div>
+      */}
 
       <div className={styles.siteHeader}>
         <img
@@ -26,9 +28,11 @@ const Header = ({ store }) => {
           className={styles.logo}
           alt="logo"
         />
-        <ImageButton type="flat" action={() => {}}>
+        {/*
+          <ImageButton type="flat" action={() => {}}>
           <Image src="/shopping-bag.png" width="24" height="28" />
         </ImageButton>
+          */}
       </div>
     </header>
   );

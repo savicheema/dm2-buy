@@ -12,7 +12,7 @@ const StoreItem = ({ product }) => {
       <div className="thumbnail">
         {product.fields && product.fields["Other photos"][0].url && (
           <Image
-            src={`${product.fields["Other photos"][0].url}`}
+            src={`${product.fields["header photo"][0].url}`}
             width="152"
             height="204"
             alt="store product"
