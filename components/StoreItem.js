@@ -8,7 +8,12 @@ import LinesEllipsis from "react-lines-ellipsis";
 const StoreItem = ({ product }) => {
   if (!product.fields) return "";
   return (
-    <div className={styles.storeItem}>
+    <div
+      className={styles.storeItem}
+      onClick={() => {
+        window.location.href = `/product/${product.fields.Slug}?productId=${product.id}`;
+      }}
+    >
       <div className="thumbnail">
         {product.fields && product.fields["Other photos"][0].url && (
           <Image

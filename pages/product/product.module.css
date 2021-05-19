@@ -1,0 +1,74 @@
+.productHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100vw;
+
+  max-width: var(--max-width);
+
+  padding: 4px 20px;
+}
+
+.productHeading {
+  margin: 0 19px 11px 1px;
+  font-size: 20px;
+  font-stretch: normal;
+  font-weight: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #000000;
+  flex: 1 0 0;
+}
+
+.price {
+  margin: 0 0 0 6px;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.9px;
+  color: #333333;
+
+  padding: 4px 20px;
+}
+
+.callToAction {
+  display: flex;
+  align-items: center;
+  margin: 44px 0;
+  justify-content: center;
+}
+
+.buyNowButton {
+  background: none;
+  border: none;
+  outline: none;
+
+  width: 324px;
+  height: 48px;
+  padding: 14px 103px 14px 106px;
+  border-radius: 22.5px;
+  background-color: var(--dm2buy-pink);
+
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+}
+
+.description {
+  padding: 0 20px;
+
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.62;
+  letter-spacing: 0.1px;
+  color: #333333;
+}
