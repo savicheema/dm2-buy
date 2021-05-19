@@ -9,14 +9,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### Steps to development
 
-Firstly, Install dependencies
+1. Firstly, Install dependencies
 
 ```bash
 npm install
 
 ```
 
-Secondly, run the development server:
+2. Add .env file to the root folder. (_ask for it_)
+3. Then, run the development server:
 
 ```bash
 npm run dev
@@ -24,7 +25,7 @@ npm run dev
 yarn dev
 ```
 
-Third, create seperate branch for local development.
+4. Create seperate branch for local development.
 
 ```bash
 git branch <branch-name>
