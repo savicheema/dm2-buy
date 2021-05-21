@@ -59,11 +59,32 @@
   width: 80vw;
   max-width: 304px;
   height: 48px;
-  padding: 14px 103px 14px 106px;
+  padding: 14px;
   border-radius: 22.5px;
   background-color: var(--dm2buy-pink);
 
   color: white;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+}
+
+.soldOutButton {
+  background: none;
+  border: none;
+  outline: none;
+
+  width: 80vw;
+  max-width: 304px;
+  height: 48px;
+  padding: 14px;
+  border-radius: 22.5px;
+  background-color: #eae9e9;
+
+  color: black;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
