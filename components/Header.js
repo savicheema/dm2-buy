@@ -22,12 +22,7 @@ const Header = ({ store }) => {
       */}
 
       <div className={styles.siteHeader}>
-        <img
-          src="/logo.png"
-          srcset="/logo@2x.png 2x, /logo@3x.png 3x"
-          className={styles.logo}
-          alt="logo"
-        />
+        <img src="/logo.png" className={styles.logo} alt="logo" />
         {/*
           <ImageButton type="flat" action={() => {}}>
           <Image src="/shopping-bag.png" width="24" height="28" />

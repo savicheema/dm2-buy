@@ -12,6 +12,8 @@ body {
   height: 100%;
 
   overflow-y: hidden;
+
+  overscroll-behavior-y: none;
 }
 
 a {
