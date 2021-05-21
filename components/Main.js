@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./main.module.css";
+import homeStyles from "../styles/Home.module.css";
+
 import Image from "next/image";
 
 import Details from "./Details";
@@ -31,7 +33,7 @@ const Main = ({ store }) => {
             <img
               src={store.fields.store_profile_photo[0].url}
               alt="profile-pic"
-              className={styles.profilePic}
+              className={homeStyles.profilePic}
             />
             <div className={styles.socialButtons}>
               <ImageButton
@@ -79,9 +81,9 @@ const Main = ({ store }) => {
 
       {store.fields && <StoreProducts store={store} />}
 
-      <footer className={styles.footer}>
+      <footer className={homeStyles.footer}>
         <Image src="/instagram.png" width="36" height="36" />
-        <div className={styles.footerTagline}>
+        <div className={homeStyles.footerTagline}>
           <span>Follow us on IG</span>
           <span>@dm2buydotcom</span>
         </div>

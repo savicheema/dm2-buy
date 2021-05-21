@@ -1,3 +1,13 @@
+.product {
+  overflow-y: scroll;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  /* max-height: 100vh; */
+}
+
 .productHead {
   display: flex;
   justify-content: space-between;
@@ -46,7 +56,8 @@
   border: none;
   outline: none;
 
-  width: 324px;
+  width: 80vw;
+  max-width: 304px;
   height: 48px;
   padding: 14px 103px 14px 106px;
   border-radius: 22.5px;

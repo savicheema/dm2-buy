@@ -9,13 +9,11 @@
   max-width: var(--max-width);
 
   margin: 12px 0;
-
-  max-height: 89vh;
-
-  overflow-y: auto;
+  margin-bottom: 0;
 
   overflow-x: hidden;
 }
+
 .scrollMain {
   padding: 8px 20px;
 
@@ -43,12 +41,6 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-}
-
-.profilePic {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
 }
 
 .socialButtons {
@@ -148,12 +140,4 @@
   line-height: normal;
   letter-spacing: normal;
   color: #000000;
-}
-
-.footerTagline {
-  display: flex;
-  flex-direction: column;
-
-  margin-left: 16px;
-  font-weight: bold;
 }

@@ -1,7 +1,7 @@
 export default async (req, res) => {
   try {
     const response = await fetch(
-      "https://api.airtable.com/v0/appgXTWF83485iHfy/Stores/recvPq1aVPifDwUAY",
+      `https://api.airtable.com/v0/appgXTWF83485iHfy/Stores/${req.query.store}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.AIRTABLE_KEY}`,

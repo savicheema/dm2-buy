@@ -1,0 +1,27 @@
+.noticeCondtions {
+  display: flex;
+
+  justify-content: space-around;
+  align-items: center;
+
+  margin: 12px 0;
+}
+
+.noticeBox {
+  width: 80vw;
+  max-width: 304px;
+
+  display: flex;
+
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 12px 18px 12px 18px;
+  border: solid 1.5px #979797;
+}
+
+.noticeMessage {
+  font-size: 13px !important;
+  flex: 1 0 200px;
+  margin-left: 8px;
+}
