@@ -93,3 +93,57 @@ Product detail page
 
 * Lastly we will have the page footer which is common across all the pages. The footer will have our instagram handle, clicking on which the user will land on our instagram page -> https://www.instagram.com/dm2buydotcom/
   - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2Fsuavelambi%2Fll0qqKswKA.png?alt=media&token=1727bf21-a962-4d97-914f-b662ce902702)
+  
+ 
+Checkout Form
+  
+- Once the user has decided the product they want to purchase, clicking on 'Buy Now' will direct them to the checkout page.
+- The checkout page will be hosted at the url -> dm2buy.com/cart/checkout and can only be accessed after selecting a product to purchase. You can not access this page directly.
+- Save the information for the user in their browser in a cookie so the next time they can checkout easily.
+- The page has the following sections:
+    - Thank you note - This is a static section where we display a Thank you note followed by the name of the creator. This section will be static for now i.e. just implement the design as it is without any dynamic components. 
+        - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2Fsuavelambi%2FtggdU28Fum.png?alt=media&token=6a185a50-ff8f-409e-bb33-9dbe7f756cb1)
+    - Personal Info - This section entails the following fields:
+        - Full Name (validation and error message below)
+            - Can't be empty -> "We need your name"
+            - Can't be more than 50 characters -> No error message just disable typing
+        - Instagram Handle (validation and error message below)
+            - Can't be empty -> "Need your instagram"
+            - Has to be a valid instagram handle(refer -> https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/) -> "Instagram handle doesn't seem correct"
+        - Phone number (validation and error message below)
+            - Can't be empty -> "A number is needed"
+            - Has to be a valid phone number(refer -> https://stackoverflow.com/questions/3813195/regular-expression-for-indian-mobile-numbers/3813226) -> "Incorrect number"
+        - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2Fsuavelambi%2FNvUiDuE3cy.png?alt=media&token=c754ed42-ba87-4463-ae12-a568e8cc5b75)
+    - Shipping Info - This section entails the following fields
+        - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2Fsuavelambi%2FByK9xPGqzP.png?alt=media&token=f817e6a9-8b7f-4609-af16-fe3021ae73c4)
+        - Address with Landmark (validation and error message below)
+            - Can't be empty -> "Give us an address"
+            - Can't be more than 70 characters -> No error message just disable typing
+        - Other address components pin code, city, state, country
+            - Use this API to fetch city and state for a pincode -> https://www.marchtee.com/cart/shipping_options/<pincode>
+            - If there is a valid pin code passed in the request, the API will return a 200 status code and a JSON response with the country, state and city. Use that to fill the city and state data with the values. Ignore shipping options.
+            - For an invalid pincode, the API will return a 404 page in which case leave the city and state inputs empty.
+            - The state and city will be immediately filled if the pin code is correct but will be left empty if the pincode search returns no results. So this needs to be an asynchronous network call independent of form submission. The validation will still only be invoked on form submission though.
+            - The country field is uneditable and will always be set to India. 
+            - validation and error messages for each field below
+                - Pincode 
+                    - For empty pin code - "Need a pin code"
+                    - For invalid pin code -> Invalid pin code
+                - City -> City is needed
+                - State -> State is needed
+    - Order Summary
+        - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2Fsuavelambi%2FoUuUdE67jI.png?alt=media&token=acd1cb5c-8997-474a-a48a-770a1379c011)
+        - Order summary will entail four sub sections:
+            - Product information -> cover the information of the product that the user selected on the previous screen (product name, product photo and price)
+            - Delivery information -> This is a static field which will tell the user about the delivery, shipping date(set to tomorrow by default), price(set to 100 by default) and an icon
+            - Disclaimer about no return, exchange, refund or cancellations.
+            - CTA -> which takes the user to payment page (this will have the final price mentioned which is product price + INR 100)
+- Other form validation rules:
+    - Clicking on checkout to a form with error messages will take you at the top where the first error message shows.
+    - If the error message is for invalid input, ensure that the input isn't erased and still shows in the textbox as it is.
+    - Show all the error messages in the form after the user clicks the checkout button
+- Design references:
+    - Empty form -> https://app.zeplin.io/project/60942da3b7616d03de23e45c/screen/60a7f2d18b2b9b257caecddb/
+    - Filled form -> https://app.zeplin.io/project/60942da3b7616d03de23e45c/screen/60a7f2d10fb8c248db7002d9/
+    - Form with errors -> https://app.zeplin.io/project/60942da3b7616d03de23e45c/screen/60ab57e2ee0036a3a370b90f/
+
