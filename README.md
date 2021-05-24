@@ -120,7 +120,7 @@ Checkout Form
             - Can't be empty -> "Give us an address"
             - Can't be more than 70 characters -> No error message just disable typing
         - Other address components pin code, city, state, country
-            - Use this API to fetch city and state for a pincode -> https://www.marchtee.com/cart/shipping_options/<pincode>
+            - Use this API to fetch city and state for a pincode -> https://www.marchtee.com/cart/shipping_options/pincode
             - If there is a valid pin code passed in the request, the API will return a 200 status code and a JSON response with the country, state and city. Use that to fill the city and state data with the values. Ignore shipping options.
             - For an invalid pincode, the API will return a 404 page in which case leave the city and state inputs empty.
             - The state and city will be immediately filled if the pin code is correct but will be left empty if the pincode search returns no results. So this needs to be an asynchronous network call independent of form submission. The validation will still only be invoked on form submission though.
