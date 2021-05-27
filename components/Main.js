@@ -64,7 +64,7 @@ const Main = ({ store }) => {
               {`@${store.fields.store_instagram_handle}`}`
             </div>
 
-            <Details
+            {/* <Details
               summary={
                 <EllipsisText
                   text={store.fields.store_bio}
@@ -74,7 +74,8 @@ const Main = ({ store }) => {
               }
             >
               {store.fields.store_bio}
-            </Details>
+            </Details> */}
+            <p className={styles.bio}>{store.fields.store_bio}</p>
           </div>
         )}
       </div>
@@ -82,11 +83,12 @@ const Main = ({ store }) => {
       {store.fields && <StoreProducts store={store} />}
 
       <footer className={homeStyles.footer}>
-        <Image src="/instagram.png" width="36" height="36" />
-        <div className={homeStyles.footerTagline}>
+        <Image src="/instagram.png" width="24" height="24" />
+        {/* <div className={homeStyles.footerTagline}>
           <span>Follow us on IG</span>
-          <span>@dm2buydotcom</span>
-        </div>
+          
+        </div> */}
+        <span className={homeStyles.tagline}>@dm2buydotcom</span>
       </footer>
     </main>
   );

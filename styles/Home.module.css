@@ -38,34 +38,36 @@
   /* height: 100px; */
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   max-width: var(--max-width);
 
-  background-color: #e0dede;
+  /* background-color: #e0dede; */
 
-  padding: 44px 36px;
-
-  margin-top: 32px;
+  /* padding: 44px 36px; */
+  padding: 20px;
+  /* 
+  margin-top: 32px; */
 }
 
 .tagline {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  flex-direction: column;
+  flex-direction: column; */
 
   font-size: 18px;
-  font-weight: bold;
-  color: white;
-
-  height: 105px;
-  width: 300px;
-
-  margin-bottom: 44px;
+  /* font-weight: bold; */
+  font-weight: 550;
+  color: #333333;
+  margin-left: 4px;
+  /* height: 105px;
+  width: 300px; */
+  /* 
+  margin-bottom: 44px; */
 }
 
 .footerTagline {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 
   margin-left: 16px;
   font-weight: bold;

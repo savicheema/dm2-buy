@@ -43,6 +43,7 @@ export default function Home() {
           content="Take your side hustle to next level."
         />
         <link rel="icon" href="/favicon.ico" />
+        <link href="/fonts/fonts.css" rel="stylesheet" />
       </Head>
 
       <Header store={store} />

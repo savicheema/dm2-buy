@@ -12,11 +12,11 @@ class StoreProducts extends React.Component {
 
     return (
       <div className={styles.store}>
-        {products.length && (
+        {/* {products.length && (
           <h2
             className={styles.storeHeading}
           >{`${products.length} products listed`}</h2>
-        )}
+        )} */}
 
         <div className={styles.storeItems}>
           {products.length ? (

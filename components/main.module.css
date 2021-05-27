@@ -1,5 +1,5 @@
 .main {
-  padding: 8px 20px;
+  padding: 8px 20px 0 20px;
 
   flex: auto;
   display: flex;
@@ -8,7 +8,7 @@
   width: 100vw;
   max-width: var(--max-width);
 
-  margin: 12px 0;
+  margin: 50px 0;
   margin-bottom: 0;
 
   overflow-x: hidden;
@@ -131,12 +131,17 @@
   letter-spacing: normal;
   color: #979797;
 }
+.bio {
+  color: #333333;
+  margin-top: 20px;
+}
 
 .userName {
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
+  margin: 24px 0 4px 0;
   line-height: normal;
   letter-spacing: normal;
   color: #000000;
