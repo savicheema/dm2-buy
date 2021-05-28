@@ -16,6 +16,11 @@
 
   padding: 4px 12px;
 }
+.thumbnail {
+  width: 100%;
+  justify-self: flex-start;
+  padding-left: 10px;
+}
 
 .title {
   font-size: 15px;

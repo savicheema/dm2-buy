@@ -1,9 +1,11 @@
 .header {
   max-width: var(--max-width);
   background-color: white;
-
+  width: 100%;
   flex: 1 0 auto;
-
+  position: fixed;
+  top: 0;
+  z-index: 1;
   max-height: 8vh;
 
   display: flex;
@@ -30,7 +32,7 @@
   max-height: 8vh;
   font-size: 24px;
   font-family: "OPTIImprovNewWideNine";
-  width: 100vw;
+  /* width: 100vw; */
 
   border: solid 1px rgba(151, 151, 151, 0.5);
 }

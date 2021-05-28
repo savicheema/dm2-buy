@@ -14,7 +14,7 @@ const StoreItem = ({ product }) => {
         window.location.href = `/product/${product.fields.Slug}?productId=${product.id}`;
       }}
     >
-      <div className="thumbnail">
+      <div className={styles.thumbnail}>
         {product.fields && product.fields["Other photos"][0].url && (
           <Image
             className={styles.productImg}

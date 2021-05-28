@@ -1,7 +1,7 @@
 .storeItems {
   display: grid;
   margin-top: 60px;
-
+  grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
   /* grid-template-columns: repeat(autofill, 1fr); */
 }
