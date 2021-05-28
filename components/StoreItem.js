@@ -19,8 +19,8 @@ const StoreItem = ({ product }) => {
           <Image
             className={styles.productImg}
             src={`${product.fields["header photo"][0].url}`}
-            width="160"
-            height="160"
+            width="204"
+            height="204"
             alt="store product"
           />
         )}

@@ -33,18 +33,19 @@
 
 .footer {
   width: calc(100% + 44px);
-
+  /* position: fixed;
+  bottom: 0; */
   max-width: 360px;
   /* height: 100px; */
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: var(--max-width);
-
-  /* background-color: #e0dede; */
+  padding: 20px;
+  background-color: #e0dede;
 
   /* padding: 44px 36px; */
-  padding: 20px;
+  /* padding: 20px; */
   /* 
   margin-top: 32px; */
 }

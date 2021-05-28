@@ -1,6 +1,5 @@
 .main {
   padding: 8px 20px 0 20px;
-
   flex: auto;
   display: flex;
   flex-direction: column;
@@ -132,6 +131,7 @@
 .bio {
   color: #333333;
   margin-top: 20px;
+  font-size: 18px;
 }
 
 .userName {
