@@ -52,7 +52,14 @@ class Product extends React.Component {
         </div>
         <div className={styles.callToAction}>
           {product.fields.Status === "for-sale" && (
-            <button className={styles.buyNowButton}>Buy Now</button>
+            <button
+              className={styles.buyNowButton}
+              onClick={() => {
+                window.location.href = `/cart/`;
+              }}
+            >
+              Buy Now
+            </button>
           )}
           {product.fields.Status !== "for-sale" && (
             <button className={styles.soldOutButton}>Sold Out</button>

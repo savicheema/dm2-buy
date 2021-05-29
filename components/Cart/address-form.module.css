@@ -1,0 +1,5 @@
+.addressGrid {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-gap: 2%;
+}
