@@ -40,18 +40,28 @@ git branch <branch-name>
 git fetch origin main
 ```
 
-3. Fix merge conflicts. (_if any_)
+3. Merge the code into your local codebase.
+
+```bash
+git merge main
+```
+
+4. Fix merge conflicts. (_if any_)
 
 - Identify all the files with merge conflicts.
 - For each resolved conflict make a seperate commit with a message. (_preferably_)
 
-4. Push code to your branch
+```bash
+git commit -m <message>
+```
+
+5. Push code to your branch
 
 ```bash
 git push origin <branch name>
 ```
 
-5. Notify lead developer about the merge conflicts
+6. Notify lead developer about the merge conflicts
 
 ## Business Rules
 
