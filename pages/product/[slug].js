@@ -1,4 +1,6 @@
 import React from "react";
+import Head from "next/head";
+
 import styles from "./product.module.css";
 import homeStyles from "../../styles/Home.module.css";
 
@@ -21,6 +23,15 @@ class Product extends React.Component {
 
     return (
       <div className={styles.product}>
+        <Head>
+          <title>DM 2 BUY</title>
+          <meta
+            name="description"
+            content="Take your side hustle to next level."
+          />
+          <link rel="icon" href="/favicon.ico" />
+          <link href="/fonts/fonts.css" rel="stylesheet" />
+        </Head>
         <Header />
 
         <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
