@@ -3,7 +3,7 @@
   justify-content: space-around;
   display: flex;
   flex-direction: column;
-
+  max-width: var(--max-width);
   margin: 0;
   /* max-height: 100vh; */
 }
@@ -55,48 +55,55 @@
   background: none;
   border: none;
   outline: none;
-
+  /* 
   width: 80vw;
-  max-width: 304px;
-  height: 48px;
-  padding: 14px;
-  border-radius: 22.5px;
-  background-color: var(--dm2buy-pink);
-
+  max-width: 304px; */
+  width: 100%;
+  /* height: 48px; */
+  padding: 18px 0;
+  margin: 0 23px;
+  border-radius: 16px;
+  background-color: #000000;
   color: white;
-  font-size: 16px;
+  font-size: 22px;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.4px;
+  letter-spacing: 1.38px;
 }
 
 .soldOutButton {
   background: none;
   border: none;
   outline: none;
-
+  /* 
   width: 80vw;
-  max-width: 304px;
-  height: 48px;
+  max-width: 304px; */
+  /* height: 48px; */
+  width: 100%;
+  padding: 18px 0;
+  margin: 0 23px;
   padding: 14px;
-  border-radius: 22.5px;
+  border-radius: 16px;
   background-color: #eae9e9;
-
-  color: black;
-  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  color: #000000;
+  font-size: 22px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.4px;
+  letter-spacing: 1.38px;
 }
 
 .description {
-  padding: 0 20px;
-
-  font-size: 13px;
+  padding: 0 24px;
+  font-family: "Robot", sans-serif;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0.5px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;

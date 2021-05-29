@@ -10,14 +10,14 @@ const NoticeConditions = () => (
   <div className={styles.noticeCondtions}>
     <div className={styles.noticeBox}>
       <Image
-        src="/caution.png"
-        height="28"
-        width="32"
+        src="/warning-2.png"
+        height="40"
+        width="40"
         className={styles.image}
       />
 
       <div className={styles.noticeMessage}>
-        <Details
+        {/* <Details
           summary={
             <EllipsisText
               text={`This store does not offer returns, exchanges or cancellations `}
@@ -27,7 +27,9 @@ const NoticeConditions = () => (
           }
         >
           {`This store does not offer returns, exchanges or cancellations `}
-        </Details>
+        </Details> */}
+        We do not offer returns, exchanges or cancellation on this product.
+        <div className={styles.learnWhy}>Learn Why</div>
       </div>
     </div>
   </div>
