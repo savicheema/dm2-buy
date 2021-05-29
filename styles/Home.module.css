@@ -29,9 +29,8 @@
   width: 129px;
   height: 129px;
   border-radius: 50%;
+  object-fit: cover;
 }
-
-
 
 .footerTagline {
   /* display: flex;

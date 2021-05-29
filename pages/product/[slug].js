@@ -11,6 +11,7 @@ import { ShareButton } from "../../components/Buttons";
 import PrevArrow from "../../components/Carousel/PrevArrow";
 import NoticeConditions from "../../components/NoticeConditions";
 import SellerCard from "../../components/SellerCard";
+import Footer from "../../components/Footer";
 
 class Product extends React.Component {
   render() {
@@ -21,7 +22,7 @@ class Product extends React.Component {
 
     return (
       <div className={styles.product}>
-        <Header />
+        {/* <Header /> */}
 
         <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
           {product.allPhotos &&
@@ -54,15 +55,16 @@ class Product extends React.Component {
 
         <NoticeConditions />
 
-        <SellerCard sellerId={product.fields.Stores[0]} />
+        {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
 
-        <footer className={homeStyles.footer}>
+        {/* <footer className={homeStyles.footer}>
           <Image src="/instagram.png" width="36" height="36" />
           <div className={homeStyles.footerTagline}>
             <span>Follow us on IG</span>
             <span>@dm2buydotcom</span>
           </div>
-        </footer>
+        </footer> */}
+        <Footer />
       </div>
     );
   }

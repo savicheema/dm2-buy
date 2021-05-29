@@ -1,15 +1,15 @@
 .storeItems {
   display: grid;
-  margin-top: 80px;
+  margin-top: 64px;
   grid-gap: 22px;
   grid-template-columns: 1fr 1fr;
   /* grid-template-columns: repeat(autofill, 1fr); */
 }
 
-.storeHeading {
-  /* margin-left: 20px;
-  margin-right: 20px; */
-}
+/* .storeHeading {
+  margin-left: 20px;
+  margin-right: 20px;
+} */
 .store {
   width: 100%;
 }

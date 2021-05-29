@@ -35,7 +35,7 @@ const Main = ({ store }) => {
               alt="profile-pic"
               className={homeStyles.profilePic}
             />
-            <div className={styles.socialButtons}>
+            {/* <div className={styles.socialButtons}>
               <ImageButton
                 type="raised"
                 action={() => {
@@ -47,7 +47,7 @@ const Main = ({ store }) => {
                 <Image src="/instagram.png" width="24" height="24" />
               </ImageButton>
               <ShareButton />
-            </div>
+            </div> */}
           </div>
         )}
 
@@ -60,9 +60,9 @@ const Main = ({ store }) => {
                 tail="..."
               />
             </h2>
-            <div className={styles.instagramHandle}>
+            {/* <div className={styles.instagramHandle}>
               {`@${store.fields.store_instagram_handle}`}`
-            </div>
+            </div> */}
 
             {/* <Details
               summary={
@@ -75,14 +75,27 @@ const Main = ({ store }) => {
             >
               {store.fields.store_bio}
             </Details> */}
-            <p className={styles.bio}>{store.fields.store_bio}</p>
+            {store.fields.store_bio.trim() != "" && (
+              <p className={styles.bio}>{store.fields.store_bio}</p>
+            )}
           </div>
         )}
+        <div className={styles.socialButtons}>
+          <ImageButton
+            type="raised"
+            action={() => {
+              window.open(
+                `https://www.instagram.com/${store.fields.store_instagram_handle}/`
+              );
+            }}
+          >
+            <Image src="/instagram-4.png" width="32" height="32" />
+          </ImageButton>
+          <ShareButton />
+        </div>
       </div>
 
       {store.fields && <StoreProducts store={store} />}
-
-      
     </main>
   );
 };

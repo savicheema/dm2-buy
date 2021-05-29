@@ -9,10 +9,10 @@
   background: none;
   outline: none;
 
-  border-radius: 50%;
+  /* border-radius: 50%;
   border: 1px solid var(--border);
 
-  padding: 12px 14px;
+  padding: 12px 14px; */
 
   /* opacity: 0.4; */
 }
@@ -21,10 +21,10 @@
   border: none;
   background: none;
   outline: none;
-
+  /* 
   border-radius: 50%;
   border: 1px solid var(--border);
   background-color: var(--border);
 
-  padding: 12px 14px;
+  padding: 12px 14px; */
 }

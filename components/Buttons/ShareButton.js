@@ -12,7 +12,7 @@ class ShareButton extends React.Component {
     const imageButtonType = isShared ? "disabled" : "raised";
     return (
       <ImageButton type={imageButtonType} action={this.share}>
-        <Image src="/share.png" width="24" height="24" />
+        <Image src="/shape.png" width="32" height="32" />
       </ImageButton>
     );
   }

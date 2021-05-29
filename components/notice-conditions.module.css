@@ -3,13 +3,13 @@
 
   justify-content: space-around;
   align-items: center;
-
+  max-width: var(--max-width);
   margin: 20px 0;
 }
 
 .noticeBox {
-  width: 80vw;
-  max-width: 304px;
+  width: 100%;
+  /* max-width: 304px; */
 
   display: flex;
 

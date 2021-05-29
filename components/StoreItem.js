@@ -21,6 +21,7 @@ const StoreItem = ({ product }) => {
             src={`${product.fields["header photo"][0].url}`}
             width="204"
             height="204"
+            objectFit="cover"
             alt="store product"
           />
         )}
