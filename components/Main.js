@@ -82,14 +82,7 @@ const Main = ({ store }) => {
 
       {store.fields && <StoreProducts store={store} />}
 
-      <footer className={homeStyles.footer}>
-        <Image src="/instagram.png" width="24" height="24" />
-        {/* <div className={homeStyles.footerTagline}>
-          <span>Follow us on IG</span>
-          
-        </div> */}
-        <span className={homeStyles.tagline}>@dm2buydotcom</span>
-      </footer>
+      
     </main>
   );
 };

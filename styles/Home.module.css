@@ -26,45 +26,12 @@
 }
 
 .profilePic {
-  width: 96px;
-  height: 96px;
+  width: 129px;
+  height: 129px;
   border-radius: 50%;
 }
 
-.footer {
-  width: calc(100% + 44px);
-  /* position: fixed;
-  bottom: 0; */
-  max-width: 360px;
-  /* height: 100px; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: var(--max-width);
-  padding: 20px;
-  background-color: #e0dede;
 
-  /* padding: 44px 36px; */
-  /* padding: 20px; */
-  /* 
-  margin-top: 32px; */
-}
-
-.tagline {
-  /* display: flex;
-  justify-content: space-between;
-  flex-direction: column; */
-
-  font-size: 18px;
-  /* font-weight: bold; */
-  font-weight: 550;
-  color: #333333;
-  margin-left: 4px;
-  /* height: 105px;
-  width: 300px; */
-  /* 
-  margin-bottom: 44px; */
-}
 
 .footerTagline {
   /* display: flex;

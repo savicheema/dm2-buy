@@ -1,9 +1,14 @@
+import Image from "next/image";
+import styles from "./footer.module.css";
+
 const Footer = () => {
-    return (
-        <div className={styles.footer}>
-            
-        </div>
-     );
-}
- 
+  return (
+    <footer className={styles.footer}>
+      <Image src="/instagram.png" width="24" height="24" />
+
+      <span className={styles.tagline}>@dm2buydotcom</span>
+    </footer>
+  );
+};
+
 export default Footer;
