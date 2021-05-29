@@ -22,19 +22,30 @@ body {
   width: 96% !important;
 }
 
-.carousel .control-prev.control-arrow::before {
+/* .carousel .control-prev.control-arrow::before {
   border-right: 8px solid #000 !important;
   position: absolute;
   bottom: 8px;
   z-index: 99;
+} */
+.carousel .slide img {
+  width: auto; /*100vw*/
 }
 
 .carousel .control-next.control-arrow::before {
-  border-left: 8px solid #000 !important;
-  position: absolute;
+  border-left: 8px solid #333333 !important;
+  /* position: absolute;
   bottom: 8px;
   right: 8px;
-  z-index: 99;
+  z-index: 99; */
+}
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid #333333 !important;
+}
+
+.carousel.carousel-slider .control-arrow {
+  background: none !important;
+  transition: none !important;
 }
 
 a {
