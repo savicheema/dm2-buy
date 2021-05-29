@@ -30,7 +30,7 @@ const SellerCard = ({ sellerId }) => {
 
   useEffect(() => {
     getSeller();
-  }, [seller]);
+  }, []);
 
   if (!seller) return null;
 

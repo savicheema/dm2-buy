@@ -1,4 +1,6 @@
 import React from "react";
+import Head from "next/head";
+
 import styles from "./product.module.css";
 import homeStyles from "../../styles/Home.module.css";
 
@@ -16,38 +18,69 @@ import Footer from "../../components/Footer";
 class Product extends React.Component {
   render() {
     let { isFetched, product } = this.state;
-    console.log(" Product STATE", isFetched);
+    console.log(" Product STATE", isFetched, product);
 
     if (!product) return null;
 
     return (
-      <>
-        <div className={styles.product}>
-          {/* <Header /> */}
+      <div className={styles.product}>
+        <Head>
+          <title>DM 2 BUY</title>
+          <meta
+            name="description"
+            content="Take your side hustle to next level."
+          />
+          <link rel="icon" href="/favicon.ico" />
+          <link href="/fonts/fonts.css" rel="stylesheet" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
+        {/* <Header /> */}
 
-          <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
-            {product.allPhotos &&
-              product.allPhotos.map((photo, index) => {
-                return (
-                  <Image src={photo.url} height="425" width="360" key={index} />
-                );
-              })}
-          </Carousel>
-          <div className={styles.productHead}>
-            <h1 className={styles.productHeading}>{product.fields.Name}</h1>
-            <ShareButton />
-          </div>
-          {/* <div className={styles.price}>
+        <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
+          {product.allPhotos &&
+            product.allPhotos.map((photo, index) => {
+              return (
+                <Image src={photo.url} height="425" width="360" key={index} />
+              );
+            })}
+        </Carousel>
+        <div className={styles.productHead}>
+          <h1 className={styles.productHeading}>{product.fields.Name}</h1>
+          <ShareButton />
+        </div>
+        {/* <div className={styles.price}>
           {product.fields &&
             `${String.fromCharCode(0x20b9)}${product.fields.Price}`}
         </div> */}
-          {product.fields && (
-            <div className={styles.priceContainer}>
-              {String.fromCharCode(0x20b9)}
-              <span className={styles.price}>{product.fields.Price}</span>
-            </div>
+        {product.fields && (
+          <div className={styles.priceContainer}>
+            {String.fromCharCode(0x20b9)}
+            <span className={styles.price}>{product.fields.Price}</span>
+          </div>
+        )}
+        <div className={styles.shipping}>
+          <span>Ships</span>
+          <span className={styles.day}>Tomorrow</span>
+        </div>
+        <div className={styles.callToAction}>
+          {product.fields.Status === "for-sale" && (
+            <button
+              className={styles.buyNowButton}
+              onClick={() => {
+                window.location.href = `/cart/checkout?product=${product.id}`;
+              }}
+            >
+              Buy Now
+            </button>
           )}
-          <div className={styles.shipping}>
+          {product.fields.Status !== "for-sale" && (
+            <button className={styles.soldOutButton}>Sold Out</button>
+          )}
+        </div>
+        {/* <div className={styles.shipping}>
             <span>Ships</span>
             <span className={styles.day}>Tomorrow</span>
           </div>
@@ -58,26 +91,26 @@ class Product extends React.Component {
             {product.fields.Status !== "for-sale" && (
               <button className={styles.soldOutButton}>Sold Out</button>
             )}
-          </div>
-          <p
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: product.fields.description }}
-          ></p>
+          </div> */}
+        <p
+          className={styles.description}
+          dangerouslySetInnerHTML={{ __html: product.fields.description }}
+        ></p>
 
-          <NoticeConditions />
+        <NoticeConditions />
 
-          {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
+        {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
 
-          {/* <footer className={homeStyles.footer}>
+        {/* <footer className={homeStyles.footer}>
           <Image src="/instagram.png" width="36" height="36" />
           <div className={homeStyles.footerTagline}>
             <span>Follow us on IG</span>
             <span>@dm2buydotcom</span>
           </div>
         </footer> */}
-        </div>
+
         <Footer />
-      </>
+      </div>
     );
   }
 

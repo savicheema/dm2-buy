@@ -1,0 +1,41 @@
+.thankYou {
+  margin: 7px 0 0;
+  font-family: MartelSans;
+  font-size: 24px;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  color: #000000;
+}
+
+.text {
+  margin: 0 0 15px;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.61px;
+  color: #333333;
+}
+
+.seller {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.miniAvatar {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.heartEmoji {
+  font-size: 25px;
+}
+
+.cartMessage {
+  margin: 16px 0;
+}

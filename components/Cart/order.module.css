@@ -1,0 +1,51 @@
+.shippingEmoji {
+  font-size: 64px;
+  width: 136px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.orderList {
+  margin: 28px 0;
+}
+
+.order {
+  margin: 48px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orderButton {
+  background: none;
+  border: none;
+  outline: none;
+
+  width: 80vw;
+  max-width: 304px;
+  height: 48px;
+  padding: 14px;
+  border-radius: 22.5px;
+  background-color: var(--dm2buy-pink);
+
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+}
+
+.orderThumbnail {
+  border-radius: 8px;
+}

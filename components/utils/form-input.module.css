@@ -1,0 +1,34 @@
+.formInput {
+  width: 100%;
+  max-width: 100vw;
+  margin: 12px 0;
+}
+
+.halfInput {
+  max-width: 50vw;
+}
+
+.inputClass {
+  outline: none;
+  border: none;
+  background: none;
+
+  width: 100%;
+  margin: 0 31px 0 0;
+  border-radius: 8px;
+  background-color: #edeff1;
+
+  padding: 22px 3px 23px 24px;
+  min-height: 36px;
+}
+
+.error {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0;
+  color: #fe3333;
+}
+
+.inputClass::placeholder {
+  color: #70767c;
+}
