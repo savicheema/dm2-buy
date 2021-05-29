@@ -17,7 +17,7 @@ import SellerCard from "../../components/SellerCard";
 class Product extends React.Component {
   render() {
     let { isFetched, product } = this.state;
-    console.log(" Product STATE", isFetched);
+    console.log(" Product STATE", isFetched, product);
 
     if (!product) return null;
 
@@ -55,7 +55,7 @@ class Product extends React.Component {
             <button
               className={styles.buyNowButton}
               onClick={() => {
-                window.location.href = `/cart/`;
+                window.location.href = `/cart/checkout?product=${product.id}`;
               }}
             >
               Buy Now

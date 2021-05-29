@@ -31,3 +31,11 @@
   border-radius: 50%;
   margin-right: 10px;
 }
+
+.heartEmoji {
+  font-size: 25px;
+}
+
+.cartMessage {
+  margin: 16px 0;
+}
