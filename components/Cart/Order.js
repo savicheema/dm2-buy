@@ -34,7 +34,9 @@ class Order extends React.Component {
 
         <NoticeConditions />
 
-        <button className={styles.orderButton}>Proceed to Pay - 2100</button>
+        <button className={styles.orderButton} onClick={this.props.checkInputs}>
+          Proceed to Pay - 2100
+        </button>
       </div>
     );
   }

@@ -6,16 +6,26 @@ import PersonalForm from "./PersonalForm";
 import AddressForm from "./AddressForm";
 import Order from "./Order";
 
-const Cart = () => (
-  <div className={styles.cart}>
-    <CartMessage />
+const Cart = () => {
+  const personalFormRef = React.createRef();
+  const addressFormRef = React.createRef();
 
-    <PersonalForm />
+  return (
+    <div className={styles.cart}>
+      <CartMessage />
 
-    <AddressForm />
+      <PersonalForm ref={personalFormRef} />
 
-    <Order />
-  </div>
-);
+      <AddressForm ref={addressFormRef} />
+
+      <Order
+        checkInputs={() => {
+          personalFormRef.current.validate();
+          addressFormRef.current.validate();
+        }}
+      />
+    </div>
+  );
+};
 
 export default Cart;
