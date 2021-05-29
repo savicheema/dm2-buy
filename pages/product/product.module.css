@@ -16,14 +16,15 @@
 
   max-width: var(--max-width);
 
-  padding: 4px 20px;
+  padding: 4px 24px;
 }
 
 .productHeading {
-  margin: 0 19px 11px 1px;
-  font-size: 20px;
+  margin: 0 74px 11px 1px;
+  font-size: 24px;
   font-stretch: normal;
-  font-weight: normal;
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.5px;
@@ -32,16 +33,20 @@
 }
 
 .price {
-  margin: 0 0 0 6px;
-  font-size: 20px;
+  margin-left: 9px;
+  font-size: 24px;
+}
+.priceContainer {
+  /* margin: 0 0 0 6px; */
+  font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.9px;
   color: #333333;
-
-  padding: 4px 20px;
+  font-family: "Lato", sans-serif;
+  padding: 0 24px;
 }
 
 .callToAction {
@@ -73,7 +78,22 @@
   line-height: normal;
   letter-spacing: 1.38px;
 }
-
+.shipping {
+  margin: 15px 24px 0 24px;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  color: #454545;
+  display: flex;
+  align-items: center;
+}
+.day {
+  margin-left: 6px;
+  letter-spacing: 0.64px;
+  color: #000000;
+  padding: 3px 6px 2px 7px;
+  border-radius: 4px;
+  background-color: #fcf4bd;
+}
 .soldOutButton {
   background: none;
   border: none;

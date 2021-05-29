@@ -21,51 +21,63 @@ class Product extends React.Component {
     if (!product) return null;
 
     return (
-      <div className={styles.product}>
-        {/* <Header /> */}
+      <>
+        <div className={styles.product}>
+          {/* <Header /> */}
 
-        <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
-          {product.allPhotos &&
-            product.allPhotos.map((photo, index) => {
-              return (
-                <Image src={photo.url} height="425" width="360" key={index} />
-              );
-            })}
-        </Carousel>
-        <div className={styles.productHead}>
-          <h1 className={styles.productHeading}>{product.fields.Name}</h1>
-          <ShareButton />
-        </div>
-        <div className={styles.price}>
+          <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
+            {product.allPhotos &&
+              product.allPhotos.map((photo, index) => {
+                return (
+                  <Image src={photo.url} height="425" width="360" key={index} />
+                );
+              })}
+          </Carousel>
+          <div className={styles.productHead}>
+            <h1 className={styles.productHeading}>{product.fields.Name}</h1>
+            <ShareButton />
+          </div>
+          {/* <div className={styles.price}>
           {product.fields &&
             `${String.fromCharCode(0x20b9)}${product.fields.Price}`}
-        </div>
-        <div className={styles.callToAction}>
-          {product.fields.Status === "for-sale" && (
-            <button className={styles.buyNowButton}>Buy Now</button>
+        </div> */}
+          {product.fields && (
+            <div className={styles.priceContainer}>
+              {String.fromCharCode(0x20b9)}
+              <span className={styles.price}>{product.fields.Price}</span>
+            </div>
           )}
-          {product.fields.Status !== "for-sale" && (
-            <button className={styles.soldOutButton}>Sold Out</button>
-          )}
-        </div>
-        <p
-          className={styles.description}
-          dangerouslySetInnerHTML={{ __html: product.fields.description }}
-        ></p>
+          <div className={styles.shipping}>
+            <span>Ships</span>
+            <span className={styles.day}>Tomorrow</span>
+          </div>
+          <div className={styles.callToAction}>
+            {product.fields.Status === "for-sale" && (
+              <button className={styles.buyNowButton}>Buy Now</button>
+            )}
+            {product.fields.Status !== "for-sale" && (
+              <button className={styles.soldOutButton}>Sold Out</button>
+            )}
+          </div>
+          <p
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: product.fields.description }}
+          ></p>
 
-        <NoticeConditions />
+          <NoticeConditions />
 
-        {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
+          {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
 
-        {/* <footer className={homeStyles.footer}>
+          {/* <footer className={homeStyles.footer}>
           <Image src="/instagram.png" width="36" height="36" />
           <div className={homeStyles.footerTagline}>
             <span>Follow us on IG</span>
             <span>@dm2buydotcom</span>
           </div>
         </footer> */}
+        </div>
         <Footer />
-      </div>
+      </>
     );
   }
 
