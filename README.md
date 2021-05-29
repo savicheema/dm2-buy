@@ -61,7 +61,7 @@ git commit -m <message>
 git push origin <branch name>
 ```
 
-6. Notify lead developer about the merge conflicts
+6. Notify peer developers about the merge conflicts
 
 ## Business Rules
 
