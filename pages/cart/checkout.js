@@ -27,6 +27,10 @@ class CartPage extends React.Component {
             href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@900&display=swap"
             rel="stylesheet"
           />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
+          />
         </Head>
         <Cart product={storedProduct} />
       </div>
