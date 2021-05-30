@@ -5,7 +5,7 @@ import FormInput from "../utils/FormInput";
 
 class AddressForm extends React.Component {
   render() {
-    let { isValid } = this.state;
+    let { isValid, address } = this.state;
     console.log(" AddressForm STATE", isValid);
 
     return (
@@ -25,18 +25,23 @@ class AddressForm extends React.Component {
             placeholder="Pincode"
             errorMessage="Invalid pin code"
             ref={this.pincodeInputRef}
+            onBlur={(pincode) => {
+              this.fetchAddress(pincode);
+            }}
           />
           <FormInput
             type="half"
             placeholder="City"
             errorMessage="City is needed"
             ref={this.cityInputRef}
+            isDisabled={true}
           />
           <FormInput
             type="half"
             placeholder="State"
             errorMessage="State is needed"
             ref={this.stateInputRef}
+            isDisabled={true}
           />
           <FormInput
             type="half"
@@ -53,8 +58,9 @@ class AddressForm extends React.Component {
     super(props);
 
     let isValid = false;
+    let address = null;
 
-    this.state = { isValid };
+    this.state = { isValid, address };
 
     this.addressInputRef = React.createRef();
     this.pincodeInputRef = React.createRef();
@@ -70,6 +76,32 @@ class AddressForm extends React.Component {
     this.pincodeInputRef.current.validate();
     this.cityInputRef.current.validate();
     this.stateInputRef.current.validate();
+  };
+
+  fetchAddress = (pincode) => {
+    fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        if (!data) return;
+
+        if (data[0].Status.toLowerCase().includes("error")) {
+          this.pincodeInputRef.current.setValue("");
+          this.pincodeInputRef.current.validate();
+          return;
+        }
+
+        this.setState({ address: data[0].PostOffice[0] }, () => {
+          let { address } = this.state;
+          this.cityInputRef.current.setValue(address.District);
+          this.stateInputRef.current.setValue(address.State);
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 }
 

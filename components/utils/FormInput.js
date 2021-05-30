@@ -32,6 +32,7 @@ class FormInput extends React.Component {
             maxLength={maxLength}
             disabled={isDisabled}
             type={inputType}
+            onChange={this.onChange}
           />
         </div>
       </div>
@@ -49,6 +50,7 @@ class FormInput extends React.Component {
 
   componentDidMount() {
     let { value } = this.props;
+
     this.setState({ inputValue: value });
   }
   componentWillUnmount() {}
@@ -62,11 +64,28 @@ class FormInput extends React.Component {
   };
 
   onFocus = () => {
-    this.setState({ isFocus: true });
+    this.setState({ isFocus: true, isError: false });
   };
 
   onBlur = () => {
-    this.setState({ isFocus: false });
+    this.setState({ isFocus: false }, () => {
+      let { onBlur } = this.props;
+      let { inputValue } = this.state;
+
+      if (!inputValue) {
+        this.validate();
+        return;
+      }
+      onBlur(inputValue);
+    });
+  };
+
+  onChange = (e) => {
+    this.setState({ inputValue: e.target.value });
+  };
+
+  setValue = (value) => {
+    this.setState({ inputValue: value }, () => {});
   };
 }
 
