@@ -72,10 +72,12 @@ class AddressForm extends React.Component {
   componentWillUnmount() {}
 
   validate = () => {
-    this.addressInputRef.current.validate();
-    this.pincodeInputRef.current.validate();
-    this.cityInputRef.current.validate();
-    this.stateInputRef.current.validate();
+    const isAddressValid = this.addressInputRef.current.validate();
+    const isPincodeValid = this.pincodeInputRef.current.validate();
+    const isCityValid = this.cityInputRef.current.validate();
+    const isStateValid = this.stateInputRef.current.validate();
+
+    return isAddressValid && isPincodeValid && isCityValid && isStateValid;
   };
 
   fetchAddress = (pincode) => {
