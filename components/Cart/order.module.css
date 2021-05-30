@@ -1,6 +1,6 @@
 .shippingEmoji {
   font-size: 64px;
-  width: 136px;
+  width: 116px;
 
   display: flex;
   justify-content: center;
@@ -48,4 +48,27 @@
 
 .orderThumbnail {
   border-radius: 8px;
+}
+
+.productDetails {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 8px;
+  font-size: 18px;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: 0.45px;
+  color: #333333;
+}
+
+.productName {
+  margin: 0 8px;
+}
+
+.productPrice {
+  /* word-wrap: none;
+  word-break: none;
+  overflow-x: auto; */
 }

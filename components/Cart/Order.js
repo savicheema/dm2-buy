@@ -7,6 +7,8 @@ class Order extends React.Component {
   render() {
     // let { isFetched } = this.state;
     let { product } = this.props;
+
+    const price = product.fields.Price + 100;
     // console.log(" Order STATE", isFetched, product);
 
     return (
@@ -17,17 +19,27 @@ class Order extends React.Component {
           <div className={styles.orderItem}>
             <img
               src={product.fields["header photo"][0].url}
-              height="128"
-              width="128"
+              height="116"
+              width="116"
               alt="Order name"
               className={styles.orderThumbnail}
             />
-            <span>Portal 2 Portal Raincoat</span>
+            <div className={styles.productDetails}>
+              <div className={styles.productName}>{product.fields.Name}</div>
+              <div className={styles.productPrice}>
+                {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+              </div>
+            </div>
           </div>
 
           <div className={styles.orderItem}>
             <span className={styles.shippingEmoji}>🚛</span>
-            <span>Portal 2 Portal Raincoat</span>
+            <div className={styles.productDetails}>
+              <div className={styles.productName}>Regular Delivery</div>
+              <div className={styles.productPrice}>
+                {`${String.fromCharCode(0x20b9)}100`}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -39,7 +51,7 @@ class Order extends React.Component {
             if (this.props.checkInputs()) localStorage.removeItem("product");
           }}
         >
-          Proceed to Pay - 2100
+          {`Proceed to Pay - ${price}`}
         </button>
       </div>
     );
