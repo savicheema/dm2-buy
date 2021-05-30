@@ -40,5 +40,17 @@
   font-weight: bold;
 }
 
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  text-decoration: underline;
+  color: blue;
+}
+
 @media (max-width: 600px) {
 }

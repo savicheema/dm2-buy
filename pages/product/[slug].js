@@ -70,7 +70,8 @@ class Product extends React.Component {
             <button
               className={styles.buyNowButton}
               onClick={() => {
-                window.location.href = `/cart/checkout?product=${product.id}`;
+                this.storeProductToLocalStorage(product);
+                window.location.href = `/cart/checkout`;
               }}
             >
               Buy Now
@@ -159,6 +160,10 @@ class Product extends React.Component {
           reject();
         });
     });
+  };
+
+  storeProductToLocalStorage = (product) => {
+    localStorage.setItem("product", JSON.stringify(product));
   };
 }
 

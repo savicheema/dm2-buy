@@ -3,19 +3,24 @@ import styles from "./form-input.module.css";
 
 class FormInput extends React.Component {
   render() {
-    let { isError, inputValue } = this.state;
+    let { isError, inputValue, isFocus } = this.state;
     console.log(" FormInput STATE", isError);
-    const { type, placeholder, errorMessage } = this.props;
+    const { type, placeholder, errorMessage, maxLength } = this.props;
 
     const formInputClass =
       type === "full" ? styles.formInput : styles.halfInput;
+
+    const inputClass = isFocus ? styles.focusInput : styles.inputClass;
     return (
       <div className={formInputClass}>
         {isError && <div className={styles.error}>{errorMessage}</div>}
         <input
-          className={styles.inputClass}
+          className={inputClass}
           placeholder={placeholder}
           value={inputValue}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          maxLength={maxLength}
         />
       </div>
     );
@@ -25,8 +30,9 @@ class FormInput extends React.Component {
     super(props);
 
     let isError = false;
+    let isFocus = false;
 
-    this.state = { isError };
+    this.state = { isError, isFocus };
   }
 
   componentDidMount() {
@@ -41,6 +47,14 @@ class FormInput extends React.Component {
     if (inputValue) return;
 
     this.setState({ isError: true });
+  };
+
+  onFocus = () => {
+    this.setState({ isFocus: true });
+  };
+
+  onBlur = () => {
+    this.setState({ isFocus: false });
   };
 }
 

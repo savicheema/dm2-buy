@@ -5,10 +5,9 @@ import NoticeConditions from "../NoticeConditions";
 
 class Order extends React.Component {
   render() {
-    let { isFetched, product } = this.state;
-    console.log(" Order STATE", isFetched, product);
-
-    if (!isFetched) return null;
+    // let { isFetched } = this.state;
+    let { product } = this.props;
+    // console.log(" Order STATE", isFetched, product);
 
     return (
       <div className={styles.order}>
@@ -34,7 +33,12 @@ class Order extends React.Component {
 
         <NoticeConditions />
 
-        <button className={styles.orderButton} onClick={this.props.checkInputs}>
+        <button
+          className={styles.orderButton}
+          onClick={() => {
+            if (this.props.checkInputs()) localStorage.removeItem("product");
+          }}
+        >
           Proceed to Pay - 2100
         </button>
       </div>
@@ -50,41 +54,41 @@ class Order extends React.Component {
   }
 
   componentDidMount() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get("product");
-
-    if (!productId) console.error("Product ID not available");
-    this.fetchProduct(productId)
-      .then((product) => {
-        // console.log("Do something", product);
-        // product.allPhotos = product.fields["header photo"].concat(
-        //   product.fields["Other photos"]
-        // );
-        this.setState({ isFetched: true, product });
-      })
-      .catch(() => {
-        console.error("Do nothing!");
-      });
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const productId = urlParams.get("product");
+    //
+    // if (!productId) console.error("Product ID not available");
+    // this.fetchProduct(productId)
+    //   .then((product) => {
+    //     // console.log("Do something", product);
+    //     // product.allPhotos = product.fields["header photo"].concat(
+    //     //   product.fields["Other photos"]
+    //     // );
+    //     this.setState({ isFetched: true, product });
+    //   })
+    //   .catch(() => {
+    //     console.error("Do nothing!");
+    //   });
   }
   componentWillUnmount() {}
 
-  fetchProduct = (productId) => {
-    return new Promise((resolve, reject) => {
-      fetch(`/api/airtable/getProduct?product=${productId}`)
-        .then((response) => {
-          console.log("product RESPONSE", response);
-          return response.json();
-        })
-        .then((data) => {
-          console.log("product DATA", data);
-          resolve(data);
-        })
-        .catch((err) => {
-          console.error(err);
-          reject();
-        });
-    });
-  };
+  // fetchProduct = (productId) => {
+  //   return new Promise((resolve, reject) => {
+  //     fetch(`/api/airtable/getProduct?product=${productId}`)
+  //       .then((response) => {
+  //         console.log("product RESPONSE", response);
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         console.log("product DATA", data);
+  //         resolve(data);
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //         reject();
+  //       });
+  //   });
+  // };
 }
 
 export default Order;

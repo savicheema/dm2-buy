@@ -6,7 +6,7 @@ import PersonalForm from "./PersonalForm";
 import AddressForm from "./AddressForm";
 import Order from "./Order";
 
-const Cart = () => {
+const Cart = ({ product }) => {
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
 
@@ -20,9 +20,11 @@ const Cart = () => {
 
       <Order
         checkInputs={() => {
-          personalFormRef.current.validate();
-          addressFormRef.current.validate();
+          const isPersonalFormValid = personalFormRef.current.validate();
+          const isAddreessFormValid = addressFormRef.current.validate();
+          return isPersonalFormValid && isAddreessFormValid;
         }}
+        product={product}
       />
     </div>
   );
