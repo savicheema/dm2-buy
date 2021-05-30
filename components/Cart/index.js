@@ -22,6 +22,17 @@ const Cart = ({ product }) => {
         checkInputs={() => {
           const isPersonalFormValid = personalFormRef.current.validate();
           const isAddreessFormValid = addressFormRef.current.validate();
+
+          if (!isPersonalFormValid) {
+            personalFormRef.current.focus();
+            return false;
+          }
+
+          if (!isAddreessFormValid) {
+            addressFormRef.current.focus();
+            return false;
+          }
+
           return isPersonalFormValid && isAddreessFormValid;
         }}
         product={product}

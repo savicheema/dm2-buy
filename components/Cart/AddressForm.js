@@ -103,6 +103,10 @@ class AddressForm extends React.Component {
         console.error(err);
       });
   };
+
+  focus = () => {
+    this.addressInputRef.current.focus();
+  };
 }
 
 export default AddressForm;

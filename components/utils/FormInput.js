@@ -3,7 +3,7 @@ import styles from "./form-input.module.css";
 
 class FormInput extends React.Component {
   render() {
-    let { isError, inputValue, isFocus } = this.state;
+    let { isError, inputValue, isFocus, isInvalid } = this.state;
     console.log(" FormInput STATE", isError);
     const {
       type,
@@ -12,6 +12,7 @@ class FormInput extends React.Component {
       maxLength,
       isDisabled,
       inputType,
+      invalidMessage,
     } = this.props;
 
     const formInputClass =
@@ -21,6 +22,7 @@ class FormInput extends React.Component {
     return (
       <div className={formInputClass}>
         {isError && <div className={styles.error}>{errorMessage}</div>}
+        {isInvalid && <div className={styles.error}>{invalidMessage}</div>}
         <div className={inputClass}>
           {this.props.children}
           <input
@@ -33,6 +35,7 @@ class FormInput extends React.Component {
             disabled={isDisabled}
             type={inputType}
             onChange={this.onChange}
+            ref={this.inputRef}
           />
         </div>
       </div>
@@ -44,8 +47,11 @@ class FormInput extends React.Component {
 
     let isError = false;
     let isFocus = false;
+    let isInvalid = false;
 
-    this.state = { isError, isFocus };
+    this.state = { isError, isFocus, isInvalid };
+
+    this.inputRef = React.createRef();
   }
 
   componentDidMount() {
@@ -57,14 +63,20 @@ class FormInput extends React.Component {
 
   validate = () => {
     let { inputValue } = this.state;
+    let { regex } = this.props;
 
-    if (inputValue) return;
-
-    this.setState({ isError: true });
+    if (!regex && inputValue) return;
+    else if (inputValue && regex && regex.test(inputValue)) {
+      return;
+    } else if (inputValue && regex && !regex.test(inputValue)) {
+      this.setState({ isInvalid: true });
+    } else {
+      this.setState({ isError: true });
+    }
   };
 
   onFocus = () => {
-    this.setState({ isFocus: true, isError: false });
+    this.setState({ isFocus: true, isError: false, isInvalid: false });
   };
 
   onBlur = () => {
@@ -76,6 +88,8 @@ class FormInput extends React.Component {
         this.validate();
         return;
       }
+
+      if (typeof onBlur !== "function") return;
       onBlur(inputValue);
     });
   };
@@ -86,6 +100,10 @@ class FormInput extends React.Component {
 
   setValue = (value) => {
     this.setState({ inputValue: value }, () => {});
+  };
+
+  focus = () => {
+    this.inputRef.current.focus();
   };
 }
 

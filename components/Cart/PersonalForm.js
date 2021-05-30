@@ -21,7 +21,11 @@ class PersonalForm extends React.Component {
           type="full"
           placeholder="Your Instagram"
           errorMessage="Need your instagram"
+          invalidMessage="Instagram handle doesn't seem correct"
           ref={this.instagramInputRef}
+          regex={
+            /([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/
+          }
         >
           <img
             src="/instagram.png"
@@ -35,10 +39,12 @@ class PersonalForm extends React.Component {
         <FormInput
           type="full"
           placeholder="Phone"
-          errorMessage="Incorrect number"
+          errorMessage="A number is needed"
+          invalidMessage="Incorrect number"
           ref={this.phoneInputRef}
           maxLength={10}
           inputType="number"
+          regex={/^[789]\d{9}$/}
         >
           <img
             src="/india.png"
@@ -69,9 +75,15 @@ class PersonalForm extends React.Component {
   componentWillUnmount() {}
 
   validate = () => {
-    this.nameInputRef.current.validate();
-    this.instagramInputRef.current.validate();
-    this.phoneInputRef.current.validate();
+    const isNameValid = this.nameInputRef.current.validate();
+    const isInstagramValid = this.instagramInputRef.current.validate();
+    const isPhoneValid = this.phoneInputRef.current.validate();
+
+    return isNameValid && isInstagramValid && isPhoneValid;
+  };
+
+  focus = () => {
+    this.nameInputRef.current.focus();
   };
 }
 
