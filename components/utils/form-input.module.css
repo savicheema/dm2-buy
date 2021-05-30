@@ -9,10 +9,7 @@
 }
 
 .inputClass {
-  outline: none;
-  border: none;
-  background: none;
-
+  display: flex;
   width: 100%;
   margin: 0 31px 0 0;
   border-radius: 8px;
@@ -23,10 +20,7 @@
 }
 
 .focusInput {
-  outline: none;
-  border: none;
-  background: none;
-
+  display: flex;
   width: 100%;
   margin: 0 31px 0 0;
   border-radius: 8px;
@@ -45,6 +39,15 @@
   color: #fe3333;
 }
 
-.inputClass::placeholder {
+.inputStyle {
+  outline: none;
+  border: none;
+  background: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.inputStyle::placeholder {
   color: #70767c;
 }

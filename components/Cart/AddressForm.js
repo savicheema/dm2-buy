@@ -16,6 +16,7 @@ class AddressForm extends React.Component {
           placeholder="Address with Landmark"
           errorMessage="Give us an address"
           ref={this.addressInputRef}
+          maxLength={70}
         />
 
         <div className={styles.addressGrid}>
@@ -37,7 +38,12 @@ class AddressForm extends React.Component {
             errorMessage="State is needed"
             ref={this.stateInputRef}
           />
-          <FormInput type="half" value="India" placeholder="Country" />
+          <FormInput
+            type="half"
+            value="India"
+            placeholder="Country"
+            isDisabled={true}
+          />
         </div>
       </div>
     );

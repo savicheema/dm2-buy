@@ -5,7 +5,14 @@ class FormInput extends React.Component {
   render() {
     let { isError, inputValue, isFocus } = this.state;
     console.log(" FormInput STATE", isError);
-    const { type, placeholder, errorMessage, maxLength } = this.props;
+    const {
+      type,
+      placeholder,
+      errorMessage,
+      maxLength,
+      isDisabled,
+      inputType,
+    } = this.props;
 
     const formInputClass =
       type === "full" ? styles.formInput : styles.halfInput;
@@ -14,14 +21,19 @@ class FormInput extends React.Component {
     return (
       <div className={formInputClass}>
         {isError && <div className={styles.error}>{errorMessage}</div>}
-        <input
-          className={inputClass}
-          placeholder={placeholder}
-          value={inputValue}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          maxLength={maxLength}
-        />
+        <div className={inputClass}>
+          {this.props.children}
+          <input
+            className={styles.inputStyle}
+            placeholder={placeholder}
+            value={inputValue}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            maxLength={maxLength}
+            disabled={isDisabled}
+            type={inputType}
+          />
+        </div>
       </div>
     );
   }
