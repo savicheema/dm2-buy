@@ -65,9 +65,9 @@ class FormInput extends React.Component {
     let { inputValue } = this.state;
     let { regex } = this.props;
 
-    if (!regex && inputValue) return;
+    if (!regex && inputValue) return true;
     else if (inputValue && regex && regex.test(inputValue)) {
-      return;
+      return true;
     } else if (inputValue && regex && !regex.test(inputValue)) {
       this.setState({ isInvalid: true });
     } else {
