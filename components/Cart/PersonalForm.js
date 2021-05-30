@@ -32,7 +32,7 @@ class PersonalForm extends React.Component {
             height="20px"
             width="20"
             alt="icon"
-            className={styles.decoration}
+            className={styles.imageDecoration}
           />
           <span className={styles.decoration}>@</span>
         </FormInput>
@@ -51,9 +51,9 @@ class PersonalForm extends React.Component {
             height="20px"
             width="20"
             alt="icon"
-            className={styles.decoration}
+            className={styles.imageDecoration}
           />
-          <span className={styles.decoration}>+91</span>
+          <span className={styles.numberCode}>+91</span>
         </FormInput>
       </div>
     );

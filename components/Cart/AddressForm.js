@@ -10,13 +10,16 @@ class AddressForm extends React.Component {
 
     return (
       <div className={styles.addressForm}>
-        <h2>🏠 Shipping Address</h2>
+        <h2 className={styles.shippingText}>
+          <span className={styles.homeIcon}>🏠</span> Shipping Address
+        </h2>
         <FormInput
           type="full"
           placeholder="Address with Landmark"
           errorMessage="Give us an address"
           ref={this.addressInputRef}
           maxLength={70}
+          name
         />
 
         <div className={styles.addressGrid}>

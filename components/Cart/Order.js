@@ -13,37 +13,39 @@ class Order extends React.Component {
 
     return (
       <div className={styles.order}>
-        <h2>📦 Your Order</h2>
+        <h2 className={styles.orderTitle}>
+          <span>📦</span> Your Order
+        </h2>
 
         <div className={styles.orderList}>
           <div className={styles.orderItem}>
-            <img
-              src={product.fields["header photo"][0].url}
-              height="116"
-              width="116"
-              alt="Order name"
-              className={styles.orderThumbnail}
-            />
             <div className={styles.productDetails}>
+              <img
+                src={product.fields["header photo"][0].url}
+                height="80"
+                width="80"
+                alt="Order name"
+                className={styles.orderThumbnail}
+              />
+
               <div className={styles.productName}>{product.fields.Name}</div>
-              <div className={styles.productPrice}>
-                {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
-              </div>
+            </div>
+            <div className={styles.productPrice}>
+              {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
             </div>
           </div>
 
           <div className={styles.orderItem}>
-            <span className={styles.shippingEmoji}>🚛</span>
             <div className={styles.productDetails}>
+              <span className={styles.shippingEmoji}>🚛</span>
+
               <div className={styles.productName}>Regular Delivery</div>
-              <div className={styles.productPrice}>
-                {`${String.fromCharCode(0x20b9)}100`}
-              </div>
+            </div>
+            <div className={styles.productPrice}>
+              {`${String.fromCharCode(0x20b9)}100`}
             </div>
           </div>
         </div>
-
-        <NoticeConditions />
 
         <button
           className={styles.orderButton}
@@ -53,6 +55,7 @@ class Order extends React.Component {
         >
           {`Proceed to Pay - ${price}`}
         </button>
+        <NoticeConditions />
       </div>
     );
   }

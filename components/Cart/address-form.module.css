@@ -1,6 +1,18 @@
 .addressGrid {
   display: grid;
   grid-template-columns: 49% 49%;
-  grid-gap: 2%;
+  grid-gap: 24px 12px;
   align-items: end;
+  margin-top: 24px;
+}
+.homeIcon {
+  margin-right: 12px;
+}
+.addressForm {
+  margin-top: 81px;
+}
+.shippingText {
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+  margin: 0 0 33px 0;
 }

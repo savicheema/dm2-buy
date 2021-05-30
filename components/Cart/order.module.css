@@ -1,6 +1,6 @@
 .shippingEmoji {
-  font-size: 64px;
-  width: 116px;
+  font-size: 80px;
+  width: 80px;
 
   display: flex;
   justify-content: center;
@@ -13,13 +13,24 @@
   justify-content: space-between;
   margin-bottom: 28px;
 }
+.orderTitle {
+  font-family: "Lato", sans-serif;
+  font-size: 24px;
+  width: 100%;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.orderTitle > span {
+  margin-right: 12px;
+}
 
 .orderList {
-  margin: 28px 0;
+  margin: 48px 45px 40px 48px;
+  width: 100%;
 }
 
 .order {
-  margin: 48px 0;
+  margin-top: 81px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,21 +40,23 @@
   background: none;
   border: none;
   outline: none;
-
+  /* 
   width: 80vw;
-  max-width: 304px;
-  height: 48px;
-  padding: 14px;
-  border-radius: 22.5px;
-  background-color: var(--dm2buy-pink);
-
+  max-width: 304px; */
+  width: 100%;
+  /* height: 48px; */
+  padding: 18px 0;
+  margin: 0 25px;
+  border-radius: 16px;
+  background-color: #000000;
   color: white;
-  font-size: 16px;
+  font-size: 22px;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.4px;
+  letter-spacing: 1.38px;
 }
 
 .orderThumbnail {
@@ -51,24 +64,35 @@
 }
 
 .productDetails {
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
   margin: 0 8px;
+  font-size: 18px;
+  font-family: Roboto;
   font-size: 18px;
   font-weight: 900;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.11;
   letter-spacing: 0.45px;
-  color: #333333;
+  color: #333333; */
+  display: flex;
+  align-items: center;
 }
 
 .productName {
-  margin: 0 8px;
+  margin-left: 23px;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: #333333;
 }
 
 .productPrice {
   /* word-wrap: none;
   word-break: none;
   overflow-x: auto; */
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: #111111;
 }

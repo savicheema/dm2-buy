@@ -43,9 +43,13 @@
   outline: none;
   border: none;
   background: none;
-
+  width: 100%;
+  color: #000000;
   -webkit-appearance: none;
   -moz-appearance: textfield;
+  font-size: 18px;
+  letter-spacing: 0.74px;
+  font-family: "Roboto", sans-serif;
 }
 
 .inputStyle::placeholder {

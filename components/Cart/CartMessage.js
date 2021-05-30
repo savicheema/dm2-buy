@@ -6,10 +6,10 @@ const CartMessage = () => (
     <div className={styles.heartEmoji}>❤️</div>
     <div className={styles.thankYou}>Thank you</div>
     <div className={styles.text}>
-      “For supporting a small business and helping me create more of what I
-      love”
+      For supporting a small business and helping me create more of what I love
+      ~ Lots of Love, Kim 
     </div>
-    <div className={styles.seller}>
+    {/* <div className={styles.seller}>
       <img
         src="/profile-pic.jpg"
         height="25"
@@ -18,7 +18,7 @@ const CartMessage = () => (
         className={styles.miniAvatar}
       />
       <span>Neikimlhing (Kim)</span>
-    </div>
+    </div> */}
   </div>
 );
 
