@@ -4,9 +4,9 @@ import styles from "./footer.module.css";
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <Image src="/instagram-4.png" width="24" height="24" />
+      <div className={styles.poweredBy}>powered by</div>
 
-      <span className={styles.tagline}>@dm2buydotcom</span>
+      <span className={styles.tagline}>dm2buy</span>
     </footer>
   );
 };
