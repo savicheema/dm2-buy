@@ -28,9 +28,6 @@ class CartPage extends React.Component {
             rel="stylesheet"
           />
         </Head>
-
-        <Header />
-
         <Cart product={storedProduct} />
       </div>
     );
