@@ -1,6 +1,6 @@
 .storeItems {
   display: grid;
-  margin-top: 64px;
+  margin-top: 54px;
   grid-gap: 22px;
   grid-template-columns: 1fr 1fr;
   /* grid-template-columns: repeat(autofill, 1fr); */
