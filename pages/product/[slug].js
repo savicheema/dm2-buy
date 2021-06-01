@@ -14,6 +14,7 @@ import PrevArrow from "../../components/Carousel/PrevArrow";
 import NoticeConditions from "../../components/NoticeConditions";
 import SellerCard from "../../components/SellerCard";
 import Footer from "../../components/Footer";
+import ProductShareButton from "../../components/Buttons/ProductShareButton";
 
 class Product extends React.Component {
   render() {
@@ -52,41 +53,42 @@ class Product extends React.Component {
             })}
         </Carousel>
         <div className={styles.productSub}>
-        <div className={styles.productHead}>
-          <h1 className={styles.productHeading}>{product.fields.Name}</h1>
-          <ShareButton />
-        </div>
-        {/* <div className={styles.price}>
+          <div className={styles.productHead}>
+            <h1 className={styles.productHeading}>{product.fields.Name}</h1>
+            {/* <ShareButton /> */}
+            <ProductShareButton />
+          </div>
+          {/* <div className={styles.price}>
           {product.fields &&
             `${String.fromCharCode(0x20b9)}${product.fields.Price}`}
         </div> */}
-        {product.fields && (
-          <div className={styles.priceContainer}>
-            {String.fromCharCode(0x20b9)}
-            <span className={styles.price}>{product.fields.Price}</span>
+          {product.fields && (
+            <div className={styles.priceContainer}>
+              {String.fromCharCode(0x20b9)}
+              <span className={styles.price}>{product.fields.Price}</span>
+            </div>
+          )}
+          <div className={styles.shipping}>
+            <span>Ships</span>
+            <span className={styles.day}>Tomorrow</span>
           </div>
-        )}
-        <div className={styles.shipping}>
-          <span>Ships</span>
-          <span className={styles.day}>Tomorrow</span>
-        </div>
-        <div className={styles.callToAction}>
-          {product.fields.Status === "for-sale" && (
-            <button
-              className={styles.buyNowButton}
-              onClick={() => {
-                this.storeProductToLocalStorage(product);
-                window.location.href = `/cart/checkout`;
-              }}
-            >
-              Buy Now
-            </button>
-          )}
-          {product.fields.Status !== "for-sale" && (
-            <button className={styles.soldOutButton}>Sold Out</button>
-          )}
-        </div>
-        {/* <div className={styles.shipping}>
+          <div className={styles.callToAction}>
+            {product.fields.Status === "for-sale" && (
+              <button
+                className={styles.buyNowButton}
+                onClick={() => {
+                  this.storeProductToLocalStorage(product);
+                  window.location.href = `/cart/checkout`;
+                }}
+              >
+                Buy Now
+              </button>
+            )}
+            {product.fields.Status !== "for-sale" && (
+              <button className={styles.soldOutButton}>Sold Out</button>
+            )}
+          </div>
+          {/* <div className={styles.shipping}>
             <span>Ships</span>
             <span className={styles.day}>Tomorrow</span>
           </div>
@@ -98,13 +100,13 @@ class Product extends React.Component {
               <button className={styles.soldOutButton}>Sold Out</button>
             )}
           </div> */}
-        <p
-          className={styles.description}
-          dangerouslySetInnerHTML={{ __html: product.fields.description }}
-        ></p>
+          <p
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: product.fields.description }}
+          ></p>
 
-        <NoticeConditions />
-          </div>
+          {/* <NoticeConditions /> */}
+        </div>
         {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
 
         {/* <footer className={homeStyles.footer}>
