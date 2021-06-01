@@ -51,6 +51,7 @@ class Product extends React.Component {
               );
             })}
         </Carousel>
+        <div className={styles.productSub}>
         <div className={styles.productHead}>
           <h1 className={styles.productHeading}>{product.fields.Name}</h1>
           <ShareButton />
@@ -103,7 +104,7 @@ class Product extends React.Component {
         ></p>
 
         <NoticeConditions />
-
+          </div>
         {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
 
         {/* <footer className={homeStyles.footer}>
