@@ -31,7 +31,7 @@
   margin: 0 40px 4px 1px;
   font-size: 24px;
   font-stretch: normal;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-family: "Lato", sans-serif;
   font-style: normal;
   line-height: normal;
@@ -132,7 +132,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
-  font-weight: 500;
+  /* font-weight: 500; */
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.1px;
