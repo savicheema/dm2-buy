@@ -90,7 +90,7 @@ const Main = ({ store }) => {
             }}
           >
             <Image src="/instagram-4.png" width="20" height="20" />
-          </ImageButton>
+          </ImageButton>  
           <ShareButton />
         </div>
       </div>
