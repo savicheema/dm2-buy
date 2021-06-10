@@ -5,9 +5,11 @@ import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Footer from "../components/Footer";
+import LoaderComponent from "../components/Loader";
 
 export default function Home() {
   const [store, setStore] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const fetchStore = () => {
     console.log("ENV", process, process.env);
@@ -17,9 +19,11 @@ export default function Home() {
       `${window.location.protocol}//${window.location.host}/api/airtable/getRecord`
     );
     url.searchParams.set("store", store);
+    setLoading(true);
     fetch(url)
       .then((response) => {
         console.log("STORE RESPONSE", response);
+        setLoading(false);
         return response.json();
       })
       .then((data) => {
@@ -28,6 +32,7 @@ export default function Home() {
       })
       .catch((err) => {
         console.error(err);
+        setLoading(false);
       });
   };
 
@@ -57,6 +62,7 @@ export default function Home() {
       </Head>
 
       {/* <Header store={store} /> */}
+      {loading && <LoaderComponent />}
 
       <Main store={store} />
       <Footer />

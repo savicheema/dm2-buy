@@ -14,13 +14,14 @@ import PrevArrow from "../../components/Carousel/PrevArrow";
 import NoticeConditions from "../../components/NoticeConditions";
 import SellerCard from "../../components/SellerCard";
 import Footer from "../../components/Footer";
+import LoaderComponent from "../../components/Loader";
 
 class Product extends React.Component {
   render() {
     let { isFetched, product } = this.state;
     console.log(" Product STATE", isFetched, product);
 
-    if (!product) return null;
+    if (!product) return <LoaderComponent />;
 
     return (
       <div className={styles.product}>
@@ -122,7 +123,7 @@ class Product extends React.Component {
   constructor(props) {
     super(props);
 
-    let isFetched = false;
+    let isFetched = true;
     let product = undefined;
 
     this.state = { isFetched, product };
@@ -133,17 +134,20 @@ class Product extends React.Component {
     const productId = urlParams.get("productId");
 
     if (!productId) console.error("Product ID not available");
-    this.fetchProduct(productId)
-      .then((product) => {
-        console.log("Do something", product);
-        product.allPhotos = product.fields["header photo"].concat(
-          product.fields["Other photos"]
-        );
-        this.setState({ isFetched: true, product });
-      })
-      .catch(() => {
-        console.error("Do nothing!");
-      });
+    this.setState({ isFetched: false }, () => {
+      this.fetchProduct(productId)
+        .then((product) => {
+          console.log("Do something", product);
+          product.allPhotos = product.fields["header photo"].concat(
+            product.fields["Other photos"]
+          );
+          this.setState({ isFetched: true, product });
+        })
+        .catch(() => {
+          this.setState({ isFetched: true });
+          console.error("Do nothing!");
+        });
+    });
   }
 
   componentWillUnmount() {}
