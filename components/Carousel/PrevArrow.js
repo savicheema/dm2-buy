@@ -1,9 +1,13 @@
 import React from "react";
-import "./prev-arrow.module.css";
+import styles from "./prev-arrow.module.css";
 
-const PrevArrow = (props) => {
-  console.log("ARROW PROPS", props);
-  return <div>PrevArrow</div>;
+const PrevArrow = ({ handler }) => {
+  console.log("ARROW PROPS", handler);
+  return (
+    <div className={styles.buttonContainer}>
+      <button onClick={handler} className={styles.prevButton}></button>
+    </div>
+  );
 };
 
 export default PrevArrow;

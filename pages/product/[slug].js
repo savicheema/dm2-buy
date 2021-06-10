@@ -4,10 +4,6 @@ import Head from "next/head";
 import styles from "./product.module.css";
 import homeStyles from "../../styles/Home.module.css";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import Image from "next/image";
-
 import Header from "../../components/Header";
 import { ShareButton } from "../../components/Buttons";
 import PrevArrow from "../../components/Carousel/PrevArrow";
@@ -15,6 +11,7 @@ import NoticeConditions from "../../components/NoticeConditions";
 import SellerCard from "../../components/SellerCard";
 import Footer from "../../components/Footer";
 import LoaderComponent from "../../components/Loader";
+import DM2BuyCarousel from "../../components/Carousel";
 
 class Product extends React.Component {
   render() {
@@ -44,14 +41,8 @@ class Product extends React.Component {
         </Head>
         {/* <Header /> */}
 
-        <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
-          {product.allPhotos &&
-            product.allPhotos.map((photo, index) => {
-              return (
-                <Image src={photo.url} height="425" width="360" key={index} />
-              );
-            })}
-        </Carousel>
+        <DM2BuyCarousel product={product} />
+
         <div className={styles.productHead}>
           <h1 className={styles.productHeading}>{product.fields.Name}</h1>
           <ShareButton />
