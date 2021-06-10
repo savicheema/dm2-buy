@@ -1,9 +1,11 @@
 .emptyStore {
-  width: 100vw;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  margin: 10vh 0;
+  margin: 10vh;
+
+  min-width: 360px;
 }
