@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import ImageButton from "./ImageButton";
 
-class ShareButton extends React.Component {
+class ProductShareButton extends React.Component {
   render() {
     let { isShared } = this.state;
     console.log(" ShareButton STATE", isShared);
@@ -12,7 +12,7 @@ class ShareButton extends React.Component {
     const imageButtonType = isShared ? "disabled" : "raised";
     return (
       <ImageButton type={imageButtonType} action={this.share}>
-        <Image src="/shape.png" width="20" height="20" />
+        <Image src="/shape.png" width="24" height="24" />
       </ImageButton>
     );
   }
@@ -47,4 +47,4 @@ class ShareButton extends React.Component {
   };
 }
 
-export default ShareButton;
+export default ProductShareButton;

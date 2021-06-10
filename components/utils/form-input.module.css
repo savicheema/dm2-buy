@@ -1,7 +1,7 @@
 .formInput {
   width: 100%;
   max-width: 100vw;
-  margin: 24px 0;
+  margin: 18px 0;
 }
 
 .halfInput {
@@ -15,7 +15,7 @@
   border-radius: 8px;
   background-color: #edeff1;
 
-  padding: 22px 3px 23px 24px;
+  padding: 18px 3px 18px 24px;
   min-height: 36px;
 }
 
@@ -24,8 +24,8 @@
   width: 100%;
   margin: 0 31px 0 0;
   border-radius: 8px;
-
-  padding: 22px 3px 23px 24px;
+  padding: 18px 3px 18px 24px;
+  /* padding: 22px 3px 23px 24px; */
   min-height: 36px;
 
   box-shadow: 0 3px 8px 0 #cccccc;
@@ -37,6 +37,7 @@
   justify-content: flex-end;
   margin: 10px 0;
   color: #fe3333;
+  font-size: 12px;
 }
 
 .inputStyle {
@@ -47,11 +48,11 @@
   color: #000000;
   -webkit-appearance: none;
   -moz-appearance: textfield;
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.74px;
   font-family: "Roboto", sans-serif;
 }
 
 .inputStyle::placeholder {
-  color: #70767c;
+  color: #979797;
 }

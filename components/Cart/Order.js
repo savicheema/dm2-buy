@@ -55,7 +55,7 @@ class Order extends React.Component {
         >
           {`Proceed to Pay - ${price}`}
         </button>
-        <NoticeConditions />
+        {/* <NoticeConditions /> */}
       </div>
     );
   }

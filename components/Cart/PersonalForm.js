@@ -10,7 +10,7 @@ class PersonalForm extends React.Component {
 
     return (
       <div className={styles.personalForm}>
-        <FormInput
+        <FormInput  
           type="full"
           placeholder="Full Name"
           errorMessage="We need your name"
@@ -27,13 +27,13 @@ class PersonalForm extends React.Component {
             /([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/
           }
         >
-          <img
+          {/* <img
             src="/instagram.png"
             height="20px"
             width="20"
             alt="icon"
             className={styles.imageDecoration}
-          />
+          /> */}
           <span className={styles.decoration}>@</span>
         </FormInput>
         <FormInput
@@ -48,8 +48,8 @@ class PersonalForm extends React.Component {
         >
           <img
             src="/india.png"
-            height="20px"
-            width="20"
+            height="16px"
+            width="16px"
             alt="icon"
             className={styles.imageDecoration}
           />

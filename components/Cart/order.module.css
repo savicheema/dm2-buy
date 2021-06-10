@@ -15,22 +15,23 @@
 }
 .orderTitle {
   font-family: "Lato", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   width: 100%;
   font-weight: bold;
   letter-spacing: 0.5px;
+  margin: 0;
 }
 .orderTitle > span {
   margin-right: 12px;
 }
 
 .orderList {
-  margin: 48px 45px 40px 48px;
+  margin: 20px 45px 40px 48px;
   width: 100%;
 }
 
 .order {
-  margin-top: 81px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,13 +46,13 @@
   max-width: 304px; */
   width: 100%;
   /* height: 48px; */
-  padding: 18px 0;
-  margin: 0 25px;
-  border-radius: 16px;
+  padding: 28px 0;
+  margin: 0 0 120px 0;
+  border-radius: 8px;
   background-color: #000000;
   color: white;
-  font-size: 22px;
-  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -84,7 +85,7 @@
   margin-left: 23px;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
-  
+
   color: #333333;
 }
 

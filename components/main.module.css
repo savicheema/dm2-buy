@@ -6,7 +6,7 @@
   align-items: center; */
   width: 100vw;
   max-width: var(--max-width);
-  margin-top: 48px;
+  margin-top: 32px;
   margin-bottom: 50px;
   overflow-x: hidden;
 }
@@ -46,8 +46,8 @@
 .socialButtons {
   display: flex;
   justify-content: space-between;
-  width: 80px;
-  margin-top: 16px;
+  width: 70px;
+  margin-top: 12px;
   /* position: relative;
   top: -8px; */
 }
@@ -133,25 +133,27 @@
   color: #8e8e8e;
 }
 .bio {
-  color: #333333;
-  margin-top: 12px;
-  font-size: 18px;
+  color: #656565;
+  margin: 12px 10px 0 10px;
+  font-size: 16px;
   margin-bottom: 0;
   font-weight: normal;
   font-family: "Roboto", sans-serif;
   max-width: 325px;
+  letter-spacing: 0.5px;
+  line-height: 20px;
   text-align: center;
 }
 .bioNone {
   display: none;
 }
 .userName {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   font-family: "Lato", sans-serif;
-  margin: 16px 0 0 0;
+  margin: 12px 0 0 0;
   line-height: normal;
   letter-spacing: normal;
   color: #000000;

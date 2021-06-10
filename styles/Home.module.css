@@ -28,8 +28,8 @@
 }
 
 .profilePic {
-  width: 129px;
-  height: 129px;
+  width: 102px;
+  height: 102px;
   border-radius: 50%;
   object-fit: cover;
 }
