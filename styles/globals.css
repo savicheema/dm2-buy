@@ -51,9 +51,7 @@ body {
 
 .control-dots {
   position: absolute;
-  top: 425px;
-  /* bottom: -44px !important; */
-  /* background-color: black; */
+  top: 412px;
 }
 a {
   color: inherit;
