@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./main.module.css";
 import homeStyles from "../styles/Home.module.css";
 
@@ -12,17 +12,9 @@ import { ShareButton, ImageButton } from "./Buttons";
 import EllipsisText from "react-ellipsis-text";
 
 const Main = ({ store, endLoading }) => {
-  const [mainClass, setMainClass] = useState(styles.main);
-
-  const measureScroll = (e) => {
-    if (e.target.scrollTop > 188) setMainClass(styles.scrollMain);
-    else setMainClass(styles.main);
-  };
-
   return (
     <main
-      className={mainClass}
-      onScroll={measureScroll}
+      className={styles.main}
       style={{
         transition: "max-height 0.2s",
       }}
