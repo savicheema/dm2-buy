@@ -22,8 +22,8 @@ class Order extends React.Component {
             <div className={styles.productDetails}>
               <img
                 src={product.fields["header photo"][0].url}
-                height="80"
-                width="80"
+                height="60"
+                width="60"
                 alt="Order name"
                 className={styles.orderThumbnail}
               />
@@ -53,7 +53,7 @@ class Order extends React.Component {
             if (this.props.checkInputs()) localStorage.removeItem("product");
           }}
         >
-          {`Proceed to Pay - ${price}`}
+          {`Pay - ${price}`}
         </button>
         {/* <NoticeConditions /> */}
       </div>

@@ -23,7 +23,6 @@ export default function Home() {
     fetch(url)
       .then((response) => {
         console.log("STORE RESPONSE", response);
-        setLoading(false);
         return response.json();
       })
       .then((data) => {
@@ -33,6 +32,7 @@ export default function Home() {
       .catch((err) => {
         console.error(err);
         setLoading(false);
+        alert("Error fetching store!");
       });
   };
 
@@ -64,7 +64,12 @@ export default function Home() {
       {/* <Header store={store} /> */}
       {loading && <LoaderComponent />}
 
-      <Main store={store} />
+      <Main
+        store={store}
+        endLoading={() => {
+          setLoading(false);
+        }}
+      />
       <Footer />
     </div>
   );

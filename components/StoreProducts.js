@@ -19,7 +19,7 @@ class StoreProducts extends React.Component {
         )} */}
 
         <div className={styles.storeItems}>
-          {products.length ? (
+          {!!products.length ? (
             products.map((product, index) => {
               return <StoreItem product={product} key={index} />;
             })
@@ -54,12 +54,21 @@ class StoreProducts extends React.Component {
 
       Promise.all(allProductPromises)
         .then((productValues) => {
-          this.setState({
-            products: productValues.filter(this.filterProducts),
-          });
+          this.setState(
+            {
+              products: productValues.filter(this.filterProducts),
+            },
+            () => {
+              let { endLoading } = this.props;
+              endLoading();
+            }
+          );
         })
         .catch((err) => {
           console.error("ALL PRODUCTS REJECT");
+          let { endLoading } = this.props;
+          endLoading();
+          alert("Error Loading store products!");
         });
     });
   };

@@ -11,7 +11,7 @@ import { ShareButton, ImageButton } from "./Buttons";
 // import EllipsisText from "react-lines-ellipsis";
 import EllipsisText from "react-ellipsis-text";
 
-const Main = ({ store }) => {
+const Main = ({ store, endLoading }) => {
   const [mainClass, setMainClass] = useState(styles.main);
 
   const measureScroll = (e) => {
@@ -90,12 +90,12 @@ const Main = ({ store }) => {
             }}
           >
             <Image src="/instagram-4.png" width="20" height="20" />
-          </ImageButton>  
+          </ImageButton>
           <ShareButton />
         </div>
       </div>
 
-      {store.fields && <StoreProducts store={store} />}
+      {store.fields && <StoreProducts store={store} endLoading={endLoading} />}
     </main>
   );
 };

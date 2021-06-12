@@ -49,20 +49,14 @@ class Product extends React.Component {
             {/* <ShareButton /> */}
             <ProductShareButton />
           </div>
-          {/* <div className={styles.price}>
-          {product.fields &&
-            `${String.fromCharCode(0x20b9)}${product.fields.Price}`}
-        </div> */}
-          {product.fields && (
-            <div className={styles.priceContainer}>
-              {String.fromCharCode(0x20b9)}
-              <span className={styles.price}>{product.fields.Price}</span>
-            </div>
-          )}
-          <div className={styles.shipping}>
-            <span>Ships</span>
-            <span className={styles.day}>Tomorrow</span>
-          </div>
+
+          {product.fields && <div className={styles.priceContainer}></div>}
+
+          <p
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: product.fields.description }}
+          ></p>
+
           <div className={styles.callToAction}>
             {product.fields.Status === "for-sale" && (
               <button
@@ -72,29 +66,14 @@ class Product extends React.Component {
                   window.location.href = `/cart/checkout`;
                 }}
               >
-                Buy Now
+                Buy Now{" "}
+                {`${String.fromCharCode(0x20b9)} ${product.fields.Price}`}
               </button>
             )}
             {product.fields.Status !== "for-sale" && (
               <button className={styles.soldOutButton}>Sold Out</button>
             )}
           </div>
-          {/* <div className={styles.shipping}>
-            <span>Ships</span>
-            <span className={styles.day}>Tomorrow</span>
-          </div>
-          <div className={styles.callToAction}>
-            {product.fields.Status === "for-sale" && (
-              <button className={styles.buyNowButton}>Buy Now</button>
-            )}
-            {product.fields.Status !== "for-sale" && (
-              <button className={styles.soldOutButton}>Sold Out</button>
-            )}
-          </div> */}
-          <p
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: product.fields.description }}
-          ></p>
 
           {/* <NoticeConditions /> */}
         </div>
