@@ -23,15 +23,18 @@
 }
 
 .title {
-  font-size: 17px;
-  margin-bottom: 8px;
-  font-weight: normal;
-  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #1c3142;
+  opacity: 80%;
+  font-weight: 400;
+  font-family: Roboto,sans-serif;
   /* min-height: 22px; */
 }
 
 .price {
-  font-size: 17px;
-  font-weight: bold;
-  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c3142;
+  font-family: Roboto,sans-serif;
 }
