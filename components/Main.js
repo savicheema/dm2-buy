@@ -81,7 +81,7 @@ const Main = ({ store, endLoading }) => {
               );
             }}
           >
-            <Image src="/instagram-4.png" width="20" height="20" />
+            <Image src="/instagram-4@2x.png" width="20" height="20" />
           </ImageButton>
           <ShareButton />
         </div>

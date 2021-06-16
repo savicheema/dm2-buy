@@ -27,7 +27,7 @@ class Order extends React.Component {
                 alt="Order name"
                 className={styles.orderThumbnail}
               />
-
+            
               <div className={styles.productName}>{product.fields.Name}</div>
             </div>
             <div className={styles.productPrice}>
