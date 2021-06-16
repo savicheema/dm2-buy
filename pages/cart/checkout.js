@@ -38,7 +38,7 @@ class CartPage extends React.Component {
           />
         </Head>
         <Cart product={storedProduct} />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }

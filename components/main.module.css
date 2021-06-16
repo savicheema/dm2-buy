@@ -7,7 +7,7 @@
   width: 100vw;
   max-width: var(--max-width);
   margin-top: 32px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   overflow-x: hidden;
 }
 

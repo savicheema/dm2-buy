@@ -110,9 +110,10 @@ class Product extends React.Component {
       this.fetchProduct(productId)
         .then((product) => {
           console.log("Do something", product);
-          product.allPhotos = product.fields["header photo"].concat(
-            product.fields["Other photos"]
-          );
+          // product.allPhotos = product.fields["header photo"].concat(
+          //   product.fields["Other photos"]
+          // );
+          product.allPhotos = product.fields["Other photos"];
           this.setState({ isFetched: true, product });
         })
         .catch(() => {
