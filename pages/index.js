@@ -66,7 +66,7 @@ export default function Home() {
           property="og:description"
           content="Check my shop out and bag my latest drop"
         />
-        <meta property="og:image" content="/favicon.ico" />
+        <meta property="og:image:secure" content="/favicon.ico" />
       </Head>
 
       {/* <Header store={store} /> */}
