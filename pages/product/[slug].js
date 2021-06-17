@@ -47,7 +47,7 @@ class Product extends React.Component {
           <div className={styles.productHead}>
             <h1 className={styles.productHeading}>{product.fields.Name}</h1>
             {/* <ShareButton /> */}
-            <ProductShareButton />
+            <ProductShareButton name={product.fields.Name} />
           </div>
 
           {product.fields && <div className={styles.priceContainer}></div>}
