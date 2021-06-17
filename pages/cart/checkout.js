@@ -42,6 +42,7 @@ class CartPage extends React.Component {
             property="og:description"
             content="Check my shop out and bag my latest drop"
           />
+          <meta property="og:image" content="/favicon.ico" />
         </Head>
         <Cart product={storedProduct} />
         <Footer />
