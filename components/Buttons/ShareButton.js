@@ -33,6 +33,7 @@ class ShareButton extends React.Component {
       navigator
         .share({
           url: window.location.href,
+          title: "Kim's Shop",
         })
         .then(() => {
           this.setState({ isShared: true });
