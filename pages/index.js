@@ -43,10 +43,10 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>DM 2 BUY</title>
+        <title>Kim's Shop</title>
         <meta
           name="description"
-          content="Take your side hustle to next level."
+          content="Check my shop out and bag my latest drop"
         />
         <link rel="icon" href="/favicon.ico" />
         <link href="/fonts/fonts.css" rel="stylesheet" />
@@ -59,6 +59,11 @@ export default function Home() {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
         />
+        
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Kim's Shop" />
+        <meta property="og:description" content="Check my shop out and bag my latest drop" />
+        
       </Head>
 
       {/* <Header store={store} /> */}
