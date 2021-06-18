@@ -27,7 +27,7 @@ class Order extends React.Component {
                 alt="Order name"
                 className={styles.orderThumbnail}
               />
-            
+
               <div className={styles.productName}>{product.fields.Name}</div>
             </div>
             <div className={styles.productPrice}>
@@ -53,7 +53,7 @@ class Order extends React.Component {
             if (this.props.checkInputs()) localStorage.removeItem("product");
           }}
         >
-          {`Pay - ${price}`}
+          {`Pay ${String.fromCharCode(0x20b9) + price}`}
         </button>
         {/* <NoticeConditions /> */}
       </div>

@@ -67,8 +67,8 @@ class Product extends React.Component {
                     window.location.href = `/cart/checkout`;
                   }}
                 >
-                  Buy Now{" "}
-                  {`${String.fromCharCode(0x20b9)} ${product.fields.Price}`}
+                  Buy For{" "}
+                  {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
                 </button>
               )}
               {product.fields.Status !== "for-sale" && (
