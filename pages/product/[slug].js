@@ -22,64 +22,65 @@ class Product extends React.Component {
     if (!product) return <LoaderComponent />;
 
     return (
-      <div className={styles.product}>
-        <Head>
-          <title>DM 2 BUY</title>
-          <meta
-            name="description"
-            content="Take your side hustle to next level."
-          />
-          <link rel="icon" href="/favicon.ico" />
-          <link href="/fonts/fonts.css" rel="stylesheet" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
-            rel="stylesheet"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
-          />
-        </Head>
-        {/* <Header /> */}
+      <div className={styles.container}>
+        <div className={styles.product}>
+          <Head>
+            <title>DM 2 BUY</title>
+            <meta
+              name="description"
+              content="Take your side hustle to next level."
+            />
+            <link rel="icon" href="/favicon.ico" />
+            <link href="/fonts/fonts.css" rel="stylesheet" />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
+              rel="stylesheet"
+            />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
+            />
+          </Head>
+          {/* <Header /> */}
 
-        <DM2BuyCarousel product={product} />
-        <div className={styles.productSub}>
-          <div className={styles.productHead}>
-            <h1 className={styles.productHeading}>{product.fields.Name}</h1>
-            {/* <ShareButton /> */}
-            <ProductShareButton name={product.fields.Name} />
+          <DM2BuyCarousel product={product} />
+          <div className={styles.productSub}>
+            <div className={styles.productHead}>
+              <h1 className={styles.productHeading}>{product.fields.Name}</h1>
+              {/* <ShareButton /> */}
+              <ProductShareButton name={product.fields.Name} />
+            </div>
+
+            {product.fields && <div className={styles.priceContainer}></div>}
+
+            <p
+              className={styles.description}
+              dangerouslySetInnerHTML={{ __html: product.fields.description }}
+            ></p>
+
+            <div className={styles.callToAction}>
+              {product.fields.Status === "for-sale" && (
+                <button
+                  className={styles.buyNowButton}
+                  onClick={() => {
+                    this.storeProductToLocalStorage(product);
+                    window.location.href = `/cart/checkout`;
+                  }}
+                >
+                  Buy Now{" "}
+                  {`${String.fromCharCode(0x20b9)} ${product.fields.Price}`}
+                </button>
+              )}
+              {product.fields.Status !== "for-sale" && (
+                <button className={styles.soldOutButton}>Sold Out</button>
+              )}
+            </div>
+
+            {/* <NoticeConditions /> */}
           </div>
+          {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
 
-          {product.fields && <div className={styles.priceContainer}></div>}
-
-          <p
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: product.fields.description }}
-          ></p>
-
-          <div className={styles.callToAction}>
-            {product.fields.Status === "for-sale" && (
-              <button
-                className={styles.buyNowButton}
-                onClick={() => {
-                  this.storeProductToLocalStorage(product);
-                  window.location.href = `/cart/checkout`;
-                }}
-              >
-                Buy Now{" "}
-                {`${String.fromCharCode(0x20b9)} ${product.fields.Price}`}
-              </button>
-            )}
-            {product.fields.Status !== "for-sale" && (
-              <button className={styles.soldOutButton}>Sold Out</button>
-            )}
-          </div>
-
-          {/* <NoticeConditions /> */}
-        </div>
-        {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
-
-        {/* <footer className={homeStyles.footer}>
+          {/* <footer className={homeStyles.footer}>
           <Image src="/instagram.png" width="36" height="36" />
           <div className={homeStyles.footerTagline}>
             <span>Follow us on IG</span>
@@ -87,7 +88,8 @@ class Product extends React.Component {
           </div>
         </footer> */}
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
     );
   }

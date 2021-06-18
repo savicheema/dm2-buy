@@ -7,7 +7,7 @@ import Image from "next/image";
 import Details from "./Details";
 import StoreProducts from "./StoreProducts";
 import { ShareButton, ImageButton } from "./Buttons";
-
+import Footer from "./Footer";
 // import EllipsisText from "react-lines-ellipsis";
 import EllipsisText from "react-ellipsis-text";
 
@@ -88,6 +88,7 @@ const Main = ({ store, endLoading }) => {
       </div>
 
       {store.fields && <StoreProducts store={store} endLoading={endLoading} />}
+      <Footer />
     </main>
   );
 };

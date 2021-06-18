@@ -78,7 +78,6 @@ export default function Home() {
           setLoading(false);
         }}
       />
-      <Footer />
     </div>
   );
 }

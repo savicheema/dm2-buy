@@ -5,6 +5,7 @@ import CartMessage from "./CartMessage";
 import PersonalForm from "./PersonalForm";
 import AddressForm from "./AddressForm";
 import Order from "./Order";
+import Footer from "../Footer";
 
 const Cart = ({ product }) => {
   const personalFormRef = React.createRef();
@@ -37,6 +38,7 @@ const Cart = ({ product }) => {
         }}
         product={product}
       />
+      <Footer />
     </div>
   );
 };
