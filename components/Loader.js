@@ -7,10 +7,10 @@ import Loader from "react-loader-spinner";
 const LoaderComponent = () => (
   <div className={styles.loader}>
     <Loader
-      type="TailSpin"
-      color="#ffffff"
-      height={64}
-      width={64}
+      type="Oval"
+      color="#ccc"
+      height={40}
+      width={40}
       timeout={3000} //3 secs
     />
   </div>
