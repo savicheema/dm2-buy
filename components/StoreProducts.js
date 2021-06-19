@@ -19,9 +19,13 @@ class StoreProducts extends React.Component {
         )} */}
 
         <div className={styles.storeItems}>
-          {products.map((product, index) => {
-            return <StoreItem product={product} key={index} />;
-          })}
+          {!!products.length ? (
+            products.map((product, index) => {
+              return <StoreItem product={product} key={index} />;
+            })
+          ) : (
+            <EmptyStore />
+          )}
         </div>
       </div>
     );

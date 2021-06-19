@@ -8,9 +8,9 @@ const LoaderComponent = () => (
   <div className={styles.loader}>
     <Loader
       type="TailSpin"
-      color="#000000"
-      height={60}
-      width={60}
+      color="#ffffff"
+      height={64}
+      width={64}
       timeout={3000} //3 secs
     />
   </div>

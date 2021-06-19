@@ -5,9 +5,10 @@
   right: 0;
   bottom: 0;
 
-  background-color: #fff;
+  background-color: hsla(225, 10%, 15%, 1);
 
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 }
