@@ -11,7 +11,7 @@ import Footer from "./Footer";
 // import EllipsisText from "react-lines-ellipsis";
 import EllipsisText from "react-ellipsis-text";
 
-const Main = ({ store, endLoading }) => {
+const Main = ({ store, endLoading, loading }) => {
   return (
     <main
       className={styles.main}
@@ -72,22 +72,30 @@ const Main = ({ store, endLoading }) => {
             )}
           </div>
         )}
-        <div className={styles.socialButtons}>
-          <ImageButton
-            type="raised"
-            action={() => {
-              window.open(
-                `https://www.instagram.com/${store.fields.store_instagram_handle}/`
-              );
-            }}
-          >
-            <Image src="/instagram-4@2x.png" width="20" height="20" />
-          </ImageButton>
-          <ShareButton />
-        </div>
+        {!loading && (
+          <div className={styles.socialButtons}>
+            <ImageButton
+              type="raised"
+              action={() => {
+                window.open(
+                  `https://www.instagram.com/${store.fields.store_instagram_handle}/`
+                );
+              }}
+            >
+              <Image src="/instagram-4@2x.png" width="20" height="20" />
+            </ImageButton>
+            <ShareButton />
+          </div>
+        )}
       </div>
 
-      {store.fields && <StoreProducts store={store} endLoading={endLoading} />}
+      {store.fields && (
+        <StoreProducts
+          store={store}
+          endLoading={endLoading}
+          loading={loading}
+        />
+      )}
       <Footer />
     </main>
   );

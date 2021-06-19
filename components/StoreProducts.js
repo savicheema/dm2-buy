@@ -10,6 +10,7 @@ class StoreProducts extends React.Component {
     let { products } = this.state;
     console.log(" StoreProducts STATE", products);
 
+    let { loading } = this.props;
     return (
       <div className={styles.store}>
         {/* {products.length && (
@@ -18,15 +19,17 @@ class StoreProducts extends React.Component {
           >{`${products.length} products listed`}</h2>
         )} */}
 
-        <div className={styles.storeItems}>
-          {!!products.length ? (
-            products.map((product, index) => {
-              return <StoreItem product={product} key={index} />;
-            })
-          ) : (
-            <EmptyStore />
-          )}
-        </div>
+        {!loading && (
+          <div className={styles.storeItems}>
+            {!!products.length ? (
+              products.map((product, index) => {
+                return <StoreItem product={product} key={index} />;
+              })
+            ) : (
+              <EmptyStore />
+            )}
+          </div>
+        )}
       </div>
     );
   }

@@ -73,6 +73,7 @@ export default function Home() {
       {loading && <LoaderComponent />}
       <Main
         store={store}
+        loading={loading}
         endLoading={() => {
           setLoading(false);
         }}
