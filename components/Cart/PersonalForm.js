@@ -56,7 +56,7 @@ class PersonalForm extends React.Component {
           <span className={styles.numberCode}>+91</span>
         </FormInput>
         <FormInput
-          type="email"
+          type="full"
           placeholder="Email ID"
           errorMessage="Tell us your email"
           ref={this.emailInputRef}
