@@ -10,7 +10,7 @@ class PersonalForm extends React.Component {
 
     return (
       <div className={styles.personalForm}>
-        <FormInput  
+        <FormInput
           type="full"
           placeholder="Full Name"
           errorMessage="We need your name"
@@ -55,6 +55,16 @@ class PersonalForm extends React.Component {
           />
           <span className={styles.numberCode}>+91</span>
         </FormInput>
+        <FormInput
+          type="email"
+          placeholder="Email ID"
+          errorMessage="Tell us your email"
+          ref={this.emailInputRef}
+          invalidMessage="Incorrect email"
+          regex={
+            /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+          }
+        />
       </div>
     );
   }
@@ -69,6 +79,7 @@ class PersonalForm extends React.Component {
     this.nameInputRef = React.createRef();
     this.instagramInputRef = React.createRef();
     this.phoneInputRef = React.createRef();
+    this.emailInputRef = React.createRef();
   }
 
   componentDidMount() {}
@@ -78,8 +89,8 @@ class PersonalForm extends React.Component {
     const isNameValid = this.nameInputRef.current.validate();
     const isInstagramValid = this.instagramInputRef.current.validate();
     const isPhoneValid = this.phoneInputRef.current.validate();
-
-    return isNameValid && isInstagramValid && isPhoneValid;
+    const isEmailValid = this.emailInputRef.current.validate();
+    return isNameValid && isInstagramValid && isPhoneValid && isEmailValid;
   };
 
   focus = () => {
