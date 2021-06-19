@@ -6,7 +6,7 @@ const ImageButton = ({ children, type, action }) => {
     <button
       className={styles[type]}
       onClick={action}
-      style={{ minHeight: "20px", minWidth: "20px" }}
+      style={{ minHeight: "20px", minWidth: "20px", display: "block" }}
     >
       {children}
     </button>
