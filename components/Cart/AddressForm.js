@@ -28,6 +28,9 @@ class AddressForm extends React.Component {
             placeholder="Pincode"
             errorMessage="Invalid pin code"
             ref={this.pincodeInputRef}
+            onKeyDown={() => {
+              this.setAddressLoader(true);
+            }}
             onBlur={(pincode) => {
               this.fetchAddress(pincode);
             }}
@@ -37,20 +40,20 @@ class AddressForm extends React.Component {
             placeholder="City"
             errorMessage="City is needed"
             ref={this.cityInputRef}
-            isDisabled={true}
+            userInterface="loaded"
           />
           <FormInput
             type="half"
             placeholder="State"
             errorMessage="State is needed"
             ref={this.stateInputRef}
-            isDisabled={true}
+            userInterface="loaded"
           />
           <FormInput
             type="half"
             value="India"
             placeholder="Country"
-            isDisabled={true}
+            userInterface="loaded"
           />
         </div>
       </div>
@@ -74,6 +77,11 @@ class AddressForm extends React.Component {
   componentDidMount() {}
   componentWillUnmount() {}
 
+  setAddressLoader = (isLoading) => {
+    this.cityInputRef.current.setLoader(isLoading);
+    this.stateInputRef.current.setLoader(isLoading);
+  };
+
   validate = () => {
     const isAddressValid = this.addressInputRef.current.validate();
     const isPincodeValid = this.pincodeInputRef.current.validate();
@@ -95,6 +103,7 @@ class AddressForm extends React.Component {
         if (data[0].Status.toLowerCase().includes("error")) {
           this.pincodeInputRef.current.setValue("");
           this.pincodeInputRef.current.validate();
+
           return;
         }
 
