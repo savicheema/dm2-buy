@@ -82,13 +82,25 @@ class AddressForm extends React.Component {
     this.stateInputRef.current.setLoader(isLoading);
   };
 
-  validate = () => {
-    const isAddressValid = this.addressInputRef.current.validate();
-    const isPincodeValid = this.pincodeInputRef.current.validate();
-    const isCityValid = this.cityInputRef.current.validate();
-    const isStateValid = this.stateInputRef.current.validate();
+  validate = async () => {
+    const allValidations = [
+      this.addressInputRef.current,
+      this.pincodeInputRef.current,
+      this.cityInputRef.current,
+      this.stateInputRef.current,
+    ];
 
-    return isAddressValid && isPincodeValid && isCityValid && isStateValid;
+    let isValid = true;
+    let isFocusAble = true;
+
+    for (let i = 0; i < allValidations.length; i++) {
+      const isInputValid = await allValidations[i].validate(isFocusAble);
+
+      isValid = isInputValid && isValid;
+      if (!isValid) isFocusAble = false;
+    }
+
+    return isValid;
   };
 
   fetchAddress = (pincode) => {

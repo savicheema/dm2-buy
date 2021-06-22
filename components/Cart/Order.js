@@ -49,8 +49,11 @@ class Order extends React.Component {
 
         <button
           className={styles.orderButton}
-          onClick={() => {
-            if (this.props.checkInputs()) localStorage.removeItem("product");
+          onClick={async () => {
+            const isFormValid = await this.props.checkInputs();
+            if (isFormValid) {
+              localStorage.removeItem("product");
+            }
           }}
         >
           {`Pay ${String.fromCharCode(0x20b9) + price}`}

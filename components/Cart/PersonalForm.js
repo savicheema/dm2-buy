@@ -85,12 +85,25 @@ class PersonalForm extends React.Component {
   componentDidMount() {}
   componentWillUnmount() {}
 
-  validate = () => {
-    const isNameValid = this.nameInputRef.current.validate();
-    const isInstagramValid = this.instagramInputRef.current.validate();
-    const isPhoneValid = this.phoneInputRef.current.validate();
-    const isEmailValid = this.emailInputRef.current.validate();
-    return isNameValid && isInstagramValid && isPhoneValid && isEmailValid;
+  validate = async () => {
+    const allValidations = [
+      this.nameInputRef.current,
+      this.instagramInputRef.current,
+      this.phoneInputRef.current,
+      this.emailInputRef.current,
+    ];
+
+    let isValid = true;
+    let isFocusAble = true;
+
+    for (let i = 0; i < allValidations.length; i++) {
+      const isInputValid = await allValidations[i].validate(isFocusAble);
+
+      isValid = isInputValid && isValid;
+      if (!isValid) isFocusAble = false;
+    }
+
+    return isValid;
   };
 
   focus = () => {

@@ -6,7 +6,7 @@ import InputLoader from "./InputLoader";
 class FormInput extends React.Component {
   render() {
     let { isError, inputValue, isFocus, isInvalid, isLoading } = this.state;
-    console.log(" FormInput STATE", isError);
+    console.log(" FormInput STATE", isError, isInvalid);
     const {
       type,
       placeholder,
@@ -70,24 +70,70 @@ class FormInput extends React.Component {
   }
   componentWillUnmount() {}
 
-  validate = () => {
+  validate = (isFocusAble) => {
     let { inputValue, isLoading } = this.state;
     let { regex } = this.props;
 
     if (isLoading) this.setState({ isLoading: false });
 
-    if (!regex && inputValue) return true;
+    return new Promise((resolve) => {
+      const { isValid, type } = this.validateMethod({ regex, inputValue });
+      let { isInvalid, isError } = this.state;
+      if (isValid) {
+        if (isError) {
+          this.setState({ isError: false }, () => {
+            resolve(true);
+          });
+        }
+        if (isInvalid) {
+          this.setState({ isInvalid: false }, () => {
+            resolve(true);
+          });
+        }
+      } else {
+        if (type == "validation") {
+          this.setState({ isInvalid: true }, () => {
+            this.inputRef.current.focus();
+            resolve(false);
+          });
+        }
+        if (type == "error") {
+          this.setState({ isError: true }, () => {
+            if (isFocusAble) this.inputRef.current.focus();
+            resolve(false);
+          });
+        }
+      }
+    });
+  };
+
+  validateMethod = ({ regex, inputValue }) => {
+    if (!regex && inputValue)
+      return {
+        isValid: true,
+        type: "error",
+      };
     else if (inputValue && regex && regex.test(inputValue)) {
-      return true;
+      return {
+        isValid: true,
+        type: "validation",
+      };
     } else if (inputValue && regex && !regex.test(inputValue)) {
       this.setState({ isInvalid: true });
+      return false;
+      return { isValid: false, type: "validation" };
     } else {
       this.setState({ isError: true });
+      return {
+        isValid: false,
+        type: "error",
+      };
     }
   };
 
   onFocus = () => {
-    this.setState({ isFocus: true, isError: false, isInvalid: false });
+    // this.setState({ isFocus: true, isError: false, isInvalid: false });
+    this.setState({ isFocus: true });
   };
 
   onBlur = () => {

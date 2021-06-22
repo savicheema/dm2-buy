@@ -20,21 +20,15 @@ const Cart = ({ product }) => {
       <AddressForm ref={addressFormRef} />
 
       <Order
-        checkInputs={() => {
-          const isPersonalFormValid = personalFormRef.current.validate();
-          const isAddreessFormValid = addressFormRef.current.validate();
+        checkInputs={async () => {
+          const isPersonalFormValid = await personalFormRef.current.validate();
+          alert(`PERSONAL VALID: ${isPersonalFormValid}`);
+          if (!isPersonalFormValid) return isPersonalFormValid;
 
-          if (!isPersonalFormValid) {
-            personalFormRef.current.focus();
-            return false;
-          }
+          const isAddressFormValid = await addressFormRef.current.validate();
+          if (!isAddressFormValid) return isAddressFormValid;
 
-          if (!isAddreessFormValid) {
-            addressFormRef.current.focus();
-            return false;
-          }
-
-          return isPersonalFormValid && isAddreessFormValid;
+          return false;
         }}
         product={product}
       />
