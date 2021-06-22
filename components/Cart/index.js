@@ -22,7 +22,6 @@ const Cart = ({ product }) => {
       <Order
         checkInputs={async () => {
           const isPersonalFormValid = await personalFormRef.current.validate();
-          alert(`PERSONAL VALID: ${isPersonalFormValid}`);
           if (!isPersonalFormValid) return isPersonalFormValid;
 
           const isAddressFormValid = await addressFormRef.current.validate();
