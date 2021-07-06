@@ -1,39 +1,40 @@
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
-
-import Header from "../components/Header";
 import Main from "../components/Main";
-import Footer from "../components/Footer";
 import LoaderComponent from "../components/Loader";
+import { getSubDomainOfPage } from "../services/helper";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Home() {
-  const [store, setStore] = useState({});
+  const [store, setStore] = useLocalStorage("store", {});
   const [loading, setLoading] = useState(false);
+  const [meta, setMeta] = useState({
+    title: "Dm 2 Buy",
+  });
 
-  const fetchStore = () => {
+  const fetchStore = async () => {
     console.log("ENV", process, process.env);
-    const store = "recvPq1aVPifDwUAY";
-
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/airtable/getRecord`
     );
-    url.searchParams.set("store", store);
+    const subdomain = getSubDomainOfPage();
+    url.searchParams.set("subdomain", subdomain);
     setLoading(true);
-    fetch(url)
-      .then((response) => {
-        console.log("STORE RESPONSE", response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log("STORE DATA", data);
-        setStore(data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-        alert("Error fetching store!");
-      });
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Store not found!");
+      }
+      const data = await response.json();
+      console.log("STORE DATA", data);
+      setStore(data);
+      setMeta({ ...meta, title: data.fields.store_name });
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert(err.message);
+    }
   };
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Kim's Shop</title>
+        <title>{meta.title}</title>
         <meta
           name="description"
           content="Check my shop out and bag my latest drop"
@@ -61,7 +62,7 @@ export default function Home() {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Kim's Shop" />
+        <meta property="og:title" content={meta.title} />
         <meta
           property="og:description"
           content="Check my shop out and bag my latest drop"

@@ -84,7 +84,7 @@ const Main = ({ store, endLoading, loading }) => {
             >
               <Image src="/instagram-4@2x.png" width="20" height="20" />
             </ImageButton>
-            <ShareButton />
+            <ShareButton title={store?.fields?.store_name|| 'Dm 2 Buy'} />
           </div>
         )}
       </div>

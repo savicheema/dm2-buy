@@ -19,10 +19,9 @@ class ShareButton extends React.Component {
 
   constructor(props) {
     super(props);
-
+    const { title } = props.title;
     let isShared = false;
-
-    this.state = { isShared };
+    this.state = { isShared, title };
   }
 
   componentDidMount() {}
@@ -33,7 +32,7 @@ class ShareButton extends React.Component {
       navigator
         .share({
           url: window.location.href,
-          title: "Kim's Shop",
+          title: this.state.title | "Dm 2 Buy",
         })
         .then(() => {
           this.setState({ isShared: true });

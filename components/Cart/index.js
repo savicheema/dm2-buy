@@ -7,13 +7,13 @@ import AddressForm from "./AddressForm";
 import Order from "./Order";
 import Footer from "../Footer";
 
-const Cart = ({ product }) => {
+const Cart = ({ product, store }) => {
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
 
   return (
     <div className={styles.cart}>
-      <CartMessage />
+      <CartMessage message={store.fields?.thank_you_note} />
 
       <PersonalForm ref={personalFormRef} />
 

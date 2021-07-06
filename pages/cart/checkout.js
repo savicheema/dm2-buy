@@ -1,70 +1,52 @@
-import React from "react";
-import styles from "./cart-page.module.css";
+import React, { useEffect } from "react";
 import homeStyles from "../../styles/Home.module.css";
-
 import Head from "next/head";
-import Header from "../../components/Header";
 import Cart from "../../components/Cart";
-import Footer from "../../components/Footer";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
-class CartPage extends React.Component {
-  render() {
-    let { storedProduct } = this.state;
-    console.log(" CartPage STATE", storedProduct);
-    if (!storedProduct) return null;
-
-    return (
+export default function CartPage() {
+  const [storedProduct, setStoredProduct] = useLocalStorage("product", null);
+  const [store, setStore] = useLocalStorage('store', {});
+  if (!storedProduct || !store) {
+    return null;
+  }
+  useEffect(() => {
+    if (!storedProduct || !store.fields) {
+      window.location.href = "/404";
+    }
+  }, [])
+  return (
       <div className={homeStyles.container}>
         <Head>
-          <title>Kim's Shop</title>
+          <title>{store.fields.store_name || 'Dm 2 Buy'}</title>
           <meta
-            name="description"
-            content="Check my shop out and bag my latest drop"
+              name="description"
+              content="Check my shop out and bag my latest drop"
           />
           <link rel="icon" href="/favicon.ico" />
           <link href="/fonts/fonts.css" rel="stylesheet" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@900&display=swap"
-            rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@900&display=swap"
+              rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
-            rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
+              rel="stylesheet"
           />
           <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
+              name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
           />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content="Kim's Shop" />
+          <meta property="og:title" content={store?.fields?.store_name || 'Dm 2 Buy'} />
           <meta
-            property="og:description"
-            content="Check my shop out and bag my latest drop"
+              property="og:description"
+              content="Check my shop out and bag my latest drop"
           />
           <meta property="og:image:secure" content="/favicon.ico" />
         </Head>
-        <Cart product={storedProduct} />
+        <Cart product={storedProduct} store={store}/>
       </div>
-    );
-  }
-
-  constructor(props) {
-    super(props);
-
-    let storedProduct = null;
-
-    this.state = { storedProduct };
-  }
-
-  componentDidMount() {
-    const product = JSON.parse(localStorage.getItem("product"));
-    this.setState({ storedProduct: product }, () => {
-      let { storedProduct } = this.state;
-      if (!storedProduct) window.location.href = "/404";
-    });
-  }
-  componentWillUnmount() {}
+  );
 }
-
-export default CartPage;

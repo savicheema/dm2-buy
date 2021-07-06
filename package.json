@@ -9,7 +9,9 @@
     "export": "next build && next export"
   },
   "dependencies": {
+    "airtable": "^0.11.1",
     "next": "10.2.0",
+    "prettier": "^2.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-ellipsis-text": "^1.2.1",
