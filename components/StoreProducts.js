@@ -6,34 +6,6 @@ import EmptyStore from "./EmptyStore";
 import StoreItem from "./StoreItem";
 
 class StoreProducts extends React.Component {
-  render() {
-    let { products } = this.state;
-    console.log(" StoreProducts STATE", products);
-
-    let { loading } = this.props;
-    return (
-      <div className={styles.store}>
-        {/* {products.length && (
-          <h2
-            className={styles.storeHeading}
-          >{`${products.length} products listed`}</h2>
-        )} */}
-
-        {!loading && (
-          <div className={styles.storeItems}>
-            {!!products.length ? (
-              products.map((product, index) => {
-                return <StoreItem product={product} key={index} />;
-              })
-            ) : (
-              <EmptyStore />
-            )}
-          </div>
-        )}
-      </div>
-    );
-  }
-
   constructor(props) {
     super(props);
 
@@ -45,7 +17,12 @@ class StoreProducts extends React.Component {
   componentDidMount() {
     let { store } = this.props;
 
-    if (store.fields.Products) this.fetchAllProducts(store.fields.Products);
+    if (store.fields.hasOwnProperty("Products")) {
+      this.fetchAllProducts(store.fields.Products);
+    } else {
+      const { endLoading } = this.props;
+      endLoading();
+    }
   }
   componentWillUnmount() {}
 
@@ -97,6 +74,36 @@ class StoreProducts extends React.Component {
         });
     });
   };
+
+  render() {
+    let { products } = this.state;
+    console.log(" StoreProducts STATE", products);
+
+    let { loading } = this.props;
+
+    console.log({props: this.props, loading})
+    return (
+      <div className={styles.store}>
+        {/* {products.length && (
+          <h2
+            className={styles.storeHeading}
+          >{`${products.length} products listed`}</h2>
+        )} */}
+
+        {!loading && (
+          <div className={styles.storeItems}>
+            {products.length > 0 ? (
+              products.map((product, index) => {
+                return <StoreItem product={product} key={index} />;
+              })
+            ) : (
+              <EmptyStore />
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
 export default StoreProducts;

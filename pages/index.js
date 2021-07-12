@@ -14,7 +14,6 @@ export default function Home() {
   });
 
   const fetchStore = async () => {
-    console.log("ENV", process, process.env);
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/airtable/getRecord`
     );
@@ -27,7 +26,6 @@ export default function Home() {
         throw new Error("Store not found!");
       }
       const data = await response.json();
-      console.log("STORE DATA", data);
       setStore(data);
       setMeta({ ...meta, title: data.fields.store_name });
     } catch (err) {
@@ -38,7 +36,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchStore();
+    fetchStore()
+      .catch((e) => {
+        console.log("error in index fetch", { e });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (

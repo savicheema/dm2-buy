@@ -1,5 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { withSentry } from '@sentry/nextjs'
 
-export default (req, res) => {
+async function handler(req, res) {
+  throw new Error('catch')
   res.status(200).json({ name: 'John Doe' })
 }
+
+export default withSentry(handler)

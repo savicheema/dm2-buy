@@ -1,4 +1,6 @@
-export default async (req, res) => {
+import { withSentry } from "@sentry/nextjs";
+
+async function getProduct(req, res) {
   try {
     const response = await fetch(
       `https://api.airtable.com/v0/appgXTWF83485iHfy/Products/${req.query.product}`,
@@ -15,4 +17,6 @@ export default async (req, res) => {
     console.error("GET PRODUCT ERROR", err);
     res.status(400).text(err);
   }
-};
+}
+
+export default withSentry(getProduct);

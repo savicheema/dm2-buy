@@ -8,7 +8,6 @@ import Details from "./Details";
 import StoreProducts from "./StoreProducts";
 import { ShareButton, ImageButton } from "./Buttons";
 import Footer from "./Footer";
-// import EllipsisText from "react-lines-ellipsis";
 import EllipsisText from "react-ellipsis-text";
 
 const Main = ({ store, endLoading, loading }) => {
@@ -48,7 +47,7 @@ const Main = ({ store, endLoading, loading }) => {
             <h2 className={styles.userName}>
               <EllipsisText
                 text={store.fields.store_name}
-                length="20"
+                length={20}
                 tail="..."
               />
             </h2>
