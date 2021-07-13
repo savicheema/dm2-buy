@@ -1,7 +1,4 @@
-import constants from "../../../constants";
-import { Sentry } from "../../../services/helper"
-
-const { baseId } = constants.airtable;
+import { Sentry, airtableBaseId as baseId  } from "../../../services/helper"
 
 async function getProduct(req, res) {
   try {
