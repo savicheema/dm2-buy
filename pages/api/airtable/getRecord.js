@@ -1,8 +1,6 @@
 import { getRecordBySubdomain } from "../../../services/backend/airtable";
-import constants from "../../../constants";
-import { Sentry } from "../../../services/helper"
+import { Sentry, airtableBaseId as baseId  } from "../../../services/helper"
 
-const { baseId } = constants.airtable;
 async function getRecord(req, res) {
   try {
     const recordMeta = await getRecordBySubdomain(req.query.subdomain);

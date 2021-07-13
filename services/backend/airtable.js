@@ -1,11 +1,11 @@
-import constants from "../../constants";
 import Airtable from "airtable";
+import { airtableBaseId as baseId  } from "../helper"
 
 Airtable.configure({
     apiKey: process.env.AIRTABLE_KEY
 });
 
-const base = Airtable.base(constants.airtable.baseId);
+const base = Airtable.base(baseId);
 
 function getRecordBySubdomain(subdomain) {
     return new Promise((resolve, reject) => {
