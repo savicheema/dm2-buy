@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./main.module.css";
 import homeStyles from "../styles/Home.module.css";
-
 import Image from "next/image";
-
-import Details from "./Details";
 import StoreProducts from "./StoreProducts";
 import { ShareButton, ImageButton } from "./Buttons";
 import Footer from "./Footer";
@@ -26,19 +23,6 @@ const Main = ({ store, endLoading, loading }) => {
               alt="profile-pic"
               className={homeStyles.profilePic}
             />
-            {/* <div className={styles.socialButtons}>
-              <ImageButton
-                type="raised"
-                action={() => {
-                  window.open(
-                    `https://www.instagram.com/${store.fields.store_instagram_handle}/`
-                  );
-                }}
-              >
-                <Image src="/instagram.png" width="24" height="24" />
-              </ImageButton>
-              <ShareButton />
-            </div> */}
           </div>
         )}
 
@@ -51,27 +35,12 @@ const Main = ({ store, endLoading, loading }) => {
                 tail="..."
               />
             </h2>
-            {/* <div className={styles.instagramHandle}>
-              {`@${store.fields.store_instagram_handle}`}`
-            </div> */}
-
-            {/* <Details
-              summary={
-                <EllipsisText
-                  text={store.fields.store_bio}
-                  length="35"
-                  tail="..."
-                />
-              }
-            >
-              {store.fields.store_bio}
-            </Details> */}
             {store.fields.store_bio.trim() != "" && (
               <p className={styles.bio}>{store.fields.store_bio}</p>
             )}
           </div>
         )}
-        {!loading && (
+        {store.fields && (
           <div className={styles.socialButtons}>
             <ImageButton
               type="raised"
