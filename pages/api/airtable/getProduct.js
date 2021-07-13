@@ -1,9 +1,12 @@
-import { withSentry } from "@sentry/nextjs";
+import constants from "../../../constants";
+import { Sentry } from "../../../services/helper"
+
+const { baseId } = constants.airtable;
 
 async function getProduct(req, res) {
   try {
     const response = await fetch(
-      `https://api.airtable.com/v0/appgXTWF83485iHfy/Products/${req.query.product}`,
+      `https://api.airtable.com/v0/${baseId}/Products/${req.query.product}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.AIRTABLE_KEY}`,
@@ -19,4 +22,4 @@ async function getProduct(req, res) {
   }
 }
 
-export default withSentry(getProduct);
+export default Sentry.withSentry(getProduct);

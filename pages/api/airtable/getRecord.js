@@ -1,6 +1,6 @@
 import { getRecordBySubdomain } from "../../../services/backend/airtable";
 import constants from "../../../constants";
-import {withSentry} from "@sentry/nextjs";
+import { Sentry } from "../../../services/helper"
 
 const { baseId } = constants.airtable;
 async function getRecord(req, res) {
@@ -27,4 +27,4 @@ async function getRecord(req, res) {
   }
 }
 
-export default withSentry(getRecord);
+export default Sentry.withSentry(getRecord);
