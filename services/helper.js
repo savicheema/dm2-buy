@@ -22,8 +22,8 @@ const getSubDomainOfPage = () => {
 };
 
 const airtableBaseId =
-  process.env.NODE_ENV == "development"
-    ? constants.airtable.dev.baseId
-    : constants.airtable.prod.baseId;
+  process.env.NODE_ENV == "production"
+    ? constants.airtable.prod.baseId
+    : constants.airtable.dev.baseId;
 
 export { getSubDomainOfPage, Sentry, airtableBaseId };
