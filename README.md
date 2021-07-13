@@ -63,6 +63,12 @@ git push origin <branch name>
 
 6. Notify peer developers about the merge conflicts
 
+## deployment workflow
+  - all feature branches to be created with the issue id
+  - once feature development is done, all PR to be raised on dev branch
+  - the testing of the feature is done on dev branch, and all bug fixes are to be done here.
+  - Once the feature is fully tested and ready to go we will merge the dev branch to main for final feature deployment
+
 ## Business Rules
 
 public website for dm2buy.com where buyers can buy products from sellers
