@@ -77,8 +77,10 @@ class FormInput extends React.Component {
     if (isLoading) this.setState({ isLoading: false });
 
     return new Promise((resolve) => {
-      const { isValid, type } = this.validateMethod({ regex, inputValue });
-      let { isInvalid, isError } = this.state;
+      const { isValid, type, isInvalid, isError } = this.validateMethod({
+        regex,
+        inputValue
+      });
       if (isValid) {
         if (isError) {
           this.setState({ isError: false }, () => {
@@ -91,19 +93,23 @@ class FormInput extends React.Component {
           });
         }
       } else {
-        if (type == "validation") {
-          this.setState({ isInvalid: true }, () => {
+        if (type == 'validation') {
+          this.setState({ isInvalid: true, isError }, () => {
             this.inputRef.current.focus();
             resolve(false);
           });
+          return;
         }
-        if (type == "error") {
-          this.setState({ isError: true }, () => {
+        if (type == 'error') {
+          this.setState({ isError: true, isInvalid }, () => {
             if (isFocusAble) this.inputRef.current.focus();
             resolve(false);
           });
+          return;
         }
       }
+      this.setState({ isError: false, isInvalid: false });
+      resolve(true);
     });
   };
 
@@ -111,22 +117,36 @@ class FormInput extends React.Component {
     if (!regex && inputValue)
       return {
         isValid: true,
-        type: "error",
+        isError: false,
+        isInvalid: false
       };
-    else if (inputValue && regex && regex.test(inputValue)) {
-      return {
-        isValid: true,
-        type: "validation",
-      };
-    } else if (inputValue && regex && !regex.test(inputValue)) {
-      this.setState({ isInvalid: true });
-      return false;
-      return { isValid: false, type: "validation" };
-    } else {
-      this.setState({ isError: true });
+    else if (!inputValue) {
       return {
         isValid: false,
-        type: "error",
+        isError: true,
+        isInvalid: false,
+        type: 'error'
+      };
+    } else if (inputValue && regex && regex.test(inputValue)) {
+      return {
+        isValid: true,
+        type: 'validation',
+        isError: false,
+        isInvalid: false
+      };
+    } else if (inputValue && regex && !regex.test(inputValue)) {
+      return {
+        isValid: false,
+        type: 'validation',
+        isInvalid: true,
+        isError: false
+      };
+    } else {
+      return {
+        isValid: false,
+        type: 'error',
+        isError: true,
+        isInvalid: true
       };
     }
   };
