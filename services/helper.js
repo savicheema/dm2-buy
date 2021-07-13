@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/nextjs";
-import constants from "../constants";
 
 const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -21,9 +20,6 @@ const getSubDomainOfPage = () => {
   return splitHost[0] == "localhost:3000" ? "fxnoob" : splitHost[0];
 };
 
-const airtableBaseId =
-  process.env.NODE_ENV == "production"
-    ? constants.airtable.prod.baseId
-    : constants.airtable.dev.baseId;
+const airtableBaseId = process.env.AIRTABLE_BASE_ID
 
 export { getSubDomainOfPage, Sentry, airtableBaseId };
