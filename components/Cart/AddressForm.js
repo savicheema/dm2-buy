@@ -14,6 +14,7 @@ class AddressForm extends React.Component {
           <span className={styles.homeIcon}>🏠</span> Shipping Address
         </h2>
         <FormInput
+          textArea
           type="full"
           placeholder="Address with Landmark"
           errorMessage="Give us an address"
