@@ -9,10 +9,10 @@ const constants = {
   },
   endpoints: {
     dev: {
-      url : 'https://ec2-15-206-157-252.ap-south-1.compute.amazonaws.com'
+      url : 'https://api.dm2buy.com'
     },
     prod: {
-      url : 'https://ec2-15-206-157-252.ap-south-1.compute.amazonaws.com'
+      url : 'https://api.dm2buy.com'
     }
   }
 };
