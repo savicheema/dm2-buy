@@ -14,13 +14,14 @@ class AddressForm extends React.Component {
           <span className={styles.homeIcon}>🏠</span> Shipping Address
         </h2>
         <FormInput
+          saveInLocalStorage={true}
           textArea
+          name="address_line_1"
           type="full"
           placeholder="Address with Landmark"
           errorMessage="Give us an address"
           ref={this.addressInputRef}
           maxLength={70}
-          name
         />
 
         <div className={styles.addressGrid}>
@@ -37,6 +38,8 @@ class AddressForm extends React.Component {
             }}
           />
           <FormInput
+            saveInLocalStorage={true}
+            name="city"
             type="half"
             placeholder="City"
             errorMessage="City is needed"
@@ -44,6 +47,8 @@ class AddressForm extends React.Component {
             userInterface="loaded"
           />
           <FormInput
+            saveInLocalStorage={true}
+            name="state"
             type="half"
             placeholder="State"
             errorMessage="State is needed"
@@ -51,6 +56,7 @@ class AddressForm extends React.Component {
             userInterface="loaded"
           />
           <FormInput
+            name="country"
             type="half"
             value="India"
             placeholder="Country"
@@ -88,7 +94,7 @@ class AddressForm extends React.Component {
       address_line_1: this.addressInputRef.current.state.inputValue,
       pincode: this.pincodeInputRef.current.state.inputValue,
       city: this.cityInputRef.current.state.inputValue,
-      state: this.stateInputRef.current.state.inputValue
+      state: this.stateInputRef.current.state.inputValue,
     };
   };
 

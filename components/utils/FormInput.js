@@ -18,6 +18,8 @@ class FormInput extends React.Component {
       userInterface,
       onKeyDown,
       textArea,
+      name,
+      saveInLocalStorage,
     } = this.props;
 
     const formInputClass =
@@ -34,6 +36,8 @@ class FormInput extends React.Component {
           {!isLoading &&
             (textArea ? (
               <textarea
+                name={name}
+                autoComplete="on"
                 className={styles.inputStyle}
                 placeholder={placeholder}
                 value={inputValue}
@@ -47,6 +51,8 @@ class FormInput extends React.Component {
               />
             ) : (
               <input
+                name={name}
+                autoComplete="on"
                 className={styles.inputStyle}
                 placeholder={placeholder}
                 value={inputValue}
@@ -79,9 +85,12 @@ class FormInput extends React.Component {
   }
 
   componentDidMount() {
-    let { value } = this.props;
-
-    this.setState({ inputValue: value });
+    let { value, name } = this.props;
+    let localValue = "";
+    if (name) {
+      localValue = window.localStorage.getItem(name);
+    }
+    this.setState({ inputValue: value || localValue || "" });
   }
   componentWillUnmount() {}
 
@@ -187,7 +196,11 @@ class FormInput extends React.Component {
   };
 
   onChange = (e) => {
+    const { saveInLocalStorage, name } = this.props;
     this.setState({ inputValue: e.target.value });
+    if (saveInLocalStorage && name) {
+      window.localStorage.setItem(name, e.target.value);
+    }
   };
 
   setValue = (value) => {
