@@ -9,7 +9,8 @@ class Order extends React.Component {
     let { product } = this.props;
 
     const price = product.fields.Price + 100;
-    // console.log(" Order STATE", isFetched, product);
+    const paymentProcessingFee = Number((price * 0.02).toFixed(2));
+    const priceWithPaymentProcessingFee = price + paymentProcessingFee;
 
     return (
       <div className={styles.order}>
@@ -45,6 +46,17 @@ class Order extends React.Component {
               {`${String.fromCharCode(0x20b9)}100`}
             </div>
           </div>
+
+          <div className={styles.orderItem}>
+            <div className={styles.productDetails}>
+              <span className={styles.shippingEmoji}>💳</span>
+
+              <div className={styles.productName}>Payment Processing Fee</div>
+            </div>
+            <div className={styles.productPrice}>
+              {`${String.fromCharCode(0x20b9)}${paymentProcessingFee}`}
+            </div>
+          </div>
         </div>
 
         <button
@@ -56,7 +68,7 @@ class Order extends React.Component {
             }
           }}
         >
-          {`Pay ${String.fromCharCode(0x20b9) + price}`}
+          {`Pay ${String.fromCharCode(0x20b9) + priceWithPaymentProcessingFee}`}
         </button>
         {/* <NoticeConditions /> */}
       </div>

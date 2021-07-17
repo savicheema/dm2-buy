@@ -17,6 +17,9 @@ class FormInput extends React.Component {
       invalidMessage,
       userInterface,
       onKeyDown,
+      textArea,
+      name,
+      saveInLocalStorage,
     } = this.props;
 
     const formInputClass =
@@ -30,21 +33,39 @@ class FormInput extends React.Component {
         <div className={inputClass}>
           {this.props.children}
           {userInterface === "loaded" && isLoading && <InputLoader />}
-          {!isLoading && (
-            <input
-              className={styles.inputStyle}
-              placeholder={placeholder}
-              value={inputValue}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              maxLength={maxLength}
-              disabled={userInterface === "loaded" || isDisabled}
-              type={inputType}
-              onChange={this.onChange}
-              ref={this.inputRef}
-              onKeyDown={onKeyDown}
-            />
-          )}
+          {!isLoading &&
+            (textArea ? (
+              <textarea
+                name={name}
+                autoComplete="on"
+                className={styles.inputStyle}
+                placeholder={placeholder}
+                value={inputValue}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                maxLength={maxLength}
+                disabled={userInterface === "loaded" || isDisabled}
+                onChange={this.onChange}
+                ref={this.inputRef}
+                onKeyDown={onKeyDown}
+              />
+            ) : (
+              <input
+                name={name}
+                autoComplete="on"
+                className={styles.inputStyle}
+                placeholder={placeholder}
+                value={inputValue}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                maxLength={maxLength}
+                disabled={userInterface === "loaded" || isDisabled}
+                type={inputType}
+                onChange={this.onChange}
+                ref={this.inputRef}
+                onKeyDown={onKeyDown}
+              />
+            ))}
         </div>
       </div>
     );
@@ -64,9 +85,12 @@ class FormInput extends React.Component {
   }
 
   componentDidMount() {
-    let { value } = this.props;
-
-    this.setState({ inputValue: value });
+    let { value, name } = this.props;
+    let localValue = "";
+    if (name) {
+      localValue = window.localStorage.getItem(name);
+    }
+    this.setState({ inputValue: value || localValue || "" });
   }
   componentWillUnmount() {}
 
@@ -77,8 +101,10 @@ class FormInput extends React.Component {
     if (isLoading) this.setState({ isLoading: false });
 
     return new Promise((resolve) => {
-      const { isValid, type } = this.validateMethod({ regex, inputValue });
-      let { isInvalid, isError } = this.state;
+      const { isValid, type, isInvalid, isError } = this.validateMethod({
+        regex,
+        inputValue,
+      });
       if (isValid) {
         if (isError) {
           this.setState({ isError: false }, () => {
@@ -92,18 +118,22 @@ class FormInput extends React.Component {
         }
       } else {
         if (type == "validation") {
-          this.setState({ isInvalid: true }, () => {
+          this.setState({ isInvalid: true, isError }, () => {
             this.inputRef.current.focus();
             resolve(false);
           });
+          return;
         }
         if (type == "error") {
-          this.setState({ isError: true }, () => {
+          this.setState({ isError: true, isInvalid }, () => {
             if (isFocusAble) this.inputRef.current.focus();
             resolve(false);
           });
+          return;
         }
       }
+      this.setState({ isError: false, isInvalid: false });
+      resolve(true);
     });
   };
 
@@ -111,22 +141,36 @@ class FormInput extends React.Component {
     if (!regex && inputValue)
       return {
         isValid: true,
+        isError: false,
+        isInvalid: false,
+      };
+    else if (!inputValue) {
+      return {
+        isValid: false,
+        isError: true,
+        isInvalid: false,
         type: "error",
       };
-    else if (inputValue && regex && regex.test(inputValue)) {
+    } else if (inputValue && regex && regex.test(inputValue)) {
       return {
         isValid: true,
         type: "validation",
+        isError: false,
+        isInvalid: false,
       };
     } else if (inputValue && regex && !regex.test(inputValue)) {
-      this.setState({ isInvalid: true });
-      return false;
-      return { isValid: false, type: "validation" };
+      return {
+        isValid: false,
+        type: "validation",
+        isInvalid: true,
+        isError: false,
+      };
     } else {
-      this.setState({ isError: true });
       return {
         isValid: false,
         type: "error",
+        isError: true,
+        isInvalid: true,
       };
     }
   };
@@ -152,7 +196,11 @@ class FormInput extends React.Component {
   };
 
   onChange = (e) => {
+    const { saveInLocalStorage, name } = this.props;
     this.setState({ inputValue: e.target.value });
+    if (saveInLocalStorage && name) {
+      window.localStorage.setItem(name, e.target.value);
+    }
   };
 
   setValue = (value) => {

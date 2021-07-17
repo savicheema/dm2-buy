@@ -11,6 +11,8 @@ class PersonalForm extends React.Component {
     return (
       <div className={styles.personalForm}>
         <FormInput
+          name="full_name"
+          saveInLocalStorage={true}
           type="full"
           placeholder="Full Name"
           errorMessage="We need your name"
@@ -18,6 +20,8 @@ class PersonalForm extends React.Component {
           maxLength={50}
         />
         <FormInput
+          name="insta_handle"
+          saveInLocalStorage={true}
           type="full"
           placeholder="Your Instagram"
           errorMessage="Need your instagram"
@@ -37,6 +41,8 @@ class PersonalForm extends React.Component {
           <span className={styles.decoration}>@</span>
         </FormInput>
         <FormInput
+          name="phone_number"
+          saveInLocalStorage={true}
           type="full"
           placeholder="Phone"
           errorMessage="A number is needed"
@@ -56,6 +62,8 @@ class PersonalForm extends React.Component {
           <span className={styles.numberCode}>+91</span>
         </FormInput>
         <FormInput
+          name="email_id"
+          saveInLocalStorage={true}
           type="full"
           placeholder="Email ID"
           errorMessage="Tell us your email"
@@ -104,6 +112,15 @@ class PersonalForm extends React.Component {
     }
 
     return isValid;
+  };
+
+  getValues = () => {
+    return {
+      name: this.nameInputRef.current.state.inputValue,
+      instagram: this.instagramInputRef.current.state.inputValue,
+      phone: this.phoneInputRef.current.state.inputValue,
+      email: this.emailInputRef.current.state.inputValue,
+    };
   };
 
   focus = () => {
