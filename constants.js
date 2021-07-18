@@ -9,10 +9,10 @@ const constants = {
   },
   endpoints: {
     dev: {
-      url : 'http://dev.api.dm2buy.com/'
+      url : 'http://dev.api.dm2buy.com'
     },
     prod: {
-      url : 'https://api.dm2buy.com/'
+      url : 'https://api.dm2buy.com'
     }
   }
 };
