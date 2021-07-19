@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import homeStyles from "../../styles/Home.module.css";
 import orderStyles from "./order.module.css";
-import { serverEndpoint } from "../../services/helper";
+
+export async function getServerSideProps(context) {
+  console.log({context})
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
 
 export default function Order(props) {
   const [status, setStatus] = useState("");

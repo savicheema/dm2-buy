@@ -23,10 +23,7 @@ const getSubDomainOfPage = () => {
 
 const airtableBaseId = process.env.AIRTABLE_BASE_ID;
 
-const serverEndpoint =
-    process.env.NODE_ENV == "production"
-        ? constants.endpoints.prod.url
-        : constants.endpoints.dev.url;
+const serverEndpoint = process.env.SERVER_ENDPOINT;
 
 const guid = () => {
   var result, i, j;

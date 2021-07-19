@@ -6,7 +6,7 @@ import PersonalForm from "./PersonalForm";
 import AddressForm from "./AddressForm";
 import Order from "./Order";
 import Footer from "../Footer";
-import { guid } from "../../services/helper";
+import { guid, getSubDomainOfPage } from "../../services/helper";
 
 // const url = `${serverEndpoint}/order/`;
 
@@ -23,6 +23,7 @@ const Cart = ({ product, store }) => {
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
+        name: getSubDomainOfPage(),
         seller_id: product?.fields?.Stores[0],
       },
       products: [
