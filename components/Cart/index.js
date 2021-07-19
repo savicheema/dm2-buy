@@ -14,7 +14,7 @@ const Cart = ({ product, store }) => {
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
   const initiatePayment = async () => {
-    const price = product.fields.Price + 100;
+    const price = product.fields.Price + 0;//making fee 0 for testing
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
     const priceWithPaymentProcessingFee = price + paymentProcessingFee;
     const bodyData = {

@@ -43,7 +43,7 @@ class Order extends React.Component {
               <div className={styles.productName}>Regular Delivery</div>
             </div>
             <div className={styles.productPrice}>
-              {`${String.fromCharCode(0x20b9)}100`}
+              {`${String.fromCharCode(0x20b9)}0`}
             </div>
           </div>
 
