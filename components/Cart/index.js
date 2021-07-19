@@ -6,9 +6,9 @@ import PersonalForm from "./PersonalForm";
 import AddressForm from "./AddressForm";
 import Order from "./Order";
 import Footer from "../Footer";
-import { serverEndpoint } from "../../services/helper";
+import { guid } from "../../services/helper";
 
-const url = `${serverEndpoint}/order/`;
+// const url = `${serverEndpoint}/order/`;
 
 const Cart = ({ product, store }) => {
   const personalFormRef = React.createRef();
@@ -18,7 +18,7 @@ const Cart = ({ product, store }) => {
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
     const priceWithPaymentProcessingFee = price + paymentProcessingFee;
     const bodyData = {
-      userId: "randomid",
+      userId: guid(),
       order_total: priceWithPaymentProcessingFee,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
@@ -33,6 +33,9 @@ const Cart = ({ product, store }) => {
       ],
     };
     console.log(bodyData, "sss");
+    const url = new URL(
+      `${window.location.protocol}//${window.location.host}/api/order/create`
+    );
     const fetchData = await fetch(url, {
       method: "POST",
       headers: {
@@ -57,6 +60,7 @@ const Cart = ({ product, store }) => {
       "height=600,width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, directories=no, status=no"
     );
     popup.onclose = () => {
+      alert("popup closed");
       console.log("Pop up close");
     };
   };
