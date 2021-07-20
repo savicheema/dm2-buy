@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import orderStyles from "./order.module.css";
 
 export async function getServerSideProps(context) {
-  console.log({context})
+  const { query } = context;
+  console.log({ context });
   return {
-    props: {}, // will be passed to the page component as props
-  }
+    props: { orderId: query.orderId }, // will be passed to the page component as props
+  };
 }
 
 export default function Order(props) {
   const [status, setStatus] = useState("");
   const [retryLink, setRetryLink] = useState("");
-  const router = useRouter();
-  const { orderId } = router.query;
+  const { orderId } = props;
   const init = async () => {
     const endpoint = new URL(
       `${window.location.protocol}//${window.location.host}/api/order/order?orderId=${orderId}`
@@ -32,7 +31,7 @@ export default function Order(props) {
   };
   useEffect(() => {
     init();
-  }, [orderId]);
+  }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,

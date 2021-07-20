@@ -1,4 +1,5 @@
 const constants = {
+  regularDeliveryFee: 0,
   airtable: {
     dev: {
       baseId: "appohXo9XXC3epd3G",

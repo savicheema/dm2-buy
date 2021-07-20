@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./order.module.css";
-
+import constants from "../../constants"
 import NoticeConditions from "../NoticeConditions";
 
 class Order extends React.Component {
@@ -8,7 +8,7 @@ class Order extends React.Component {
     // let { isFetched } = this.state;
     let { product } = this.props;
 
-    const price = product.fields.Price + 100;
+    const price = product.fields.Price + constants.regularDeliveryFee;
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
     const priceWithPaymentProcessingFee = price + paymentProcessingFee;
 
@@ -43,7 +43,7 @@ class Order extends React.Component {
               <div className={styles.productName}>Regular Delivery</div>
             </div>
             <div className={styles.productPrice}>
-              {`${String.fromCharCode(0x20b9)}0`}
+              {`${String.fromCharCode(0x20b9)}${constants.regularDeliveryFee}`}
             </div>
           </div>
 
