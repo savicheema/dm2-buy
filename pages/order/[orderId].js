@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import orderStyles from "./order.module.css";
+import Head from "next/head";
+import LoaderComponent from "../../components/Loader";
 
 export async function getServerSideProps(context) {
   const { query } = context;
@@ -10,8 +12,12 @@ export async function getServerSideProps(context) {
 }
 
 export default function Order(props) {
+  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [retryLink, setRetryLink] = useState("");
+  const [meta, setMeta] = useState({
+    title: "Dm 2 Buy",
+  });
   const { orderId } = props;
   const init = async () => {
     const endpoint = new URL(
@@ -28,9 +34,11 @@ export default function Order(props) {
       alert("something went wrong!");
       console.log({ e });
     }
+    setLoading(false);
   };
   useEffect(() => {
-    init();
+    setLoading(true);
+    setTimeout(init, 5000);
   }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
@@ -47,6 +55,33 @@ export default function Order(props) {
   };
   return (
     <div className={orderStyles.container}>
+      <Head>
+        <title>{meta.title}</title>
+        <meta
+            name="description"
+            content="Check my shop out and bag my latest drop"
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <link href="/fonts/fonts.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={meta.title} />
+        <meta
+            property="og:description"
+            content="Check my shop out and bag my latest drop"
+        />
+        <meta property="og:image:secure" content="/favicon.ico" />
+      </Head>
+      {loading && <LoaderComponent />}
       <div className={orderStyles.containerChild}>
         {status == "complete" && (
           <div className={orderStyles.containerChildPadding}>
