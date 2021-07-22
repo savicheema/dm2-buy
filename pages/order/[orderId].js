@@ -38,7 +38,9 @@ export default function Order(props) {
   };
   useEffect(() => {
     setLoading(true);
-    setTimeout(init, 5000);
+    init().finally(() => {
+      setLoading(false);
+    });
   }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
