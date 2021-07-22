@@ -43,10 +43,37 @@
 }
 
 .notFound {
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.notFoundMessage {
+  margin: 18.5px 19px 11px;
+  font-family: Lato;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+}
+
+.notFoundHeadHome {
+  margin: 11px 55px 175.5px 55.5px;
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0.42px;
+  text-align: center;
+  color: #1c3142;
+  text-decoration: underline;
 }
 
 .link {
