@@ -14,15 +14,17 @@ const Cart = ({ product, store }) => {
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
   const initiatePayment = async () => {
-    const price = product.fields.Price + 0;//making fee 0 for testing
+    const price = product.fields.Price + 0; //making fee 0 for testing
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
     const priceWithPaymentProcessingFee = price + paymentProcessingFee;
+    console.log({store});
     const bodyData = {
       userId: guid(),
       order_total: priceWithPaymentProcessingFee,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
+        phone: store?.fields?.phone,
         name: getSubDomainOfPage(),
         seller_id: product?.fields?.Stores[0],
       },
