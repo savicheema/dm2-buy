@@ -5,7 +5,7 @@ import FormInput from "../utils/FormInput";
 
 class AddressForm extends React.Component {
   render() {
-    let { isValid, address } = this.state;
+    let { isValid } = this.state;
     console.log(" AddressForm STATE", isValid);
 
     return (
@@ -26,6 +26,8 @@ class AddressForm extends React.Component {
 
         <div className={styles.addressGrid}>
           <FormInput
+            saveInLocalStorage={true}
+            name="pincode"
             type="half"
             placeholder="Pincode"
             errorMessage="Invalid pin code"
@@ -81,7 +83,10 @@ class AddressForm extends React.Component {
     this.stateInputRef = React.createRef();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.cityInputRef.current.setValue(window.localStorage.getItem("city"));
+    this.stateInputRef.current.setValue(window.localStorage.getItem("state"));
+  }
   componentWillUnmount() {}
 
   setAddressLoader = (isLoading) => {
@@ -120,7 +125,10 @@ class AddressForm extends React.Component {
   };
 
   fetchAddress = (pincode) => {
-    fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+    const url = new URL(
+      `${window.location.protocol}//${window.location.host}/api/pincode?pincode=${pincode}`
+    );
+    fetch(url)
       .then((response) => {
         console.log(response);
         return response.json();
@@ -128,17 +136,25 @@ class AddressForm extends React.Component {
       .then((data) => {
         if (!data) return;
 
-        if (data[0].Status.toLowerCase().includes("error")) {
+        if (data.hasOwnProperty("error")) {
+          window.localStorage.setItem("city", "");
+          window.localStorage.setItem("state", "");
+          window.localStorage.setItem("pincode", "");
           this.pincodeInputRef.current.setValue("");
+          this.stateInputRef.current.setValue("");
+          this.cityInputRef.current.setValue("");
           this.pincodeInputRef.current.validate();
 
           return;
         }
 
-        this.setState({ address: data[0].PostOffice[0] }, () => {
+        this.setState({ address: data }, () => {
           let { address } = this.state;
-          this.cityInputRef.current.setValue(address.District);
-          this.stateInputRef.current.setValue(address.State);
+          this.cityInputRef.current.setValue(address.city);
+          this.stateInputRef.current.setValue(address.state);
+
+          window.localStorage.setItem("city", address.city);
+          window.localStorage.setItem("state", address.state);
         });
       })
       .catch((err) => {

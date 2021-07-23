@@ -30,7 +30,10 @@ class FormInput extends React.Component {
       <div className={formInputClass}>
         {isError && <div className={styles.error}>{errorMessage}</div>}
         {isInvalid && <div className={styles.error}>{invalidMessage}</div>}
-        <div className={inputClass}>
+        <div
+          className={inputClass}
+          style={{ border: isError ? "1px solid red" : "" }}
+        >
           {this.props.children}
           {userInterface === "loaded" && isLoading && <InputLoader />}
           {!isLoading &&
