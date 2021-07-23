@@ -6,23 +6,26 @@ import PersonalForm from "./PersonalForm";
 import AddressForm from "./AddressForm";
 import Order from "./Order";
 import Footer from "../Footer";
-import { serverEndpoint } from "../../services/helper";
+import { guid, getSubDomainOfPage } from "../../services/helper";
 
-const url = `${serverEndpoint}/order/`;
+// const url = `${serverEndpoint}/order/`;
 
 const Cart = ({ product, store }) => {
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
   const initiatePayment = async () => {
-    const price = product.fields.Price + 100;
+    const price = product.fields.Price + 0; //making fee 0 for testing
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
     const priceWithPaymentProcessingFee = price + paymentProcessingFee;
+    console.log({store});
     const bodyData = {
-      userId: "randomid",
+      userId: guid(),
       order_total: priceWithPaymentProcessingFee,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
+        phone: store?.fields?.phone,
+        name: getSubDomainOfPage(),
         seller_id: product?.fields?.Stores[0],
       },
       products: [
@@ -33,6 +36,9 @@ const Cart = ({ product, store }) => {
       ],
     };
     console.log(bodyData, "sss");
+    const url = new URL(
+      `${window.location.protocol}//${window.location.host}/api/order/create`
+    );
     const fetchData = await fetch(url, {
       method: "POST",
       headers: {
@@ -57,6 +63,7 @@ const Cart = ({ product, store }) => {
       "height=600,width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, directories=no, status=no"
     );
     popup.onclose = () => {
+      alert("popup closed");
       console.log("Pop up close");
     };
   };
