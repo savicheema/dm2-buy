@@ -131,8 +131,10 @@ class AddressForm extends React.Component {
     window.localStorage.setItem("state", "");
     this.stateInputRef.current.setValue("");
     this.cityInputRef.current.setValue("");
-    if (pincode.trim() === '') {
-      this.setState({isError: false});
+    this.setAddressLoader(true);
+    if (pincode.trim() === "") {
+      this.setState({ isError: false });
+      this.setAddressLoader(false);
       return;
     }
     const url = new URL(
@@ -145,7 +147,7 @@ class AddressForm extends React.Component {
       .then((data) => {
         if (!data) return;
         if (data.hasOwnProperty("error")) {
-          this.setState({isError: true})
+          this.setState({ isError: true });
           window.localStorage.setItem("city", "");
           window.localStorage.setItem("state", "");
           this.stateInputRef.current.setValue("");
@@ -163,6 +165,9 @@ class AddressForm extends React.Component {
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        this.setAddressLoader(false);
       });
   };
 
