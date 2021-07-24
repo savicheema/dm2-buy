@@ -127,6 +127,14 @@ class AddressForm extends React.Component {
   };
 
   fetchAddress = (pincode) => {
+    window.localStorage.setItem("city", "");
+    window.localStorage.setItem("state", "");
+    this.stateInputRef.current.setValue("");
+    this.cityInputRef.current.setValue("");
+    if (pincode.trim() === '') {
+      this.setState({isError: false});
+      return;
+    }
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/pincode?pincode=${pincode}`
     );
