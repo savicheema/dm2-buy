@@ -50,7 +50,7 @@
   align-items: center;
 }
 .notFoundMessage {
-  margin: 18.5px 19px 11px;
+  margin: 0 36px 24px 36px;
   font-family: Lato;
   font-size: 24px;
   font-weight: bold;
@@ -65,7 +65,7 @@
 .notFoundHeadHome {
   margin: 11px 55px 175.5px 55.5px;
   font-family: Roboto;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -79,6 +79,11 @@
 .link {
   text-decoration: underline;
   color: blue;
+}
+
+.title404 {
+  margin-bottom: 2rem;
+  font-size: 4rem;
 }
 
 @media (max-width: 600px) {
