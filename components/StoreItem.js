@@ -11,7 +11,7 @@ const StoreItem = ({ product }) => {
     <div
       className={styles.storeItem}
       onClick={() => {
-        window.location.href = `/product/${product.fields.Slug}?productId=${product.id}`;
+        window.location.href = `/product/${product.fields.Slug}-${product.id}`;
       }}
     >
       <div className={styles.thumbnail}>
