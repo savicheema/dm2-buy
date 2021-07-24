@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./store-products.module.css";
-
 import EmptyStore from "./EmptyStore";
-
 import StoreItem from "./StoreItem";
+import { getSubDomainOfPage } from "../services/helper";
 
 class StoreProducts extends React.Component {
   constructor(props) {
@@ -16,9 +15,10 @@ class StoreProducts extends React.Component {
 
   componentDidMount() {
     let { store } = this.props;
+    const subdomain = getSubDomainOfPage();
 
     if (store.fields.hasOwnProperty("Products")) {
-      this.fetchAllProducts(store.fields.Products);
+      this.fetchAllProducts(store.fields.Products, subdomain);
     } else {
       const { endLoading } = this.props;
       endLoading();
@@ -26,10 +26,10 @@ class StoreProducts extends React.Component {
   }
   componentWillUnmount() {}
 
-  fetchAllProducts = (products) => {
+  fetchAllProducts = (products, subdomain) => {
     return new Promise((resolve) => {
       const allProductPromises = products.map((product) =>
-        this.fetchProduct(product)
+        this.fetchProduct(product, subdomain)
       );
 
       Promise.all(allProductPromises)
@@ -57,9 +57,11 @@ class StoreProducts extends React.Component {
     return product.fields.Status === "for-sale";
   };
 
-  fetchProduct = (productId) => {
+  fetchProduct = (productId, subdomain) => {
     return new Promise((resolve, reject) => {
-      fetch(`/api/airtable/getProduct?product=${productId}`)
+      fetch(
+        `/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
+      )
         .then((response) => {
           console.log("product RESPONSE", response);
           return response.json();
@@ -81,7 +83,7 @@ class StoreProducts extends React.Component {
 
     let { loading } = this.props;
 
-    console.log({props: this.props, loading})
+    console.log({ props: this.props, loading });
     return (
       <div className={styles.store}>
         {/* {products.length && (

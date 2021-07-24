@@ -1,9 +1,8 @@
 import React from "react";
 import Head from "next/head";
-
+import Error404 from '../404'
 import styles from "./product.module.css";
 import homeStyles from "../../styles/Home.module.css";
-
 import Header from "../../components/Header";
 import { ShareButton } from "../../components/Buttons";
 import PrevArrow from "../../components/Carousel/PrevArrow";
@@ -14,10 +13,44 @@ import LoaderComponent from "../../components/Loader";
 import DM2BuyCarousel from "../../components/Carousel";
 import ProductShareButton from "../../components/Buttons/ProductShareButton";
 
+export async function getServerSideProps(context) {
+  let product, errorCode;
+  const { req } = context;
+  const splitArr = req.url.split("-");
+  const productId = splitArr[splitArr.length - 1];
+  const { host } = req.headers;
+  const splitHost = host.split(".");
+  const subdomain =
+    splitHost[0] == "localhost:3000" || splitHost[0] == "192"
+      ? "fxnoob"
+      : splitHost[0];
+  const hostWithProtocol = host === 'localhost:3000'? `http://${host}`: `https://${host}`;
+  console.log({ productId, subdomain });
+  try {
+    const response = await fetch(
+      `${hostWithProtocol}/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
+    );
+    product = await response.json();
+    if (product.error) {
+      throw new Error(product.error);
+    }
+    errorCode = false;
+  } catch (e) {
+    errorCode = 404;
+  }
+  return {
+    props: { productId, product: product || null, errorCode }, // will be passed to the page component as props
+  };
+}
+
 class Product extends React.Component {
   render() {
-    let { isFetched, product } = this.state;
-    console.log(" Product STATE", isFetched, product);
+    let { isFetched, product, errorCode } = this.state;
+    console.log(" Product STATE", isFetched, product, errorCode);
+
+    if (errorCode) {
+      return <Error404 statusCode={errorCode} />
+    }
 
     if (!product) return <LoaderComponent />;
 
@@ -96,54 +129,14 @@ class Product extends React.Component {
 
   constructor(props) {
     super(props);
-
     let isFetched = true;
-    let product = undefined;
-
-    this.state = { isFetched, product };
+    const {product } = props;
+    if (product.fields) {
+      product.allPhotos = product?.fields["Other photos"];
+    }
+    this.state = { isFetched, product, errorCode: props.errorCode };
+    console.log({state: this.state})
   }
-
-  componentDidMount() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get("productId");
-
-    if (!productId) console.error("Product ID not available");
-    this.setState({ isFetched: false }, () => {
-      this.fetchProduct(productId)
-        .then((product) => {
-          console.log("Do something", product);
-          // product.allPhotos = product.fields["header photo"].concat(
-          //   product.fields["Other photos"]
-          // );
-          product.allPhotos = product.fields["Other photos"];
-          this.setState({ isFetched: true, product });
-        })
-        .catch(() => {
-          this.setState({ isFetched: true });
-          console.error("Do nothing!");
-        });
-    });
-  }
-
-  componentWillUnmount() {}
-
-  fetchProduct = (productId) => {
-    return new Promise((resolve, reject) => {
-      fetch(`/api/airtable/getProduct?product=${productId}`)
-        .then((response) => {
-          console.log("product RESPONSE", response);
-          return response.json();
-        })
-        .then((data) => {
-          console.log("product DATA", data);
-          resolve(data);
-        })
-        .catch((err) => {
-          console.error(err);
-          reject();
-        });
-    });
-  };
 
   storeProductToLocalStorage = (product) => {
     localStorage.setItem("product", JSON.stringify(product));
