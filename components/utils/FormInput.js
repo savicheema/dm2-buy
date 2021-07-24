@@ -73,7 +73,17 @@ class FormInput extends React.Component {
       </div>
     );
   }
-
+  componentWillReceiveProps(nextProps) {
+    const { isError } = nextProps;
+    if (isError) {
+      console.log({ nextProps });
+      this.setState({ isInvalid: true, isError: true }, () => {
+        this.inputRef.current.focus();
+      });
+    } else {
+      this.setState({ isInvalid: false, isError: false }, () => {});
+    }
+  }
   constructor(props) {
     super(props);
 

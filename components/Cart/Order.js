@@ -51,14 +51,12 @@ class Order extends React.Component {
             <div className={styles.productDetails}>
               <span className={styles.shippingEmoji}>💳</span>
 
-              <div className={styles.productName}>Payment Processing Fee</div>
+              <div className={styles.productName} style={{width: '8rem'}}>Payment Processing Fee</div>
             </div>
             <div className={styles.productPrice}>
               {`${String.fromCharCode(0x20b9)}${paymentProcessingFee}`}
             </div>
           </div>
-          <br/>
-          <hr/>
         </div>
 
         <button
