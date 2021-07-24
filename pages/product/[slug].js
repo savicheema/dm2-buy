@@ -14,7 +14,7 @@ import DM2BuyCarousel from "../../components/Carousel";
 import ProductShareButton from "../../components/Buttons/ProductShareButton";
 
 export async function getServerSideProps(context) {
-  let product, errorCode;
+  let product, errorCode, productUrl;
   const { req } = context;
   const splitArr = req.url.split("-");
   const productId = splitArr[splitArr.length - 1];
@@ -25,7 +25,6 @@ export async function getServerSideProps(context) {
       ? "fxnoob"
       : splitHost[0];
   const hostWithProtocol = host === 'localhost:3000'? `http://${host}`: `https://${host}`;
-  console.log({ productId, subdomain });
   try {
     const response = await fetch(
       `${hostWithProtocol}/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
@@ -34,18 +33,20 @@ export async function getServerSideProps(context) {
     if (product.error) {
       throw new Error(product.error);
     }
+    productUrl = `${hostWithProtocol}/product/${product?.fields?.Slug}-${product.id}`
     errorCode = false;
   } catch (e) {
     errorCode = 404;
+    productUrl = '';
   }
   return {
-    props: { productId, product: product || null, errorCode }, // will be passed to the page component as props
+    props: { productId, product: product || null, errorCode, productUrl }, // will be passed to the page component as props
   };
 }
 
 class Product extends React.Component {
   render() {
-    let { isFetched, product, errorCode } = this.state;
+    let { isFetched, product, errorCode, productUrl } = this.state;
     console.log(" Product STATE", isFetched, product, errorCode);
 
     if (errorCode) {
@@ -73,6 +74,18 @@ class Product extends React.Component {
               name="viewport"
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
             />
+            <meta property="og:type" content="product"/>
+            <meta property="og:description" content={product.headerDescription}/>
+            <meta property="og:image" content={product?.headerPhoto[0]?.url}/>
+            <meta property="og:site_name" content="Dm 2 Buy"/>
+            <meta property="og:url" content={productUrl}/>
+
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:url" content={productUrl}/>
+            <meta name="twitter:title" content={product?.fields?.Name}/>
+            <meta property="twitter:description" content={product.headerDescription}/>
+            <meta property="twitter:image" content={product?.headerPhoto[0]?.url}/>
+
           </Head>
           {/* <Header /> */}
 
@@ -133,11 +146,22 @@ class Product extends React.Component {
     const {product } = props;
     if (product.fields) {
       product.allPhotos = product?.fields["Other photos"];
+      product.headerPhoto = product?.fields["header photo"];
+      product.headerDescription = this.cleanProductDescription(product?.fields?.description);
     }
-    this.state = { isFetched, product, errorCode: props.errorCode };
+    this.state = {
+      isFetched,
+      product,
+      errorCode: props.errorCode,
+      productUrl: props.productUrl,
+    };
     console.log({state: this.state})
   }
-
+  cleanProductDescription = (desc) => {
+      let plainText = desc.replace(/<[^>]+>/g, '');
+      plainText = plainText.replace(/(\n)+/, '');
+      return plainText.slice(0, 200);
+  }
   storeProductToLocalStorage = (product) => {
     localStorage.setItem("product", JSON.stringify(product));
   };
