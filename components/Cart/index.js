@@ -17,13 +17,14 @@ const Cart = ({ product, store }) => {
     const price = product.fields.Price + 0; //making fee 0 for testing
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
     const priceWithPaymentProcessingFee = price + paymentProcessingFee;
-    console.log({store});
+    console.log({ store });
     const bodyData = {
       userId: guid(),
       order_total: priceWithPaymentProcessingFee,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
+        email: store?.fields?.email,
         phone: store?.fields?.phone,
         name: getSubDomainOfPage(),
         seller_id: product?.fields?.Stores[0],
@@ -59,7 +60,7 @@ const Cart = ({ product, store }) => {
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,
-      "newwindow",
+      "_self",
       "height=600,width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, directories=no, status=no"
     );
     popup.onclose = () => {
