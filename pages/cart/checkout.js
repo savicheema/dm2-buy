@@ -7,18 +7,20 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 export default function CartPage() {
   const [storedProduct, setStoredProduct] = useLocalStorage("product", null);
   const [store, setStore] = useLocalStorage('store', {});
+
+  useEffect(() => {
+    console.log()
+    if (!storedProduct || !store.fields) {
+      window.location.href = "/";
+    }
+  })
   if (!storedProduct || !store) {
     return null;
   }
-  useEffect(() => {
-    if (!storedProduct || !store.fields) {
-      window.location.href = "/404";
-    }
-  }, [])
   return (
       <div className={homeStyles.container}>
         <Head>
-          <title>{store.fields.store_name || 'Dm 2 Buy'}</title>
+          <title>{store?.fields?.store_name || 'Dm 2 Buy'}</title>
           <meta
               name="description"
               content="Check my shop out and bag my latest drop"

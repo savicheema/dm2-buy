@@ -45,7 +45,7 @@ export default function Order(props) {
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,
-      "newwindow",
+      "_self",
       "height=600,width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, directories=no, status=no"
     );
     popup.onclose = () => {

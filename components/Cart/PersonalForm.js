@@ -27,9 +27,7 @@ class PersonalForm extends React.Component {
           errorMessage="Need your instagram"
           invalidMessage="Instagram handle doesn't seem correct"
           ref={this.instagramInputRef}
-          regex={
-            /([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/
-          }
+          regex={/^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)$/}
         >
           {/* <img
             src="/instagram.png"
