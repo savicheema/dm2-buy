@@ -29,6 +29,7 @@ class AddressForm extends React.Component {
             saveInLocalStorage={true}
             name="pincode"
             type="half"
+            isError={this.state.isError}
             placeholder="Pincode"
             errorMessage="Invalid pin code"
             ref={this.pincodeInputRef}
@@ -74,8 +75,9 @@ class AddressForm extends React.Component {
 
     let isValid = false;
     let address = null;
+    let isError = false;
 
-    this.state = { isValid, address };
+    this.state = { isValid, address, isError };
 
     this.addressInputRef = React.createRef();
     this.pincodeInputRef = React.createRef();
@@ -130,25 +132,19 @@ class AddressForm extends React.Component {
     );
     fetch(url)
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((data) => {
         if (!data) return;
-
         if (data.hasOwnProperty("error")) {
+          this.setState({isError: true})
           window.localStorage.setItem("city", "");
           window.localStorage.setItem("state", "");
-          window.localStorage.setItem("pincode", "");
-          this.pincodeInputRef.current.setValue("");
           this.stateInputRef.current.setValue("");
           this.cityInputRef.current.setValue("");
-          this.pincodeInputRef.current.validate();
-
           return;
         }
-
-        this.setState({ address: data }, () => {
+        this.setState({ address: data, isError: false }, () => {
           let { address } = this.state;
           this.cityInputRef.current.setValue(address.city);
           this.stateInputRef.current.setValue(address.state);

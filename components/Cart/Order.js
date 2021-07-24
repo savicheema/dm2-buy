@@ -57,8 +57,6 @@ class Order extends React.Component {
               {`${String.fromCharCode(0x20b9)}${paymentProcessingFee}`}
             </div>
           </div>
-          <br/>
-          <hr/>
         </div>
 
         <button
