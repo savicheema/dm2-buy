@@ -3,15 +3,44 @@ import orderStyles from "./order.module.css";
 import Head from "next/head";
 import LoaderComponent from "../../components/Loader";
 import Footer from "../../components/Footer";
+import Error404 from "../404";
 
 export async function getServerSideProps(context) {
   const { query } = context;
+  let store, errorCode, productUrl;
+  const { req } = context;
+  const { host } = req.headers;
+  const splitHost = host.split(".");
+  const subdomain =
+    splitHost[0] == "localhost:3000" || splitHost[0] == "192"
+      ? "fxnoob"
+      : splitHost[0];
+  const hostWithProtocol =
+    host === "localhost:3000" ? `http://${host}` : `https://${host}`;
+  try {
+    const response = await fetch(
+      `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
+    );
+    store = await response.json();
+    if (store.error) {
+      throw new Error(store.error);
+    }
+    errorCode = false;
+  } catch (e) {
+    errorCode = 404;
+  }
   return {
-    props: { orderId: query.orderId }, // will be passed to the page component as props
+    props: {
+      orderId: query.orderId,
+      store: store || {},
+      errorCode,
+    }, // will be passed to the page component as props
   };
 }
 
 export default function Order(props) {
+  const { errorCode } = props;
+  const [store, setStore] = useState(props.store);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [retryLink, setRetryLink] = useState("");
@@ -29,7 +58,7 @@ export default function Order(props) {
       const resp = await fetch(endpoint);
       json = await resp.json();
       const { order } = json;
-      console.log(order);
+      console.log({order, store});
       setOrder(order);
       setStatus(order.payment_status);
       setRetryLink(json.paymentLink);
@@ -48,7 +77,7 @@ export default function Order(props) {
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,
-      "newwindow",
+      "_self",
       "height=600,width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, directories=no, status=no"
     );
     popup.onclose = () => {
@@ -58,6 +87,10 @@ export default function Order(props) {
   const openPopup = () => {
     popUpFrame(retryLink);
   };
+
+  if (errorCode) {
+    return <Error404 statusCode={errorCode} />;
+  }
 
   return (
     <div className={orderStyles.container}>
@@ -96,18 +129,15 @@ export default function Order(props) {
                 <img src="/success-emoji.svg" />
                 <h1>Order Successful</h1>
                 <p className={orderStyles.successMessage}>
-                  "Hey, Kim here. Thank you so much for buying from my shop. I
-                  hope the products bring you as much joy as they brought me
-                  through the course of curating them. Feel free to DM me on
-                  instagram @neikimlhing_ if
+                  {store?.fields?.order_confirmation_thank_you_message}
                 </p>
               </div>
               <div className={orderStyles.influencerImage}>
-                <img src="/kim.png" />
+                <img src={store?.fields?.creator_thank_you_page_photo[0].url} style={{width: '160px', height: '400px'}} />
               </div>
             </div>
             <p className={orderStyles.feedbackMessage}>
-              you have any feedback for me, I'd love to hear from you." 💜
+              {store?.fields?.thank_you_note}
             </p>
             <div className={orderStyles.packageDetailContainer}>
               <div className={orderStyles.packageDetailDiv}>
@@ -145,7 +175,7 @@ export default function Order(props) {
                   <div>{order.address.address_line_1}</div>
                   <div>{order.address.city}</div>
                   <div>{order.address.state}</div>
-                  <div>{order.address.divincode}</div>
+                  <div>{order.address.pincode}</div>
                   <div></div>
                   <div>PH.+{order.buyer.phone}</div>
                 </div>
@@ -201,7 +231,7 @@ export default function Order(props) {
                   <div>{order.address.address_line_1}</div>
                   <div>{order.address.city}</div>
                   <div>{order.address.state}</div>
-                  <div>{order.address.divincode}</div>
+                  <div>{order.address.pincode}</div>
                   <div></div>
                   <div>PH.+{order.buyer.phone}</div>
                 </div>
