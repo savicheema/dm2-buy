@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import orderStyles from "./order.module.css";
 import Head from "next/head";
 import LoaderComponent from "../../components/Loader";
 import Footer from "../../components/Footer";
 import Error404 from "../404";
+import PackageExtraDetails from "../../components/OrderDetails/PackageExtraDetails";
+import PackageDetails from "../../components/OrderDetails/PackageDetails";
+import BuyerDetails from "../../components/OrderDetails/BuyerDetails";
 
 export async function getServerSideProps(context) {
-  const { query } = context;
-  let store, errorCode, productUrl;
-  const { req } = context;
+  let store, errorCode, order;
+  const { query, req } = context;
   const { host } = req.headers;
+  const { orderId  } = context.params;
   const splitHost = host.split(".");
   const subdomain =
     splitHost[0] == "localhost:3000" || splitHost[0] == "192"
@@ -25,55 +28,35 @@ export async function getServerSideProps(context) {
     if (store.error) {
       throw new Error(store.error);
     }
+    const orderResponse = await fetch(
+      `${hostWithProtocol}/api/order/order?orderId=${orderId}`
+    );
+    const json = await orderResponse.json();
+    const { order: orderDetails } = json;
+    order = orderDetails;
     errorCode = false;
   } catch (e) {
     errorCode = 404;
+    order = null;
   }
   return {
     props: {
       orderId: query.orderId,
       store: store || {},
       errorCode,
+      order,
     }, // will be passed to the page component as props
   };
 }
 
 export default function Order(props) {
-  const { errorCode } = props;
-  const [store, setStore] = useState(props.store);
+  const { errorCode, order, store } = props;
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("");
-  const [retryLink, setRetryLink] = useState("");
+  const status = order?.payment_status;
+  const retryLink = order?.paymentLink;
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });
-  const [order, setOrder] = useState();
-  const { orderId } = props;
-  const init = async () => {
-    const endpoint = new URL(
-      `${window.location.protocol}//${window.location.host}/api/order/order?orderId=${orderId}`
-    );
-    let json;
-    try {
-      const resp = await fetch(endpoint);
-      json = await resp.json();
-      const { order } = json;
-      console.log({order, store});
-      setOrder(order);
-      setStatus(order.payment_status);
-      setRetryLink(json.paymentLink);
-    } catch (e) {
-      alert("something went wrong!");
-      console.log({ e });
-    }
-    setLoading(false);
-  };
-  useEffect(() => {
-    setLoading(true);
-    init().finally(() => {
-      setLoading(false);
-    });
-  }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,
@@ -91,6 +74,10 @@ export default function Order(props) {
   if (errorCode) {
     return <Error404 statusCode={errorCode} />;
   }
+
+  const creatorThankYouPagePhoto = store?.fields?.creator_thank_you_page_photo
+    ? store?.fields?.creator_thank_you_page_photo[0].url
+    : false;
 
   return (
     <div className={orderStyles.container}>
@@ -133,55 +120,28 @@ export default function Order(props) {
                 </p>
               </div>
               <div className={orderStyles.influencerImage}>
-                <img src={store?.fields?.creator_thank_you_page_photo[0].url} style={{width: '160px', height: '400px'}} />
+                {creatorThankYouPagePhoto && (
+                  <img
+                    src={creatorThankYouPagePhoto}
+                    style={{ width: "160px", height: "400px" }}
+                  />
+                )}
               </div>
             </div>
             <p className={orderStyles.feedbackMessage}>
               {store?.fields?.thank_you_note}
             </p>
-            <div className={orderStyles.packageDetailContainer}>
-              <div className={orderStyles.packageDetailDiv}>
-                <div className={orderStyles.packageDetail}>Package Details</div>
-                <div className={orderStyles.packageIcon}>📦</div>
-              </div>
-              <div className={orderStyles.orderDiv}>
-                <div className={orderStyles.orderName}>
-                  {order.products.map((item) => item.name)}
-                </div>
-                <div className={orderStyles.orderTotal}>
-                  ₹{order.order_total}
-                </div>
-              </div>
-            </div>
-            <div style={{ marginTop: 50 }}>
-              <p className={orderStyles.paraOne}>
-                <h7 className={orderStyles.headingOne}>Shipping</h7>
-                ................................................. Ships within 3
-                days
-              </p>
-              <p className={orderStyles.paraOne}>
-                <h7 className={orderStyles.headingOne}>Order Updates</h7>
-                .........All updates via Email and Whatsapp
-              </p>
-              <p className={orderStyles.paraOne}>
-                <h7 className={orderStyles.headingOne}>Support</h7>.....DM me on
-                ig @neikimlhing_ for queries
-              </p>
-            </div>
-            <div className={orderStyles.buyerContainer}>
-              <div style={{ width: "90%" }}>
-                <div style={{ fontSize: 25 }}>{order.buyer.name}</div>
-                <div style={{ marginTop: 10 }}>
-                  <div>{order.address.address_line_1}</div>
-                  <div>{order.address.city}</div>
-                  <div>{order.address.state}</div>
-                  <div>{order.address.pincode}</div>
-                  <div></div>
-                  <div>PH.+{order.buyer.phone}</div>
-                </div>
-              </div>
-              <div className={orderStyles.homeIcon}>🏠</div>
-            </div>
+            <PackageDetails
+              className={orderStyles.packageDetailContainer}
+              order={order}
+            />
+            <PackageExtraDetails
+              instaUserId={store?.fields?.store_instagram_handle}
+            />
+            <BuyerDetails
+              className={orderStyles.buyerContainer}
+              order={order}
+            />
             <div
               style={{
                 marginTop: 100,
@@ -210,34 +170,14 @@ export default function Order(props) {
                 <img src="/noun-warning-4059833.svg" />
               </div>
             </div>
-            <div className={orderStyles.packageDetailContainer}>
-              <div className={orderStyles.packageDetailDiv}>
-                <div className={orderStyles.packageDetail}>Package Details</div>
-                <div className={orderStyles.packageIcon}>📦</div>
-              </div>
-              <div className={orderStyles.orderDiv}>
-                <div className={orderStyles.orderName}>
-                  {order.products.map((item) => item.name)}
-                </div>
-                <div className={orderStyles.orderTotal}>
-                  ₹{order.order_total}
-                </div>
-              </div>
-            </div>
-            <div className={orderStyles.buyerContainer}>
-              <div className={orderStyles.buyerInfo}>
-                <div className={orderStyles.buyerName}>{order.buyer.name}</div>
-                <div className={orderStyles.buyerAddress}>
-                  <div>{order.address.address_line_1}</div>
-                  <div>{order.address.city}</div>
-                  <div>{order.address.state}</div>
-                  <div>{order.address.pincode}</div>
-                  <div></div>
-                  <div>PH.+{order.buyer.phone}</div>
-                </div>
-              </div>
-              <div className={orderStyles.homeIcon}>🏠</div>
-            </div>
+            <PackageDetails
+              className={orderStyles.packageDetailContainer}
+              order={order}
+            />
+            <BuyerDetails
+              className={orderStyles.buyerContainer}
+              order={order}
+            />
           </div>
         )}
       </div>
