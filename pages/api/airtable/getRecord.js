@@ -17,11 +17,9 @@ async function getRecord(req, res) {
       }
     );
     const data = await response.json();
-    console.log("GET RECORD", data);
     res.status(200).json(data);
   } catch (err) {
-    console.error("GET RECORD ERROR", err);
-    res.status(400).json(err);
+    res.status(400).json({error: err});
   }
 }
 
