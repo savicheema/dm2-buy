@@ -1,58 +1,56 @@
 import Head from "next/head";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Main from "../components/Main";
 import LoaderComponent from "../components/Loader";
-import { getSubDomainOfPage } from "../services/helper";
 import useLocalStorage from "../hooks/useLocalStorage";
+import Error404 from "./404";
 
-export default function Home() {
-  const [store, setStore] = useLocalStorage("store", {});
-  const [loading, setLoading] = useState(false);
-  const [meta, setMeta] = useState({
-    title: "Dm 2 Buy",
-  });
-
-  const fetchStore = async () => {
-    const url = new URL(
-      `${window.location.protocol}//${window.location.host}/api/airtable/getRecord`
+export async function getServerSideProps(context) {
+  let store, errorCode, storeUrl;
+  const { req } = context;
+  const { host } = req.headers;
+  const splitHost = host.split(".");
+  const subdomain =
+    splitHost[0] == "localhost:3000" || splitHost[0] == "192"
+      ? "fxnoob"
+      : splitHost[0];
+  const hostWithProtocol =
+    host === "localhost:3000" ? `http://${host}` : `https://${host}`;
+  try {
+    const response = await fetch(
+      `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
     );
-    const subdomain = getSubDomainOfPage();
-    url.searchParams.set("subdomain", subdomain);
-    setLoading(true);
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Store not found!");
-      }
-      const data = await response.json();
-      setStore(data);
-      setMeta({ ...meta, title: data.fields.store_name });
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-      alert(err.message);
+    store = await response.json();
+    if (store.error) {
+      throw new Error(store.error);
     }
+    storeUrl = `${hostWithProtocol}/`;
+    errorCode = false;
+  } catch (e) {
+    errorCode = 404;
+    storeUrl = "";
+  }
+  return {
+    props: { storeData: store || null, errorCode, storeUrl }, // will be passed to the page component as props
   };
+}
 
-  useEffect(() => {
-    fetchStore()
-      .catch((e) => {
-        console.log("error in index fetch", { e });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+export default function Home(props) {
+  const { storeData, errorCode, storeUrl } = props;
+  const [store, setStore] = useLocalStorage("store", props.storeData);
+  const [loading, setLoading] = useState(true);
+
+  if (errorCode) {
+    return <Error404 statusCode={errorCode} />;
+  }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>{meta.title}</title>
-        <meta
-          name="description"
-          content="Check my shop out and bag my latest drop"
-        />
+        <title>{storeData?.fields?.store_name}</title>
+        <meta name="title" content={storeData?.fields?.store_name} />
+        <meta name="description" content={storeData?.fields?.store_bio} />
         <link rel="icon" href="/favicon.ico" />
         <link href="/fonts/fonts.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -66,12 +64,29 @@ export default function Home() {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={meta.title} />
+        <meta property="og:title" content={storeData?.fields?.store_name} />
         <meta
           property="og:description"
-          content="Check my shop out and bag my latest drop"
+          content={storeData?.fields?.store_bio}
         />
-        <meta property="og:image:secure" content="/favicon.ico" />
+        <meta
+          property="og:image"
+          content={store?.fields?.store_profile_photo[0]?.url}
+        />
+        <meta property="og:site_name" content="Dm 2 Buy" />
+        <meta property="og:url" content={storeUrl} />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content={storeUrl} />
+        <meta name="twitter:title" content={storeData?.fields?.store_name} />
+        <meta
+          property="twitter:description"
+          content={storeData?.fields?.store_bio}
+        />
+        <meta
+          property="twitter:image"
+          content={store?.fields?.store_profile_photo[0]?.url}
+        />
       </Head>
 
       {/* <Header store={store} /> */}
