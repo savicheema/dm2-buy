@@ -26,14 +26,39 @@
 
 /* Payment Successful*/
 .paymentSuccessContainer {
-  border: 1px solid lightgray;
-  padding: 50px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  /* border: 1px solid lightgray;
+   
+    margin-top: 20px;
+    margin-bottom: 20px; */
+
+  /* padding: 50px; */
+}
+.orderSuccess {
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: black;
+}
+.thankyouText {
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: normal;
+  opacity: 0.9;
+  margin: 0;
+  color: #313b44;
+  letter-spacing: 1.33px;
+  line-height: 24px;
+}
+.floated {
+  float: right;
+  width: 50%;
+  height: 50%;
 }
 .successDiv {
   display: flex;
   flex-direction: row;
+  margin-bottom: 40px;
 }
 .successMessage {
   font-size: 20px;
@@ -143,6 +168,43 @@
   font-weight: bold;
   justify-self: flex-end;
 }
+.orderInfoContainer {
+  margin-top: 50px;
+}
+.orderInfo {
+  display: flex;
+  align-items: center;
+}
+.divider {
+  border: 1px dashed black;
+  margin: 0 5px;
+  color: #1c3142;
+}
+.orderInfoHeader {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin: 0;
+  line-height: 16px;
+  color: #1c3142;
+}
+.orderInfoSecond {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+.orderInfoDiscription {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+  line-height: 16px;
+  color: #1c3142;
+}
+.dividerContainer {
+  flex-grow: 1;
+}
+
 .buyerContainer {
   border: none;
   display: flex;

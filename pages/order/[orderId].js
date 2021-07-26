@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import orderStyles from "./order.module.css";
 import Head from "next/head";
 import LoaderComponent from "../../components/Loader";
@@ -12,7 +12,7 @@ export async function getServerSideProps(context) {
   let store, errorCode, order;
   const { query, req } = context;
   const { host } = req.headers;
-  const { orderId  } = context.params;
+  const { orderId } = context.params;
   const splitHost = host.split(".");
   const subdomain =
     splitHost[0] == "localhost:3000" || splitHost[0] == "192"
@@ -112,45 +112,27 @@ export default function Order(props) {
         {status == "complete" && (
           <div className={orderStyles.paymentSuccessContainer}>
             <div className={orderStyles.successDiv}>
-              <div style={{ width: "40%" }}>
-                <img src="/success-emoji.svg" />
-                <h1>Order Successful</h1>
-                <p className={orderStyles.successMessage}>
-                  {store?.fields?.order_confirmation_thank_you_message}
-                </p>
-              </div>
-              <div className={orderStyles.influencerImage}>
-                {creatorThankYouPagePhoto && (
-                  <img
-                    src={creatorThankYouPagePhoto}
-                    style={{ width: "160px", height: "400px" }}
-                  />
-                )}
+              <div className={orderStyles.container1}>
+                <div className={orderStyles.successMessage}>
+                  {creatorThankYouPagePhoto && (
+                    <img
+                      src={creatorThankYouPagePhoto}
+                      className={orderStyles.floated}
+                    />
+                  )}
+                  <img src="/favicon.ico" />
+                  <h1 className={orderStyles.orderSuccess}>Order Successful</h1>
+                  <p className={orderStyles.thankyouText}>
+                    {store?.fields?.order_confirmation_thank_you_message}
+                  </p>
+                </div>
               </div>
             </div>
-            <p className={orderStyles.feedbackMessage}>
-              {store?.fields?.thank_you_note}
-            </p>
-            <PackageDetails
-              className={orderStyles.packageDetailContainer}
-              order={order}
-            />
+            <PackageDetails order={order} />
             <PackageExtraDetails
               instaUserId={store?.fields?.store_instagram_handle}
             />
-            <BuyerDetails
-              className={orderStyles.buyerContainer}
-              order={order}
-            />
-            <div
-              style={{
-                marginTop: 100,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <h2>dm2buy</h2>
-            </div>
+            <BuyerDetails order={order}  />
           </div>
         )}
         {status == "payment_pending" && (
@@ -170,14 +152,8 @@ export default function Order(props) {
                 <img src="/noun-warning-4059833.svg" />
               </div>
             </div>
-            <PackageDetails
-              className={orderStyles.packageDetailContainer}
-              order={order}
-            />
-            <BuyerDetails
-              className={orderStyles.buyerContainer}
-              order={order}
-            />
+            <PackageDetails order={order}/>
+            <BuyerDetails order={order}/>
           </div>
         )}
       </div>

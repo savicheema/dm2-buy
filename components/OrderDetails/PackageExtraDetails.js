@@ -1,21 +1,37 @@
 import orderStyles from "../../pages/order/order.module.css";
+import React from "react";
 
 export default function PackageExtraDetails(props) {
   const { instaUserId } = props;
   return (
-    <div style={{ marginTop: 50 }}>
-      <p className={orderStyles.paraOne}>
-        <h7 className={orderStyles.headingOne}>Shipping</h7>
-        ................................................. Ships within 3 days
-      </p>
-      <p className={orderStyles.paraOne}>
-        <h7 className={orderStyles.headingOne}>Order Updates</h7>
-        .........All updates via Email and Whatsapp
-      </p>
-      <p className={orderStyles.paraOne}>
-        <h7 className={orderStyles.headingOne}>Support</h7>.....DM me on ig
-        {instaUserId} for queries
-      </p>
+    <div className={orderStyles.orderInfoContainer}>
+      <div className={orderStyles.orderInfo}>
+        <h6 className={orderStyles.orderInfoHeader}>Shipping</h6>
+        <div className={orderStyles.dividerContainer}>
+          <hr className={orderStyles.divider} />
+        </div>
+        <h6 className={orderStyles.orderInfoDiscription}>
+          Ships within 3 days
+        </h6>
+      </div>
+      <div className={orderStyles.orderInfoSecond}>
+        <h6 className={orderStyles.orderInfoHeader}>Order Updates</h6>
+        <div className={orderStyles.dividerContainer}>
+          <hr className={orderStyles.divider} />
+        </div>
+        <h6 className={orderStyles.orderInfoDiscription}>
+          All updates via Email and Whatsapp
+        </h6>
+      </div>
+      <div className={orderStyles.orderInfo}>
+        <h6 className={orderStyles.orderInfoHeader}>Support</h6>
+        <div className={orderStyles.dividerContainer}>
+          <hr className={orderStyles.divider} />
+        </div>
+        <h6 className={orderStyles.orderInfoDiscription}>
+          DM me on ig {instaUserId} for queries
+        </h6>
+      </div>
     </div>
   );
 }

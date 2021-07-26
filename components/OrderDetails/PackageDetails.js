@@ -1,9 +1,10 @@
 import orderStyles from "../../pages/order/order.module.css";
+import React from "react";
 
 export default function PackageDetails(props) {
-  const { order, style } = props;
+  const { order } = props;
   return (
-    <div className={orderStyles.packageDetailContainer} {...style}>
+    <div className={orderStyles.packageDetailContainer}>
       <div className={orderStyles.packageDetailDiv}>
         <div className={orderStyles.packageDetail}>Package Details</div>
         <div className={orderStyles.packageIcon}>📦</div>
