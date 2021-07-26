@@ -15,6 +15,12 @@ const Cart = ({ product, store }) => {
   const [error, setError] = useState(false);
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
+  const showError = () => {
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
+  }
   const initiatePayment = async () => {
     const price = product.fields.Price + 0; //making fee 0 for testing
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
@@ -55,10 +61,10 @@ const Cart = ({ product, store }) => {
       if (res && res.status === "OK") {
         popUpFrame(res.paymentLink);
       } else {
-        setError(true);
+        showError();
       }
     } catch (e) {
-      setError(true);
+      showError();
     }
   };
 
@@ -74,31 +80,34 @@ const Cart = ({ product, store }) => {
     };
   };
   return (
-    <div className={styles.cart}>
-      <CartMessage message={store.fields?.thank_you_note} />
+    <>
+      <div className={styles.cart}>
+        <CartMessage message={store.fields?.thank_you_note} />
 
-      <PersonalForm ref={personalFormRef} />
+        <PersonalForm ref={personalFormRef} />
 
-      <AddressForm ref={addressFormRef} />
+        <AddressForm ref={addressFormRef} />
 
-      <Order
-        checkInputs={async () => {
-          const isPersonalFormValid = await personalFormRef.current.validate();
-          if (!isPersonalFormValid) return isPersonalFormValid;
+        <Order
+          checkInputs={async () => {
+            const isPersonalFormValid =
+              await personalFormRef.current.validate();
+            if (!isPersonalFormValid) return isPersonalFormValid;
 
-          const isAddressFormValid = await addressFormRef.current.validate();
-          if (!isAddressFormValid) return isAddressFormValid;
+            const isAddressFormValid = await addressFormRef.current.validate();
+            if (!isAddressFormValid) return isAddressFormValid;
 
-          console.log(addressFormRef.current.getValues(), "values");
-          console.log(personalFormRef.current.getValues(), "personal");
-          initiatePayment();
-          return false;
-        }}
-        product={product}
-      />
+            console.log(addressFormRef.current.getValues(), "values");
+            console.log(personalFormRef.current.getValues(), "personal");
+            initiatePayment();
+            return false;
+          }}
+          product={product}
+        />
+        <Footer />
+      </div>
       <Toast message="Something went wrong! Please try again" open={error} />
-      <Footer />
-    </div>
+    </>
   );
 };
 
