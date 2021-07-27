@@ -122,9 +122,13 @@ export default function Order(props) {
                   )}
                   <img src="/favicon.ico" />
                   <h1 className={orderStyles.orderSuccess}>Order Successful</h1>
-                  <p className={orderStyles.thankyouText}>
-                    {store?.fields?.order_confirmation_thank_you_message}
-                  </p>
+                  <p
+                    className={orderStyles.thankyouText}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        store?.fields?.order_confirmation_thank_you_message,
+                    }}
+                  ></p>
                 </div>
               </div>
             </div>
@@ -132,7 +136,7 @@ export default function Order(props) {
             <PackageExtraDetails
               instaUserId={store?.fields?.store_instagram_handle}
             />
-            <BuyerDetails order={order}  />
+            <BuyerDetails order={order} />
           </div>
         )}
         {status == "payment_pending" && (
@@ -152,8 +156,8 @@ export default function Order(props) {
                 <img src="/noun-warning-4059833.svg" />
               </div>
             </div>
-            <PackageDetails order={order}/>
-            <BuyerDetails order={order}/>
+            <PackageDetails order={order} />
+            <BuyerDetails order={order} />
           </div>
         )}
       </div>
