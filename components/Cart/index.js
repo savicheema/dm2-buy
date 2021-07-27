@@ -20,7 +20,7 @@ const Cart = ({ product, store }) => {
     setTimeout(() => {
       setError(false);
     }, 3000);
-  }
+  };
   const initiatePayment = async () => {
     const price = product.fields.Price + 0; //making fee 0 for testing
     const paymentProcessingFee = Number((price * 0.02).toFixed(2));
@@ -106,7 +106,11 @@ const Cart = ({ product, store }) => {
         />
         <Footer />
       </div>
-      <Toast message="Something went wrong! Please try again" open={error} />
+      <Toast
+        type="error"
+        message="Something went wrong! Please try again"
+        open={error}
+      />
     </>
   );
 };
