@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./main.module.css";
 import homeStyles from "../styles/Home.module.css";
 import Image from "next/image";
@@ -6,8 +6,16 @@ import StoreProducts from "./StoreProducts";
 import { ShareButton, ImageButton } from "./Buttons";
 import Footer from "./Footer";
 import EllipsisText from "react-ellipsis-text";
+import Toast from "./Toast";
 
 const Main = ({ store, endLoading, loading }) => {
+  const [open, setOpen] = useState(false);
+  const showToast = () => {
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 3000);
+  };
   return (
     <main
       className={styles.main}
@@ -52,7 +60,10 @@ const Main = ({ store, endLoading, loading }) => {
             >
               <Image src="/instagram-4@2x.png" width="20" height="20" />
             </ImageButton>
-            <ShareButton title={store?.fields?.store_name|| 'Dm 2 Buy'} />
+            <ShareButton
+              title={store?.fields?.store_name || "Dm 2 Buy"}
+              toast={showToast}
+            />
           </div>
         )}
       </div>
@@ -65,6 +76,7 @@ const Main = ({ store, endLoading, loading }) => {
         />
       )}
       <Footer />
+      <Toast type="success" message="Link copied successfully" open={open} />
     </main>
   );
 };

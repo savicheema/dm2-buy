@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Error404 from "../404";
 import styles from "./product.module.css";
@@ -12,6 +12,7 @@ import Footer from "../../components/Footer";
 import LoaderComponent from "../../components/Loader";
 import DM2BuyCarousel from "../../components/Carousel";
 import ProductShareButton from "../../components/Buttons/ProductShareButton";
+import Toast from "../../components/Toast";
 
 export async function getServerSideProps(context) {
   let product, errorCode, productUrl;
@@ -46,6 +47,12 @@ export async function getServerSideProps(context) {
 }
 
 class Product extends React.Component {
+  showToast = () => {
+    this.setState({ open: true });
+    setTimeout(() => {
+      this.setState({ open: false });
+    }, 3000);
+  };
   render() {
     let { isFetched, product, errorCode, productUrl } = this.state;
     console.log(" Product STATE", isFetched, product, errorCode);
@@ -102,7 +109,10 @@ class Product extends React.Component {
             <div className={styles.productHead}>
               <h1 className={styles.productHeading}>{product.fields.Name}</h1>
               {/* <ShareButton /> */}
-              <ProductShareButton name={product.fields.Name} />
+              <ProductShareButton
+                name={product.fields.Name}
+                toast={this.showToast}
+              />
             </div>
 
             {product.fields && <div className={styles.priceContainer}></div>}
@@ -143,6 +153,11 @@ class Product extends React.Component {
         </footer> */}
 
           <Footer />
+          <Toast
+            type="success"
+            message="Link copied successfully"
+            open={this.state.open}
+          />
         </div>
       </div>
     );
@@ -164,6 +179,7 @@ class Product extends React.Component {
       product,
       errorCode: props.errorCode,
       productUrl: props.productUrl,
+      open: false,
     };
     console.log({ state: this.state });
   }
