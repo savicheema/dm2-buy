@@ -19,9 +19,9 @@ class ShareButton extends React.Component {
 
   constructor(props) {
     super(props);
-    const { title } = props.title;
+    const { title, toast } = props.title;
     let isShared = false;
-    this.state = { isShared, title };
+    this.state = { isShared, title, toast };
   }
 
   componentDidMount() {}
@@ -40,7 +40,11 @@ class ShareButton extends React.Component {
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href).then(() => {
         this.setState({ isShared: true });
+        if (this.props.toast) {
+          this.props.toast();
+        }
       });
+      console.log("copied");
     } else {
       alert("Share unavailable!");
     }

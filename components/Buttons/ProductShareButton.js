@@ -40,6 +40,9 @@ class ProductShareButton extends React.Component {
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href).then(() => {
         this.setState({ isShared: true });
+        if (this.props.toast) {
+          this.props.toast();
+        }
       });
     } else {
       alert("Share unavailable!");
