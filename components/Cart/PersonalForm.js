@@ -48,7 +48,7 @@ class PersonalForm extends React.Component {
           ref={this.phoneInputRef}
           maxLength={10}
           inputType="number"
-          regex={/^[789]\d{9}$/}
+          regex={/^[6789]\d{9}$/}
         >
           <img
             src="/india.png"
