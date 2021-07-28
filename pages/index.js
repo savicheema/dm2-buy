@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../styles/Home.module.css";
 import Main from "../components/Main";
 import LoaderComponent from "../components/Loader";
@@ -40,6 +40,10 @@ export default function Home(props) {
   const { storeData, errorCode, storeUrl } = props;
   const [store, setStore] = useLocalStorage("store", props.storeData);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setStore(props.storeData);
+  }, [])
 
   if (errorCode) {
     return <Error404 statusCode={errorCode} />;
