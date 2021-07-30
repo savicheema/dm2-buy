@@ -104,7 +104,7 @@ class AddressForm extends React.Component {
   }
   getValues = () => {
     return {
-      address_line_1: this.addressInputRef.current.state.inputValue,
+      complete_address: this.addressInputRef.current.state.inputValue,
       pincode: this.pincodeInputRef.current.state.inputValue,
       city: this.cityInputRef.current.state.inputValue,
       state: this.stateInputRef.current.state.inputValue,

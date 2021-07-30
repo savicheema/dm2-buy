@@ -8,6 +8,7 @@ import Order from "./Order";
 import Footer from "../Footer";
 import { guid, getSubDomainOfPage } from "../../services/helper";
 import Toast from "../Toast";
+import constants from "../../constants";
 
 // const url = `${serverEndpoint}/order/`;
 
@@ -28,13 +29,14 @@ const Cart = ({ product, store }) => {
     setError(false);
     const bodyData = {
       userId: guid(),
+      order_shipping: constants.regularDeliveryFee,
       order_total: priceWithPaymentProcessingFee,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
-        email: store?.fields?.email,
-        phone: store?.fields?.phone,
         name: getSubDomainOfPage(),
+        instagram: store?.fields?.store_instagram_handle,
+        phone: store?.fields?.phone,
         seller_id: product?.fields?.Stores[0],
       },
       products: [
@@ -44,7 +46,6 @@ const Cart = ({ product, store }) => {
         },
       ],
     };
-    console.log(bodyData, "sss");
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/order/create`
     );
