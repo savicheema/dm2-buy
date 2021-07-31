@@ -41,6 +41,7 @@ const Cart = ({ product, store }) => {
       },
       products: [
         {
+          id: product?.id,
           name: product?.fields?.Name,
           price: product.fields.Price,
         },
