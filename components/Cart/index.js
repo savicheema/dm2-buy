@@ -9,10 +9,10 @@ import Footer from "../Footer";
 import { guid, getSubDomainOfPage } from "../../services/helper";
 import Toast from "../Toast";
 import constants from "../../constants";
-
-// const url = `${serverEndpoint}/order/`;
+import LoaderComponent from "../Loader";
 
 const Cart = ({ product, store }) => {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
@@ -46,6 +46,7 @@ const Cart = ({ product, store }) => {
         },
       ],
     };
+    setLoading(true);
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/order/create`
     );
@@ -63,9 +64,11 @@ const Cart = ({ product, store }) => {
         popUpFrame(res.paymentLink);
       } else {
         showError();
+        setLoading(false);
       }
     } catch (e) {
       showError();
+      setLoading(false);
     }
   };
 
@@ -83,6 +86,7 @@ const Cart = ({ product, store }) => {
   return (
     <>
       <div className={styles.cart}>
+        {loading && <LoaderComponent />}
         <CartMessage message={store.fields?.thank_you_note} />
 
         <PersonalForm ref={personalFormRef} />
@@ -112,6 +116,7 @@ const Cart = ({ product, store }) => {
         message="Something went wrong! Please try again"
         open={error}
       />
+
     </>
   );
 };
