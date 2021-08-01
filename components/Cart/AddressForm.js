@@ -1,4 +1,5 @@
 import React from "react";
+import debouncePromise from 'awesome-debounce-promise';
 import styles from "./address-form.module.css";
 
 import FormInput from "../utils/FormInput";
@@ -36,8 +37,10 @@ class AddressForm extends React.Component {
             onKeyDown={() => {
               this.setAddressLoader(true);
             }}
-            onBlur={(pincode) => {
-              this.fetchAddress(pincode);
+            inputType="number"
+            regex={/^[0123456789]{6}$/}
+            onChange={async (pincode) => {
+              this.searchPincode(pincode);
             }}
           />
           <FormInput
@@ -83,6 +86,7 @@ class AddressForm extends React.Component {
     this.pincodeInputRef = React.createRef();
     this.cityInputRef = React.createRef();
     this.stateInputRef = React.createRef();
+    this.fetchAddressDebounced = debouncePromise(this.fetchAddress, 500);
   }
 
   componentDidMount() {
@@ -95,10 +99,12 @@ class AddressForm extends React.Component {
     this.cityInputRef.current.setLoader(isLoading);
     this.stateInputRef.current.setLoader(isLoading);
   };
-
+  searchPincode = async (pincode) => {
+    await this.fetchAddressDebounced(pincode);
+  }
   getValues = () => {
     return {
-      address_line_1: this.addressInputRef.current.state.inputValue,
+      complete_address: this.addressInputRef.current.state.inputValue,
       pincode: this.pincodeInputRef.current.state.inputValue,
       city: this.cityInputRef.current.state.inputValue,
       state: this.stateInputRef.current.state.inputValue,
@@ -126,11 +132,16 @@ class AddressForm extends React.Component {
     return isValid;
   };
 
-  fetchAddress = (pincode) => {
+  fetchAddress = async (pincode) => {
     window.localStorage.setItem("city", "");
     window.localStorage.setItem("state", "");
     this.stateInputRef.current.setValue("");
     this.cityInputRef.current.setValue("");
+    const validated = await this.pincodeInputRef.current.validate();
+    if(!validated) {
+      this.setState({ isError: true });
+      return;
+    }
     this.setAddressLoader(true);
     if (pincode.trim() === "") {
       this.setState({ isError: false });

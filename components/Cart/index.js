@@ -8,10 +8,11 @@ import Order from "./Order";
 import Footer from "../Footer";
 import { guid, getSubDomainOfPage } from "../../services/helper";
 import Toast from "../Toast";
-
-// const url = `${serverEndpoint}/order/`;
+import constants from "../../constants";
+import LoaderComponent from "../Loader";
 
 const Cart = ({ product, store }) => {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const personalFormRef = React.createRef();
   const addressFormRef = React.createRef();
@@ -28,23 +29,25 @@ const Cart = ({ product, store }) => {
     setError(false);
     const bodyData = {
       userId: guid(),
+      order_shipping: constants.regularDeliveryFee,
       order_total: priceWithPaymentProcessingFee,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
-        email: store?.fields?.email,
-        phone: store?.fields?.phone,
         name: getSubDomainOfPage(),
+        instagram: store?.fields?.store_instagram_handle,
+        phone: store?.fields?.phone,
         seller_id: product?.fields?.Stores[0],
       },
       products: [
         {
+          id: product?.id,
           name: product?.fields?.Name,
           price: product.fields.Price,
         },
       ],
     };
-    console.log(bodyData, "sss");
+    setLoading(true);
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/order/create`
     );
@@ -62,9 +65,11 @@ const Cart = ({ product, store }) => {
         popUpFrame(res.paymentLink);
       } else {
         showError();
+        setLoading(false);
       }
     } catch (e) {
       showError();
+      setLoading(false);
     }
   };
 
@@ -82,6 +87,7 @@ const Cart = ({ product, store }) => {
   return (
     <>
       <div className={styles.cart}>
+        {loading && <LoaderComponent />}
         <CartMessage message={store.fields?.thank_you_note} />
 
         <PersonalForm ref={personalFormRef} />
@@ -111,6 +117,7 @@ const Cart = ({ product, store }) => {
         message="Something went wrong! Please try again"
         open={error}
       />
+
     </>
   );
 };

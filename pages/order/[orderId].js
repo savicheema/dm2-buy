@@ -9,7 +9,7 @@ import PackageDetails from "../../components/OrderDetails/PackageDetails";
 import BuyerDetails from "../../components/OrderDetails/BuyerDetails";
 
 export async function getServerSideProps(context) {
-  let store, errorCode, order;
+  let store, errorCode, order, retryLink;
   const { query, req } = context;
   const { host } = req.headers;
   const { orderId } = context.params;
@@ -32,12 +32,14 @@ export async function getServerSideProps(context) {
       `${hostWithProtocol}/api/order/order?orderId=${orderId}`
     );
     const json = await orderResponse.json();
-    const { order: orderDetails } = json;
+    const { order: orderDetails, paymentLink } = json;
+    retryLink = paymentLink ? paymentLink : null;
     order = orderDetails;
     errorCode = false;
   } catch (e) {
     errorCode = 404;
     order = null;
+    retryLink = null;
   }
   return {
     props: {
@@ -45,15 +47,15 @@ export async function getServerSideProps(context) {
       store: store || {},
       errorCode,
       order,
+      retryLink,
     }, // will be passed to the page component as props
   };
 }
 
 export default function Order(props) {
-  const { errorCode, order, store } = props;
+  const { errorCode, order, store, retryLink } = props;
   const [loading, setLoading] = useState(false);
   const status = order?.payment_status;
-  const retryLink = order?.paymentLink;
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });

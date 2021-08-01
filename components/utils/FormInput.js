@@ -214,6 +214,9 @@ class FormInput extends React.Component {
     if (saveInLocalStorage && name) {
       window.localStorage.setItem(name, e.target.value);
     }
+    const { onChange } = this.props;
+    if (typeof onChange !== "function") return;
+    onChange(e.target.value);
   };
 
   setValue = (value) => {
