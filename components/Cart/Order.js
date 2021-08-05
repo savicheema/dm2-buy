@@ -35,7 +35,7 @@ export default function Order(props) {
             <div className={styles.productDetails}>
               <span className={styles.shippingEmoji}>🚛</span>
 
-              <div className={styles.productName}>Regular Delivery</div>
+              <div className={styles.productName}>Shipping Fee</div>
             </div>
             <div className={styles.productPrice}>
               {`${String.fromCharCode(0x20b9)}${constants.regularDeliveryFee}`}
