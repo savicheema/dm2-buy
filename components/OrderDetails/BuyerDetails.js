@@ -8,15 +8,15 @@ export default function BuyerDetails(props) {
       <div className={orderStyles.buyerInfo}>
         <div className={orderStyles.buyerName}>{order.buyer.name}</div>
         <div className={orderStyles.buyerAddress}>
-          <div>{order.address.address_line_1}</div>
+          <div>{order.address.complete_address}</div>
           <div>
-            <span>{order.address.city}</span>, {" "}
+            <span>{order.address.city}</span>,{" "}
             <span>{order.address.state}</span>{" "}
             <span>{order.address.pincode}</span>
           </div>
           <div></div>
           <div>INDIA</div>
-          <div>PH.+{order.buyer.phone}</div>
+          <div>PH.{order.buyer.phone}</div>
         </div>
       </div>
       <div className={orderStyles.homeIcon}>🏠</div>
