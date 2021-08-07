@@ -1,11 +1,11 @@
-import Image from "next/image";
 import styles from "./footer.module.css";
 import { getSubDomainOfPage } from "../services/helper";
 
 const Footer = () => {
   const navigateToHome = () => {
     const subdomain = getSubDomainOfPage();
-    window.location.href = `https://dm2buy.com?utm_source=footer&utm_campaign=[${subdomain}]`;
+    const url = `https://dm2buy.com?utm_source=footer&utm_campaign=${subdomain}`;
+    window.open(url, '_blank').focus();
   };
   return (
     <footer className={styles.footer} onClick={navigateToHome}>
