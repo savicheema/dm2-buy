@@ -20,6 +20,11 @@ export default function Order(props) {
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });
+  useEffect(() => {
+    if (status === "complete") {
+      window.history.pushState({}, "", "/");
+    }
+  }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,
