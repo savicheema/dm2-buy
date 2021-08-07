@@ -7,49 +7,10 @@ import Error404 from "../404";
 import PackageExtraDetails from "../../components/OrderDetails/PackageExtraDetails";
 import PackageDetails from "../../components/OrderDetails/PackageDetails";
 import BuyerDetails from "../../components/OrderDetails/BuyerDetails";
+import { getOrderDetail } from "../../services/backend/serverSideProps";
 
 export async function getServerSideProps(context) {
-  let store, errorCode, order, retryLink;
-  const { query, req } = context;
-  const { host } = req.headers;
-  const { orderId } = context.params;
-  const splitHost = host.split(".");
-  const subdomain =
-    splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-      ? "fxnoob"
-      : splitHost[0];
-  const hostWithProtocol =
-    host === "localhost:3000" ? `http://${host}` : `https://${host}`;
-  try {
-    const response = await fetch(
-      `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
-    );
-    store = await response.json();
-    if (store.error) {
-      throw new Error(store.error);
-    }
-    const orderResponse = await fetch(
-      `${hostWithProtocol}/api/order/order?orderId=${orderId}`
-    );
-    const json = await orderResponse.json();
-    const { order: orderDetails, paymentLink } = json;
-    retryLink = paymentLink ? paymentLink : null;
-    order = orderDetails;
-    errorCode = false;
-  } catch (e) {
-    errorCode = 404;
-    order = null;
-    retryLink = null;
-  }
-  return {
-    props: {
-      orderId: query.orderId,
-      store: store || {},
-      errorCode,
-      order,
-      retryLink,
-    }, // will be passed to the page component as props
-  };
+  return getOrderDetail(context);
 }
 
 export default function Order(props) {
@@ -59,6 +20,11 @@ export default function Order(props) {
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });
+  useEffect(() => {
+    if (status === "complete") {
+      window.history.pushState({}, "", "/");
+    }
+  }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,

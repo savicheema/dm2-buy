@@ -116,7 +116,7 @@ class PersonalForm extends React.Component {
     return {
       name: this.nameInputRef.current.state.inputValue,
       instagram: this.instagramInputRef.current.state.inputValue,
-      phone: this.phoneInputRef.current.state.inputValue,
+      phone: `+91${this.phoneInputRef.current.state.inputValue}`,
       email: this.emailInputRef.current.state.inputValue,
     };
   };
