@@ -23,7 +23,7 @@ class PersonalForm extends React.Component {
           name="insta_handle"
           saveInLocalStorage={true}
           type="full"
-          placeholder="Your Instagram"
+          placeholder="Your Instagram (optional)"
           errorMessage="Need your instagram"
           invalidMessage="Instagram handle doesn't seem correct"
           ref={this.instagramInputRef}

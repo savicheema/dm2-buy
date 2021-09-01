@@ -18,7 +18,9 @@ const StoreItem = ({ product }) => {
         {product.fields && product.fields["Other photos"][0].url && (
           <div className={styles.image_container}>
             {product.fields.Status === "sold-out" && (
-              <div className={styles.item_overlay}>Sold Out!</div>
+              <div className={styles.item_overlay}>
+                <p>SOLD</p>
+              </div>
             )}
             <Image
               className={styles.productImg}

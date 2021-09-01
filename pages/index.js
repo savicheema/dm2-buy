@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Main from "../components/Main";
 import LoaderComponent from "../components/Loader";
@@ -43,7 +43,7 @@ export default function Home(props) {
 
   useEffect(() => {
     setStore(props.storeData);
-  }, [])
+  }, []);
 
   if (errorCode) {
     return <Error404 statusCode={errorCode} />;
@@ -59,7 +59,7 @@ export default function Home(props) {
         <link href="/fonts/fonts.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@700,900&family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
         />
         <meta

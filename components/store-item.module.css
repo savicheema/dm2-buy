@@ -14,13 +14,26 @@
 }
 .image_container {
   position: relative;
+  border-radius: 10px;
 }
 .item_overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
+  background-color: rgb(38, 38, 38, 0.3);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  width: 100%;
+  font-weight: 900;
+  font-family: "Lato", sans-serif;
+  font-size: 24px;
+  color: #ff3333;
   z-index: 1;
+}
+.item_overlay > p {
+  margin: 0;
+  padding: 0;
 }
 .details {
   width: 100%;
