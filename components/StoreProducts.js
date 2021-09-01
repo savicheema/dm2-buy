@@ -54,7 +54,7 @@ class StoreProducts extends React.Component {
   };
 
   filterProducts = (product) => {
-    return product.fields.Status === "for-sale";
+    return product;
   };
 
   fetchProduct = (productId, subdomain) => {
