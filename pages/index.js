@@ -59,7 +59,7 @@ export default function Home(props) {
         <link href="/fonts/fonts.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@700,900&family=Roboto:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@700;900&family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
         />
         <meta
