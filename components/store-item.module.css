@@ -34,6 +34,7 @@
 .item_overlay > p {
   margin: 0;
   padding: 0;
+  letter-spacing: 3px;
 }
 .details {
   width: 100%;
