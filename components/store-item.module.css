@@ -12,6 +12,16 @@
   border-radius: 10px;
   min-height: 204px;
 }
+.image_container {
+  position: relative;
+}
+.item_overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+}
 .details {
   width: 100%;
   display: flex;
@@ -28,7 +38,7 @@
   color: #1c3142;
   opacity: 80%;
   font-weight: 400;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   /* min-height: 22px; */
 }
 
@@ -36,5 +46,5 @@
   font-size: 16px;
   font-weight: 700;
   color: #1c3142;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
 }
