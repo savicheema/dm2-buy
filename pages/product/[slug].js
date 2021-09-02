@@ -169,7 +169,7 @@ class Product extends React.Component {
     const { product } = props;
     if (product.fields) {
       product.allPhotos = product?.fields["Other photos"];
-      product.headerPhoto = product?.fields["header photo"];
+      product.headerPhoto = product?.fields["header_photo"];
       product.headerDescription = this.cleanProductDescription(
         product?.fields?.description
       );

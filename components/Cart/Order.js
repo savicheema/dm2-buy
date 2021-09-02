@@ -18,10 +18,10 @@ export default function Order(props) {
           <div className={styles.orderItem}>
             <div className={styles.productDetails}>
               <img
-                src={product.fields['header photo'][0].url}
-                height='60'
-                width='60'
-                alt='Order name'
+                src={product.fields["header_photo"][0].url}
+                height="60"
+                width="60"
+                alt="Order name"
                 className={styles.orderThumbnail}
               />
               <div className={styles.productName}>{product.fields.Name}</div>

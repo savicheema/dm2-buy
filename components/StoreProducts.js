@@ -27,16 +27,16 @@ class StoreProducts extends React.Component {
   componentWillUnmount() {}
 
   fetchAllProducts = (products, subdomain) => {
-    return new Promise((resolve) => {
-      const allProductPromises = products.map((product) =>
-        this.fetchProduct(product, subdomain)
-      );
-
-      Promise.all(allProductPromises)
+    return new Promise((resolve, reject) => {
+      fetch(`/api/airtable/getAllProducts?subdomain=${subdomain}`)
+        .then((response) => {
+          console.log("product RESPONSE", response);
+          return response.json();
+        })
         .then((productValues) => {
           this.setState(
             {
-              products: productValues.filter(this.filterProducts),
+              products: productValues.records.filter(this.filterProducts),
             },
             () => {
               let { endLoading } = this.props;
@@ -45,16 +45,18 @@ class StoreProducts extends React.Component {
           );
         })
         .catch((err) => {
-          console.error("ALL PRODUCTS REJECT");
+          console.error(err);
           let { endLoading } = this.props;
           endLoading();
           alert("Error Loading store products!");
+          reject();
         });
     });
   };
 
   filterProducts = (product) => {
-    return product;
+    let { store } = this.props;
+    return product.fields.Stores?.includes(store.id);
   };
 
   fetchProduct = (productId, subdomain) => {
