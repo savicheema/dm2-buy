@@ -44,7 +44,10 @@ const Main = ({ store, endLoading, loading }) => {
               />
             </h2>
             {store.fields.store_bio.trim() != "" && (
-              <p className={styles.bio}>{store.fields.store_bio}</p>
+              <p
+                className={styles.bio}
+                dangerouslySetInnerHTML={{ __html: store.fields.store_bio }}
+              ></p>
             )}
           </div>
         )}

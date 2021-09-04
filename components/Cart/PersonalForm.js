@@ -19,15 +19,17 @@ class PersonalForm extends React.Component {
           ref={this.nameInputRef}
           maxLength={50}
         />
+
         <FormInput
           name="insta_handle"
           saveInLocalStorage={true}
           type="full"
-          placeholder="Your Instagram"
-          errorMessage="Need your instagram"
+          placeholder="Your Instagram (optional)"
           invalidMessage="Instagram handle doesn't seem correct"
           ref={this.instagramInputRef}
-          regex={/^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)$/}
+          regex={
+            /^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)$/
+          }
         >
           {/* <img
             src="/instagram.png"
@@ -90,11 +92,9 @@ class PersonalForm extends React.Component {
 
   componentDidMount() {}
   componentWillUnmount() {}
-
   validate = async () => {
     const allValidations = [
       this.nameInputRef.current,
-      this.instagramInputRef.current,
       this.phoneInputRef.current,
       this.emailInputRef.current,
     ];
@@ -115,8 +115,7 @@ class PersonalForm extends React.Component {
   getValues = () => {
     return {
       name: this.nameInputRef.current.state.inputValue,
-      instagram: this.instagramInputRef.current.state.inputValue,
-      phone: `+91${this.phoneInputRef.current.state.inputValue}`,
+      phone: this.phoneInputRef.current.state.inputValue,
       email: this.emailInputRef.current.state.inputValue,
     };
   };

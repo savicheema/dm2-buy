@@ -15,15 +15,22 @@ const StoreItem = ({ product }) => {
       }}
     >
       <div className={styles.thumbnail}>
-        {product.fields && product.fields["Other photos"][0].url && (
-          <Image
-            className={styles.productImg}
-            src={`${product.fields["header photo"][0].url}`}
-            width="204"
-            height="204"
-            objectFit="cover"
-            alt="store product"
-          />
+        {product.fields && product.fields?.header_photo?.[0].url && (
+          <div className={styles.image_container}>
+            {product.fields.Status === "sold-out" && (
+              <div className={styles.item_overlay}>
+                <p>SOLD</p>
+              </div>
+            )}
+            <Image
+              className={styles.productImg}
+              src={`${product?.fields?.header_photo?.[0].url}`}
+              width="204"
+              height="204"
+              objectFit="cover"
+              alt="store product"
+            />
+          </div>
         )}
       </div>
 

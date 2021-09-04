@@ -12,6 +12,30 @@
   border-radius: 10px;
   min-height: 204px;
 }
+.image_container {
+  position: relative;
+  border-radius: 10px;
+}
+.item_overlay {
+  position: absolute;
+  background-color: rgb(38, 38, 38, 0.3);
+  height: 98%;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  width: 100%;
+  font-weight: 900;
+  font-family: "Lato", sans-serif;
+  font-size: 24px;
+  color: #ff3333;
+  z-index: 1;
+}
+.item_overlay > p {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 3px;
+}
 .details {
   width: 100%;
   display: flex;
@@ -28,7 +52,7 @@
   color: #1c3142;
   opacity: 80%;
   font-weight: 400;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   /* min-height: 22px; */
 }
 
@@ -36,5 +60,5 @@
   font-size: 16px;
   font-weight: 700;
   color: #1c3142;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
 }
