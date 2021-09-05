@@ -3,7 +3,7 @@ import styles from "./order.module.css";
 import constants from "../../constants";
 import { getPrice } from "../../services/frontend/pricing.service";
 
-export default function Order({ cart }) {
+export default function Order({ cart, checkInputs }) {
   const {
     productTotalPrice: price,
     total: priceWithPaymentProcessingFee,
@@ -62,7 +62,7 @@ export default function Order({ cart }) {
       <button
         className={styles.orderButton}
         onClick={async () => {
-          const isFormValid = await props.checkInputs();
+          const isFormValid = await checkInputs();
           if (isFormValid) {
             localStorage.removeItem("product");
           }

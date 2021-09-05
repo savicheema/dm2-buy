@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import orderStyles from "./order.module.css";
 import Head from "next/head";
 import LoaderComponent from "../../components/Loader";
@@ -20,11 +20,6 @@ export default function Order(props) {
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });
-  useEffect(() => {
-    if (status === "complete") {
-      window.history.pushState({}, "", "/");
-    }
-  }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,
