@@ -14,6 +14,8 @@ import DM2BuyCarousel from "../../components/Carousel";
 import ProductShareButton from "../../components/Buttons/ProductShareButton";
 import Toast from "../../components/Toast";
 import { getProduct } from "../../services/backend/serverSideProps";
+import StorageManager from "../../services/frontend/StorageManager";
+import { CART_KEY } from "../../services/frontend/StorageKeys"
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -101,7 +103,7 @@ class Product extends React.Component {
                   className={styles.buyNowButton}
                   onClick={() => {
                     this.storeProductToLocalStorage(product);
-                    window.location.href = `/cart/checkout`;
+                    window.location.href = `/cart`;
                   }}
                 >
                   Buy For{" "}
@@ -162,6 +164,9 @@ class Product extends React.Component {
     return plainText.slice(0, 200);
   };
   storeProductToLocalStorage = (product) => {
+    const cartData = StorageManager.getJson(CART_KEY, []);
+    cartData.push(product);
+    StorageManager.putJson(CART_KEY, cartData);
     localStorage.setItem("product", JSON.stringify(product));
   };
 }

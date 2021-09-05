@@ -1,20 +1,28 @@
-import React from "react";
-import styles from "./order.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "./bag.module.css";
 import constants from "../../constants";
-import { getPrice } from "../../services/frontend/pricing.service";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { CART_KEY } from "../../services/frontend/StorageKeys";
+import { getPrice} from "../../services/frontend/pricing.service";
 
-export default function Order({ cart }) {
-  const {
-    productTotalPrice: price,
-    total: priceWithPaymentProcessingFee,
-    paymentProcessingFee,
-  } = getPrice(cart);
+export default function Bag() {
+  const [cart, setCart] = useLocalStorage(CART_KEY, []);
+  const [price, setPrice] = useState(0);
+  const [paymentProcessingFee, setPaymentProcessingFee] = useState(0);
+  const [priceWithPaymentProcessingFee, setPriceWithPaymentProcessingFee] = useState(0);
+
+  useEffect(() => {
+    const { productTotalPrice, total, paymentProcessingFee: processingFee } = getPrice(cart);
+    setPrice(productTotalPrice);
+    setPaymentProcessingFee(processingFee);
+    setPriceWithPaymentProcessingFee(total);
+  }, [cart]);
 
   return (
     <>
       <div className={styles.order}>
         <h2 className={styles.orderTitle}>
-          <span>📦</span> Your Order
+          <span>🛍️</span> Your Bag
         </h2>
         <div className={styles.orderList}>
           {cart.map((product) => (
@@ -59,17 +67,24 @@ export default function Order({ cart }) {
           </div>
         </div>
       </div>
-      <button
-        className={styles.orderButton}
-        onClick={async () => {
-          const isFormValid = await props.checkInputs();
-          if (isFormValid) {
-            localStorage.removeItem("product");
-          }
-        }}
-      >
-        {`Pay ${String.fromCharCode(0x20b9) + priceWithPaymentProcessingFee}`}
-      </button>
+      <div className={styles.bottomCTASection}>
+        <button
+          className={styles.orderButton}
+          onClick={async () => {
+            window.location.href = `/cart/checkout`;
+          }}
+        >
+          {`Pay ${String.fromCharCode(0x20b9) + priceWithPaymentProcessingFee}`}
+        </button>
+        <button
+          className={styles.continueShoppingButton}
+          onClick={async () => {
+            window.location.href = `/`;
+          }}
+        >
+          Continue Shopping
+        </button>
+      </div>
     </>
   );
 }
