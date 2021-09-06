@@ -11,6 +11,8 @@ import Toast from "../Toast";
 import constants from "../../constants";
 import LoaderComponent from "../Loader";
 import { getPrice } from "../../services/frontend/pricing.service";
+import StorageManager from '../../services/frontend/StorageManager';
+import { CART_KEY } from "../../services/frontend/StorageKeys";
 
 const Cart = ({ cart, store }) => {
   const [loading, setLoading] = useState(false);
@@ -69,6 +71,7 @@ const Cart = ({ cart, store }) => {
         showError();
         setLoading(false);
       }
+      StorageManager.removeItem(CART_KEY);
     } catch (e) {
       showError();
       setLoading(false);

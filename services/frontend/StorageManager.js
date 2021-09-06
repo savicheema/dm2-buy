@@ -19,4 +19,8 @@ export default class StorageManager {
   static clearStore = () => {
     localStorage.clear();
   };
+
+  static removeItem = (storageKey) => {
+    localStorage.removeItem(storageKey);
+  };
 }
