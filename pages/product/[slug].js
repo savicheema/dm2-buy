@@ -15,13 +15,21 @@ import ProductShareButton from "../../components/Buttons/ProductShareButton";
 import Toast from "../../components/Toast";
 import { getProduct } from "../../services/backend/serverSideProps";
 import StorageManager from "../../services/frontend/StorageManager";
-import { CART_KEY } from "../../services/frontend/StorageKeys"
+import { CART_KEY } from "../../services/frontend/StorageKeys";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
 }
 
 class Product extends React.Component {
+  componentDidMount() {
+    const { productId } = this.props;
+    const cartData = StorageManager.getJson(CART_KEY, []);
+    const productArr = cartData.filter((product) => product.id === productId);
+    if (productArr.length > 0) {
+      this.setState({ productAlreadyInCart: true });
+    }
+  }
   showToast = () => {
     this.setState({ open: true });
     setTimeout(() => {
@@ -106,8 +114,11 @@ class Product extends React.Component {
                     window.location.href = `/cart`;
                   }}
                 >
-                  Buy For{" "}
-                  {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+                  {this.state.productAlreadyInCart
+                    ? "View Bag"
+                    : `Buy For ${String.fromCharCode(0x20b9)}${
+                        product.fields.Price
+                      }`}
                 </button>
               )}
               {product.fields.Status !== "for-sale" && (
@@ -155,6 +166,7 @@ class Product extends React.Component {
       errorCode: props.errorCode,
       productUrl: props.productUrl,
       open: false,
+      productAlreadyInCart: false,
     };
     console.log({ state: this.state });
   }
@@ -164,10 +176,13 @@ class Product extends React.Component {
     return plainText.slice(0, 200);
   };
   storeProductToLocalStorage = (product) => {
+    if (this.state.productAlreadyInCart) {
+      return;
+    }
     const cartData = StorageManager.getJson(CART_KEY, []);
     cartData.push(product);
     StorageManager.putJson(CART_KEY, cartData);
-    localStorage.setItem("product", JSON.stringify(product));
+    console.log({cartData})
   };
 }
 

@@ -5,7 +5,7 @@ export async function getStore(context) {
     const splitHost = host.split(".");
     const subdomain =
         splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-            ? "fxnoob"
+            ? "kim"
             : splitHost[0];
     const hostWithProtocol =
         host === "localhost:3000" ? `http://${host}` : `https://${host}`;
@@ -37,7 +37,7 @@ export async function getProduct(context) {
     const splitHost = host.split(".");
     const subdomain =
         splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-            ? "fxnoob"
+            ? "kim"
             : splitHost[0];
     const hostWithProtocol =
         host === "localhost:3000" ? `http://${host}` : `https://${host}`;
