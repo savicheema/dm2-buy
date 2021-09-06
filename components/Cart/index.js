@@ -10,8 +10,9 @@ import { guid, getSubDomainOfPage } from "../../services/helper";
 import Toast from "../Toast";
 import constants from "../../constants";
 import LoaderComponent from "../Loader";
+import { getPrice } from "../../services/frontend/pricing.service";
 
-const Cart = ({ product, store }) => {
+const Cart = ({ cart, store }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const personalFormRef = React.createRef();
@@ -23,29 +24,30 @@ const Cart = ({ product, store }) => {
     }, 3000);
   };
   const initiatePayment = async () => {
-    const price = product.fields.Price + 0; //making fee 0 for testing
-    const paymentProcessingFee = Number((price * 0.02).toFixed(2));
-    const priceWithPaymentProcessingFee = price + paymentProcessingFee;
+    const {
+      productTotalPrice,
+      total,
+      paymentProcessingFee: processingFee,
+    } = getPrice(cart);
+
     setError(false);
     const bodyData = {
       userId: guid(),
       order_shipping: constants.regularDeliveryFee,
-      order_total: priceWithPaymentProcessingFee,
+      order_total: total,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
         name: getSubDomainOfPage(),
         instagram: store?.fields?.store_instagram_handle,
         phone: store?.fields?.phone,
-        seller_id: product?.fields?.Stores[0],
+        seller_id: cart[0]?.fields?.Stores[0],
       },
-      products: [
-        {
-          id: product?.id,
-          name: product?.fields?.Name,
-          price: product.fields.Price,
-        },
-      ],
+      products: cart.map((product) => ({
+        id: product?.id,
+        name: product?.fields?.Name,
+        price: product.fields.Price,
+      })),
     };
     setLoading(true);
     const url = new URL(
@@ -95,6 +97,7 @@ const Cart = ({ product, store }) => {
         <AddressForm ref={addressFormRef} />
 
         <Order
+          cart={cart}
           checkInputs={async () => {
             const isPersonalFormValid =
               await personalFormRef.current.validate();
@@ -108,7 +111,6 @@ const Cart = ({ product, store }) => {
             initiatePayment();
             return false;
           }}
-          product={product}
         />
         <Footer />
       </div>
@@ -117,7 +119,6 @@ const Cart = ({ product, store }) => {
         message="Something went wrong! Please try again"
         open={error}
       />
-
     </>
   );
 };
