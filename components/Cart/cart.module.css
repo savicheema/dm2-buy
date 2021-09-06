@@ -2,5 +2,8 @@
   width: 100%;
   margin-top: 4vh;
   max-width: var(--max-width);
-  padding: 4px 24px;
+  padding: 4px 0;
+}
+.checkout_container {
+  padding: 0 24px;
 }

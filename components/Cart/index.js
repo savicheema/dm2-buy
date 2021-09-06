@@ -87,7 +87,7 @@ const Cart = ({ cart, store }) => {
     };
   };
   return (
-    <>
+    <div className={styles.checkout_container}>
       <div className={styles.cart}>
         {loading && <LoaderComponent />}
         <CartMessage message={store.fields?.thank_you_note} />
@@ -119,7 +119,7 @@ const Cart = ({ cart, store }) => {
         message="Something went wrong! Please try again"
         open={error}
       />
-    </>
+    </div>
   );
 };
 

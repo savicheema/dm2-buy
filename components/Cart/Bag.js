@@ -2,30 +2,35 @@ import React, { useEffect, useState } from "react";
 import styles from "./bag.module.css";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
-import { getPrice} from "../../services/frontend/pricing.service";
+import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
+import Image from "next/image";
 
 export default function Bag() {
   const [cart, setCart] = useLocalStorage(CART_KEY, []);
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
-    const { productTotalPrice, total, paymentProcessingFee: processingFee } = getPrice(cart);
+    const {
+      productTotalPrice,
+      total,
+      paymentProcessingFee: processingFee,
+    } = getPrice(cart);
     setPrice(productTotalPrice);
   }, [cart]);
 
   const removeProductFromCart = (productId) => () => {
     const cartData = StorageManager.getJson(CART_KEY, []);
-    const filteredCart = cartData.filter(product => product.id !== productId);
+    const filteredCart = cartData.filter((product) => product.id !== productId);
     StorageManager.putJson(CART_KEY, filteredCart);
     setCart(filteredCart);
     if (filteredCart.length === 0) {
-      window.location.href = '/';
+      window.location.href = "/";
     }
-  }
+  };
 
   return (
-    <>
+    <div className={styles.bagContainer}>
       <div className={styles.order}>
         <h2 className={styles.orderTitle}>
           <span>🛍️</span> Your Bag
@@ -46,9 +51,12 @@ export default function Bag() {
               <div className={styles.productPrice}>
                 {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
               </div>
-              <button className={styles.productName} onClick={removeProductFromCart(product.id)}>
-                x
-              </button>
+              <Image
+                onClick={removeProductFromCart(product.id)}
+                src="/invalid-name@3x.png"
+                height="10"
+                width="10"
+              />
             </div>
           ))}
         </div>
@@ -60,7 +68,7 @@ export default function Bag() {
             window.location.href = `/cart/checkout`;
           }}
         >
-          Checkout
+          Checkout — ₹{price}
         </button>
         <button
           className={styles.continueShoppingButton}
@@ -71,6 +79,6 @@ export default function Bag() {
           Continue Shopping
         </button>
       </div>
-    </>
+    </div>
   );
 }

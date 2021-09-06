@@ -68,7 +68,7 @@ export default function Order({ cart, checkInputs }) {
           }
         }}
       >
-        {`Pay ${String.fromCharCode(0x20b9) + priceWithPaymentProcessingFee}`}
+        {`Pay — ${String.fromCharCode(0x20b9) + priceWithPaymentProcessingFee}`}
       </button>
     </>
   );
