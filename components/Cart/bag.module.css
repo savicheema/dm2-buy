@@ -6,7 +6,11 @@
   justify-content: center;
   align-items: center;
 }
+.bagContainer {
+  position: relative;
 
+  /* min-height: 100vh; */
+}
 .orderItem {
   display: flex;
   align-items: center;
@@ -21,20 +25,23 @@
   letter-spacing: 0.5px;
   margin: 0;
 }
+
 .orderTitle > span {
   margin-right: 12px;
 }
 
 .orderList {
-  margin: 20px 0;
+  margin: 40px 0;
   width: 100%;
+  overflow-y: scroll;
 }
 
 .order {
-  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100%;
+  padding: 0 24px;
 }
 
 .orderButton {
@@ -42,12 +49,12 @@
   border: none;
   outline: none;
   /*
-  width: 80vw;
-  max-width: 304px; */
+    width: 80vw;
+    max-width: 304px; */
   width: 100%;
   /* height: 48px; */
   padding: 16px 0;
-  margin: 0 0 32px 0;
+  /* margin: 13px 12px 8px; */
   border-radius: 16px;
   background-color: #000000;
   color: white;
@@ -61,23 +68,66 @@
   text-transform: uppercase;
 }
 
+.continueShoppingButton {
+  background: none;
+  border: none;
+  outline: none;
+  /*
+    width: 80vw;
+    max-width: 304px; */
+  width: 100%;
+  /* height: 48px; */
+  padding: 16px 0;
+  /* margin: 0 0 32px 0; */
+  border-radius: 16px;
+  background-color: white;
+  color: black;
+  font-size: 13px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.empty_div {
+  height: 120px;
+  width: 100%;
+}
+.bottomCTASection {
+  position: fixed;
+  left: 50%;
+  width: 100%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  background-color: #ffffff;
+  max-width: var(--max-width);
+  padding: 13px 12px 18px;
+  box-shadow: 0 -1px 4.5px 0 #ccc;
+  /*padding: 2rem;*/
+  /*position: fixed;*/
+  /*bottom: 2rem;*/
+  /*margin-left: 1rem;*/
+}
+
 .orderThumbnail {
   border-radius: 16px;
 }
 
 .productDetails {
   /* display: flex;
-  justify-content: space-around;
-  margin: 0 8px;
-  font-size: 18px;
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: 900;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.11;
-  letter-spacing: 0.45px;
-  color: #333333; */
+    justify-content: space-around;
+    margin: 0 8px;
+    font-size: 18px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.11;
+    letter-spacing: 0.45px;
+    color: #333333; */
   display: flex;
   align-items: center;
 }
@@ -96,8 +146,8 @@
 
 .productPrice {
   /* word-wrap: none;
-  word-break: none;
-  overflow-x: auto; */
+    word-break: none;
+    overflow-x: auto; */
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-size: 16px;

@@ -13,40 +13,23 @@ import LoaderComponent from "../../components/Loader";
 import DM2BuyCarousel from "../../components/Carousel";
 import ProductShareButton from "../../components/Buttons/ProductShareButton";
 import Toast from "../../components/Toast";
+import { getProduct } from "../../services/backend/serverSideProps";
+import StorageManager from "../../services/frontend/StorageManager";
+import { CART_KEY } from "../../services/frontend/StorageKeys";
 
 export async function getServerSideProps(context) {
-  let product, errorCode, productUrl;
-  const { req } = context;
-  const splitArr = req.url.split("-");
-  const productId = splitArr[splitArr.length - 1];
-  const { host } = req.headers;
-  const splitHost = host.split(".");
-  const subdomain =
-    splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-      ? "fxnoob"
-      : splitHost[0];
-  const hostWithProtocol =
-    host === "localhost:3000" ? `http://${host}` : `https://${host}`;
-  try {
-    const response = await fetch(
-      `${hostWithProtocol}/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
-    );
-    product = await response.json();
-    if (product.error) {
-      throw new Error(product.error);
-    }
-    productUrl = `${hostWithProtocol}/product/${product?.fields?.Slug}-${product.id}`;
-    errorCode = false;
-  } catch (e) {
-    errorCode = 404;
-    productUrl = "";
-  }
-  return {
-    props: { productId, product: product || null, errorCode, productUrl }, // will be passed to the page component as props
-  };
+  return getProduct(context);
 }
 
 class Product extends React.Component {
+  componentDidMount() {
+    const { productId } = this.props;
+    const cartData = StorageManager.getJson(CART_KEY, []);
+    const productArr = cartData.filter((product) => product.id === productId);
+    if (productArr.length > 0) {
+      this.setState({ productAlreadyInCart: true });
+    }
+  }
   showToast = () => {
     this.setState({ open: true });
     setTimeout(() => {
@@ -128,11 +111,14 @@ class Product extends React.Component {
                   className={styles.buyNowButton}
                   onClick={() => {
                     this.storeProductToLocalStorage(product);
-                    window.location.href = `/cart/checkout`;
+                    window.location.href = `/cart`;
                   }}
                 >
-                  Buy For{" "}
-                  {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+                  {this.state.productAlreadyInCart
+                    ? "View Bag"
+                    : `Buy For ${String.fromCharCode(0x20b9)}${
+                        product.fields.Price
+                      }`}
                 </button>
               )}
               {product.fields.Status !== "for-sale" && (
@@ -180,6 +166,7 @@ class Product extends React.Component {
       errorCode: props.errorCode,
       productUrl: props.productUrl,
       open: false,
+      productAlreadyInCart: false,
     };
     console.log({ state: this.state });
   }
@@ -189,7 +176,13 @@ class Product extends React.Component {
     return plainText.slice(0, 200);
   };
   storeProductToLocalStorage = (product) => {
-    localStorage.setItem("product", JSON.stringify(product));
+    if (this.state.productAlreadyInCart) {
+      return;
+    }
+    const cartData = StorageManager.getJson(CART_KEY, []);
+    cartData.push(product);
+    StorageManager.putJson(CART_KEY, cartData);
+    console.log({cartData})
   };
 }
 

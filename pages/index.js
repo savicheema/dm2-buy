@@ -5,35 +5,10 @@ import Main from "../components/Main";
 import LoaderComponent from "../components/Loader";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Error404 from "./404";
+import { getStore } from "../services/backend/serverSideProps";
 
 export async function getServerSideProps(context) {
-  let store, errorCode, storeUrl;
-  const { req } = context;
-  const { host } = req.headers;
-  const splitHost = host.split(".");
-  const subdomain =
-    splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-      ? "fxnoob"
-      : splitHost[0];
-  const hostWithProtocol =
-    host === "localhost:3000" ? `http://${host}` : `https://${host}`;
-  try {
-    const response = await fetch(
-      `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
-    );
-    store = await response.json();
-    if (store.error) {
-      throw new Error(store.error);
-    }
-    storeUrl = `${hostWithProtocol}/`;
-    errorCode = false;
-  } catch (e) {
-    errorCode = 404;
-    storeUrl = "";
-  }
-  return {
-    props: { storeData: store || null, errorCode, storeUrl }, // will be passed to the page component as props
-  };
+  return getStore(context);
 }
 
 export default function Home(props) {

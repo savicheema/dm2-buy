@@ -1,28 +1,28 @@
 import React, { useEffect } from "react";
-import homeStyles from "../../styles/Home.module.css";
+import cartPageStyles from "./cart-page.module.css";
 import Head from "next/head";
-import Cart from "../../components/Cart";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { getStore } from "../../services/backend/serverSideProps";
-import { CART_KEY } from "../../services/frontend/StorageKeys";
+import styles from "../../components/Cart/cart.module.css";
+import Bag from "../../components/Cart/Bag";
 
 export async function getServerSideProps(context) {
   return getStore(context);
 }
 
-export default function CheckoutPage(props) {
-  const [cart, setCart] = useLocalStorage(CART_KEY, []);
+export default function CartPage(props) {
   const [store, setStore] = useLocalStorage("store", props.storeData);
+
   useEffect(() => {
-    if (!cart || !store.fields) {
+    if (!store.fields) {
       window.location.href = "/";
     }
   });
-  if (!cart || !store) {
+  if (!store) {
     return null;
   }
   return (
-    <div className={homeStyles.container}>
+    <div className={cartPageStyles.container} style={{ minHeight: "" }}>
       <Head>
         <title>{store?.fields?.store_name || "Dm 2 Buy"}</title>
         <meta
@@ -55,7 +55,9 @@ export default function CheckoutPage(props) {
         />
         <meta property="og:image:secure" content="/favicon.ico" />
       </Head>
-      <Cart cart={cart} store={store} />
+      <div className={styles.cart}>
+        <Bag />
+      </div>
     </div>
   );
 }

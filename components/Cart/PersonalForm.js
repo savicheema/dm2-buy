@@ -24,7 +24,7 @@ class PersonalForm extends React.Component {
           name="insta_handle"
           saveInLocalStorage={true}
           type="full"
-          placeholder="Your Instagram (optional)"
+          placeholder="Instagram (optional)"
           invalidMessage="Instagram handle doesn't seem correct"
           ref={this.instagramInputRef}
           regex={
