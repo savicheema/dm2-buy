@@ -31,8 +31,9 @@
 }
 
 .orderList {
-  margin: 40px 45px;
+  margin: 40px 0;
   width: 100%;
+  overflow-y: scroll;
 }
 
 .order {
@@ -90,7 +91,10 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
-
+.empty_div {
+  height: 120px;
+  width: 100%;
+}
 .bottomCTASection {
   position: fixed;
   left: 50%;

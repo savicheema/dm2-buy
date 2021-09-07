@@ -67,6 +67,7 @@ export default function Bag() {
               </div>
             ))}
           </div>
+          <div className={styles.empty_div}></div>
         </div>
         <div className={styles.bottomCTASection}>
           <button
