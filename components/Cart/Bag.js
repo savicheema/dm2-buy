@@ -55,15 +55,15 @@ export default function Bag() {
                     {product.fields.Name}
                   </div>
                 </div>
-                <div className={styles.productPrice}>
-                  {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+                <div className={styles.details_right}>
+                  <div className={styles.productPrice}>
+                    {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+                  </div>
+                  <img
+                    onClick={removeProductFromCart(product.id)}
+                    src="/invalid-name@2x.png"
+                  />
                 </div>
-                <Image
-                  onClick={removeProductFromCart(product.id)}
-                  src="/invalid-name@3x.png"
-                  height="10"
-                  width="10"
-                />
               </div>
             ))}
           </div>

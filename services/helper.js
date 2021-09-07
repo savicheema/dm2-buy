@@ -18,7 +18,6 @@ Sentry.init({
 const getSubDomainOfPage = () => {
   const { host } = window.location;
   console.log("host--", host);
-  if (host === "192.168.29.98:3000") return "fxnoob";
   let splitHost = host.split(".");
   console.log("splithost---", splitHost);
   return splitHost[0] == "localhost:3000" || splitHost[0] == "192"
