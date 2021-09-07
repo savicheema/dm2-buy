@@ -145,15 +145,17 @@
 }
 .orderDiv {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   letter-spacing: 1.1px;
   line-height: 20px;
   color: #1c3142;
-  padding: 20px;
+  width: 100%;
+  padding: 10px 20px 4px;
   text-transform: capitalize;
 }
+
 .orderName {
   display: flex;
   justify-content: flex-start;
