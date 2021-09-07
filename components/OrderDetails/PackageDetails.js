@@ -10,15 +10,15 @@ export default function PackageDetails(props) {
         <div className={orderStyles.packageDetail}>Package Details</div>
         <div className={orderStyles.packageIcon}>📦</div>
       </div>
-      <div className={orderStyles.orderDiv}>
-        <div className={orderStyles.orderName}>
-          {order.products.map((item) => {
-            console.log(item);
-            item;
-          })}
+
+      {order.products.map((item) => (
+        <div className={orderStyles.orderDiv}>
+          <div>{item.name}</div>
+          <div className={orderStyles.orderTotal}>₹{item.price} </div>
         </div>
-        <div className={orderStyles.orderTotal}>₹{order.order_total}</div>
-      </div>
+      ))}
+
+      {/* <div className={orderStyles.orderTotal}>₹{order.order_total}</div> */}
     </div>
   );
 }
