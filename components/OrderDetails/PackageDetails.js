@@ -13,8 +13,8 @@ export default function PackageDetails(props) {
 
       {order.products.map((item) => (
         <div className={orderStyles.orderDiv}>
-          <div>{item.name}</div>  
-          <div className={orderStyles.orderTotal}>{item.price} </div>
+          <div>{item.name}</div>
+          <div className={orderStyles.orderTotal}>₹{item.price} </div>
         </div>
       ))}
 
