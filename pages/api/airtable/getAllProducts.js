@@ -10,7 +10,7 @@ async function getProduct(req, res) {
       return;
     }
     const response = await fetch(
-      `https://api.airtable.com/v0/${baseId}/Products?maxRecords=500`,
+      `https://api.airtable.com/v0/${baseId}/Products?maxRecords=500&sort%5B0%5D%5Bfield%5D=Created+Date&sort%5B0%5D%5Bdirection%5D=desc`,
       {
         headers: {
           Authorization: `Bearer ${process.env.AIRTABLE_KEY}`,
