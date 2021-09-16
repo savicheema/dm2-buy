@@ -152,10 +152,12 @@
   line-height: 20px;
   color: #1c3142;
   width: 100%;
-  padding: 10px 20px 4px;
+  padding: 12px 20px 0;
   text-transform: capitalize;
 }
-
+.orderDiv:nth-last-child(1) {
+  padding-bottom: 12px;
+}
 .orderName {
   display: flex;
   justify-content: flex-start;
