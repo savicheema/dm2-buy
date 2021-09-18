@@ -4,13 +4,24 @@ import EmptyStore from "./EmptyStore";
 import StoreItem from "./StoreItem";
 import { getSubDomainOfPage } from "../services/helper";
 
+import StoreCollections from "./StoreCollections";
+
 class StoreProducts extends React.Component {
   constructor(props) {
     super(props);
 
     let products = [];
+    let storeCollections = [];
+    let collectionsHeight = 0;
+    let selectedFilter = undefined;
 
-    this.state = { products };
+    this.state = {
+      products,
+      storeCollections,
+      selectedFilter,
+    };
+
+    this.collectionsRef = React.createRef();
   }
 
   componentDidMount() {
@@ -36,10 +47,14 @@ class StoreProducts extends React.Component {
         .then((productValues) => {
           this.setState(
             {
-              products: productValues.records.filter(this.filterProducts),
+              products: productValues.records.filter(this.filterStoreProducts),
             },
             () => {
               let { endLoading } = this.props;
+              let { products } = this.state;
+
+              products.forEach(this.getCollectionsOfProductAddToStore);
+
               endLoading();
             }
           );
@@ -54,9 +69,38 @@ class StoreProducts extends React.Component {
     });
   };
 
-  filterProducts = (product) => {
+  filterStoreProducts = (product) => {
     let { store } = this.props;
     return product.fields.Stores?.includes(store.id);
+  };
+
+  setFilter = (collection) => {
+    this.setState({ selectedFilter: collection });
+  };
+
+  filterCollectionProducts = (product) => {
+    let { selectedFilter } = this.state;
+    if (!selectedFilter || selectedFilter === "all") return true;
+
+    return product.fields.collections?.includes(selectedFilter);
+  };
+
+  getCollectionsOfProductAddToStore = (product) => {
+    // if product callection name doesn't already exist in tag add it
+    const { collections } = product?.fields;
+    if (!collections?.length) return;
+    let { storeCollections } = this.state;
+    for (let i = 0; i < collections.length; i++) {
+      const collection = collections[i];
+      if (storeCollections?.includes(collection)) return;
+
+      storeCollections.push(collection);
+    }
+
+    this.setState({ storeCollections }, () => {
+      let { storeCollections } = this.state;
+      console.log("COLLECTIONS", storeCollections);
+    });
   };
 
   fetchProduct = (productId, subdomain) => {
@@ -79,13 +123,18 @@ class StoreProducts extends React.Component {
     });
   };
 
+  setCollectionsHeight = (collectionsHeight) => {
+    this.setState({ collectionsHeight });
+  };
+
   render() {
-    let { products } = this.state;
+    let { products, storeCollections, collectionsHeight } = this.state;
     console.log(" StoreProducts STATE", products);
 
     let { loading } = this.props;
 
-    console.log({ props: this.props, loading });
+    console.log("REF", { props: this.props, loading }, this.collectionsRef);
+
     return (
       <div className={styles.store}>
         {/* {products.length && (
@@ -95,11 +144,24 @@ class StoreProducts extends React.Component {
         )} */}
 
         {!loading && (
-          <div className={styles.storeItems}>
+          <div
+            className={styles.storeItems}
+            style={{
+              paddingTop: `${collectionsHeight + 16}px`,
+            }}
+          >
+            <StoreCollections
+              collections={storeCollections}
+              setCollectionsHeight={this.setCollectionsHeight}
+              setFilter={this.setFilter}
+            />
+
             {products.length > 0 ? (
-              products.map((product, index) => {
-                return <StoreItem product={product} key={index} />;
-              })
+              products
+                .filter(this.filterCollectionProducts)
+                .map((product, index) => {
+                  return <StoreItem product={product} key={index} />;
+                })
             ) : (
               <EmptyStore />
             )}
