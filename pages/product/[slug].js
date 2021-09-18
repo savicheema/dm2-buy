@@ -114,11 +114,14 @@ class Product extends React.Component {
                     window.location.href = `/cart`;
                   }}
                 >
-                  {this.state.productAlreadyInCart
-                    ? "View Bag"
-                    : `Buy For ${String.fromCharCode(0x20b9)}${
-                        product.fields.Price
-                      }`}
+                  <div>
+                    {this.state.productAlreadyInCart
+                      ? "Added to Bag"
+                      : "Add to Bag"}
+                  </div>
+                  <div>
+                    {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+                  </div>
                 </button>
               )}
               {product.fields.Status !== "for-sale" && (
@@ -182,7 +185,7 @@ class Product extends React.Component {
     const cartData = StorageManager.getJson(CART_KEY, []);
     cartData.push(product);
     StorageManager.putJson(CART_KEY, cartData);
-    console.log({cartData})
+    console.log({ cartData });
   };
 }
 
