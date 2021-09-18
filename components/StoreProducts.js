@@ -92,7 +92,7 @@ class StoreProducts extends React.Component {
     let { storeCollections } = this.state;
     for (let i = 0; i < collections.length; i++) {
       const collection = collections[i];
-      if (storeCollections?.includes(collection)) return;
+      if (storeCollections?.includes(collection)) continue;
 
       storeCollections.push(collection);
     }
