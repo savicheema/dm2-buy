@@ -51,7 +51,7 @@ const Main = ({ store, endLoading, loading }) => {
             )}
           </div>
         )}
-        {store.fields && (
+        {/* {store.fields && (
           <div className={styles.socialButtons}>
             <ImageButton
               type="raised"
@@ -68,7 +68,7 @@ const Main = ({ store, endLoading, loading }) => {
               toast={showToast}
             />
           </div>
-        )}
+        )} */}
       </div>
 
       {store.fields && (

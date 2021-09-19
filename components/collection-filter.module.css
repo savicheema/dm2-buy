@@ -1,27 +1,28 @@
 .collectionFilter {
   margin: 4px 5px 5px 4px;
-  padding: 4px 8px 4px 8px;
+  padding: 4px 20px 4px 20px;
   border-radius: 16px;
   background-color: #f5f5f5;
   text-transform: capitalize;
-  font-size: 1.1rem;
+  font-size: 13px;
   display: flex;
   justify-content: center;
   align-items: center;
+  letter-spacing: 1px;
 }
 
 .selectedFilter {
   margin: 4px 5px 5px 4px;
-  padding: 5px 8px;
+  padding: 5px 20px;
   border-radius: 16px;
   background-color: #000;
 
-  font-size: 1.1rem;
+  font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.75px;
+  letter-spacing: 1px;
   text-align: center;
   color: #fff;
   text-transform: capitalize;
