@@ -44,12 +44,13 @@ export default function Bag() {
             {cart.map((product) => (
               <div className={styles.orderItem}>
                 <div className={styles.productDetails}>
-                  <img
+                  <Image
                     src={product.fields["header_photo"][0].url}
-                    height="60"
-                    width="60"
+                    height={60}
+                    width={60}
                     alt="Order name"
                     className={styles.orderThumbnail}
+                    priority
                   />
                   <div className={styles.productName}>
                     {product.fields.Name}

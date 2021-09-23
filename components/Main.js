@@ -26,7 +26,9 @@ const Main = ({ store, endLoading, loading }) => {
       <div className={styles.profile}>
         {store.fields && (
           <div className={styles.social}>
-            <img
+            <Image
+              width={102}
+              height={102}
               src={store.fields.store_profile_photo[0].url}
               alt="profile-pic"
               className={homeStyles.profilePic}
