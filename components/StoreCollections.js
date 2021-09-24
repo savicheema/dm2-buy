@@ -27,6 +27,17 @@ const StoreCollections = ({ collections, setCollectionsHeight, setFilter }) => {
   };
   useEffect(selectedCollectionEffect, [selectedCollection]);
 
+  const sortFilter = (firstFilter, secondFilter) => {
+    if (typeof firstFilter != "string" || typeof secondFilter != "string")
+      return -1;
+
+    // considering emoji for length
+    const firstFilterLength = [...firstFilter].length;
+    const secondFilterLength = [...secondFilter].length;
+
+    return firstFilterLength - secondFilterLength;
+  };
+
   const storeCollections = useMemo(() => {
     const list = [];
     list.push(
@@ -36,13 +47,15 @@ const StoreCollections = ({ collections, setCollectionsHeight, setFilter }) => {
         setSelectedCollection={setSelectedCollection}
       />
     );
-    const collectionList = collections.map((collection, i) => (
-      <CollectionFilter
-        collection={collection}
-        selectedCollection={selectedCollection}
-        setSelectedCollection={setSelectedCollection}
-      />
-    ));
+    const collectionList = collections
+      .sort(sortFilter)
+      .map((collection, i) => (
+        <CollectionFilter
+          collection={collection}
+          selectedCollection={selectedCollection}
+          setSelectedCollection={setSelectedCollection}
+        />
+      ));
 
     return list.concat(collectionList);
   }, [collections, selectedCollection]);
