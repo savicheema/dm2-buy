@@ -17,16 +17,22 @@ export default function Order({ cart, checkInputs }) {
           <span>📦</span> Your Order
         </h2>
         <div className={styles.orderList}>
-          {cart.map((product) => (
-            <div className={styles.orderItem}>
+          {cart.map((product, index) => (
+            <div className={styles.orderItem} key={index}>
               <div className={styles.productDetails}>
-                <img
-                  src={product.fields["header_photo"][0].url}
-                  height="60"
-                  width="60"
-                  alt="Order name"
-                  className={styles.orderThumbnail}
-                />
+                <div className={styles.productAvatar}>
+                  <img
+                    src={product.fields["header_photo"][0].url}
+                    height="60"
+                    width="60"
+                    alt="Order name"
+                    className={styles.orderThumbnail}
+                  />
+                  <span className={styles.productQuantity}>
+                    {product.quantity}
+                  </span>
+                </div>
+
                 <div className={styles.productName}>{product.fields.Name}</div>
               </div>
               <div className={styles.productPrice}>

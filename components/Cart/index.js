@@ -11,7 +11,7 @@ import Toast from "../Toast";
 import constants from "../../constants";
 import LoaderComponent from "../Loader";
 import { getPrice } from "../../services/frontend/pricing.service";
-import StorageManager from '../../services/frontend/StorageManager';
+import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 
 const Cart = ({ cart, store }) => {
@@ -49,6 +49,7 @@ const Cart = ({ cart, store }) => {
         id: product?.id,
         name: product?.fields?.Name,
         price: product.fields.Price,
+        quantity: product.quantity,
       })),
     };
     setLoading(true);

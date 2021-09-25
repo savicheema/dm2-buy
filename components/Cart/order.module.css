@@ -20,6 +20,7 @@
   font-weight: bold;
   letter-spacing: 0.5px;
   margin: 0;
+  margin-bottom: 12px;
 }
 .orderTitle > span {
   margin-right: 12px;
@@ -102,4 +103,28 @@
   font-weight: 700;
   font-size: 16px;
   color: #1c3142;
+}
+
+.productAvatar {
+  position: relative;
+  display: inline-block;
+}
+
+.productQuantity {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 12px;
+  object-fit: contain;
+  background-color: black;
+  border-radius: 50%;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: auto;
 }
