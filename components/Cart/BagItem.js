@@ -46,7 +46,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
       </div>
       <div className={styles.details_right}>
         <div className={styles.productPrice}>
-          {`${String.fromCharCode(0x20b9)}${item.fields.Price}`}
+          {`${String.fromCharCode(0x20b9)}${count * item.fields.Price}`}
         </div>
         <img
           onClick={removeProductFromCart(item.id)}

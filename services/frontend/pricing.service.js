@@ -3,7 +3,7 @@ import constants from "../../constants";
 const getPrice = (cart) => {
   let calculatedPrice = 0;
   for (const product of cart) {
-    calculatedPrice += product.fields.Price;
+    calculatedPrice += product.fields.Price * product.quantity;
   }
   const productTotalPrice = calculatedPrice;
   calculatedPrice += constants.regularDeliveryFee;

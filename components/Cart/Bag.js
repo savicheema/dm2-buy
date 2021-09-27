@@ -43,6 +43,7 @@ export default function Bag() {
 
     cartData[productIndex].quantity = count;
     StorageManager.putJson(CART_KEY, cartData);
+    setCart([...cartData]);
   };
 
   return (
