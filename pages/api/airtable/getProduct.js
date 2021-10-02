@@ -22,6 +22,7 @@ async function getProduct(req, res) {
       }
     );
     const data = await response.json();
+    data.store = recordMeta;
     res.status(200).json(data);
   } catch (err) {
     console.error("GET PRODUCT ERROR", err);

@@ -14,6 +14,7 @@ async function getAllProducts(req, res) {
     }
     const data = await getProductByStoreId(recordMeta.id);
     res.status(200).json({
+      store: recordMeta,
       records: data,
     });
   } catch (err) {
