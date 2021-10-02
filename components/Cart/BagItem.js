@@ -14,10 +14,10 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   return (
     <div className={styles.orderItem}>
       <div className={styles.productDetails}>
-        <img
+        <Image
           src={item.fields["header_photo"][0].url}
-          height="60"
-          width="60"
+          height={60}
+          width={60}
           alt="Order name"
           className={styles.orderThumbnail}
         />
@@ -30,7 +30,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
                 setCount(count - 1);
               }}
             >
-              <Image src="/buttons/decrement@3x.png" width="9" height="2" />
+              <Image src="/buttons/decrement@3x.png" width={9} height={2} />
             </ImageButton>
             <span>{count}</span>
             <ImageButton
@@ -39,7 +39,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
                 setCount(count + 1);
               }}
             >
-              <Image src="/buttons/increment@3x.png" width="9" height="9" s />
+              <Image src="/buttons/increment@3x.png" width={9} height={9} s />
             </ImageButton>
           </div>
         </div>

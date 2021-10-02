@@ -7,6 +7,10 @@ Airtable.configure({
 
 const base = Airtable.base(baseId);
 
+const filterByRelatedTable = (tableName, recordName) => ({
+  filterByFormula: `FIND(", ${recordName}, ", ", " & ARRAYJOIN(${tableName}) & ", ") > 0`,
+});
+
 function getRecordBySubdomain(subdomain) {
   return new Promise((resolve, reject) => {
     base("Stores")
@@ -44,4 +48,14 @@ function updateProductStatus(productId, status) {
   });
 }
 
-export { base, getRecordBySubdomain, updateProductStatus };
+async function getProductByStoreId(storeId) {
+  const query = {
+    view: "Grid view",
+    sort: [{ field: "Created Date", direction: "desc" }],
+    // ...filterByRelatedTable("Stores", storeId),
+  };
+  const records = await base("Products").select(query).firstPage();
+  return records.map(record => record?._rawJson);
+}
+
+export { base, getRecordBySubdomain, updateProductStatus, getProductByStoreId };
