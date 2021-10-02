@@ -6,6 +6,7 @@ import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
 import LoaderComponent from "../Loader";
 import Image from "next/image";
+import BagItem from "./BagItem";
 
 export default function Bag() {
   const [cart, setCart] = useLocalStorage(CART_KEY, []);
@@ -32,6 +33,19 @@ export default function Bag() {
     }
   };
 
+  const updateProductCount = (productId, count) => {
+    const cartData = StorageManager.getJson(CART_KEY, []);
+    // update count
+    const productIndex = cartData.findIndex(
+      (product) => product.id === productId
+    );
+    if (productIndex < 0) return;
+
+    cartData[productIndex].quantity = count;
+    StorageManager.putJson(CART_KEY, cartData);
+    setCart([...cartData]);
+  };
+
   return (
     <>
       {loading && <LoaderComponent />}
@@ -41,31 +55,13 @@ export default function Bag() {
             <span>🛍️</span> Your Bag
           </h2>
           <div className={styles.orderList}>
-            {cart.map((product) => (
-              <div className={styles.orderItem}>
-                <div className={styles.productDetails}>
-                  <Image
-                    src={product.fields["header_photo"][0].url}
-                    height={60}
-                    width={60}
-                    alt="Order name"
-                    className={styles.orderThumbnail}
-                    priority
-                  />
-                  <div className={styles.productName}>
-                    {product.fields.Name}
-                  </div>
-                </div>
-                <div className={styles.details_right}>
-                  <div className={styles.productPrice}>
-                    {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
-                  </div>
-                  <img
-                    onClick={removeProductFromCart(product.id)}
-                    src="/invalid-name@2x.png"
-                  />
-                </div>
-              </div>
+            {cart.map((product, index) => (
+              <BagItem
+                item={product}
+                removeProductFromCart={removeProductFromCart}
+                updateProductCount={updateProductCount}
+                key={index}
+              />
             ))}
           </div>
           <div className={styles.empty_div}></div>

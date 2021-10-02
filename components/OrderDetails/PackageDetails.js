@@ -3,7 +3,7 @@ import React from "react";
 
 export default function PackageDetails(props) {
   const { order } = props;
-  console.log(order);
+  console.log("ORDER", order);
   return (
     <div className={orderStyles.packageDetailContainer}>
       <div className={orderStyles.packageDetailDiv}>
@@ -13,8 +13,12 @@ export default function PackageDetails(props) {
 
       {order.products.map((item) => (
         <div className={orderStyles.orderDiv}>
-          <div>{item.name}</div>
-          <div className={orderStyles.orderTotal}>₹{item.price} </div>
+          <div>
+            {item.name} <span> &#215;</span> {item.quantity}
+          </div>
+          <div className={orderStyles.orderTotal}>
+            ₹{item.quantity * item.price}{" "}
+          </div>
         </div>
       ))}
 

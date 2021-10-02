@@ -3,6 +3,8 @@ import styles from "./order.module.css";
 import constants from "../../constants";
 import { getPrice } from "../../services/frontend/pricing.service";
 
+import OrderItem from "./OrderItem";
+
 export default function Order({ cart, checkInputs }) {
   const {
     productTotalPrice: price,
@@ -17,24 +19,11 @@ export default function Order({ cart, checkInputs }) {
           <span>📦</span> Your Order
         </h2>
         <div className={styles.orderList}>
-          {cart.map((product) => (
-            <div className={styles.orderItem}>
-              <div className={styles.productDetails}>
-                <img
-                  src={product.fields["header_photo"][0].url}
-                  height="60"
-                  width="60"
-                  alt="Order name"
-                  className={styles.orderThumbnail}
-                />
-                <div className={styles.productName}>{product.fields.Name}</div>
-              </div>
-              <div className={styles.productPrice}>
-                {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
-              </div>
-            </div>
+          {cart.map((product, index) => (
+            <OrderItem item={product} key={index} />
           ))}
-
+        </div>
+        <div className={styles.charges}>
           <div className={styles.orderItem}>
             <div className={styles.productDetails}>
               <span className={styles.shippingEmoji}>🚛</span>
