@@ -25,10 +25,11 @@ const StoreItem = ({ product }) => {
             <Image
               className={styles.productImg}
               src={`${product?.fields?.header_photo?.[0].url}`}
-              width="204"
-              height="204"
+              width={204}
+              height={204}
               objectFit="cover"
               alt="store product"
+              priority
             />
           </div>
         )}
