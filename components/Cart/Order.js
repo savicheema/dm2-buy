@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./order.module.css";
-import constants from "../../constants";
 import { getPrice } from "../../services/frontend/pricing.service";
 
 import OrderItem from "./OrderItem";
 
 export default function Order({ cart, checkInputs }) {
   const {
+    shippingFee,
     productTotalPrice: price,
     total: priceWithPaymentProcessingFee,
     paymentProcessingFee,
@@ -31,7 +31,7 @@ export default function Order({ cart, checkInputs }) {
               <div className={styles.productName}>Shipping Fee</div>
             </div>
             <div className={styles.productPrice}>
-              {`${String.fromCharCode(0x20b9)}${constants.regularDeliveryFee}`}
+              {`${String.fromCharCode(0x20b9)}${shippingFee}`}
             </div>
           </div>
 

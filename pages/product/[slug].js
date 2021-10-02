@@ -1,13 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import Error404 from "../404";
 import styles from "./product.module.css";
-import homeStyles from "../../styles/Home.module.css";
-import Header from "../../components/Header";
-import { ShareButton } from "../../components/Buttons";
-import PrevArrow from "../../components/Carousel/PrevArrow";
-import NoticeConditions from "../../components/NoticeConditions";
-import SellerCard from "../../components/SellerCard";
 import Footer from "../../components/Footer";
 import LoaderComponent from "../../components/Loader";
 import DM2BuyCarousel from "../../components/Carousel";
@@ -162,6 +156,7 @@ class Product extends React.Component {
       product.headerDescription = this.cleanProductDescription(
         product?.fields?.description
       );
+      product.shippingFee = product?.store?.fields["Shipping Fee"];
     }
     this.state = {
       isFetched,

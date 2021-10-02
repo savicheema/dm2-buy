@@ -8,7 +8,6 @@ import Order from "./Order";
 import Footer from "../Footer";
 import { guid, getSubDomainOfPage } from "../../services/helper";
 import Toast from "../Toast";
-import constants from "../../constants";
 import LoaderComponent from "../Loader";
 import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
@@ -27,6 +26,7 @@ const Cart = ({ cart, store }) => {
   };
   const initiatePayment = async () => {
     const {
+      shippingFee,
       productTotalPrice,
       total,
       paymentProcessingFee: processingFee,
@@ -35,7 +35,7 @@ const Cart = ({ cart, store }) => {
     setError(false);
     const bodyData = {
       userId: guid(),
-      order_shipping: constants.regularDeliveryFee,
+      order_shipping: shippingFee,
       order_total: total,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
