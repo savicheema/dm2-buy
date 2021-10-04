@@ -5,7 +5,6 @@ import { CART_KEY } from "../../services/frontend/StorageKeys";
 import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
 import LoaderComponent from "../Loader";
-import Image from "next/image";
 import BagItem from "./BagItem";
 
 export default function Bag() {
@@ -14,12 +13,8 @@ export default function Bag() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const {
-      productTotalPrice,
-      total,
-      paymentProcessingFee: processingFee,
-    } = getPrice(cart);
-    setPrice(productTotalPrice);
+    const { productTotalPrice, shippingFee } = getPrice(cart);
+    setPrice(productTotalPrice - shippingFee);
   }, [cart]);
 
   const removeProductFromCart = (productId) => () => {

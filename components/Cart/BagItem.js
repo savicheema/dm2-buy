@@ -5,6 +5,9 @@ import ImageButton from "../Buttons/ImageButton";
 
 const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   const [count, setCount] = useState(item.quantity || 1);
+  const availableProductQuantity = item?.fields?.product_count
+    ? parseInt(item?.fields?.product_count)
+    : Number.MAX_SAFE_INTEGER;
 
   const countEffect = () => {
     updateProductCount(item.id, count);
@@ -23,25 +26,30 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
         />
         <div className={styles.productName}>
           <span>{item.fields.Name}</span>
-          <div className={styles.quantityControls}>
-            <ImageButton
-              type="raised"
-              action={() => {
-                setCount(count - 1);
-              }}
-            >
-              <Image src="/buttons/decrement@3x.png" width={9} height={2} />
-            </ImageButton>
-            <span>{count}</span>
-            <ImageButton
-              type="raised"
-              action={() => {
-                setCount(count + 1);
-              }}
-            >
-              <Image src="/buttons/increment@3x.png" width={9} height={9} s />
-            </ImageButton>
-          </div>
+          {availableProductQuantity > 1 && (
+            <div className={styles.quantityControls}>
+              <ImageButton
+                type="raised"
+                action={() => {
+                  if (count < 2) return;
+                  setCount(count - 1);
+                }}
+              >
+                <Image src="/buttons/decrement@3x.png" width={9} height={2} />
+              </ImageButton>
+              <span>{count}</span>
+              <ImageButton
+                type="raised"
+                action={() => {
+                  if (count < availableProductQuantity) {
+                    setCount(count + 1);
+                  }
+                }}
+              >
+                <Image src="/buttons/increment@3x.png" width={9} height={9} s />
+              </ImageButton>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.details_right}>

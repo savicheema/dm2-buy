@@ -157,6 +157,7 @@ class Product extends React.Component {
         product?.fields?.description
       );
       product.shippingFee = product?.store?.fields["Shipping Fee"];
+      product.quantity = 1; // set default product quantity to 1
     }
     this.state = {
       isFetched,
@@ -166,7 +167,6 @@ class Product extends React.Component {
       open: false,
       productAlreadyInCart: false,
     };
-    console.log({ state: this.state });
   }
   cleanProductDescription = (desc) => {
     let plainText = desc.replace(/<[^>]+>/g, "");
@@ -180,7 +180,6 @@ class Product extends React.Component {
     const cartData = StorageManager.getJson(CART_KEY, []);
     cartData.push(product);
     StorageManager.putJson(CART_KEY, cartData);
-    console.log({ cartData });
   };
 }
 

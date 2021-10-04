@@ -1,5 +1,6 @@
 import Airtable from "airtable";
 import { airtableBaseId as baseId } from "../helper";
+import constants from "../../constants";
 
 Airtable.configure({
   apiKey: process.env.AIRTABLE_KEY,
@@ -30,21 +31,22 @@ function getRecordBySubdomain(subdomain) {
   });
 }
 
-function updateProductStatus(productId, status) {
+function updateProductStatus({ productId, quantity }) {
+  const metaToUpdate = {};
+  if (quantity) {
+    metaToUpdate.product_count = quantity;
+    if (quantity < 1) {
+      metaToUpdate.Status = constants.product.status["sold-out"];
+    }
+  }
   return new Promise((resolve, reject) => {
-    base("Products").update(
-      productId,
-      {
-        Status: status,
-      },
-      (err, record) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(record.get("Status"));
-        }
+    base("Products").update(productId, metaToUpdate, (err, record) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(record.get("Status"));
       }
-    );
+    });
   });
 }
 
@@ -55,7 +57,32 @@ async function getProductByStoreId(storeId) {
     // ...filterByRelatedTable("Stores", storeId),
   };
   const records = await base("Products").select(query).firstPage();
-  return records.map(record => record?._rawJson);
+  return records.map((record) => record?._rawJson);
 }
 
-export { base, getRecordBySubdomain, updateProductStatus, getProductByStoreId };
+function getProduct(productId) {
+  return new Promise((resolve, reject) => {
+    base("Products")
+      .select({
+        view: "Grid view",
+        filterByFormula: `{id}="${productId}"`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
+  });
+}
+
+export {
+  base,
+  getRecordBySubdomain,
+  updateProductStatus,
+  getProductByStoreId,
+  getProduct,
+};

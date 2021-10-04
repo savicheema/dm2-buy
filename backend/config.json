@@ -1,0 +1,4 @@
+{
+    "connectionString": "mongodb://localhost/dm2buy",
+    "secret": "dm2buy_secret"
+}

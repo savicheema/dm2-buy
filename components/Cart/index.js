@@ -36,6 +36,7 @@ const Cart = ({ cart, store }) => {
     const bodyData = {
       userId: guid(),
       order_shipping: shippingFee,
+      payment_processing_fee: processingFee,
       order_total: total,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
