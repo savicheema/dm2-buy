@@ -11,11 +11,11 @@ async function updateProduct(req, res) {
     }
     const productDetails = await getProduct(productId);
     let count;
-    if (productDetails.product_count) {
-      count = parseInt(productDetails.product_count) - parseInt(quantity);
+    if (productDetails?.fields?.product_count) {
+      count = parseInt(productDetails?.fields?.product_count) - parseInt(quantity);
     }
     const response = await updateProductStatus({ productId, status: statusRef, quantity: count });
-    res.status(200).json({productId, status: response});
+    res.status(200).json({productId, status: response, quantity: count});
   } catch (err) {
     console.error("GET PRODUCT ERROR", err);
     res.status(400).json({ error: "Error occured!" });

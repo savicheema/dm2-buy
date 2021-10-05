@@ -7,7 +7,9 @@ const nodemailer = require("nodemailer");
 function sendWhatsappMessage(order){
     console.log("sending whatsapp message" + order)
     console.log(order)
-
+  const totalWithShipping = order.order_total;
+  const paymentProcessingFee = order.payment_processing_fee;
+  const totalMinusPaymentProcessingFee = Number(totalWithShipping) - Number(paymentProcessingFee);
     if(order.seller.phone)
     {
 
@@ -24,8 +26,9 @@ function sendWhatsappMessage(order){
 
 Hello ${order.seller.name},
         
-You have received a new order.
-Order Details:
+You have received a new order for ${totalMinusPaymentProcessingFee} 🙌
+
+*Order Details*
  ${order.products.map(product => {
      return `- *${product.name}* x *${product.quantity}* - *₹${product.price * Number(product.quantity)}*`
  }).join('\n')}
@@ -62,7 +65,6 @@ async function sendEmail(order) {
   var totalWithShipping = order.order_total;
   const shippingFee = order.order_shipping;
   const paymentProcessingFee = order.payment_processing_fee;
-
 
   var completeAddress = order.address.complete_address || order.address.address_line_1
    

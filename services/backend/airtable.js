@@ -65,7 +65,7 @@ function getProduct(productId) {
     base("Products")
       .select({
         view: "Grid view",
-        filterByFormula: `{id}="${productId}"`,
+        filterByFormula: `SEARCH(RECORD_ID(),"${productId}")`,
       })
       .firstPage((err, records) => {
         if (err) {

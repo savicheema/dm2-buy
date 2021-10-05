@@ -21,7 +21,7 @@ const getSubDomainOfPage = () => {
   let splitHost = host.split(".");
   console.log("splithost---", splitHost);
   return splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-    ? "fxnoob"
+    ? "chubb"
     : splitHost[0];
 };
 
