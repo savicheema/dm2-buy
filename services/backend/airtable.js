@@ -33,11 +33,9 @@ function getRecordBySubdomain(subdomain) {
 
 function updateProductStatus({ productId, quantity }) {
   const metaToUpdate = {};
-  if (quantity) {
-    metaToUpdate.product_count = quantity;
-    if (quantity < 1) {
-      metaToUpdate.Status = constants.product.status["sold-out"];
-    }
+  metaToUpdate.product_count = quantity;
+  if (quantity < 1) {
+    metaToUpdate.Status = constants.product.status["sold-out"];
   }
   return new Promise((resolve, reject) => {
     base("Products").update(productId, metaToUpdate, (err, record) => {
