@@ -1,5 +1,5 @@
 import Airtable from "airtable";
-import { airtableBaseId as baseId } from "../helper";
+import { airtableBaseId as baseId, isNumeric } from "../helper";
 import constants from "../../constants";
 
 Airtable.configure({
@@ -33,9 +33,11 @@ function getRecordBySubdomain(subdomain) {
 
 function updateProductStatus({ productId, quantity }) {
   const metaToUpdate = {};
-  metaToUpdate.product_count = quantity;
-  if (quantity < 1) {
-    metaToUpdate.Status = constants.product.status["sold-out"];
+  if (isNumeric(String(quantity))) {
+    metaToUpdate.product_count = quantity;
+    if (quantity < 1) {
+      metaToUpdate.Status = constants.product.status["sold-out"];
+    }
   }
   return new Promise((resolve, reject) => {
     base("Products").update(productId, metaToUpdate, (err, record) => {
