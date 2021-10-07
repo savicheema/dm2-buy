@@ -51,13 +51,36 @@ function updateProductStatus({ productId, quantity }) {
 }
 
 async function getProductByStoreId(storeId) {
-  const query = {
-    view: "Grid view",
-    sort: [{ field: "Created Date", direction: "desc" }],
-    // ...filterByRelatedTable("Stores", storeId),
-  };
-  const records = await base("Products").select(query).firstPage();
-  return records.map((record) => record?._rawJson);
+ const data = await getAllProducts(storeId);
+ return data.filter((record) => {
+   const { Stores } = record.fields;
+   if (Stores.includes(storeId)) {
+     return record?._rawJson
+   }
+ });
+}
+
+async function getAllProducts(storeId) {
+  return new Promise((resolve, reject) => {
+    let records = [];
+    const processPage = (partialRecords, fetchNextPage) => {
+      records = [...records, ...partialRecords]
+      fetchNextPage()
+    }
+    // called when all the records have been retrieved
+    const processRecords = (err) => {
+      if (err) {
+        reject(err);
+      }
+      //process the `records` array and do something with it
+      resolve(records)
+    }
+    base('Products').select({
+      view: "Grid view",
+      // filterByFormula: `Stores="${storeId}"`,
+      sort: [{ field: "Created Date", direction: "desc" }],
+    }).eachPage(processPage, processRecords)
+  })
 }
 
 function getProduct(productId) {
@@ -85,4 +108,5 @@ export {
   updateProductStatus,
   getProductByStoreId,
   getProduct,
+  getAllProducts,
 };
