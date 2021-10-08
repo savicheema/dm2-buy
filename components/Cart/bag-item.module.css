@@ -8,6 +8,7 @@
 .productDetails {
   display: flex;
   align-items: start;
+  margin-right: 12px;
 }
 
 .orderThumbnail {
