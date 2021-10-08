@@ -1,4 +1,4 @@
-const CART_KEY = "CART_KEY";
+const CART_KEY = "CART_KEYS";
 const PRODUCT_KEY = "product";
 const STORE_KEY = "store";
 

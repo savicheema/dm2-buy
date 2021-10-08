@@ -117,8 +117,8 @@
 
 .productQuantity {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: -8px;
+  right: -8px;
   display: flex;
   justify-content: center;
   align-items: center;
