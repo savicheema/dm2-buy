@@ -22,15 +22,13 @@ function sendWhatsappMessage(order){
         country: '91',
         to: order.seller.phone,
         uid: '60f67ad4dd48b',
-        text: `*Order Received*
-
-Hello ${order.seller.name},
+        text: `Hello ${order.seller.name},
         
-You have received a new order for ${totalMinusPaymentProcessingFee} 🙌
+You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
 
 *Order Details*
  ${order.products.map(product => {
-     return `- *${product.name}* x *${product.quantity}* - *₹${product.price * Number(product.quantity)}*`
+     return `- ${product.name} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`
  }).join('\n')}
         
 *Customer details*        
