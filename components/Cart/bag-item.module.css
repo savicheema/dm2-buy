@@ -1,13 +1,14 @@
 .orderItem {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .productDetails {
   display: flex;
-  align-items: center;
+  align-items: start;
+  margin-right: 12px;
 }
 
 .orderThumbnail {
