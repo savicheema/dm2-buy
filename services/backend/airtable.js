@@ -51,13 +51,13 @@ function updateProductStatus({ productId, quantity }) {
 }
 
 async function getProductByStoreId(storeId) {
- const data = await getAllProducts(storeId);
- return data.filter((record) => {
-   const { Stores } = record.fields;
-   if (Stores.includes(storeId)) {
-     return record?._rawJson
-   }
- });
+  const query = {
+    view: "Grid view",
+    sort: [{ field: "Created Date", direction: "desc" }],
+    // ...filterByRelatedTable("Stores", storeId),
+  };
+  const records = await base("Products").select(query).firstPage();
+  return records.map((record) => record?._rawJson);
 }
 
 async function getAllProducts(storeId) {
