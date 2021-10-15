@@ -1,4 +1,7 @@
-import { getRecordBySubdomain } from "../../../services/backend/airtable";
+import {
+  getRecordBySubdomain,
+  fetchCustomAttributesByProduct,
+} from "../../../services/backend/airtable";
 import { Sentry, airtableBaseId as baseId } from "../../../services/helper";
 
 async function getProduct(req, res) {
@@ -22,11 +25,13 @@ async function getProduct(req, res) {
       }
     );
     const data = await response.json();
+    const customAttributes = await fetchCustomAttributesByProduct(data);
     data.store = recordMeta;
+    data.customAttributes = customAttributes;
     res.status(200).json(data);
   } catch (err) {
     console.error("GET PRODUCT ERROR", err);
-    res.status(400).json({error: 'Error occured!'});
+    res.status(400).json({ error: "Error occured!" });
   }
 }
 

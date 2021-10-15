@@ -50,6 +50,15 @@
   text-transform: none;
 }
 
+.product_specs {
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.7px;
+  color: #656565;
+  font-weight: 300;
+  margin-top: 7.5px;
+}
 .productPrice {
   font-family: "Roboto", sans-serif;
   font-weight: 700;

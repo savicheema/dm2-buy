@@ -8,6 +8,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   const availableProductQuantity = item?.fields?.product_count
     ? parseInt(item?.fields?.product_count)
     : Number.MAX_SAFE_INTEGER;
+  const isProductCustomised = item.customAttributes.length > 0;
 
   const countEffect = () => {
     updateProductCount(item.id, count);
@@ -26,7 +27,16 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
         />
         <div className={styles.productName}>
           <span>{item.fields.Name}</span>
-          {availableProductQuantity > 1 && (
+          {isProductCustomised && (
+            <div className={styles.product_specs}>
+              {item.customAttributes.map((ca) => (
+                <span>
+                  {ca.name} - {ca.value + " "}
+                </span>
+              ))}
+            </div>
+          )}
+          {availableProductQuantity > 1 && !isProductCustomised && (
             <div className={styles.quantityControls}>
               <ImageButton
                 type="raised"

@@ -5,20 +5,21 @@ import Cart from "../../components/Cart";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { getStore } from "../../services/backend/serverSideProps";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
+import { initialCart } from "../../services/ObjectsInitialValues";
 
 export async function getServerSideProps(context) {
   return getStore(context);
 }
 
 export default function CheckoutPage(props) {
-  const [cart, setCart] = useLocalStorage(CART_KEY, []);
+  const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [store, setStore] = useLocalStorage("store", props.storeData);
   useEffect(() => {
     if (!cart || !store.fields) {
       window.location.href = "/";
     }
   });
-  if (!cart || !store) {
+  if (cart.products.length === 0 || !store) {
     return null;
   }
   return (

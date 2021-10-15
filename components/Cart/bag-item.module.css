@@ -18,8 +18,8 @@
 .productName {
   margin-left: 23px;
   font-family: "Roboto", sans-serif;
-  font-size: 15px;
-  width: 60%;
+  font-size: 16px;
+  width: 100%;
   color: #1c3142;
   opacity: 90%;
   letter-spacing: 1.2px;
@@ -34,7 +34,15 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.product_specs {
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.7px;
+  color: #656565;
+  font-weight: 300;
+  margin-top: 7.5px;
+}
 .details_right {
   display: flex;
   align-items: center;

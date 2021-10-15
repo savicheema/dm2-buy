@@ -1,5 +1,6 @@
 import orderStyles from "../../pages/order/order.module.css";
 import React from "react";
+import styles from "../Cart/bag-item.module.css";
 
 export default function PackageDetails(props) {
   const { order } = props;
@@ -15,6 +16,13 @@ export default function PackageDetails(props) {
         <div className={orderStyles.orderDiv}>
           <div>
             {item.name} <span> &#215;</span> {item.quantity}
+            <div className={styles.product_specs}>
+              {item.customAttributes?.map((ca) => (
+                <span>
+                  {ca.name} - {ca.value + " "}
+                </span>
+              ))}
+            </div>
           </div>
           <div className={orderStyles.orderTotal}>
             ₹{item.quantity * item.price}{" "}

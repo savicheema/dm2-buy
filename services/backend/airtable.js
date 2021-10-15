@@ -102,6 +102,20 @@ function getProduct(productId) {
   });
 }
 
+async function fetchCustomAttributesByProduct(product) {
+  const query = {
+    view: "Grid view",
+  };
+  const records = await base("Custom_Attributes").select(query).firstPage();
+  return records.filter((record) => {
+    const json = record ? record?._rawJson: null;
+    console.log({json})
+    if (json && json?.fields?.Products &&json?.fields?.Products?.includes(product.id)) {
+      return json;
+    }
+  });
+}
+
 export {
   base,
   getRecordBySubdomain,
@@ -109,4 +123,5 @@ export {
   getProductByStoreId,
   getProduct,
   getAllProducts,
+  fetchCustomAttributesByProduct,
 };
