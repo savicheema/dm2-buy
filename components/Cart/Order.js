@@ -8,6 +8,7 @@ export default function Order({ cart, checkInputs }) {
   const {
     shippingFee,
     productTotalPrice: price,
+    actualShippingFee,
     total: priceWithPaymentProcessingFee,
     paymentProcessingFee,
   } = getPrice(cart);
@@ -19,7 +20,7 @@ export default function Order({ cart, checkInputs }) {
           <span>📦</span> Your Order
         </h2>
         <div className={styles.orderList}>
-          {cart.map((product, index) => (
+          {cart.products.map((product, index) => (
             <OrderItem item={product} key={index} />
           ))}
         </div>
@@ -28,7 +29,12 @@ export default function Order({ cart, checkInputs }) {
             <div className={styles.productDetails}>
               <span className={styles.shippingEmoji}>🚛</span>
 
-              <div className={styles.productName}>Shipping Fee</div>
+              <div className={styles.productName}>
+                Shipping Fee <br />{" "}
+                <div className={styles.free_shipping}>
+                  You saved {actualShippingFee}! 🙌
+                </div>
+              </div>
             </div>
             <div className={styles.productPrice}>
               {`${String.fromCharCode(0x20b9)}${shippingFee}`}

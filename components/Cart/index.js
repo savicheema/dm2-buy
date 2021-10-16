@@ -27,6 +27,8 @@ const Cart = ({ cart, store }) => {
   const initiatePayment = async () => {
     const {
       shippingFee,
+      shippingFeeCap,
+      shippingFeeApplied,
       productTotalPrice,
       total,
       paymentProcessingFee: processingFee,
@@ -44,9 +46,10 @@ const Cart = ({ cart, store }) => {
         name: getSubDomainOfPage(),
         instagram: store?.fields?.store_instagram_handle,
         phone: store?.fields?.phone,
-        seller_id: cart[0]?.fields?.Stores[0],
+        seller_id: cart.products[0]?.fields?.Stores[0],
       },
-      products: cart.map((product) => ({
+      products: cart.products.map((product) => ({
+        customAttributes: product.customAttributes,
         id: product?.id,
         name: product?.fields?.Name,
         price: product.fields.Price,

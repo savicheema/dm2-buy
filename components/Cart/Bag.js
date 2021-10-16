@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./bag.module.css";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
+import { initialCart } from "../../services/ObjectsInitialValues";
 import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
 import LoaderComponent from "../Loader";
 import BagItem from "./BagItem";
 
 export default function Bag() {
-  const [cart, setCart] = useLocalStorage(CART_KEY, []);
+  const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -18,27 +19,28 @@ export default function Bag() {
   }, [cart]);
 
   const removeProductFromCart = (productId) => () => {
-    const cartData = StorageManager.getJson(CART_KEY, []);
-    const filteredCart = cartData.filter((product) => product.id !== productId);
-    StorageManager.putJson(CART_KEY, filteredCart);
-    setCart(filteredCart);
-    if (filteredCart.length === 0) {
+    const cartData = StorageManager.getJson(CART_KEY, initialCart);
+    const filteredProducts = cartData.products.filter((product) => product.id !== productId);
+    cartData.products = filteredProducts;
+    StorageManager.putJson(CART_KEY, cartData);
+    setCart(cartData);
+    if (filteredProducts.length === 0) {
       setLoading(true);
       window.location.href = "/";
     }
   };
 
   const updateProductCount = (productId, count) => {
-    const cartData = StorageManager.getJson(CART_KEY, []);
+    const cartData = StorageManager.getJson(CART_KEY, initialCart);
     // update count
-    const productIndex = cartData.findIndex(
+    const productIndex = cartData.products.findIndex(
       (product) => product.id === productId
     );
     if (productIndex < 0) return;
 
-    cartData[productIndex].quantity = count;
+    cartData.products[productIndex].quantity = count;
     StorageManager.putJson(CART_KEY, cartData);
-    setCart([...cartData]);
+    setCart(cartData);
   };
 
   return (
@@ -50,7 +52,7 @@ export default function Bag() {
             <span>🛍️</span> Your Bag
           </h2>
           <div className={styles.orderList}>
-            {cart.map((product, index) => (
+            {cart.products.map((product, index) => (
               <BagItem
                 item={product}
                 removeProductFromCart={removeProductFromCart}

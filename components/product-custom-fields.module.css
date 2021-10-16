@@ -1,0 +1,7 @@
+.customFieldsGrid {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-gap: 16px 12px;
+  align-items: end;
+  margin-top: 25px;
+}

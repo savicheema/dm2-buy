@@ -10,6 +10,8 @@ import Toast from "../../components/Toast";
 import { getProduct } from "../../services/backend/serverSideProps";
 import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
+import { initialCart } from "../../services/ObjectsInitialValues";
+import ProductCustomFields from "../../components/ProductCustomFields";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -18,8 +20,12 @@ export async function getServerSideProps(context) {
 class Product extends React.Component {
   componentDidMount() {
     const { productId } = this.props;
-    const cartData = StorageManager.getJson(CART_KEY, []);
-    const productArr = cartData.filter((product) => product.id === productId);
+    console.log({ props: this.props });
+    this.customFieldsRef = React.createRef();
+    const cartData = StorageManager.getJson(CART_KEY, initialCart);
+    const productArr = cartData.products.filter(
+      (product) => product.id === productId
+    );
     if (productArr.length > 0) {
       this.setState({ productAlreadyInCart: true });
     }
@@ -91,7 +97,7 @@ class Product extends React.Component {
                 toast={this.showToast}
               />
             </div>
-
+      
             {product.fields && <div className={styles.priceContainer}></div>}
 
             <p
@@ -99,14 +105,14 @@ class Product extends React.Component {
               dangerouslySetInnerHTML={{ __html: product.fields.description }}
             ></p>
 
+            {/* Custom product fields */}
+            <ProductCustomFields product={product} ref={this.customFieldsRef} />
+
             <div className={styles.callToAction}>
               {product.fields.Status === "for-sale" && (
                 <button
                   className={styles.buyNowButton}
-                  onClick={() => {
-                    this.storeProductToLocalStorage(product);
-                    window.location.href = `/cart`;
-                  }}
+                  onClick={this.addToCart}
                 >
                   <div>
                     {this.state.productAlreadyInCart
@@ -156,8 +162,15 @@ class Product extends React.Component {
       product.headerDescription = this.cleanProductDescription(
         product?.fields?.description
       );
-      product.shippingFee = product?.store?.fields["Shipping Fee"];
+      product.shippingFee = product?.store?.fields["Shipping Fee"] || 0;
+      product.shippingFeeCap = product?.store?.fields["Shipping fee Cap"] || 0;
       product.quantity = 1; // set default product quantity to 1
+      const customAttributes = product.customAttributes.map((attribute) => {
+        const attrib = { ...attribute };
+        attrib.ref = React.createRef();
+        return attrib;
+      });
+      product.customAttributes = customAttributes;
     }
     this.state = {
       isFetched,
@@ -173,13 +186,42 @@ class Product extends React.Component {
     plainText = plainText.replace(/(\n)+/, "");
     return plainText.slice(0, 200);
   };
+  validated = async (product) => {
+    let isValid = true;
+    const isFocusAble = true;
+    for (const ca of product.customAttributes) {
+      if (!(await ca.ref.current.validate(isFocusAble))) {
+        isValid = false;
+      }
+    }
+    return isValid;
+  };
+  addToCart = async () => {
+    const { product } = this.state;
+    if (await this.validated(product)) {
+      this.storeProductToLocalStorage(product);
+      window.location.href = `/cart`;
+    }
+  };
   storeProductToLocalStorage = (product) => {
     if (this.state.productAlreadyInCart) {
       return;
     }
-    const cartData = StorageManager.getJson(CART_KEY, []);
-    cartData.push(product);
-    StorageManager.putJson(CART_KEY, cartData);
+    const customAttributes = [];
+    for (const ca of product.customAttributes) {
+      if (ca.ref.current.state.inputValue.trim() !== "") {
+        customAttributes.push({
+          name: ca?.fields?.Name,
+          value: ca.ref.current.state.inputValue,
+        });
+      }
+    }
+    product.customAttributes = customAttributes;
+    const cart = StorageManager.getJson(CART_KEY, initialCart);
+    cart.products.push(product);
+    cart.shippingFee = product.shippingFee;
+    cart.shippingFeeCap = product.shippingFeeCap;
+    StorageManager.putJson(CART_KEY, cart);
   };
 }
 
