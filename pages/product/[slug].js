@@ -97,7 +97,7 @@ class Product extends React.Component {
                 toast={this.showToast}
               />
             </div>
-      
+
             {product.fields && <div className={styles.priceContainer}></div>}
 
             <p
@@ -204,9 +204,6 @@ class Product extends React.Component {
     }
   };
   storeProductToLocalStorage = (product) => {
-    if (this.state.productAlreadyInCart) {
-      return;
-    }
     const customAttributes = [];
     for (const ca of product.customAttributes) {
       if (ca.ref.current.state.inputValue.trim() !== "") {
@@ -218,7 +215,12 @@ class Product extends React.Component {
     }
     product.customAttributes = customAttributes;
     const cart = StorageManager.getJson(CART_KEY, initialCart);
-    cart.products.push(product);
+    const productIndex = cart.products.findIndex((item) => item.id === product.id);
+    if (productIndex !== -1) {
+      cart.products[productIndex] = product;
+    } else {
+      cart.products.push(product);
+    }
     cart.shippingFee = product.shippingFee;
     cart.shippingFeeCap = product.shippingFeeCap;
     StorageManager.putJson(CART_KEY, cart);
