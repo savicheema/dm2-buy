@@ -20,25 +20,27 @@ function sendMessage(order) {
         to: order.seller.phone,
         uid: '60f67ad4dd48b',
         text: `Hello ${order.seller.name},
-        
+
 You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
 
 *Order Details*
   ${order.products
     .map((product) => {
-      return `- ${product.name}(${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')})  x ${
-        product.quantity
-      } - ₹${product.price * Number(product.quantity)}`;
+      const customAttrib =
+        product.customAttributes.length > 0
+          ? `(${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')})`
+          : '';
+      return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
     })
     .join('\n')}
         
-*Customer details*        
+*Customer details*
 ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}
 ${order.address.city}, ${order.address.state} ${order.address.pincode}
 PH. +91 ${order.buyer.phone}
-Email: ${order.buyer.email}  
-        
+Email: ${order.buyer.email}
+
 Thank you and Happy Selling,
 dm2buy crew 😇`,
       },
