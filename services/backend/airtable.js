@@ -1,11 +1,16 @@
 import Airtable from "airtable";
-import { airtableBaseId as baseId } from "../helper";
+import { airtableBaseId as baseId, isNumeric } from "../helper";
+import constants from "../../constants";
 
 Airtable.configure({
   apiKey: process.env.AIRTABLE_KEY,
 });
 
 const base = Airtable.base(baseId);
+
+const filterByRelatedTable = (tableName, recordName) => ({
+  filterByFormula: `FIND(", ${recordName}, ", ", " & ARRAYJOIN(${tableName}) & ", ") > 0`,
+});
 
 function getRecordBySubdomain(subdomain) {
   return new Promise((resolve, reject) => {
@@ -26,22 +31,97 @@ function getRecordBySubdomain(subdomain) {
   });
 }
 
-function updateProductStatus(productId, status) {
+function updateProductStatus({ productId, quantity }) {
+  const metaToUpdate = {};
+  if (isNumeric(String(quantity))) {
+    metaToUpdate.product_count = quantity;
+    if (quantity < 1) {
+      metaToUpdate.Status = constants.product.status["sold-out"];
+    }
+  }
   return new Promise((resolve, reject) => {
-    base("Products").update(
-      productId,
-      {
-        Status: status,
-      },
-      (err, record) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(record.get("Status"));
-        }
+    base("Products").update(productId, metaToUpdate, (err, record) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(record.get("Status"));
       }
-    );
+    });
   });
 }
 
-export { base, getRecordBySubdomain, updateProductStatus };
+async function getProductByStoreId(storeId) {
+  const query = {
+    view: "Grid view",
+    sort: [{ field: "Created Date", direction: "desc" }],
+    // ...filterByRelatedTable("Stores", storeId),
+  };
+  const records = await base("Products").select(query).firstPage();
+  return records.map((record) => record?._rawJson);
+}
+
+async function getAllProducts(storeId) {
+  return new Promise((resolve, reject) => {
+    let records = [];
+    const processPage = (partialRecords, fetchNextPage) => {
+      records = [...records, ...partialRecords]
+      fetchNextPage()
+    }
+    // called when all the records have been retrieved
+    const processRecords = (err) => {
+      if (err) {
+        reject(err);
+      }
+      //process the `records` array and do something with it
+      resolve(records)
+    }
+    base('Products').select({
+      view: "Grid view",
+      // filterByFormula: `Stores="${storeId}"`,
+      sort: [{ field: "Created Date", direction: "desc" }],
+    }).eachPage(processPage, processRecords)
+  })
+}
+
+function getProduct(productId) {
+  return new Promise((resolve, reject) => {
+    base("Products")
+      .select({
+        view: "Grid view",
+        filterByFormula: `SEARCH(RECORD_ID(),"${productId}")`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
+  });
+}
+
+async function fetchCustomAttributesByProduct(product) {
+  const query = {
+    view: "Grid view",
+  };
+  const records = await base("Custom_Attributes").select(query).firstPage();
+  return records.filter((record) => {
+    const json = record ? record?._rawJson: null;
+    console.log({json})
+    if (json && json?.fields?.Products &&json?.fields?.Products?.includes(product.id)) {
+      return json;
+    }
+  });
+}
+
+export {
+  base,
+  getRecordBySubdomain,
+  updateProductStatus,
+  getProductByStoreId,
+  getProduct,
+  getAllProducts,
+  fetchCustomAttributesByProduct,
+};

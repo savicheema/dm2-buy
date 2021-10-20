@@ -20,13 +20,19 @@
   font-weight: bold;
   letter-spacing: 0.5px;
   margin: 0;
+  margin-bottom: 12px;
 }
 .orderTitle > span {
   margin-right: 12px;
 }
 
 .orderList {
-  margin: 20px 0;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.charges {
+  margin-bottom: 20px;
   width: 100%;
 }
 
@@ -102,4 +108,38 @@
   font-weight: 700;
   font-size: 16px;
   color: #1c3142;
+}
+
+.productAvatar {
+  position: relative;
+  display: inline-block;
+}
+
+.productQuantity {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 12px;
+  object-fit: contain;
+  background-color: black;
+  border-radius: 50%;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  overflow: auto;
+}
+
+.free_shipping {
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.7px;
+  color: #656565;
+  font-weight: 300;
+  margin-top: 7.5px;
 }

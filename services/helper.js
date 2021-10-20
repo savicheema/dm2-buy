@@ -21,7 +21,7 @@ const getSubDomainOfPage = () => {
   let splitHost = host.split(".");
   console.log("splithost---", splitHost);
   return splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-    ? "fxnoob"
+    ? "chubb"
     : splitHost[0];
 };
 
@@ -42,4 +42,10 @@ const guid = () => {
   return result;
 };
 
-export { getSubDomainOfPage, Sentry, airtableBaseId, serverEndpoint, guid };
+function isNumeric(str) {
+  if (typeof str != "string") return false // we only process strings!
+  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+    !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+
+export { getSubDomainOfPage, Sentry, airtableBaseId, serverEndpoint, guid, isNumeric };

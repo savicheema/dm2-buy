@@ -8,10 +8,9 @@ import Order from "./Order";
 import Footer from "../Footer";
 import { guid, getSubDomainOfPage } from "../../services/helper";
 import Toast from "../Toast";
-import constants from "../../constants";
 import LoaderComponent from "../Loader";
 import { getPrice } from "../../services/frontend/pricing.service";
-import StorageManager from '../../services/frontend/StorageManager';
+import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 
 const Cart = ({ cart, store }) => {
@@ -27,6 +26,9 @@ const Cart = ({ cart, store }) => {
   };
   const initiatePayment = async () => {
     const {
+      shippingFee,
+      shippingFeeCap,
+      shippingFeeApplied,
       productTotalPrice,
       total,
       paymentProcessingFee: processingFee,
@@ -35,7 +37,8 @@ const Cart = ({ cart, store }) => {
     setError(false);
     const bodyData = {
       userId: guid(),
-      order_shipping: constants.regularDeliveryFee,
+      order_shipping: shippingFee,
+      payment_processing_fee: processingFee,
       order_total: total,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
@@ -43,12 +46,14 @@ const Cart = ({ cart, store }) => {
         name: getSubDomainOfPage(),
         instagram: store?.fields?.store_instagram_handle,
         phone: store?.fields?.phone,
-        seller_id: cart[0]?.fields?.Stores[0],
+        seller_id: cart.products[0]?.fields?.Stores[0],
       },
-      products: cart.map((product) => ({
+      products: cart.products.map((product) => ({
+        customAttributes: product.customAttributes,
         id: product?.id,
         name: product?.fields?.Name,
         price: product.fields.Price,
+        quantity: product.quantity,
       })),
     };
     setLoading(true);
