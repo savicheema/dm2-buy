@@ -23,14 +23,14 @@ const defaultRoutes = [
     path: '/order',
     route: orderRoute,
   },
-  // {
-  //   path: '/product',
-  //   route: productRoute,
-  // },
-  // {
-  //   path: '/store',
-  //   route: storeRoute,
-  // },
+  {
+    path: '/products',
+    route: productRoute,
+  },
+  {
+    path: '/stores',
+    route: storeRoute,
+  },
   // {
   //   path: '/address',
   //   route: addressRoute,

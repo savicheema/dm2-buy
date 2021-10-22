@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const paginate = require('mongoose-paginate-v2');
 const { toJSON } = require('./plugins');
 const { tokenTypes } = require('../config/tokens');
 
@@ -23,6 +24,7 @@ const orderSchema = mongoose.Schema(
 
 // add plugin that converts mongoose to json
 orderSchema.plugin(toJSON);
+orderSchema.plugin(paginate);
 
 /**
  * @typedef Order

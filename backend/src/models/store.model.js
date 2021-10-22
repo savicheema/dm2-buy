@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
+const paginate = require('mongoose-paginate-v2');
 const { toJSON } = require('./plugins');
 
 const storeSchema = mongoose.Schema(
   {
-    name: { type: String, unique: true, required: false },
-    address: { type: String, required: false },
-    paymentMethod: { type: String, required: false },
-    createdDate: { type: Date, default: Date.now },
-    userId: { type: String },
-    store_instagram_handle: { type: String },
+    subdomain: { type: String, required: true, unique: true },
+    storeInstagramHandle: { type: String, required: false },
+    storeBio: { type: String, required: false },
+    storeProfilePhoto: { type: String, required: false },
+    dateJoined: { type: Date, default: Date.now },
+    shippingFee: { type: Number, default: 0 },
+    shippingFeeCap: { type: Number, default: 0 },
+    thankYouNote: { type: String, required: false },
     phone: { type: String, required: false },
     email: { type: String, required: false },
-    products: [{ type: mongoose.Types.Object, ref: 'Product' }],
+    orderConfirmationThankYouMessage: { type: String, required: false },
+    thankYouPagePhoto: {type: String, required: false},
   },
   {
     timestamps: true,
@@ -20,10 +24,11 @@ const storeSchema = mongoose.Schema(
 
 // add plugin that converts mongoose to json
 storeSchema.plugin(toJSON);
+storeSchema.plugin(paginate);
 
 /**
  * @typedef Store
  */
-const Product = mongoose.model('Store', storeSchema);
+const store = mongoose.model('Store', storeSchema);
 
-module.exports = Product;
+module.exports = store;
