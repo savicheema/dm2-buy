@@ -49,6 +49,7 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "axios": "^0.23.0",
     "coveralls": "^3.0.7",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -64,6 +65,7 @@
     "node-mocks-http": "^1.8.0",
     "nodemon": "^2.0.0",
     "prettier": "^2.0.5",
+    "request": "^2.88.2",
     "supertest": "^6.0.1"
   }
 }
