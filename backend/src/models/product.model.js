@@ -14,7 +14,7 @@ const productSchema = mongoose.Schema(
     quantity: { type: Number, required: true, default: 1 },
     isCountable: { type: Boolean, required: true, default: true },
     collections: { type: Array, required: true, default: [] },
-    shipping_applicable: { type: Boolean, required: false, default: true },
+    shippingApplicable: { type: Boolean, required: false, default: true },
     customAttributes: { type: [mongoose.SchemaTypes.ObjectId], ref: 'CustomAttribute', required: false },
   },
   {

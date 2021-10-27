@@ -15,7 +15,8 @@ const storeSchema = mongoose.Schema(
     phone: { type: String, required: false },
     email: { type: String, required: false },
     orderConfirmationThankYouMessage: { type: String, required: false },
-    thankYouPagePhoto: {type: String, required: false},
+    thankYouPagePhoto: { type: String, required: false },
+    secret: { type: String, required: true },
   },
   {
     timestamps: true,

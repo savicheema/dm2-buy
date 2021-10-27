@@ -50,21 +50,21 @@ const getStoreProducts = catchAsync(async (req, res) => {
 
   const result = await Product.paginate(caseInsensitiveFilter, options);
   result.docs = result.docs.map((doc) => {
+    doc._doc.id = doc._doc._id;
+    delete doc._doc._id;
     return { ...doc._doc };
   });
   res.send(
     success({
       message: 'Products list',
-      details: {
-        ...result,
-      },
+      ...result,
     })
   );
 });
 
 const getStoreProductById = catchAsync(async (req, res) => {
   const { productId } = req.params;
-  const data = await Product.findOne({ _id: productId });
+  const data = await Product.findOne({ _id: productId }).populate('CustomAttribute');
   res.send(success(data));
 });
 
