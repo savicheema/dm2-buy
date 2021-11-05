@@ -26,6 +26,9 @@ You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
 *Order Details*
   ${order.products
     .map((product) => {
+      if (product.colour) {
+        product.customAttributes.push({ name: 'Colour', value: product.colour });
+      }
       const customAttrib =
         product.customAttributes.length > 0
           ? `(${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')})`
@@ -33,7 +36,7 @@ You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
       return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
     })
     .join('\n')}
-        
+
 *Customer details*
 ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}

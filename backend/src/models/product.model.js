@@ -8,7 +8,7 @@ const productSchema = mongoose.Schema(
     price: { type: String, required: true },
     headerPhoto: { type: String, required: true },
     otherPhotos: { type: Array, required: true, default: [] },
-    store: { type: mongoose.SchemaTypes.ObjectId, ref: 'Store',  required: false },
+    store: { type: mongoose.SchemaTypes.ObjectId, ref: 'Store', required: false },
     status: { type: Boolean, required: true, default: true },
     description: { type: String, required: false },
     quantity: { type: Number, required: true, default: 1 },
@@ -16,6 +16,7 @@ const productSchema = mongoose.Schema(
     collections: { type: Array, required: true, default: [] },
     shippingApplicable: { type: Boolean, required: false, default: true },
     customAttributes: { type: [mongoose.SchemaTypes.ObjectId], ref: 'CustomAttribute', required: false },
+    colour: { type: String, default: null, required: true },
   },
   {
     timestamps: true,

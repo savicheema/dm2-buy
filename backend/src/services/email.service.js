@@ -2,30 +2,29 @@ const nodemailer = require('nodemailer');
 
 async function sendEmail(order) {
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
   var convertedStartDate = new Date();
   var month = monthNames[convertedStartDate.getMonth()];
   var date = convertedStartDate.getDate();
-  var shortDate = month + " " + date;
+  var shortDate = month + ' ' + date;
 
   var totalWithShipping = order.order_total;
   const shippingFee = order.order_shipping;
   const paymentProcessingFee = order.payment_processing_fee;
 
-  var completeAddress =
-    order.address.complete_address || order.address.address_line_1;
+  var completeAddress = order.address.complete_address || order.address.address_line_1;
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -69,6 +68,9 @@ async function sendEmail(order) {
                             <table class="m_-8883701113059166932line-items-table" style="border-collapse:collapse;border-spacing:0;border-style:none;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;font-weight:bold;width:100%">
                               <tbody> ${order.products
                                 .map((product) => {
+                                  if (product.colour) {
+                                    product.customAttributes.push({ name: 'Colour', value: product.colour });
+                                  }
                                   return `
                                 <tr style="border-collapse:collapse;border-spacing:0;border-style:none;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0">
                                   <td style="border-collapse:collapse;border-spacing:0;border-style:none;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;padding-top:.6em;padding-bottom:.6em;padding-right:0;padding-left:0">
@@ -151,7 +153,9 @@ async function sendEmail(order) {
                                       <p style="font-size:1em;line-height:1.555555556;padding-top:0;margin-top:.75em;margin-bottom:.75em;margin-right:0;margin-left:0"> ${completeAddress}
                                         <br> ${order.address.city}, ${order.address.state} ${order.address.pincode}
                                         <br>India</p>
-                                      <p style="font-size:1em;line-height:1.555555556;padding-top:0;margin-top:.75em;margin-bottom:.75em;margin-right:0;margin-left:0"><a href="mailto:nakkul.verma15@gmail.com" style="color:#6e88ff;text-decoration:none" target="_blank">${order.buyer.email}</a></p>
+                                      <p style="font-size:1em;line-height:1.555555556;padding-top:0;margin-top:.75em;margin-bottom:.75em;margin-right:0;margin-left:0"><a href="mailto:nakkul.verma15@gmail.com" style="color:#6e88ff;text-decoration:none" target="_blank">${
+                                        order.buyer.email
+                                      }</a></p>
                                       <p style="font-size:1em;line-height:1.555555556;padding-top:0;margin-top:.75em;margin-bottom:.75em;margin-right:0;margin-left:0"><a href="tel:919910978655" style="color:#6e88ff;text-decoration:none" target="_blank">+91 ${
                                         order.buyer.phone
                                       }</a></p>
@@ -163,7 +167,11 @@ async function sendEmail(order) {
                           </div>
                           <tr style="border-collapse:collapse;border-spacing:0;border-style:none;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0">
                             <td style="border-collapse:collapse;border-spacing:0;border-style:none;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0">
-                              <p class="m_-8883701113059166932footer" style="line-height:1.555555556;padding-top:0;font-size:.75em;max-width:22em;margin-top:1em;margin-bottom:3em;margin-right:auto;margin-left:auto;color:#85899e">Have a question? DM me on instagram <a href="https://instagram.com/${order.seller.instagram}" style="text-decoration:none;color:inherit" target="_blank">@${order.seller.instagram} </a></p>
+                              <p class="m_-8883701113059166932footer" style="line-height:1.555555556;padding-top:0;font-size:.75em;max-width:22em;margin-top:1em;margin-bottom:3em;margin-right:auto;margin-left:auto;color:#85899e">Have a question? DM me on instagram <a href="https://instagram.com/${
+                                order.seller.instagram
+                              }" style="text-decoration:none;color:inherit" target="_blank">@${
+      order.seller.instagram
+    } </a></p>
                             </td>
                           </tr>
                     </tbody>
