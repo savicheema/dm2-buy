@@ -163,7 +163,7 @@ class Product extends React.Component {
         product?.fields?.description
       );
       product.shippingFee = product?.store?.fields["Shipping Fee"] || 0;
-      product.shippingFeeCap = product?.store?.fields["Shipping fee Cap"] || 0;
+      product.shippingFeeCap = product?.store?.fields["Shipping fee Cap"];
       product.quantity = 1; // set default product quantity to 1
       const customAttributes = product.customAttributes.map((attribute) => {
         const attrib = { ...attribute };

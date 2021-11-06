@@ -1,4 +1,7 @@
 const constants = {
+  devEnv: {
+    storeSubdomain: "aroma",
+  },
   airtable: {
     dev: {
       baseId: "appohXo9XXC3epd3G",
