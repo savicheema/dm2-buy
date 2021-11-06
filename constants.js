@@ -1,6 +1,6 @@
 const constants = {
   devEnv: {
-    storeSubdomain: "aroma",
+    storeSubdomain: "cowrie",
   },
   airtable: {
     dev: {
