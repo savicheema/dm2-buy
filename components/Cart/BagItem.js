@@ -29,11 +29,13 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
           <span>{item.fields.Name}</span>
           {isProductCustomised && (
             <div className={styles.product_specs}>
-              {item.customAttributes.map((ca) => (
-                <span>
-                  {ca.name} - {ca.value + " "}
-                </span>
-              ))}
+              {item.customAttributes
+                .map((ca) => (
+                  <span>
+                    {ca.name} - {ca.value + ""}
+                  </span>
+                ))
+                .reduce((prev, curr) => [prev, ", ", curr])}
             </div>
           )}
           {availableProductQuantity > 1 && !isProductCustomised && (
