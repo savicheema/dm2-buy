@@ -7,19 +7,7 @@ function sendMessage(order) {
   const totalWithShipping = order.order_total;
   const paymentProcessingFee = order.payment_processing_fee;
   const totalMinusPaymentProcessingFee = Number(totalWithShipping) - Number(paymentProcessingFee);
-
-  if (order.seller.phone) {
-    var options = {
-      method: 'GET',
-      url: 'https://gogossip.live/api',
-      qs: {
-        token: '68080021019114979226247868085e92fd6cbc95e',
-        action: 'text',
-        from: config.whatsapp.businessPhone,
-        country: '91',
-        to: order.seller.phone,
-        uid: '60f67ad4dd48b',
-        text: `Hello ${order.seller.name},
+var message =  `Hello ${order.seller.name},
 
 You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
 
@@ -31,7 +19,7 @@ You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
       }
       const customAttrib =
         product.customAttributes.length > 0
-          ? `(${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')})`
+          ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')}_ )`
           : '';
       return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
     })
@@ -45,7 +33,20 @@ PH. +91 ${order.buyer.phone}
 Email: ${order.buyer.email}
 
 Thank you and Happy Selling,
-dm2buy crew 😇`,
+dm2buy crew 😇`;
+console.log(message)
+  if (order.seller.phone) {
+    var options = {
+      method: 'GET',
+      url: 'https://gogossip.live/api',
+      qs: {
+        token: '68080021019114979226247868085e92fd6cbc95e',
+        action: 'text',
+        from: config.whatsapp.businessPhone,
+        country: '91',
+        to: order.seller.phone,
+        uid: '60f67ad4dd48b',
+        text: message,
       },
       headers: { 'cache-control': 'no-cache' },
     };
