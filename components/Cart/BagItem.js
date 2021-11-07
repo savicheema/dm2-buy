@@ -18,13 +18,22 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   return (
     <div className={styles.orderItem}>
       <div className={styles.productDetails}>
-        <Image
-          src={item.fields["header_photo"][0].url}
-          height={60}
-          width={60}
-          alt="Order name"
-          className={styles.orderThumbnail}
-        />
+        <div className={styles.thumbnailContainer}>
+          <Image
+            src={item.fields["header_photo"][0].url}
+            height={60}
+            width={60}
+            alt="Order name"
+            className={styles.orderThumbnail}
+          />
+
+          {item.colour ? (
+            <div
+              className={styles.productColor}
+              style={{ backgroundColor: item.colour }}
+            ></div>
+          ) : null}
+        </div>
         <div className={styles.productName}>
           <span>{item.fields.Name}</span>
           {isProductCustomised && (

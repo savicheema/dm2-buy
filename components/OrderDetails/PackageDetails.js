@@ -15,7 +15,15 @@ export default function PackageDetails(props) {
       {order.products.map((item) => (
         <div className={orderStyles.orderDiv}>
           <div>
-            {item.name} <span> &#215;</span> {item.quantity}
+            {item.name} <span> &#215;</span> {item.quantity}{" "}
+            <span
+              style={{
+                backgroundColor: item.colour,
+                borderRadius: "50%",
+                height: "8px",
+                width: "8px",
+              }}
+            ></span>
             <div className={styles.product_specs}>
               {item.customAttributes?.map((ca) => (
                 <span>

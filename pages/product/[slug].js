@@ -12,6 +12,7 @@ import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 import { initialCart } from "../../services/ObjectsInitialValues";
 import ProductCustomFields from "../../components/ProductCustomFields";
+import ProductColors from "../../components/ProductColors";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -99,6 +100,16 @@ class Product extends React.Component {
             </div>
 
             {product.fields && <div className={styles.priceContainer}></div>}
+            {product.fields["colour variants"] ? (
+              <ProductColors
+                colors={product.fields["colour variants"]}
+                setProductColor={(color) => {
+                  let { product } = this.state;
+                  product.colour = color;
+                  this.setState({ product });
+                }}
+              />
+            ) : null}
 
             <p
               className={styles.description}

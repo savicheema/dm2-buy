@@ -1,0 +1,12 @@
+.productColors {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.colorsHeading {
+  flex: 128px 0 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgba(28, 49, 66, 0.8);
+}

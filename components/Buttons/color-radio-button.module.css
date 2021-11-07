@@ -1,0 +1,15 @@
+.hiddenInput {
+  opacity: 0;
+}
+
+.selectedRadioButton {
+  border: solid 0.5px #333 !important;
+  border-radius: 50%;
+}
+
+.radioButton {
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  border-radius: 50%;
+}
