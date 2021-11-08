@@ -31,7 +31,7 @@ export default function PackageDetails(props) {
                 {item.customAttributes
                   ?.map((ca) => (
                     <span>
-                      {ca.name} - {ca.value + " "}
+                      {ca.name} - {ca.value}
                     </span>
                   ))
                   .reduce((prev, curr) => [prev, ", ", curr])}
