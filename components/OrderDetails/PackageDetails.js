@@ -28,11 +28,13 @@ export default function PackageDetails(props) {
                 }}
               ></span>
               <div className={styles.product_specs}>
-                {item.customAttributes?.map((ca) => (
-                  <span>
-                    {ca.name} - {ca.value + " "}
-                  </span>
-                ))}
+                {item.customAttributes
+                  ?.map((ca) => (
+                    <span>
+                      {ca.name} - {ca.value + " "}
+                    </span>
+                  ))
+                  .reduce((prev, curr) => [prev, ", ", curr])}
               </div>
             </div>
             <div className={orderStyles.orderTotal}>

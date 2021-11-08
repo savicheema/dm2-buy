@@ -25,11 +25,13 @@ const OrderItem = ({ item }) => (
 
         {item.customAttributes.length > 0 && (
           <div className={styles.product_specs}>
-            {item.customAttributes.map((ca) => (
-              <span>
-                {ca.name} - {ca.value + " "}
-              </span>
-            ))}
+            {item.customAttributes
+              .map((ca) => (
+                <span>
+                  {ca.name} - {ca.value}
+                </span>
+              ))
+              .reduce((prev, curr) => [prev, ", ", curr])}
           </div>
         )}
       </div>
