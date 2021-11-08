@@ -12,7 +12,12 @@ const OrderItem = ({ item }) => (
           alt="Order name"
           className={styles.orderThumbnail}
         />
-        <span className={styles.productQuantity}>{item.quantity}</span>
+        <span
+          className={styles.productQuantity}
+          style={{ backgroundColor: item.colour }}
+        >
+          {item.quantity}
+        </span>
       </div>
 
       <div className={styles.productName}>
