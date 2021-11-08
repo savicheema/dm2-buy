@@ -12,7 +12,7 @@ const ProductColors = ({ colors, setProductColor }) => {
 
   return (
     <div className={styles.productColors}>
-      <div className={styles.colorsHeading}> select colour</div>
+      <div className={styles.colorsHeading}>colour</div>
       {colors.map((color, index) => (
         <ColorRadioButton
           color={color}
