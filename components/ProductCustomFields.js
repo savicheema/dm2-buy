@@ -24,7 +24,7 @@ export default function ProductCustomFields({ product }) {
             saveInLocalStorage={true}
             type="half"
             placeholder={attribute?.fields?.Name}
-            errorMessage={`${attribute?.fields?.Name} can't be blank`}
+            // errorMessage={`${attribute?.fields?.Name} can't be blank`}
           />
         )
       )}
