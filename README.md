@@ -27,13 +27,13 @@ yarn dev
 
 ### Steps to push
 
-1. Pull recent changes from _origin main_ branch.
+1. Pull recent changes from _origin_ .
 
 ```bash
 git fetch origin
 ```
 
-2. Create seperate branch for local development.
+2. Create seperate branch for local development and follow _dev_ branch.
 
 ```bash
 git checkout -b <issue-500> origin/dev
