@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 import styles from "./product-colors.module.css";
 import ColorRadioButton from "./Buttons/ColorRadioButton";
 
-const ProductColors = ({ colors, setProductColor }) => {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
+const ProductColors = ({ colors, selectedColorInStorage='', setProductColor }) => {
+  const [selectedColor, setSelectedColor] = useState(selectedColorInStorage || colors[0]);
 
   const setProductColorEffect = () => {
     setProductColor(selectedColor);
   };
   useEffect(setProductColorEffect, [selectedColor]);
+  useEffect(() => {
+    if(selectedColorInStorage){
+      setSelectedColor(selectedColorInStorage);
+    }
+  }, [selectedColorInStorage]);
 
   return (
     <div className={styles.productColors}>
