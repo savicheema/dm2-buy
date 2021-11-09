@@ -25,31 +25,37 @@ npm run dev
 yarn dev
 ```
 
-4. Create seperate branch for local development.
 
-```bash
-git branch <branch-name>
-```
 
 ### Steps to push
+
+
 
 1. Commit all/complete the changes to the local codebase.
 2. Pull recent changes from _origin main_ branch.
 
 ```bash
-git fetch origin main
+git fetch origin
 ```
-
-3. Merge the code into your local codebase.
+4. Create seperate branch for local development.
 
 ```bash
-git merge main
+git checkout -b ISSUE-[**NUMBE**] origin/dev
+```
+
+5. Commit your code
+```bash
+git add -u
+git commit -m "**message**"
+```
+6. Pull/Rebase your code
+```
+git pull -r
 ```
 
 4. Fix merge conflicts. (_if any_)
 
 - Identify all the files with merge conflicts.
-- For each resolved conflict make a seperate commit with a message. (_preferably_)
 
 ```bash
 git commit -m <message>
