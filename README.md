@@ -70,7 +70,7 @@ git push origin <issue-500>
 
 public website for dm2buy.com where buyers can buy products from sellers
 
-1. All sellers have their store **sellername.dm2buy.com**.
+1. All sellers have their store ***sellername***.**dm2buy.com**.
 2. All products are listed on the homepage.
 3. Product details page for users to zoom into product details and add product to their bag.
 4. Checkout enables users to enter their personal details and review order to make payment.
