@@ -28,7 +28,7 @@ export default function PackageDetails(props) {
                 }}
               ></span>
               <div className={styles.product_specs}>
-                {item.customAttributes
+                {item?.customAttributes
                   ?.map((ca) => (
                     <span>
                       {ca.name} - {ca.value}
