@@ -1,0 +1,14 @@
+.productColors {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.colorsHeading {
+  flex: 64px 0;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 15px;
+  color: #1c3142;
+  letter-spacing: 1.5px;
+}

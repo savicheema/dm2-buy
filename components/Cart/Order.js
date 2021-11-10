@@ -11,7 +11,6 @@ export default function Order({ cart, checkInputs }) {
     actualShippingFee,
     total: priceWithPaymentProcessingFee,
     paymentProcessingFee,
-    shippingFeeApplied,
   } = getPrice(cart);
 
   return (
@@ -32,11 +31,10 @@ export default function Order({ cart, checkInputs }) {
 
               <div className={styles.productName}>
                 Shipping Fee <br />{" "}
-                {!shippingFeeApplied && (
-                  <div className={styles.free_shipping}>
-                    You saved {actualShippingFee}! 🙌
-                  </div>
-                )}
+                <div className={styles.free_shipping}>
+                  You saved
+                  {` ${String.fromCharCode(0x20b9)}${actualShippingFee}`}! 🙌
+                </div>
               </div>
             </div>
             <div className={styles.productPrice}>

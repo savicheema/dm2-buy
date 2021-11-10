@@ -50,6 +50,7 @@ const Cart = ({ cart, store }) => {
       },
       products: cart.products.map((product) => ({
         customAttributes: product.customAttributes,
+        // colour: product?.colour,
         id: product?.id,
         name: product?.fields?.Name,
         price: product.fields.Price,
