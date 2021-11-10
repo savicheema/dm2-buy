@@ -34,7 +34,7 @@ export default function PackageDetails(props) {
                       {ca.name} - {ca.value}
                     </span>
                   ))
-                  .reduce((prev, curr) => [prev, ", ", curr])}
+                  ?.reduce((prev, curr) => [prev, ", ", curr])}
               </div>
             </div>
             <div className={orderStyles.orderTotal}>
