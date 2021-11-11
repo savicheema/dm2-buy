@@ -23,8 +23,8 @@ export default function PackageDetails(props) {
                   display: "inline-block",
                   backgroundColor: item.colour,
                   borderRadius: "50%",
-                  height: "8px",
-                  width: "8px",
+                  height: "16px",
+                  width: "16px",
                 }}
               ></span>
               <div className={styles.product_specs}>
@@ -34,7 +34,7 @@ export default function PackageDetails(props) {
                       {ca.name} - {ca.value}
                     </span>
                   ))
-                  ?.reduce((prev, curr) => [prev, ", ", curr], '')}
+                  ?.join(', ')}
               </div>
             </div>
             <div className={orderStyles.orderTotal}>
