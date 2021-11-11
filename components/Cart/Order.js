@@ -26,24 +26,23 @@ export default function Order({ cart, checkInputs }) {
           ))}
         </div>
         <div className={styles.charges}>
-          {shippingFeeApplied && (
             <div className={styles.orderItem}>
               <div className={styles.productDetails}>
                 <span className={styles.shippingEmoji}>🚛</span>
                 <div className={styles.productName}>
                   Shipping Fee <br />{" "}
-                  <div className={styles.free_shipping}>
-                    You saved
-                    {` ${String.fromCharCode(0x20b9)}${actualShippingFee}`}! 🙌
-                  </div>
+                  {actualShippingFee && !shippingFeeApplied ? (
+                    <div className={styles.free_shipping}>
+                      You saved
+                      {` ${String.fromCharCode(0x20b9)}${actualShippingFee}`}! 🙌
+                    </div>
+                  ): null}
                 </div>
               </div>
               <div className={styles.productPrice}>
                 {`${String.fromCharCode(0x20b9)}${shippingFee}`}
               </div>
             </div>
-          )}
-
           <div className={styles.orderItem}>
             <div className={styles.productDetails}>
               <span className={styles.shippingEmoji}>💳</span>

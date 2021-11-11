@@ -10,9 +10,7 @@ const getPrice = (cart) => {
     const productQuantity = product.quantity ? product.quantity : 1;
     calculatedPrice += product.fields.Price * productQuantity;
   }
-  if(shippingFee==0){
-    shippingFeeApplied = false;
-  }else if (calculatedPrice < shippingFeeCap) {
+  if (calculatedPrice < shippingFeeCap) {
     calculatedPrice += shippingFee ? shippingFee : 0;
     shippingFeeApplied = true;
   } else {
