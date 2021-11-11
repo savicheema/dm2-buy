@@ -1,5 +1,6 @@
 const request = require('request');
 const config = require('../config/config');
+const colorMap = require('../utils/ColorCodes')
 
 function sendMessage(order) {
   console.log('sending whatsapp message' + order);
@@ -12,20 +13,20 @@ var message =  `Hello ${order.seller.name},
 You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
 
 *Order Details*
-  ${order.products
-    .map((product) => {
-      if (product.colour) {
-        product.customAttributes.push({ name: 'Colour', value: product.colour });
-      }
-      const customAttrib =
-        product.customAttributes.length > 0
-          ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')}_ )`
-          : '';
-      return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
-    })
-    .join('\n')}
+${order.products
+  .map((product) => {
+    if (product.colour) {
+      product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
+    }
+    const customAttrib =
+      product.customAttributes.length > 0
+        ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')}_ )`
+        : '';
+    return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
+  })
+  .join('\n')}
 
-*Customer details*
+*Customer Details*
 ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}
 ${order.address.city}, ${order.address.state} ${order.address.pincode}
