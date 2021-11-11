@@ -68,9 +68,6 @@ async function sendEmail(order) {
                             <table class="m_-8883701113059166932line-items-table" style="border-collapse:collapse;border-spacing:0;border-style:none;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;font-weight:bold;width:100%">
                               <tbody> ${order.products
                                 .map((product) => {
-                                  if (product.colour) {
-                                    product.customAttributes.push({ name: 'Colour', value: product.colour });
-                                  }
                                   return `
                                 <tr style="border-collapse:collapse;border-spacing:0;border-style:none;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0">
                                   <td style="border-collapse:collapse;border-spacing:0;border-style:none;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;padding-top:.6em;padding-bottom:.6em;padding-right:0;padding-left:0">
