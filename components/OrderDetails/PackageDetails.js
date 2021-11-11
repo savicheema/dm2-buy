@@ -28,13 +28,13 @@ export default function PackageDetails(props) {
                 }}
               ></span>
               <div className={styles.product_specs}>
-                {item?.customAttributes
-                  ?.map((ca) => (
-                    <span>
-                      {ca.name} - {ca.value}
-                    </span>
-                  ))
-                  ?.join(', ')}
+                <span>
+                  {item?.customAttributes
+                    ?.map((ca) => (
+                        `${ca.name} - ${ca.value}`
+                    ))
+                    ?.join(', ')}
+                </span>
               </div>
             </div>
             <div className={orderStyles.orderTotal}>
