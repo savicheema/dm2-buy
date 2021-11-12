@@ -25,17 +25,20 @@ export default function PackageDetails(props) {
                   borderRadius: "50%",
                   height: "16px",
                   width: "16px",
+                  verticalAlign:"middle"
                 }}
               ></span>
-              <div className={styles.product_specs}>
-                {item?.customAttributes
-                  ?.map((ca) => (
-                    <span>
-                      {ca.name} - {ca.value}
-                    </span>
-                  ))
-                  ?.join(', ')}
-              </div>
+              {item?.customAttributes.length ? (
+                <div className={styles.product_specs}>
+                  <span>
+                    {item?.customAttributes
+                      ?.map((ca) => (
+                          `${ca.name} - ${ca.value}`
+                      ))
+                      ?.join(', ')}
+                  </span>
+                </div>
+              ) : null}
             </div>
             <div className={orderStyles.orderTotal}>
               ₹{item.quantity * item.price}{" "}

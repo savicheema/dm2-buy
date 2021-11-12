@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import orderStyles from "./order.module.css";
 import Head from "next/head";
 import LoaderComponent from "../../components/Loader";
@@ -8,6 +8,8 @@ import PackageExtraDetails from "../../components/OrderDetails/PackageExtraDetai
 import PackageDetails from "../../components/OrderDetails/PackageDetails";
 import BuyerDetails from "../../components/OrderDetails/BuyerDetails";
 import { getOrderDetail } from "../../services/backend/serverSideProps";
+import StorageManager from "../../services/frontend/StorageManager";
+import { CART_KEY } from "../../services/frontend/StorageKeys";
 
 export async function getServerSideProps(context) {
   return getOrderDetail(context);
@@ -20,6 +22,9 @@ export default function Order(props) {
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });
+  useEffect(() => {
+    StorageManager.removeItem(CART_KEY);    
+  }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
       paymentLink,

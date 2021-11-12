@@ -77,7 +77,6 @@ const Cart = ({ cart, store }) => {
         showError();
         setLoading(false);
       }
-      StorageManager.removeItem(CART_KEY);
     } catch (e) {
       showError();
       setLoading(false);
