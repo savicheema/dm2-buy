@@ -16,6 +16,9 @@ const Main = ({ store, endLoading, loading }) => {
       setOpen(false);
     }, 3000);
   };
+
+  if (!store) return null;
+
   return (
     <main
       className={styles.main}

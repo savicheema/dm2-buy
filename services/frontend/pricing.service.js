@@ -3,13 +3,15 @@ const getPrice = (cart) => {
   let shippingFeeApplied = false;
   let shippingFee = cart.shippingFee;
   const actualShippingFee = cart.shippingFee;
-  const shippingFeeCap = cart.shippingFeeCap;
+  const shippingFeeCap = Number.isInteger(cart.shippingFeeCap)
+    ? cart.shippingFeeCap
+    : Number.MAX_SAFE_INTEGER;
   for (const product of cart.products) {
     const productQuantity = product.quantity ? product.quantity : 1;
     calculatedPrice += product.fields.Price * productQuantity;
   }
   if (calculatedPrice < shippingFeeCap) {
-    calculatedPrice +=  shippingFee ? shippingFee : 0;
+    calculatedPrice += shippingFee ? shippingFee : 0;
     shippingFeeApplied = true;
   } else {
     shippingFee = 0;
@@ -25,9 +27,7 @@ const getPrice = (cart) => {
     actualShippingFee,
     paymentProcessingFee: processingFee,
     shippingFeeApplied,
-  }
-}
+  };
+};
 
-export {
-  getPrice,
-}
+export { getPrice };

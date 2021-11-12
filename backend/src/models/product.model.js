@@ -1,23 +1,22 @@
 const mongoose = require('mongoose');
+const paginate = require('mongoose-paginate-v2');
 const { toJSON } = require('./plugins');
-
-// name:{type: String, required:true},
-// price:{type: String, required:true},
-// description:{type: String, required:false},
-// image:{type: String, required:false, default: "image"},
-// storeId:{type: String, required:false},
-// shipping_applicable:{type: Boolean, required: false, default: true}
 
 const productSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     price: { type: String, required: true },
-    quantity: { type: Number, required: true, default: 1 },
+    headerPhoto: { type: String, required: true },
+    otherPhotos: { type: Array, required: true, default: [] },
+    store: { type: mongoose.SchemaTypes.ObjectId, ref: 'Store', required: false },
+    status: { type: Boolean, required: true, default: true },
     description: { type: String, required: false },
-    image: { type: String, required: false, default: 'image' },
-    storeId: { type: String, required: false },
-    shipping_applicable: { type: Boolean, required: false, default: true },
-    customAttributes: { type: Array, required: true, default: [] },
+    quantity: { type: Number, required: true, default: 1 },
+    isCountable: { type: Boolean, required: true, default: true },
+    collections: { type: Array, required: true, default: [] },
+    shippingApplicable: { type: Boolean, required: false, default: true },
+    customAttributes: { type: [mongoose.SchemaTypes.ObjectId], ref: 'CustomAttribute', required: false },
+    colour: { type: String, default: null, required: true },
   },
   {
     timestamps: true,
@@ -26,6 +25,7 @@ const productSchema = mongoose.Schema(
 
 // add plugin that converts mongoose to json
 productSchema.plugin(toJSON);
+productSchema.plugin(paginate);
 
 /**
  * @typedef Product

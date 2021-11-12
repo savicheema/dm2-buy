@@ -1,4 +1,8 @@
 const constants = {
+  regularDeliveryFee: 100,
+  devEnv: {
+    storeSubdomain: "cowrie",
+  },
   airtable: {
     dev: {
       baseId: "appohXo9XXC3epd3G",

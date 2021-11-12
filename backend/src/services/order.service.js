@@ -44,44 +44,6 @@ async function getById(id, res) {
   });
 }
 
-function create(orderParams, res) {
-  const order = new Order(orderParams);
-  console.log(order);
-  // save order
-  order.save();
-
-  var options = {
-    method: 'POST',
-    url: config.cashfree.orderCreateUrl,
-    headers: {
-      'cache-control': 'no-cache',
-      'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
-    },
-    formData: {
-      appId: config.cashfree.appId,
-      secretKey: config.cashfree.appSecret,
-      orderId: order.id,
-      orderAmount: order.order_total,
-      orderCurrency: 'INR',
-      customerEmail: order.buyer.email,
-      customerPhone: order.buyer.phone,
-      customerName: order.buyer.name,
-      returnUrl: config.baseUrl.server + '/order/payment-redirect/' + order.id,
-      notifyUrl: config.baseUrl.server + '/order/update-payment-status/' + order.id,
-    },
-  };
-
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    console.log(JSON.parse(body).paymentLink);
-
-    var jsonData = JSON.parse(body);
-    jsonData.order = order;
-
-    res.json(jsonData);
-  });
-}
-
 async function update(id, orderParam) {
   const store = await Order.findById(id);
   if (!order) throw 'User not found';
@@ -127,7 +89,6 @@ async function paymentRedirectPage(req, res) {
 module.exports = {
   getAll,
   getById,
-  create,
   update,
   updateOrderPaymentStatus,
   paymentRedirectPage,

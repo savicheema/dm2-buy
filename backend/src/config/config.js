@@ -30,6 +30,8 @@ const envVarsSchema = Joi.object()
     FRONTENT_BASE_URL: Joi.string().description('FRONTENT_BASE_URL'),
     CASHFREE_GET_ORDER_PAYMENT_LINK_URL: Joi.string().description('CASHFREE_GET_ORDER_PAYMENT_LINK_URL'),
     WHATSAPP_BUSINESS_PHONE: Joi.string().description('WHATSAPP_BUSINESS_PHONE'),
+    AIRTABLE_KEY: Joi.string().description('AIRTABLE_KEY key is needed'),
+    AIRTABLE_BASE_ID: Joi.string().description('AIRTABLE_BASE_ID key is needed'),
   })
   .unknown();
 
@@ -79,6 +81,10 @@ module.exports = {
     frontend: envVars.FRONTENT_BASE_URL,
   },
   whatsapp: {
-    businessPhone: envVars.WHATSAPP_BUSINESS_PHONE
-  }
+    businessPhone: envVars.WHATSAPP_BUSINESS_PHONE,
+  },
+  airtable: {
+    key: envVars.AIRTABLE_KEY,
+    baseId: envVars.AIRTABLE_BASE_ID,
+  },
 };

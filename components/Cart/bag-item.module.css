@@ -3,6 +3,7 @@
   align-items: start;
   justify-content: space-between;
   margin-bottom: 20px;
+  padding-top: 8px;
 }
 
 .productDetails {
@@ -11,8 +12,22 @@
   margin-right: 12px;
 }
 
+.thumbnailContainer {
+  display: flex;
+  position: relative;
+}
 .orderThumbnail {
   border-radius: 16px;
+}
+.productColor {
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  color: black;
+  z-index: 999;
 }
 
 .productName {

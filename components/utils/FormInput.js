@@ -20,6 +20,7 @@ class FormInput extends React.Component {
       textArea,
       name,
       saveInLocalStorage,
+      
     } = this.props;
 
     const formInputClass =

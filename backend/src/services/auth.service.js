@@ -4,6 +4,23 @@ const userService = require('./user.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
+const Store = require('../models/store.model');
+
+
+
+/**
+ * Login with store secret
+ * @param {string} secret
+ * @returns {Promise<User>}
+ */
+const loginWithStoreSecret = async (secret) => {
+  const store = await Store.findOne({ secret });
+  if (!store) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid Secret!');
+  }
+  return store;
+};
+
 
 /**
  * Login with username and password
@@ -91,6 +108,7 @@ const verifyEmail = async (verifyEmailToken) => {
 };
 
 module.exports = {
+  loginWithStoreSecret,
   loginUserWithEmailAndPassword,
   logout,
   refreshAuth,

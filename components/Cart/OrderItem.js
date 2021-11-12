@@ -12,7 +12,12 @@ const OrderItem = ({ item }) => (
           alt="Order name"
           className={styles.orderThumbnail}
         />
-        <span className={styles.productQuantity}>{item.quantity}</span>
+        <span
+          className={styles.productQuantity}
+          style={{ backgroundColor: item.colour }}
+        >
+          {item.quantity}
+        </span>
       </div>
 
       <div className={styles.productName}>
@@ -20,11 +25,13 @@ const OrderItem = ({ item }) => (
 
         {item.customAttributes.length > 0 && (
           <div className={styles.product_specs}>
-            {item.customAttributes.map((ca) => (
-              <span>
-                {ca.name} - {ca.value + " "}
-              </span>
-            ))}
+            {item.customAttributes
+              .map((ca) => (
+                <span>
+                  {ca.name} - {ca.value}
+                </span>
+              ))
+              .reduce((prev, curr) => [prev, ", ", curr])}
           </div>
         )}
       </div>

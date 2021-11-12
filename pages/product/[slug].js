@@ -12,22 +12,62 @@ import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 import { initialCart } from "../../services/ObjectsInitialValues";
 import ProductCustomFields from "../../components/ProductCustomFields";
+import ProductColors from "../../components/ProductColors";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
 }
 
 class Product extends React.Component {
+  constructor(props) {
+    super(props);
+    let isFetched = true;
+    const { product } = props;
+    if (product.fields) {
+      product.allPhotos = product?.fields["Other photos"];
+      product.headerPhoto = product?.fields["header_photo"];
+      product.headerDescription = this.cleanProductDescription(
+        product?.fields?.description
+      );
+      product.shippingFee = product?.store?.fields["Shipping Fee"] || 0;
+      product.shippingFeeCap = product?.store?.fields["Shipping fee Cap"];
+      product.quantity = 1; // set default product quantity to 1
+      const customAttributes = product.customAttributes.map((attribute) => {
+        const attrib = { ...attribute };
+        attrib.ref = React.createRef();
+        return attrib;
+      });
+      product.customAttributes = customAttributes;
+    }
+    this.state = {
+      isFetched,
+      product,
+      errorCode: props.errorCode,
+      productUrl: props.productUrl,
+      open: false,
+      productAlreadyInCart: false,
+    };
+  }
+
   componentDidMount() {
     const { productId } = this.props;
-    console.log({ props: this.props });
+    // console.log({ props: this.props });
     this.customFieldsRef = React.createRef();
     const cartData = StorageManager.getJson(CART_KEY, initialCart);
     const productArr = cartData.products.filter(
       (product) => product.id === productId
     );
     if (productArr.length > 0) {
-      this.setState({ productAlreadyInCart: true });
+
+      // let { product } = this.state;
+      // product.colour = productArr[0].colour;
+      const product = {...this.state.product}
+      let selectedColor =  productArr[0].colour;
+      let selectedCustomAttributes = productArr[0].customAttributes;
+      
+      // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
+      this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes });
+      // this.setState({  });
     }
   }
   showToast = () => {
@@ -37,8 +77,8 @@ class Product extends React.Component {
     }, 3000);
   };
   render() {
-    let { isFetched, product, errorCode, productUrl } = this.state;
-    console.log(" Product STATE", isFetched, product, errorCode);
+    let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes } = this.state;
+    console.log(" Product STATE", this.state);
 
     if (errorCode) {
       return <Error404 statusCode={errorCode} />;
@@ -99,6 +139,17 @@ class Product extends React.Component {
             </div>
 
             {product.fields && <div className={styles.priceContainer}></div>}
+            {product.fields["colour variants"] ? (
+              <ProductColors
+                colors={product.fields["colour variants"]}
+                selectedColorInStorage={selectedColor}
+                setProductColor={(color) => {
+                  let product = {...this.state.product};
+                  product.colour = color;
+                  this.setState({ product });
+                }}
+              />
+            ) : null}
 
             <p
               className={styles.description}
@@ -106,7 +157,11 @@ class Product extends React.Component {
             ></p>
 
             {/* Custom product fields */}
-            <ProductCustomFields product={product} ref={this.customFieldsRef} />
+            <ProductCustomFields
+              selectedCustomAttributes={selectedCustomAttributes}
+              product={product} 
+              ref={this.customFieldsRef}
+            />
 
             <div className={styles.callToAction}>
               {product.fields.Status === "for-sale" && (
@@ -152,35 +207,6 @@ class Product extends React.Component {
     );
   }
 
-  constructor(props) {
-    super(props);
-    let isFetched = true;
-    const { product } = props;
-    if (product.fields) {
-      product.allPhotos = product?.fields["Other photos"];
-      product.headerPhoto = product?.fields["header_photo"];
-      product.headerDescription = this.cleanProductDescription(
-        product?.fields?.description
-      );
-      product.shippingFee = product?.store?.fields["Shipping Fee"] || 0;
-      product.shippingFeeCap = product?.store?.fields["Shipping fee Cap"] || 0;
-      product.quantity = 1; // set default product quantity to 1
-      const customAttributes = product.customAttributes.map((attribute) => {
-        const attrib = { ...attribute };
-        attrib.ref = React.createRef();
-        return attrib;
-      });
-      product.customAttributes = customAttributes;
-    }
-    this.state = {
-      isFetched,
-      product,
-      errorCode: props.errorCode,
-      productUrl: props.productUrl,
-      open: false,
-      productAlreadyInCart: false,
-    };
-  }
   cleanProductDescription = (desc) => {
     let plainText = desc.replace(/<[^>]+>/g, "");
     plainText = plainText.replace(/(\n)+/, "");
