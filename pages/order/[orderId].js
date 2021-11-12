@@ -102,6 +102,7 @@ export default function Order(props) {
             </div>
             <PackageDetails order={order} />
             <PackageExtraDetails
+              dispatchTime={store?.fields["Dispatch Time"]}
               instaUserId={store?.fields?.store_instagram_handle}
             />
             <BuyerDetails order={order} />

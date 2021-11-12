@@ -2,7 +2,7 @@ import orderStyles from "../../pages/order/order.module.css";
 import React from "react";
 
 export default function PackageExtraDetails(props) {
-  const { instaUserId } = props;
+  const { instaUserId, dispatchTime } = props;
   return (
     <div className={orderStyles.orderInfoContainer}>
       <div className={orderStyles.orderInfo}>
@@ -11,7 +11,7 @@ export default function PackageExtraDetails(props) {
           <hr className={orderStyles.divider} />
         </div>
         <h6 className={orderStyles.orderInfoDiscription}>
-          Ships within 3 days
+          Ships within {dispatchTime} days
         </h6>
       </div>
       <div className={orderStyles.orderInfoSecond}>
