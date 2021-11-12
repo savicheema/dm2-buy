@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import orderStyles from "./order.module.css";
 import Head from "next/head";
 import LoaderComponent from "../../components/Loader";
