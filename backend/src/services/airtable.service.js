@@ -79,7 +79,8 @@ async function getProductByStoreId(storeId) {
     // ...filterByRelatedTable("Stores", storeId),
   };
   const records = await base('Products').select(query).firstPage();
-  return records.map((record) => record?._rawJson);
+  console.log(records)
+  return records.map((record) => record._rawJson);
 }
 
 async function getAllProducts(storeId) {
@@ -151,9 +152,9 @@ async function fetchCustomAttributesByProduct(product) {
   };
   const records = await base('Custom_Attributes').select(query).firstPage();
   return records.filter((record) => {
-    const json = record ? record?._rawJson : null;
+    const json = record ? record._rawJson : null;
     console.log({ json });
-    if (json && json?.fields?.Products && json?.fields?.Products?.includes(product.id)) {
+    if (json && json.fields.Products && json.fields.Products.includes(product.id)) {
       return json;
     }
   });
