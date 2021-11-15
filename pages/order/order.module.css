@@ -239,5 +239,6 @@
   justify-content: flex-end;
 }
 .linkBorder {
-  border-bottom: 1px inherit dotted;
+  border-bottom: 1px dotted;
+  border-color: inherit;
 }
