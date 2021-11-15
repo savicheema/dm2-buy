@@ -18,7 +18,7 @@ export default function PackageDetails(props) {
           <div className={orderStyles.orderDiv}>
             <div>
               {item.name} <span> &#215;</span> {item.quantity}{" "}
-              <span
+              {item?.colour ? <span
                 style={{
                   display: "inline-block",
                   backgroundColor: item.colour,
@@ -27,7 +27,7 @@ export default function PackageDetails(props) {
                   width: "16px",
                   verticalAlign:"middle"
                 }}
-              ></span>
+              ></span> : null}
               {item?.customAttributes.length ? (
                 <div className={styles.product_specs}>
                   <span>
