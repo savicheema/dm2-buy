@@ -1,6 +1,6 @@
 const request = require('request');
 const config = require('../config/config');
-const colorMap = require('../utils/ColorCodes')
+const colorMap = require('../utils/ColorCodes');
 
 function sendMessage(order) {
   console.log('sending whatsapp message' + order);
@@ -8,7 +8,7 @@ function sendMessage(order) {
   const totalWithShipping = order.order_total;
   const paymentProcessingFee = order.payment_processing_fee;
   const totalMinusPaymentProcessingFee = Number(totalWithShipping) - Number(paymentProcessingFee);
-var message =  `Hello ${order.seller.name},
+  var message = `Hello ${order.seller.name},
 
 You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
 
@@ -20,7 +20,7 @@ ${order.products
     }
     const customAttrib =
       product.customAttributes.length > 0
-        ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(', ')}_ )`
+        ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(' · ')}_ )`
         : '';
     return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
   })
@@ -35,7 +35,7 @@ Email: ${order.buyer.email}
 
 Thank you and Happy Selling,
 dm2buy crew 😇`;
-console.log(message)
+  console.log(message);
   if (order.seller.phone) {
     var options = {
       method: 'GET',
