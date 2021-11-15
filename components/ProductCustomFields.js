@@ -23,7 +23,6 @@ export default function ProductCustomFields({ product, selectedCustomAttributes=
             inputType="number"
             type="half"
             placeholder={attribute?.fields?.Name}
-            errorMessage={`${attribute?.fields?.Name} can't be blank`}
             regex={/^(?!\s*$).+/}
           />
         ) : (
