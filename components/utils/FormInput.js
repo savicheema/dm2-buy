@@ -29,8 +29,8 @@ class FormInput extends React.Component {
     const inputClass = isFocus ? styles.focusInput : styles.inputClass;
     return (
       <div className={formInputClass}>
-        {isError && <div className={styles.error}>{errorMessage}</div>}
-        {isInvalid && <div className={styles.error}>{invalidMessage}</div>}
+        {errorMessage ? (isError && <div className={styles.error}>{errorMessage}</div>) : null}
+        {invalidMessage ? (isInvalid && <div className={styles.error}>{invalidMessage}</div>) : null}
         <div
           className={inputClass}
           style={{ border: isError ? "1px solid red" : "" }}
