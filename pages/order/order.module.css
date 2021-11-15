@@ -238,3 +238,6 @@
   display: flex;
   justify-content: flex-end;
 }
+.linkBorder {
+  border-bottom: 1px inherit dotted;
+}
