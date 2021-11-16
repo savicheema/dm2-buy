@@ -238,3 +238,7 @@
   display: flex;
   justify-content: flex-end;
 }
+.linkBorder {
+  border-bottom: 1px dotted;
+  border-color: inherit;
+}
