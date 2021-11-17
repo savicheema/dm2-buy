@@ -12,6 +12,12 @@ async function getAll() {
 
 async function getById(id, res) {
   const order = await Order.findById(id);
+
+  let store;
+  if (order && order.seller) {
+    store = await airtableService.getStoreById(order.seller.seller_id);
+  }
+
   const options = {
     method: 'POST',
     url: config.cashfree.getOrderPaymentLinkUrl,
@@ -20,8 +26,16 @@ async function getById(id, res) {
       'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
     },
     formData: {
-      appId: config.cashfree.appId,
-      secretKey: config.cashfree.appSecret,
+      appId: store 
+        && store.fields 
+        && store.fields.CASHFREE_APP_ID
+          ? store.fields.CASHFREE_APP_ID
+          : config.cashfree.appId,
+      secretKey: store 
+        && store.fields
+        && store.fields.CASHFREE_APP_SECRET
+          ? store.fields.CASHFREE_APP_SECRET 
+          : config.cashfree.appSecret,
       orderId: order.id,
     },
   };
