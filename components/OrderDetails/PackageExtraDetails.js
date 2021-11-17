@@ -29,7 +29,7 @@ export default function PackageExtraDetails(props) {
           <hr className={orderStyles.divider} />
         </div>
         <h6 className={orderStyles.orderInfoDiscription}>
-          DM me on ig <a className={orderStyles.linkBorder} href={'www.instagram.com/'+instaUserId}>{instaUserId}</a> for queries
+          DM me on ig <a className={orderStyles.linkBorder} href={'www.instagram.com/'+instaUserId} rel="noreferrer" target="_blank">{instaUserId}</a> for queries
         </h6>
       </div>
     </div>
