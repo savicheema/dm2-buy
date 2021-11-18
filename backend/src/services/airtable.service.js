@@ -53,10 +53,11 @@ function isNumeric(str) {
   ); // ...and ensure strings of whitespace fail
 }
 
-function updateProductStatus({ productId, quantity }) {
+async function updateProductStatus({ productId, quantity }) {
   const metaToUpdate = {};
   if (isNumeric(String(quantity))) {
-    metaToUpdate.product_count = quantity;
+    const productData = await getProduct(productId);
+    metaToUpdate.product_count = parseInt(productData.fields.product_count) - quantity;
     if (quantity < 1) {
       metaToUpdate.Status = constants.product.status['sold-out'];
     }
