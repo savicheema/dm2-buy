@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import styles from "./store-item.module.css";
-
 import Image from "next/image";
-
 import LinesEllipsis from "react-lines-ellipsis";
 
+const ITEM_STATUS_LABELS = ["selling-fast", 'coming-soon', 'restocking-soon'];
+
 const StoreItem = ({ product }) => {
+  const getLabelText = (status, count) => {
+    switch (status) {
+      case 'selling-fast':
+        return `LAST ${count} LEFT`;
+      case 'coming-soon':
+        return `COMING SOON`;
+      case 'restocking-soon':
+        return 'RESTOCKING SOON';
+      default:
+        return status.toUpperCase();
+        break;
+    }
+  }
   if (!product.fields) return "";
   return (
     <div
@@ -31,6 +44,11 @@ const StoreItem = ({ product }) => {
               alt="store product"
               priority
             />
+            {ITEM_STATUS_LABELS.includes(product.fields?.Status) ? 
+              <span className={styles.itemStatusOverlay}>
+                {getLabelText(product.fields?.Status, product.fields?.product_count)}
+              </span>
+            : null}
           </div>
         )}
       </div>
