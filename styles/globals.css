@@ -58,7 +58,9 @@ body {
 }
 .control-dots {
   position: absolute;
-  top: 416px;
+  top: calc(100% - 30px) !important;
+  margin: 0 !important;
+  /* top: 416px; */
 }
 .control-dots>li{
   margin: 15px 10px !important;
