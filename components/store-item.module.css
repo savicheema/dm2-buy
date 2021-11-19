@@ -16,6 +16,21 @@
   position: relative;
   border-radius: 10px;
 }
+.itemStatusOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.75px;
+  font-weight: bold;
+  padding: 5px 2px;
+  border-radius: 0 0 10px 10px;
+}
 .item_overlay {
   position: absolute;
   background-color: rgb(38, 38, 38, 0.3);

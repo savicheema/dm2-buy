@@ -179,9 +179,9 @@ class Product extends React.Component {
                   </div>
                 </button>
               )}
-              {product.fields.Status !== "for-sale" && (
-                <button className={styles.soldOutButton}>Sold Out</button>
-              )}
+              {product.fields?.product_count === 0 ? (
+                <button className={styles.soldOutButton}>Currently Unavailable</button>
+              ) : null}
             </div>
 
             {/* <NoticeConditions /> */}
