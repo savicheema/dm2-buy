@@ -22,6 +22,7 @@ const DM2BuyCarousel = ({ product }) => (
         return <NextArrow handler={onClickHandler} />;
       }}
       renderIndicator={(onClickHandler, isSelected, index) => {
+        if (product.allPhotos?.length < 2) return null;
         return (
           <Indicator
             handler={onClickHandler}
