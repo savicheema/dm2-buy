@@ -164,7 +164,9 @@ class Product extends React.Component {
             />
 
             <div className={styles.callToAction}>
-              {product.fields.Status === "for-sale" && (
+              {product.fields?.product_count === 0 ? (
+                <button className={styles.soldOutButton}>Currently Unavailable</button>
+              ) : (
                 <button
                   className={styles.buyNowButton}
                   onClick={this.addToCart}
@@ -179,11 +181,7 @@ class Product extends React.Component {
                   </div>
                 </button>
               )}
-              {product.fields?.product_count === 0 ? (
-                <button className={styles.soldOutButton}>Currently Unavailable</button>
-              ) : null}
             </div>
-
             {/* <NoticeConditions /> */}
           </div>
           {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
