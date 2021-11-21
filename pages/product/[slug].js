@@ -181,6 +181,9 @@ class Product extends React.Component {
                   </div>
                 </button>
               )}
+              {product.fields.Status !== "for-sale" && (
+                <button className={styles.soldOutButton}>Sold Out</button>
+              )}
             </div>
             {/* <NoticeConditions /> */}
           </div>
