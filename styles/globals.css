@@ -15,7 +15,14 @@ body {
 
   /* overscroll-behavior-y: none; */
 }
+*,
+*::after,
+*::before{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 
+}
 .carousel {
   margin-bottom: 24px !important;
   height: 465px !important;
@@ -46,10 +53,17 @@ body {
   background: none !important;
   transition: none !important;
 }
-
 .control-dots {
   position: absolute;
-  top: 416px;
+  top: calc(100% - 30px) !important;
+  margin: 0 !important;
+  /* top: 416px; */
+}
+.control-dots>li{
+  margin: 15px 10px !important;
+}
+li.slide>div{
+  height: 100%;
 }
 a {
   color: inherit;

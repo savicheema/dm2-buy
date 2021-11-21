@@ -23,3 +23,9 @@
   align-items: center;
   z-index: 99;
 }
+
+@media screen and (max-width: 900px) {
+  .nextButton {
+    display: none;
+  }
+}

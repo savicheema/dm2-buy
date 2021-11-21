@@ -78,7 +78,7 @@ async function sendEmail(order) {
                                           return `${ca.name} - ${ca.value}`;
                                         })
                                         .join(
-                                          `<span class="m_-7969646897801254430middot" style="display:inline-block;padding-top:0;padding-bottom:0;padding-right:.15em;padding-left:.15em;font-size:1.5em;line-height:.7">.</span>`
+                                          `<span class="m_-7969646897801254430middot" style="display:inline-block;padding-top:0;padding-bottom:0;padding-right:.15em;padding-left:.15em;line-height:.7">·</span>`
                                         )}
                                     </div>
                                     </div>
