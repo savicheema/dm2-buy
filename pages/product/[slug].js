@@ -165,7 +165,7 @@ class Product extends React.Component {
 
             <div className={styles.callToAction}>
               {product.fields?.product_count === 0 ? (
-                <button className={styles.soldOutButton}>Currently Unavailable</button>
+                <button className={styles.soldOutButton}>Sold Out</button>
               ) : (
                 <button
                   className={styles.buyNowButton}
@@ -180,9 +180,6 @@ class Product extends React.Component {
                     {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
                   </div>
                 </button>
-              )}
-              {product.fields.Status !== "for-sale" && (
-                <button className={styles.soldOutButton}>Sold Out</button>
               )}
             </div>
             {/* <NoticeConditions /> */}
