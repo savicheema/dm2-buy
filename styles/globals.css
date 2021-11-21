@@ -53,9 +53,6 @@ body {
   background: none !important;
   transition: none !important;
 }
-.carousel .slider-wrapper{
-  border-radius: 0 0 16px 16px;
-}
 .control-dots {
   position: absolute;
   top: calc(100% - 30px) !important;
