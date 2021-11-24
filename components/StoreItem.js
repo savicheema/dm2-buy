@@ -6,6 +6,15 @@ import Image from "next/image";
 import LinesEllipsis from "react-lines-ellipsis";
 
 const StoreItem = ({ product }) => {
+  const getProductPrice = (price, discountedPrice='') => {
+    if(!price) return;
+    if(discountedPrice) {
+      let strikeOutPrice = <span className={styles.strikeOutText}>{`${String.fromCharCode(0x20b9)}${price}`}</span>;
+      return <>{`${String.fromCharCode(0x20b9)}${discountedPrice}`} {strikeOutPrice}</>;
+    } else {
+      return `${String.fromCharCode(0x20b9)}${product.fields.Price}`
+    }
+  }
   if (!product.fields) return "";
   return (
     <div
@@ -48,8 +57,7 @@ const StoreItem = ({ product }) => {
           )}
         </div>
         <div className={styles.price}>
-          {product.fields &&
-            `${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+          {product.fields && getProductPrice(product.fields.Price, product.fields['discounted price'])}
         </div>
       </div>
     </div>
