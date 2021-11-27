@@ -1,4 +1,4 @@
-import styles from './terms.module.css';
+import styles from './returns.module.css';
 import Footer from "../../components/Footer";
 import { getStore } from "../../services/backend/serverSideProps";
 
@@ -6,15 +6,15 @@ export async function getServerSideProps(context) {
     return getStore(context);
 }
   
-const terms = (props) => {
+const Returns = (props) => {
     const { storeData } = props;
-    const { terms } = storeData.fields;
+    const { returns } = storeData.fields;
     return (
         <div className={styles.container}>
             <main>
-                <h2 className={styles.headline}>Terms & Conditions</h2>
+                <h2 className={styles.headline}>Returns</h2>
                 <div className={styles.content}>
-                    {terms}
+                    {returns}
                 </div>
             </main>
             <Footer />
@@ -22,4 +22,4 @@ const terms = (props) => {
     )
 }
 
-export default terms
+export default Returns;

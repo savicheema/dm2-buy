@@ -1,0 +1,33 @@
+.headline{
+    margin: 2.2rem auto 1.2rem;
+    text-align: center;
+    font-weight: bold;   
+}
+.content {
+    opacity: 0.8;
+    font-size: 1rem;
+    text-align: center;    
+    /* min-height: 100vh; */
+    /* max-width: 100%; */
+
+    /* display: flex;
+    flex-direction: column; */
+    /* box-sizing: border-box; */
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: var(--max-width);
+
+    width: 100%;
+}
+.container {
+    min-height: 100vh;
+    /* max-width: 100%; */
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-color);
+}
