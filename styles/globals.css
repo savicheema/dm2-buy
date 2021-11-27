@@ -1,8 +1,23 @@
+:root {
+  --dm2buy-pink: hsl(323.2, 82%, 54.3%);
+  --border: hsla(0, 0%, 59.2%, 0.4);
+  --bg-color: #ffffff;
+  --max-width: 520px;
+}
+*,
+*::after,
+*::before{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, BlinkMacSystemFont, Inter, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   /* display: flex; */
   /* flex-direction: column; */
@@ -15,14 +30,11 @@ body {
 
   /* overscroll-behavior-y: none; */
 }
-*,
-*::after,
-*::before{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-
+a {
+  color: inherit;
+  text-decoration: none;
 }
+
 .carousel {
   margin-bottom: 24px !important;
   height: 465px !important;
@@ -65,22 +77,10 @@ body {
 li.slide>div{
   height: 100%;
 }
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
 .underline-button {
   text-decoration: underline;
 }
 
-:root {
-  --dm2buy-pink: hsl(323.2, 82%, 54.3%);
-  --border: hsla(0, 0%, 59.2%, 0.4);
-  --bg-color: #ffffff;
-  --max-width: 520px;
+footer a {
+  margin: 1.5rem 0 .8rem;
 }
