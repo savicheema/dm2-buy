@@ -13,9 +13,11 @@ const Contact = (props) => {
         <div className={styles.container}>
             <main>
                 <h2 className={styles.headline}>Contact Us</h2>
-                <div className={styles.content}>
-                    {contact}
-                </div>
+                {contact.trim() != "" ? 
+                    <div 
+                        className={styles.content}
+                        dangerouslySetInnerHTML={{ __html: contact }}    
+                    ></div> : null}
             </main>
             <Footer />
         </div>

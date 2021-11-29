@@ -13,9 +13,11 @@ const Returns = (props) => {
         <div className={styles.container}>
             <main>
                 <h2 className={styles.headline}>Returns</h2>
-                <div className={styles.content}>
-                    {returns}
-                </div>
+                {returns.trim() != "" ? 
+                    <div 
+                        className={styles.content}
+                        dangerouslySetInnerHTML={{ __html: returns }}    
+                    ></div> : null}
             </main>
             <Footer />
         </div>
