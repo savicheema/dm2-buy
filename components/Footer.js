@@ -26,10 +26,10 @@ const Footer = () => {
             Returns
           </Link>)}
           { privacy && (<Link href="/privacy">
-            Privacy Policy
+            Privacy
           </Link>)}
           { contact && (<Link href="/contact">
-            Contact us
+            Contact
           </Link>)}
       </div>
     </footer>

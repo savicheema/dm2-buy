@@ -13,9 +13,11 @@ const terms = (props) => {
         <div className={styles.container}>
             <main>
                 <h2 className={styles.headline}>Terms & Conditions</h2>
-                <div className={styles.content}>
-                    {terms}
-                </div>
+                {terms.trim() != "" ? 
+                    <div 
+                        className={styles.content}
+                        dangerouslySetInnerHTML={{ __html: terms }}    
+                    ></div> : null}
             </main>
             <Footer />
         </div>

@@ -13,9 +13,11 @@ const PrivacyPolicy = (props) => {
         <div className={styles.container}>
             <main>
                 <h2 className={styles.headline}>Privacy Policy</h2>
-                <div className={styles.content}>
-                    {privacy}
-                </div>
+                {privacy.trim() != "" ? 
+                    <div 
+                        className={styles.content}
+                        dangerouslySetInnerHTML={{ __html: privacy }}
+                    ></div> : null}
             </main>
             <Footer />
         </div>
