@@ -31,7 +31,7 @@ export async function getStore(context) {
 }
 
 export async function getProduct(context) {
-  let product, errorCode, productUrl;
+  let product, errorCode, productUrl, storeData;
   const { req } = context;
   const splitArr = req.url.split("-");
   const productId = splitArr[splitArr.length - 1];
@@ -53,12 +53,13 @@ export async function getProduct(context) {
     }
     productUrl = `${hostWithProtocol}/product/${product?.fields?.Slug}-${product.id}`;
     errorCode = false;
+    storeData = await getStore(context);
   } catch (e) {
     errorCode = 404;
     productUrl = "";
   }
   return {
-    props: { productId, product: product || null, errorCode, productUrl }, // will be passed to the page component as props
+    props: { productId, product: product || null, ...storeData.props, errorCode, productUrl }, // will be passed to the page component as props
   };
 }
 
@@ -100,6 +101,7 @@ export async function getOrderDetail(context) {
     props: {
       orderId: query.orderId,
       store: store || {},
+      storeData: store || {},
       errorCode,
       order,
       retryLink,

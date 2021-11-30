@@ -62,3 +62,10 @@
   color: #1c3142;
   font-family: Roboto, sans-serif;
 }
+
+.strikeOutText {
+  font-size: 14.5px;
+  font-weight: 300;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
