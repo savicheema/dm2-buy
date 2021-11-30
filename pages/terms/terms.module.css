@@ -1,5 +1,5 @@
 .headline{
-    margin: 2.2rem auto 1.2rem;
+    margin: 5rem auto 4rem;
     text-align: center;
     font-weight: bold;   
 }
@@ -14,8 +14,10 @@
     flex-direction: column; */
     /* box-sizing: border-box; */
     margin: 0 auto;
-    padding: 0 1rem;
     max-width: var(--max-width);
+    padding: 0 2rem;
+    line-height: 26px;
+    letter-spacing: 1px;
 
     width: 100%;
 }
