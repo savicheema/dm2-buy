@@ -34,7 +34,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+*,
+*::after,
+*::before{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 
+}
 .carousel {
   margin-bottom: 24px !important;
   height: 465px !important;
@@ -70,6 +77,12 @@ a {
   top: calc(100% - 30px) !important;
   margin: 0 !important;
   /* top: 416px; */
+}
+.control-dots>li{
+  margin: 15px 10px !important;
+}
+li.slide>div{
+  height: 100%;
 }
 .control-dots>li{
   margin: 15px 10px !important;
