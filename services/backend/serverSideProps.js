@@ -1,17 +1,32 @@
 import constants from "../../constants";
 
 export async function getStore(context) {
+  console.log("123123123131231");
   let store, errorCode, storeUrl;
   const { req } = context;
   const { host } = req.headers;
+  //console.log('host: ', host);
   const splitHost = host.split(".");
-  const subdomain =
+  //console.log('splitHost: ', host);
+  let subdomain =
     splitHost[0] == "localhost:3000" || splitHost[0] == "192"
       ? constants.devEnv.storeSubdomain
       : splitHost[0];
   const hostWithProtocol =
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
   try {
+    //console.log('splitHost --------: ', splitHost);
+    //console.log('subdomain before: ', subdomain);
+    //console.log('host', host)
+    if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
+      //console.log('inside condition')
+      console.log(encodeURI(host))
+      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/airtable/getSubdomain?custom_domain=${encodeURI(host)}`);
+      let original_subdomain = await original_subdomain_response.json();
+      subdomain = original_subdomain.subdomain;
+      console.log('subdomain after: ', subdomain);
+    }
+
     const response = await fetch(
       `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
     );
@@ -22,6 +37,7 @@ export async function getStore(context) {
     storeUrl = `${hostWithProtocol}/`;
     errorCode = false;
   } catch (e) {
+    console.log(e)
     errorCode = 404;
     storeUrl = "";
   }
@@ -36,14 +52,21 @@ export async function getProduct(context) {
   const splitArr = req.url.split("-");
   const productId = splitArr[splitArr.length - 1];
   const { host } = req.headers;
+  console.log('host getProduct: ', host);
   const splitHost = host.split(".");
-  const subdomain =
+  let subdomain =
     splitHost[0] == "localhost:3000" || splitHost[0] == "192"
       ? constants.devEnv.storeSubdomain
       : splitHost[0];
   const hostWithProtocol =
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
   try {
+    if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
+      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/airtable/getSubdomain?custom_domain=${encodeURI(host)}`);
+      let original_subdomain = await original_subdomain_response.json();
+      subdomain = original_subdomain.subdomain;
+    }
+
     const response = await fetch(
       `${hostWithProtocol}/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
     );
@@ -68,14 +91,22 @@ export async function getOrderDetail(context) {
   const { query, req } = context;
   const { host } = req.headers;
   const { orderId } = context.params;
+  console.log('host getOrderDetail: ', host);
+
   const splitHost = host.split(".");
-  const subdomain =
+  let subdomain =
     splitHost[0] == "localhost:3000" || splitHost[0] == "192"
       ? constants.devEnv.storeSubdomain
       : splitHost[0];
   const hostWithProtocol =
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
   try {
+    if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
+      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/airtable/getSubdomain?custom_domain=${encodeURI(host)}`);
+      let original_subdomain = await original_subdomain_response.json();
+      subdomain = original_subdomain.subdomain;
+    }
+
     const response = await fetch(
       `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
     );

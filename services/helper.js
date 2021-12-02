@@ -17,12 +17,29 @@ Sentry.init({
 
 const getSubDomainOfPage = () => {
   const { host } = window.location;
-  console.log("host--", host);
+
   let splitHost = host.split(".");
-  console.log("splithost---", splitHost);
-  return splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-    ? "chubb"
-    : splitHost[0];
+  console.log('===========  TRIGGERED ===========');
+  if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
+    return new Promise((resolve, reject) => {
+      fetch(`/api/airtable/getSubdomain?custom_domain=${encodeURI(window.location.host)}`)
+      .then(response => response.json())
+      .then(res => {
+        splitHost[0] = res.subdomain;
+        console.log('splitHost[0] ==========: ', splitHost[0]);
+        resolve(splitHost[0] == "localhost:3000" || splitHost[0] == "192"
+          ? "chubb"
+          : splitHost[0]);
+      })
+      .catch(err => reject());
+    });
+  } else {
+    return new Promise((resolve, reject) => {
+      resolve(splitHost[0] == "localhost:3000" || splitHost[0] == "192"
+        ? "chubb"
+        : splitHost[0]);
+    });
+  }
 };
 
 const airtableBaseId = process.env.AIRTABLE_BASE_ID;

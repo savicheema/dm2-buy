@@ -99,7 +99,13 @@ async function paymentRedirectPage(req, res) {
     order.payment_status = 'complete';
     order.save();
   }
-  const redirectUrl = 'https://' + order.seller.name + config.baseUrl.frontend + '/order/' + order.id;
+
+  let customDomain = await airtableService.getCustomDomain(order.seller.name);
+  if (customDomain) {
+    customDomain = customDomain.fields.custom_domain;
+  }
+
+  const redirectUrl = 'https://' + (customDomain || (order.seller.name + config.baseUrl.frontend)) + '/order/' + order.id;
   res.writeHead(302, { Location: redirectUrl });
   res.end();
 }

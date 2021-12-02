@@ -26,14 +26,14 @@ class StoreProducts extends React.Component {
 
   componentDidMount() {
     let { store } = this.props;
-    const subdomain = getSubDomainOfPage();
-
-    if (store.fields.hasOwnProperty("Products")) {
-      this.fetchAllProducts(store.fields.Products, subdomain);
-    } else {
-      const { endLoading } = this.props;
-      endLoading();
-    }
+    getSubDomainOfPage().then(subdomain => {
+      if (store.fields.hasOwnProperty("Products")) {
+        this.fetchAllProducts(store.fields.Products, subdomain);
+      } else {
+        const { endLoading } = this.props;
+        endLoading();
+      }
+    });
   }
   componentWillUnmount() {}
 

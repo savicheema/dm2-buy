@@ -161,6 +161,25 @@ async function fetchCustomAttributesByProduct(product) {
   });
 }
 
+async function getCustomDomain(subdomain) {
+  return new Promise((resolve, reject) => {
+    base('Stores')
+      .select({
+        view: 'Grid view',
+        filterByFormula: `{subdomain }="${subdomain}"`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
+  });
+}
+
 module.exports = {
   updateProductStock,
   base,
@@ -170,5 +189,6 @@ module.exports = {
   getProduct,
   getAllProducts,
   fetchCustomAttributesByProduct,
-  getStoreById
+  getStoreById,
+  getCustomDomain
 };

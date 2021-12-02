@@ -7,6 +7,7 @@ import styles from "../../components/Cart/cart.module.css";
 import Bag from "../../components/Cart/Bag";
 
 export async function getServerSideProps(context) {
+  console.log('======---------========---------');
   return getStore(context);
 }
 

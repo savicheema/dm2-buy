@@ -43,7 +43,7 @@ const Cart = ({ cart, store }) => {
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
-        name: getSubDomainOfPage(),
+        name: await getSubDomainOfPage(),
         instagram: store?.fields?.store_instagram_handle,
         phone: store?.fields?.phone,
         seller_id: cart.products[0]?.fields?.Stores[0],

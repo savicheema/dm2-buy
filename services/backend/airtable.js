@@ -116,6 +116,25 @@ async function fetchCustomAttributesByProduct(product) {
   });
 }
 
+function getSubDomain(customDomain) {
+  return new Promise((resolve, reject) => {
+    base('Stores')
+      .select({
+        view: 'Grid view',
+        filterByFormula: `{custom_domain}="${customDomain}"`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
+  });
+}
+
 export {
   base,
   getRecordBySubdomain,
@@ -124,4 +143,5 @@ export {
   getProduct,
   getAllProducts,
   fetchCustomAttributesByProduct,
+  getSubDomain
 };
