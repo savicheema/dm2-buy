@@ -1,0 +1,30 @@
+.enter {
+    /* opacity: 1; */
+    position: absolute;
+    top: 100px;
+    /* transform: translateY(100px); */
+}
+
+.enterActive {
+    /* opacity: 1; */
+    position: absolute;
+    top: 0px;
+    /* transform: translateY(0); */
+    /* transition: opacity 1200ms ease-in-out; */
+    transition: top 500ms ease-in-out;
+}
+
+.exit {
+    position: absolute;
+    top: 0px;
+    /* opacity: 1; */
+}
+
+.exitActive {
+    /* opacity: 0; */
+    position: absolute;
+    top: -100px;
+    transition: top 500ms ease-in-out;
+    /* transform: translateY(-100px); */
+    /* transition: opacity 200ms ease-in-out; */
+}

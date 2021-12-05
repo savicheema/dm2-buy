@@ -37,24 +37,50 @@
 }
 
 .order {
-  margin-top: 40px;
+  --card-padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
+  padding-top: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 1.5em 2em rgb(0 0 0 / 10%);
+  transition: transform .2s ease,box-shadow .2s ease;
+}
+@media screen and (min-width: 900px) {
+  .order{
+    --card-padding: 2rem;
+  }
+}
+.orderBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--card-padding) var(--card-padding) 0;
+  width: 100%;
+  background-color: #f7f7f7;
+
+}
+
+.order:hover{
+  box-shadow: 0 1em 1em rgb(0 0 0 / 20%);
 }
 
 .orderButton {
   background: none;
   border: none;
   outline: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   /*
   width: 80vw;
   max-width: 304px; */
   width: 100%;
   /* height: 48px; */
-  padding: 16px 0;
-  margin: 0 0 32px 0;
-  border-radius: 16px;
+  padding: 1.8rem var(--card-padding);
+  border-radius: 0 0 16px 16px;
   background-color: #000000;
   color: white;
   font-size: 13px;
@@ -64,7 +90,9 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: 1.5px;
-  text-transform: uppercase;
+  text-align: left;
+
+  /* text-transform: uppercase; */
 }
 
 .orderThumbnail {
