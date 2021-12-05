@@ -12,27 +12,7 @@ const defaultStyle = {
   opacity: 0,
 }
 
-// const transitionStyles = {
-//   entering: { opacity: 0 },
-//   entered:  { opacity: 1 },
-//   exiting:  { opacity: 1 },
-//   exited:  { opacity: 0 },
-// };
-
-// const Fade = ({ in: inProp=true, children }) => (
-//   <Transition in={inProp} timeout={duration}>
-//     {state => (
-//       <div style={{
-//         ...defaultStyle,
-//         ...transitionStyles[state]
-//       }}>
-//         {children}
-//       </div>
-//     )}
-//   </Transition>
-// );
-
-const InputField = ({status, handleChange, code}) => {
+const InputField = ({status, handleChange, handleValidateCode, code}) => {
   return (
     // <div className={styles.giftCodeContainer}>
     <div className={styles.inputBox}>
@@ -44,7 +24,7 @@ const InputField = ({status, handleChange, code}) => {
         value={status === 'pending' ? '...' : code}
       />
       {code && 
-        <button className={styles.arrowBtn}>
+        <button onClick={handleValidateCode} className={styles.arrowBtn}>
           <Image src='/right-arrow.png' layout="fixed" width="20" height="20" />
         </button>
       }
@@ -73,11 +53,11 @@ const FalseCode = () => {
   )
 }
 
-const AppliedCode = () => {
+const AppliedCode = ({handleRemoveCode}) => {
   return (
     // <div className={styles.giftCodeContainer}>
       <div className={styles.appliedCode}>
-        <span className={styles.removeCode}>Remove</span>
+        <span onClick={handleRemoveCode} className={styles.removeCode}>Remove</span>
         <span>
           {'🥳 '}<span className={styles.discountedAmount}>{'- '}{String.fromCharCode(0x20b9)}240</span>
         </span>
@@ -86,11 +66,11 @@ const AppliedCode = () => {
   )
 }
 
-const GetComponent = ({status, handleChange, code}) => {
+const GetComponent = ({status, handleChange, handleValidateCode, handleRemoveCode, code}) => {
   switch (status) {
     case 'idle':
       return (
-        <InputField status={status} handleChange={handleChange} code={code} />
+        <InputField status={status} handleChange={handleChange} handleValidateCode={handleValidateCode} code={code} />
       )
       break;
     case 'pending' : 
@@ -105,7 +85,7 @@ const GetComponent = ({status, handleChange, code}) => {
       break;
     case 'resolved' :
       return (
-        <AppliedCode />
+        <AppliedCode handleRemoveCode={handleRemoveCode} />
       )
       break;  
     default:
@@ -116,9 +96,21 @@ const GiftCode = () => {
   const [status, setStatus] = useState('idle');
   const [code, setCode] = useState('');
   const handleChange = (e) => {
-    setStatus('resolved');
+    // setStatus('resolved');
+    const {value} = e.target;
+    setCode(value.toUpperCase());
+  }
+  const handleValidateCode = (e) => {
+    setStatus('pending');
+    setTimeout(() => {
+      setStatus('resolved');
+    }, 1500);
     // const {value} = e.target;
     // setCode(value.toUpperCase());
+  }
+  const handleRemoveCode = () => {
+    setStatus('idle');
+    setCode('');
   }
   return ( <>
   <TransitionGroup className={styles.giftCodeContainer}>
@@ -129,7 +121,13 @@ const GiftCode = () => {
       classNames={transitionStyles}
       unmountOnExit
     >
-        <GetComponent status={status} handleChange={handleChange} code={code} />
+        <GetComponent 
+          status={status} 
+          code={code} 
+          handleChange={handleChange} 
+          handleValidateCode={handleValidateCode} 
+          handleRemoveCode={handleRemoveCode}
+        />
     </CSSTransition>
       {/* </div> */}
   </TransitionGroup>

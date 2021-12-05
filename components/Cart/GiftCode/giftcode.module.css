@@ -56,6 +56,9 @@
     font-size: 0.9rem;
     font-weight: 500;
     /* z-index: -1; */
+    /* animation: vibrate 300ms forwards; */
+    animation: shake 0.5s forwards;
+    animation-delay: 500ms;
 
 }
 .appliedCode{
@@ -110,4 +113,25 @@
     70%{color:#9c1cb6}
     90%{color:#ff4273}
     to{color:#ff9d1f}
+}
+
+@keyframes shake {
+    0% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(0.75rem);
+    }
+    40% {
+      transform: translate(-0.75rem);
+    }
+    60% {
+      transform: translate(0.75rem);
+    }
+    80% {
+      transform: translate(-0.75rem);
+    }
+    100% {
+      transform: translate(0);
+    }
 }
