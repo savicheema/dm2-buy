@@ -30,7 +30,6 @@ export default function Order({ cart, checkInputs }) {
           <div className={styles.charges}>
               <div className={styles.orderItem}>
                 <div className={styles.productDetails}>
-                  <span className={styles.shippingEmoji}>🚛</span>
                   <div className={styles.productName}>
                     Shipping Fee <br />{" "}
                     {actualShippingFee && !shippingFeeApplied ? (
@@ -47,7 +46,6 @@ export default function Order({ cart, checkInputs }) {
               </div>
             <div className={styles.orderItem}>
               <div className={styles.productDetails}>
-                <span className={styles.shippingEmoji}>💳</span>
                 <div className={styles.productName} style={{ width: "8rem" }}>
                   Payment Processing Fee
                 </div>
