@@ -16,12 +16,7 @@
 }
 
 .productQuantity {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
   width: 20px;
   height: 20px;
   padding: 12px;
@@ -32,6 +27,8 @@
   font-size: 11px;
   font-weight: bold;
   overflow: auto;
+  margin-left: 0.5rem;
+  margin-bottom: -5px;
 }
 
 .orderThumbnail {
@@ -39,7 +36,6 @@
 }
 
 .productName {
-  margin-left: 23px;
   font-family: "Roboto", sans-serif;
   font-size: 15px;
 

@@ -14,7 +14,6 @@ const defaultStyle = {
 
 const InputField = ({status, handleChange, handleValidateCode, code}) => {
   return (
-    // <div className={styles.giftCodeContainer}>
     <div className={styles.inputBox}>
       <input 
         type="text" 
@@ -29,44 +28,37 @@ const InputField = ({status, handleChange, handleValidateCode, code}) => {
         </button>
       }
       </div>
-    // </div>
   )
 }
 
 const LoadingDots = () => {
   return (
-    // <div className={styles.giftCodeContainer}>
       <div className={styles.loader}>
         {'...'}
       </div>
-    // </div>
   )
 }
 const FalseCode = () => {
   return (
-    // <div className={styles.giftCodeContainer}>
       <div className={styles.wrongCode}>
         {'Wrong Code :('}
         <Image src='/reload.png' layout="fixed" width="20" height="20" />
       </div>
-    // </div>
   )
 }
 
 const AppliedCode = ({handleRemoveCode}) => {
   return (
-    // <div className={styles.giftCodeContainer}>
       <div className={styles.appliedCode}>
         <span onClick={handleRemoveCode} className={styles.removeCode}>Remove</span>
         <span>
           {'🥳 '}<span className={styles.discountedAmount}>{'- '}{String.fromCharCode(0x20b9)}240</span>
         </span>
       </div>
-    // </div>
   )
 }
 
-const GetComponent = ({status, handleChange, handleValidateCode, handleRemoveCode, code}) => {
+const AnimateGiftCode = ({status, handleChange, handleValidateCode, handleRemoveCode, code}) => {
   switch (status) {
     case 'idle':
       return (
@@ -105,8 +97,6 @@ const GiftCode = () => {
     setTimeout(() => {
       setStatus('resolved');
     }, 1500);
-    // const {value} = e.target;
-    // setCode(value.toUpperCase());
   }
   const handleRemoveCode = () => {
     setStatus('idle');
@@ -114,22 +104,20 @@ const GiftCode = () => {
   }
   return ( <>
   <TransitionGroup className={styles.giftCodeContainer}>
-      {/* <div className={styles.giftCodeContainer}> */}
     <CSSTransition
       key={status}
       timeout={500}
       classNames={transitionStyles}
       unmountOnExit
     >
-        <GetComponent 
-          status={status} 
-          code={code} 
-          handleChange={handleChange} 
-          handleValidateCode={handleValidateCode} 
-          handleRemoveCode={handleRemoveCode}
-        />
+      <AnimateGiftCode 
+        status={status} 
+        code={code} 
+        handleChange={handleChange} 
+        handleValidateCode={handleValidateCode} 
+        handleRemoveCode={handleRemoveCode}
+      />
     </CSSTransition>
-      {/* </div> */}
   </TransitionGroup>
   </>)
 }
