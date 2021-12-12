@@ -78,6 +78,7 @@ async function updateOrderPaymentStatus(req, res) {
     productList.forEach(product => {
       airtableService.updateProductStatus({ productId: product.id, quantity: product.quantity });
     });
+    airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
     order.payment_status = 'complete';
     order.save();
     console.log('order status updated ' + order.id);
