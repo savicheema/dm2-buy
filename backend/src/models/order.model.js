@@ -16,6 +16,7 @@ const orderSchema = mongoose.Schema(
     address: { type: mongoose.Schema.Types.Object, ref: 'Address' },
     payment_status: { type: String, required: true, default: 'payment_pending' },
     payment_mode: { type: String, required: true, default: 'online' },
+    discountCode:{type: mongoose.Schema.Types.Object, ref: 'DiscountCode', required: false }
   },
   {
     timestamps: true,

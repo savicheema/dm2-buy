@@ -33,6 +33,10 @@ const createOrderValidations = {
       seller_id: Joi.string().required(),
     }),
     userId: Joi.string().required(),
+    discountCode: Joi.object().keys({
+      couponCode: Joi.string(),
+      id:Joi.string().required()
+    })
   }),
 };
 
