@@ -2,6 +2,12 @@ const getPrice = (cart) => {
   let calculatedPrice = 0;
   let shippingFeeApplied = false;
   let shippingFee = cart.shippingFee;
+  let percentageDiscount = cart?.percentageDiscount;
+  let couponId, couponCode;
+  if(percentageDiscount) {
+    couponId = cart.couponId;
+    couponCode = cart.couponCode;
+  }
   const actualShippingFee = cart.shippingFee;
   const shippingFeeCap = Number.isInteger(cart.shippingFeeCap)
     ? cart.shippingFeeCap
@@ -10,14 +16,22 @@ const getPrice = (cart) => {
     const productQuantity = product.quantity ? product.quantity : 1;
     calculatedPrice += product.fields.Price * productQuantity;
   }
+
+  let priceWithoutFees = calculatedPrice;
+  if(percentageDiscount){
+    calculatedPrice = priceWithoutFees - priceWithoutFees*percentageDiscount;
+  }
+
   if (calculatedPrice < shippingFeeCap) {
     calculatedPrice += shippingFee ? shippingFee : 0;
     shippingFeeApplied = true;
   } else {
     shippingFee = 0;
   }
+
   const productTotalPrice = calculatedPrice;
   const processingFee = Number((calculatedPrice * 0.02).toFixed(2));
+
   calculatedPrice += processingFee;
   return {
     productTotalPrice: productTotalPrice,
@@ -27,6 +41,9 @@ const getPrice = (cart) => {
     actualShippingFee,
     paymentProcessingFee: processingFee,
     shippingFeeApplied,
+    priceWithoutFees,
+    couponId,
+    couponCode
   };
 };
 

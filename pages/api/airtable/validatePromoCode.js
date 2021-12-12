@@ -4,11 +4,15 @@ async function validateCode(req, res) {
   console.log('validating===========')
   try{
     let giftCodeData = await validatePromoCodeFromDB(req.query.code, req.query.store)
-    console.log('validated')
-    res.status(200).json(giftCodeData);
+    console.log('validated', giftCodeData)
+    if(giftCodeData){
+      res.status(200).json(giftCodeData);
+    } else {
+      res.status(400).json({error: "invalid code"})
+    }
   } catch (err) {
     console.log('error')
-    res.status(400).json({error: err})
+    res.status(400).json({error: 'invalid code'})
   }
 }
 

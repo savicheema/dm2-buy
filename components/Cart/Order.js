@@ -5,10 +5,11 @@ import { getPrice } from "../../services/frontend/pricing.service";
 import OrderItem from "./OrderItem";
 import GiftCode from "./GiftCode";
 
-export default function Order({ cart, checkInputs }) {
+export default function Order({ cart, checkInputs, applyPromoCode }) {
   const {
     shippingFee,
-    productTotalPrice: price,
+    productTotalPrice,
+    priceWithoutFees: price,
     actualShippingFee,
     total: priceWithPaymentProcessingFee,
     paymentProcessingFee,
@@ -56,7 +57,7 @@ export default function Order({ cart, checkInputs }) {
             </div>
           </div>
         </div>
-        <GiftCode />
+        <GiftCode price={price} applyPromoCode={applyPromoCode} />
         <button
           className={styles.orderButton}
           onClick={async () => {

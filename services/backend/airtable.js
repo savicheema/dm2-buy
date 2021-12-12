@@ -85,28 +85,44 @@ async function getAllProducts(storeId) {
 
 async function validatePromoCodeFromDB(giftCode, storeName) {
   return new Promise((resolve, reject) => {
-    base('DiscountCodes')
-    .select({
-      view: "Grid view",
-      filterByFormula: `{couponCode}="${giftCode}"`,
-    }).firstPage((err, records)=> {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        let [record] = records;
-        record = {...record, ...record.fields}
-        if(record.fields.active) {
-          if(record.fields.["store_name (from Store)"].includes(storeName)){
-            resolve(record ? record : null);
+    try {
+      base('DiscountCodes')
+      .select({
+        view: "Grid view",
+        filterByFormula: `{couponCode}="${giftCode}"`,
+      }).firstPage((err, records)=> {
+        try{
+          console.log('validation started')
+          if (err) {
+            console.log('not found')
+            console.error(err);
+            reject(err);
           } else {
-            reject({error: 'gift code not valid for this store'})
+            console.log('found')
+            if(records.length === 0){
+              console.log('empty array found');
+              throw new Error('invalid code')
+            };
+            let [record] = records;
+            record = {...record._rawJson, ...record._rawJson.fields}
+            if(record.fields.active) {
+              if(record.fields.["store_name (from Store)"].includes(storeName)){
+                resolve(record);
+              } else {
+                reject(new Error('invalid code'))
+              }
+            } else {
+              reject(new Error('invalid code'))
+            }
           }
-        } else {
-          reject({error: 'gift code not active'})
+        } catch(err) {
+          console.log('====---->>',err)
+          reject(new Error('invalid code'))
         }
-      }
-    })
+      })
+    } catch (err) {
+      reject(err);
+    }
   })
 
 }
