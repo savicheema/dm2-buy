@@ -17,9 +17,9 @@
 
 .productQuantity {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  padding: 12px;
+  width: 18px;
+  height: 18px;
+  /* padding: 12px; */
   object-fit: contain;
   background-color: black;
   border-radius: 50%;
@@ -28,7 +28,7 @@
   font-weight: bold;
   overflow: auto;
   margin-left: 0.5rem;
-  margin-bottom: -5px;
+  margin-bottom: -3px;
 }
 
 .orderThumbnail {

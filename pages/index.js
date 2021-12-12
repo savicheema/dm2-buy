@@ -8,14 +8,10 @@ import Error404 from "./404";
 import { getStore } from "../services/backend/serverSideProps";
 
 export async function getServerSideProps(context) {
-  console.log("============= store =============");
   return getStore(context);
 }
 
 export default function Home(props) {
-  console.log('+++++++++++++++++++++++++++');
-  console.log("_________props________")
-  console.log(props)
   const { storeData, errorCode, storeUrl } = props;
   const [store, setStore] = useLocalStorage("store", props.storeData);
   const [loading, setLoading] = useState(true);
@@ -23,9 +19,6 @@ export default function Home(props) {
   useEffect(() => {
     setStore(props.storeData);
   }, []);
-  console.log("_________props after useeffect________")
-
-  console.log(props)
 
   if (errorCode) {
     return <Error404 statusCode={errorCode} />;

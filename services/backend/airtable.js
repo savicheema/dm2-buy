@@ -83,6 +83,41 @@ async function getAllProducts(storeId) {
   })
 }
 
+function getAllGiftCodes(giftCode, storeName) {
+  return new Promise((resolve, reject) => {
+    // let records = [];
+    // called when all the records have been retrieved
+    // const processRecords = (err, records) => {
+    //   if (err) {
+    //     reject(err);
+    //   }
+    //   //process the `records` array and do something with it
+    //   records.forEach(record => {
+    //     resolve(records.get('couponCode'))
+    //   });
+    // }
+    base('DiscountCodes')
+    .find(giftCode,(err, record)=>{
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        resolve(record ? record : null);
+        if(record.active) {
+
+          if(record.store === storeName){
+            resolve(record ? record : null);
+          } else {
+            reject({errorMessage: 'gift code not valid for this store'})
+          }
+        } else {
+          reject({errorMessage: 'gift code not active'})
+        }
+      }
+    })
+  })
+}
+
 function getProduct(productId) {
   return new Promise((resolve, reject) => {
     base("Products")
@@ -143,5 +178,6 @@ export {
   getProduct,
   getAllProducts,
   fetchCustomAttributesByProduct,
-  getSubDomain
+  getSubDomain,
+  getAllGiftCodes
 };
