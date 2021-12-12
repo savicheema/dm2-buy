@@ -83,30 +83,21 @@ async function getAllProducts(storeId) {
   })
 }
 
-function getAllGiftCodes(giftCode, storeName) {
+async function getAllGiftCodes(giftCode, storeName) {
   return new Promise((resolve, reject) => {
-    // let records = [];
-    // called when all the records have been retrieved
-    // const processRecords = (err, records) => {
-    //   if (err) {
-    //     reject(err);
-    //   }
-    //   //process the `records` array and do something with it
-    //   records.forEach(record => {
-    //     resolve(records.get('couponCode'))
-    //   });
-    // }
     base('DiscountCodes')
-    .find(giftCode,(err, record)=>{
+    .select({
+      view: "Grid view",
+      filterByFormula: `{couponCode}="${giftCode}"`,
+    }).firstPage((err, records)=> {
       if (err) {
         console.error(err);
         reject(err);
       } else {
-        resolve(record ? record : null);
-        if(record.active) {
-
-          if(record.store === storeName){
-            resolve(record ? record : null);
+        const [record] = records;
+        if(record.fields.active) {
+          if(record.fields.["store_name (from Store)"].includes(storeName)){
+            resolve(record.fields ? record.fields : null);
           } else {
             reject({errorMessage: 'gift code not valid for this store'})
           }
@@ -116,6 +107,7 @@ function getAllGiftCodes(giftCode, storeName) {
       }
     })
   })
+
 }
 
 function getProduct(productId) {
