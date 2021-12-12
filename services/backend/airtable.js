@@ -83,7 +83,7 @@ async function getAllProducts(storeId) {
   })
 }
 
-async function getAllGiftCodes(giftCode, storeName) {
+async function validatePromoCodeFromDB(giftCode, storeName) {
   return new Promise((resolve, reject) => {
     base('DiscountCodes')
     .select({
@@ -94,15 +94,16 @@ async function getAllGiftCodes(giftCode, storeName) {
         console.error(err);
         reject(err);
       } else {
-        const [record] = records;
+        let [record] = records;
+        record = {...record, ...record.fields}
         if(record.fields.active) {
           if(record.fields.["store_name (from Store)"].includes(storeName)){
-            resolve(record.fields ? record.fields : null);
+            resolve(record ? record : null);
           } else {
-            reject({errorMessage: 'gift code not valid for this store'})
+            reject({error: 'gift code not valid for this store'})
           }
         } else {
-          reject({errorMessage: 'gift code not active'})
+          reject({error: 'gift code not active'})
         }
       }
     })
@@ -171,5 +172,5 @@ export {
   getAllProducts,
   fetchCustomAttributesByProduct,
   getSubDomain,
-  getAllGiftCodes
+  validatePromoCodeFromDB
 };

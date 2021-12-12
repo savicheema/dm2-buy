@@ -1,15 +1,96 @@
-import { useState } from 'react';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import styles from './giftcode.module.css';
 import Image from "next/image";
 import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
 import transitionStyles from './transition.module.css';
-// import '../../../public/reload.png';
+import { useStoreContext } from "../../../contexts/StoreDataContext";
 
+const ACTION_TYPE = {
+  pending: 'pending',
+  resolved: 'resolved',
+  rejected: 'rejected',
+  idle: 'idle',
+  reset: 'reset',
+}
 const duration = 500;
 
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
+function useSafeDispatch(dispatch) {
+  const mountedRef = React.useRef(false)
+
+  React.useLayoutEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
+
+  return React.useCallback(
+    (...args) => (mountedRef.current ? dispatch(...args) : void 0),
+    [dispatch],
+  )
+}
+
+function asyncReducer(state, action) {
+  switch (action.type) {
+    case ACTION_TYPE.pending: {
+      return {status: ACTION_TYPE.pending, data: null, error: null}
+    }
+    case ACTION_TYPE.resolved: {
+      return {status: ACTION_TYPE.resolved, data: action.data, error: null}
+    }
+    case ACTION_TYPE.rejected: {
+      return {status: ACTION_TYPE.rejected, data: null, error: action.error}
+    }
+    case ACTION_TYPE.reset: {
+      return {status: ACTION_TYPE.idle, data: null, error: null}
+    }
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`)
+    }
+  }
+}
+
+function useAsync(initialState) {
+  const [state, unsafeDispatch] = React.useReducer(asyncReducer, {
+    status: ACTION_TYPE.idle,
+    data: null,
+    error: null,
+    ...initialState,
+  })
+
+  const dispatch = useSafeDispatch(unsafeDispatch)
+
+  const {data, error, status} = state
+
+  const run = React.useCallback(
+    promise => {
+      dispatch({type: ACTION_TYPE.pending})
+      promise.then(
+        data => {
+          dispatch({type: ACTION_TYPE.resolved, data})
+        },
+        error => {
+          dispatch({type: ACTION_TYPE.rejected, error})
+        },
+      )
+    },
+    [dispatch],
+  )
+  const resetStatus = React.useCallback(
+    () => {
+      dispatch({type: ACTION_TYPE.reset})
+    },
+    [dispatch],
+  )
+
+  return {
+    error,
+    status,
+    data,
+    run,
+    resetStatus
+  }
 }
 
 const InputField = ({status, handleChange, handleValidateCode, code}) => {
@@ -18,9 +99,9 @@ const InputField = ({status, handleChange, handleValidateCode, code}) => {
       <input 
         type="text" 
         className={styles.giftCode}
-        placeholder="Have a Gift Code?" 
+        placeholder="Have a Promo code?" 
         onChange={handleChange}
-        value={status === 'pending' ? '...' : code}
+        value={code}
       />
       {code && 
         <button onClick={handleValidateCode} className={styles.arrowBtn}>
@@ -42,7 +123,6 @@ const FalseCode = () => {
   return (
       <div className={styles.wrongCode}>
         {'Wrong Code :('}
-        <Image src='/reload.png' layout="fixed" width="20" height="20" />
       </div>
   )
 }
@@ -60,22 +140,22 @@ const AppliedCode = ({handleRemoveCode}) => {
 
 const AnimateGiftCode = ({status, handleChange, handleValidateCode, handleRemoveCode, code}) => {
   switch (status) {
-    case 'idle':
+    case ACTION_TYPE.idle:
       return (
         <InputField status={status} handleChange={handleChange} handleValidateCode={handleValidateCode} code={code} />
       )
       break;
-    case 'pending' : 
+    case ACTION_TYPE.pending : 
       return (
         <LoadingDots />
       )
       break;
-    case 'rejected' : 
+    case ACTION_TYPE.rejected : 
       return (
-        <FalseCode />
+        <FalseCode status={status} />
       )
       break;
-    case 'resolved' :
+    case ACTION_TYPE.resolved :
       return (
         <AppliedCode handleRemoveCode={handleRemoveCode} />
       )
@@ -85,28 +165,48 @@ const AnimateGiftCode = ({status, handleChange, handleValidateCode, handleRemove
   }
 }
 const GiftCode = () => {
-  const [status, setStatus] = useState('idle');
   const [code, setCode] = useState('');
+  const storeData = useStoreContext();
+
+  const {
+    data,
+    status,
+    error,
+    run,
+    resetStatus,
+  } = useAsync({
+    status: 'idle',
+  })
+
   const handleChange = (e) => {
-    // setStatus('resolved');
     const {value} = e.target;
     setCode(value.toUpperCase());
   }
-  const handleValidateCode = (e) => {
-    setStatus('pending');
-    setTimeout(() => {
-      setStatus('resolved');
-    }, 1500);
+  const handleValidateCode = async (e) => {
+    // do api call
+    // fetch()
+    // if(!code) return;
+
+    let storeName = storeData.fields.store_name;
+    let validateQuery = `/api/airtable/validatePromoCode?code=${code}&store=${storeName}`;
+    
+    // run(fetch(validateQuery))
+    fetch(validateQuery)
+    .then(
+      res => console.log('====success'),
+    )
+    .catch(err => console.error('====errorr'))
+    console.log('----------------------')
   }
   const handleRemoveCode = () => {
-    setStatus('idle');
+    resetStatus();
     setCode('');
   }
   return ( <>
   <TransitionGroup className={styles.giftCodeContainer}>
     <CSSTransition
       key={status}
-      timeout={500}
+      timeout={duration}
       classNames={transitionStyles}
       unmountOnExit
     >

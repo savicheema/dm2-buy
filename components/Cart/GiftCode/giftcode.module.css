@@ -7,9 +7,11 @@
     
 }
 .giftCode::placeholder{
-    font-size: 0.9rem;
+    font-family: Roboto, Inter;
+    font-size: 0.92rem;
     font-weight: 500;
     letter-spacing: initial;
+    opacity: 0.8;
 }
 .giftCode{
     width: 100%;
@@ -57,7 +59,7 @@
     font-weight: 500;
     /* z-index: -1; */
     /* animation: vibrate 300ms forwards; */
-    animation: shake 0.5s forwards;
+    animation: shake 0.4s forwards;
     animation-delay: 500ms;
 
 }

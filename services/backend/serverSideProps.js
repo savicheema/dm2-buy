@@ -1,9 +1,7 @@
 import constants from "../../constants";
-import {getAllGiftCodes} from "./airtable"
 
 export async function getStore(context) {
-  console.log("123123123131231");
-  let store, errorCode, storeUrl, giftCodes;
+  let store, errorCode, storeUrl;
   const { req } = context;
   const { host } = req.headers;
   //console.log('host: ', host);
@@ -37,17 +35,13 @@ export async function getStore(context) {
     }
     storeUrl = `${hostWithProtocol}/`;
     errorCode = false;
-    giftCodes = await getAllGiftCodes('COWRIE25', 'Cowrie Collective')
-    console.log('==================')
-    console.log(giftCodes)
-    // giftCodes = JSON.parse(giftCodes)
   } catch (e) {
     console.log(e)
     errorCode = 404;
     storeUrl = "";
   }
   return {
-    props: { storeData: store || null, errorCode, storeUrl, giftCodes }, // will be passed to the page component as props
+    props: { storeData: store || null, errorCode, storeUrl }, // will be passed to the page component as props
   };
 }
 

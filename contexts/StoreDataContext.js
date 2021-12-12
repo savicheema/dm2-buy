@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 
 const StoreContext = createContext({});
+StoreContext.display = 'StoreContext'
 
 export function AppWrapper({ sharedState, children }) {
   // let sharedState = {/* whatever you want */}
