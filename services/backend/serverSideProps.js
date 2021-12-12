@@ -40,7 +40,7 @@ export async function getStore(context) {
     giftCodes = await getAllGiftCodes('COWRIE25', 'Cowrie Collective')
     console.log('==================')
     console.log(giftCodes)
-    giftCodes = JSON.parse(giftCodes)
+    // giftCodes = JSON.parse(giftCodes)
   } catch (e) {
     console.log(e)
     errorCode = 404;
