@@ -5,3 +5,4 @@ module.exports.Product = require('./product.model');
 module.exports.Store = require('./store.model');
 module.exports.Address = require('./address.model');
 module.exports.CustomAttribute = require('./custm-attributes.model');
+module.exports.DiscountCode = require('./discountCode.model');
