@@ -35,12 +35,13 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       couponId,
       couponCode
     } = getPrice(cart);
-
     setError(false);
     const bodyData = {
       userId: guid(),
-      couponId: couponId,
-      couponCode: couponCode,
+      discountCode: {
+        id: couponId,
+        couponCode: couponCode,
+      },
       order_shipping: shippingFee,
       payment_processing_fee: processingFee,
       order_total: total,
