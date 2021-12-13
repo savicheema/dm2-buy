@@ -13,7 +13,7 @@ import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 
-const Cart = ({ cart, store, applyPromoCode }) => {
+const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const personalFormRef = React.createRef();
@@ -111,6 +111,7 @@ const Cart = ({ cart, store, applyPromoCode }) => {
         <Order
           cart={cart}
           applyPromoCode={applyPromoCode}
+          removePromoCode={removePromoCode}
           checkInputs={async () => {
             const isPersonalFormValid =
               await personalFormRef.current.validate();
