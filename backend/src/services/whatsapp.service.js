@@ -8,9 +8,11 @@ function sendMessage(order) {
   const totalWithShipping = order.order_total;
   const paymentProcessingFee = order.payment_processing_fee;
   const totalMinusPaymentProcessingFee = Number(totalWithShipping) - Number(paymentProcessingFee);
+  const discountCode = order.discountCode ? ("(🎁 *"+ order.discountCode.couponCode + "*)") : "";
+
   var message = `Hello ${order.seller.name},
 
-You have received a new order for ₹ ${totalMinusPaymentProcessingFee} 🙌
+You have received a new order for ₹ ${totalMinusPaymentProcessingFee} ${discountCode} 🙌
 
 *Order Details*
 ${order.products
