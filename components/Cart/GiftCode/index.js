@@ -159,7 +159,8 @@ const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
         return {status: ACTION_TYPE.pending, data: null, error: null}
       }
       case ACTION_TYPE.resolved: {
-        action.data.discountedAmount = action.data.percentageDiscount * price;
+        action.data.percentageDiscount = Number((action.data.percentageDiscount)).toFixed(2);
+        action.data.discountedAmount = (action.data.percentageDiscount * price *10)/10;
         applyPromoCode(action.data.percentageDiscount, action.data.id, action.data.couponCode)
         return {status: ACTION_TYPE.resolved, data: action.data, error: null}
       }
