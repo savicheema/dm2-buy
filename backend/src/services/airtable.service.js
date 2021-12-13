@@ -76,7 +76,7 @@ async function updateProductStatus({ productId, quantity }) {
 function updateCouponStatus({ couponId, couponCode }) {
   
   return new Promise((resolve, reject) => {
-    base("DiscountCodes").update(couponId, {"active":false}, (err, record) => {
+    base("DiscountCodes").update(couponId, {"active":"false"}, (err, record) => {
       if (err) {
         console.log("DiscountCodes -> " + err)
         reject(err);
