@@ -19,7 +19,9 @@ export default function Bag() {
   }, [cart]);
 
   const removeProductFromCart = (productId) => () => {
-    const cartData = StorageManager.getJson(CART_KEY, initialCart);
+    console.log('removePRODUCTFROMCART', productId, {cart});
+    const cartData = cart;
+    // const cartData = StorageManager.getJson(CART_KEY, initialCart);
     const filteredProducts = cartData.products.filter((product) => product.id !== productId);
     cartData.products = filteredProducts;
     StorageManager.putJson(CART_KEY, cartData);
@@ -31,7 +33,9 @@ export default function Bag() {
   };
 
   const updateProductCount = (productId, count) => {
-    const cartData = StorageManager.getJson(CART_KEY, initialCart);
+    console.log('updatePRODUCTFROMCART', productId, {cart});
+    const cartData = cart;
+    // const cartData = StorageManager.getJson(CART_KEY, initialCart);
     // update count
     const productIndex = cartData.products.findIndex(
       (product) => product.id === productId
