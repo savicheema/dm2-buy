@@ -19,6 +19,10 @@ export default function CheckoutPage(props) {
       window.location.href = "/";
     }
   });
+  function applyPromoCode(percentageDiscount, couponId, couponCode) {
+    setCart({...cart, percentageDiscount, couponId, couponCode})
+  }
+
   if (cart.products.length === 0 || !store) {
     return null;
   }
@@ -56,7 +60,7 @@ export default function CheckoutPage(props) {
         />
         <meta property="og:image:secure" content="/favicon.ico" />
       </Head>
-      <Cart cart={cart} store={store} />
+      <Cart cart={cart} store={store} applyPromoCode={applyPromoCode} />
     </div>
   );
 }

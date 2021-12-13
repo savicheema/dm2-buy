@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-38.6%" y="-17.7%" width="177.2%" height="141.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="16" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-15.1%" y="-31.4%" width="130.1%" height="152.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="-6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="312" height="90"></rect>
+        <filter x="-6.7%" y="-30.0%" width="113.5%" height="146.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="-6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Checkout-form---discount-code-active" transform="translate(-279.000000, -1156.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="360" height="1663"></rect>
+            <g id="Group-7" filter="url(#filter-1)" transform="translate(24.000000, 824.000000)">
+                <g id="Group-35">
+                    <g id="Group-19" transform="translate(0.000000, 297.000000)">
+                        <g id="Group-5" filter="url(#filter-2)">
+                            <g id="Group-33">
+                                <g id="Group-36">
+                                    <g id="Group-32">
+                                        <g id="Rectangle">
+                                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                                        </g>
+                                    </g>
+                                    <g id="Group-25" transform="translate(25.000000, 34.000000)" fill="#1C3142">
+                                        <g id="noun_Next_2269900" transform="translate(230.000000, 1.000000)">
+                                            <path d="M20.2307692,11.6923077 L13.9230769,5.30769231 C12.6923077,4.07692308 14.5384615,2.23076923 15.7692308,3.46153846 L24.3846154,12.0769231 C24.8461538,12.6153846 24.8461538,13.3846154 24.3846154,13.9230769 L15.7692308,22.5384615 C14.5384615,23.7692308 12.6923077,21.8461538 13.9230769,20.6923077 L20.2307692,14.3076923 L3.38461538,14.3076923 C1.61538462,14.3076923 1.61538462,11.6923077 3.38461538,11.6923077 L20.2307692,11.6923077 Z" id="Path"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

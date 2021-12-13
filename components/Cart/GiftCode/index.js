@@ -31,28 +31,8 @@ function useSafeDispatch(dispatch) {
   )
 }
 
-function asyncReducer(state, action) {
-  switch (action.type) {
-    case ACTION_TYPE.pending: {
-      return {status: ACTION_TYPE.pending, data: null, error: null}
-    }
-    case ACTION_TYPE.resolved: {
-      return {status: ACTION_TYPE.resolved, data: action.data, error: null}
-    }
-    case ACTION_TYPE.rejected: {
-      return {status: ACTION_TYPE.rejected, data: null, error: action.error}
-    }
-    case ACTION_TYPE.reset: {
-      return {status: ACTION_TYPE.idle, data: null, error: null}
-    }
-    default: {
-      throw new Error(`Unhandled action type: ${action.type}`)
-    }
-  }
-}
-
-function useAsync(initialState) {
-  const [state, unsafeDispatch] = React.useReducer(asyncReducer, {
+function useAsync(initialState, reducer) {
+  const [state, unsafeDispatch] = React.useReducer(reducer, {
     status: ACTION_TYPE.idle,
     data: null,
     error: null,
@@ -66,14 +46,19 @@ function useAsync(initialState) {
   const run = React.useCallback(
     promise => {
       dispatch({type: ACTION_TYPE.pending})
-      promise.then(
-        data => {
-          dispatch({type: ACTION_TYPE.resolved, data})
-        },
-        error => {
-          dispatch({type: ACTION_TYPE.rejected, error})
-        },
-      )
+      promise.then(response => {
+        return response.json();
+      }).then( resData => {
+        if(resData.error) throw new Error('invalid code')
+        console.log('here is resData', resData)
+        dispatch({type: ACTION_TYPE.resolved, data: resData})
+      }).catch(error => {
+        console.log('----> error', error);
+        setTimeout(() => {
+          dispatch({type: ACTION_TYPE.reset})
+        }, 2000);
+        dispatch({type: ACTION_TYPE.rejected, error})
+      })
     },
     [dispatch],
   )
@@ -105,7 +90,7 @@ const InputField = ({status, handleChange, handleValidateCode, code}) => {
       />
       {code && 
         <button onClick={handleValidateCode} className={styles.arrowBtn}>
-          <Image src='/right-arrow.png' layout="fixed" width="20" height="20" />
+          <Image src='/right-arrow.svg' layout="fixed" width="25" height="25" />
         </button>
       }
       </div>
@@ -127,18 +112,19 @@ const FalseCode = () => {
   )
 }
 
-const AppliedCode = ({handleRemoveCode}) => {
+const AppliedCode = ({discountedAmount, handleRemoveCode}) => {
+
   return (
       <div className={styles.appliedCode}>
         <span onClick={handleRemoveCode} className={styles.removeCode}>Remove</span>
         <span>
-          {'🥳 '}<span className={styles.discountedAmount}>{'- '}{String.fromCharCode(0x20b9)}240</span>
+          {'🥳 '}<span className={styles.discountedAmount}>{'- '}{String.fromCharCode(0x20b9)}{discountedAmount}</span>
         </span>
       </div>
   )
 }
 
-const AnimateGiftCode = ({status, handleChange, handleValidateCode, handleRemoveCode, code}) => {
+const AnimateGiftCode = ({status, discountedAmount, handleChange, handleValidateCode, handleRemoveCode, code}) => {
   switch (status) {
     case ACTION_TYPE.idle:
       return (
@@ -157,16 +143,37 @@ const AnimateGiftCode = ({status, handleChange, handleValidateCode, handleRemove
       break;
     case ACTION_TYPE.resolved :
       return (
-        <AppliedCode handleRemoveCode={handleRemoveCode} />
+        <AppliedCode discountedAmount={discountedAmount} handleRemoveCode={handleRemoveCode} />
       )
       break;  
     default:
       break;
   }
 }
-const GiftCode = () => {
+const GiftCode = ({price, applyPromoCode}) => {
   const [code, setCode] = useState('');
   const storeData = useStoreContext();
+  function asyncReducer(state, action) {
+    switch (action.type) {
+      case ACTION_TYPE.pending: {
+        return {status: ACTION_TYPE.pending, data: null, error: null}
+      }
+      case ACTION_TYPE.resolved: {
+        action.data.discountedAmount = action.data.percentageDiscount * price;
+        applyPromoCode(action.data.percentageDiscount, action.data.id, action.data.couponCode)
+        return {status: ACTION_TYPE.resolved, data: action.data, error: null}
+      }
+      case ACTION_TYPE.rejected: {
+        return {status: ACTION_TYPE.rejected, data: null, error: action.error}
+      }
+      case ACTION_TYPE.reset: {
+        return {status: ACTION_TYPE.idle, data: null, error: null}
+      }
+      default: {
+        throw new Error(`Unhandled action type: ${action.type}`)
+      }
+    }
+  }
 
   const {
     data,
@@ -176,27 +183,17 @@ const GiftCode = () => {
     resetStatus,
   } = useAsync({
     status: 'idle',
-  })
+  }, asyncReducer)
 
   const handleChange = (e) => {
     const {value} = e.target;
     setCode(value.toUpperCase());
   }
   const handleValidateCode = async (e) => {
-    // do api call
-    // fetch()
-    // if(!code) return;
-
+    if(!code) return;
     let storeName = storeData.fields.store_name;
     let validateQuery = `/api/airtable/validatePromoCode?code=${code}&store=${storeName}`;
-    
-    // run(fetch(validateQuery))
-    fetch(validateQuery)
-    .then(
-      res => console.log('====success'),
-    )
-    .catch(err => console.error('====errorr'))
-    console.log('----------------------')
+    run(fetch(validateQuery))
   }
   const handleRemoveCode = () => {
     resetStatus();
@@ -213,6 +210,7 @@ const GiftCode = () => {
       <AnimateGiftCode 
         status={status} 
         code={code} 
+        discountedAmount={data?.discountedAmount}
         handleChange={handleChange} 
         handleValidateCode={handleValidateCode} 
         handleRemoveCode={handleRemoveCode}
