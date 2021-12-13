@@ -105,10 +105,14 @@ async function validatePromoCodeFromDB(giftCode, storeName) {
             };
             let [record] = records;
             record = {...record._rawJson, ...record._rawJson.fields}
-            if(record.fields.active) {
-              if(record.fields.["store_name (from Store)"].includes(storeName)){
+            console.log(typeof (record.active), '<----- typeof')
+            if(record.active!='false') {
+              console.log(record.active, '<----- active')
+              if(record.["store_name (from Store)"].includes(storeName)){
+                console.log(record.active, '<----- active resolve')
                 resolve(record);
               } else {
+                console.log(record.active, '<----- active reject')
                 reject(new Error('invalid code'))
               }
             } else {
