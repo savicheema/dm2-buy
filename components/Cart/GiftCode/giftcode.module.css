@@ -16,7 +16,7 @@
 .giftCode{
     width: 100%;
     background-color: white;
-    padding: 2rem var(--card-padding);
+    padding: 2rem calc(var(--card-padding) + 70px) 2rem var(--card-padding);
     border: 0;
     font-family: inherit;
     font-size: 1rem;
@@ -89,8 +89,9 @@
 }
 .arrowBtn{
     position: absolute;
-    right: 1rem;
-    top: 2rem;
+    /* right: 1rem; */
+    height: 100%;
+    padding: 0.2rem 1.5rem 0;
     animation: bouncing_arrow 1s infinite alternate
     ease-in;
     background-color: rgba(255, 255, 255, 0);
@@ -99,10 +100,10 @@
 
 @keyframes bouncing_arrow {
     0%{
-        right: 1.8rem;
+        right: 1rem;
     }
     100%{
-        right: 1rem;
+        right: 0rem;
     }
 }
 @keyframes colorDance {

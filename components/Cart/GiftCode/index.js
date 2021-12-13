@@ -90,7 +90,7 @@ const InputField = ({status, handleChange, handleValidateCode, code}) => {
       />
       {code && 
         <button onClick={handleValidateCode} className={styles.arrowBtn}>
-          <Image src='/right-arrow.png' layout="fixed" width="20" height="20" />
+          <Image src='/right-arrow.svg' layout="fixed" width="25" height="25" />
         </button>
       }
       </div>

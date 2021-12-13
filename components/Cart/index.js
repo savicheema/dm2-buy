@@ -63,7 +63,7 @@ const Cart = ({ cart, store, applyPromoCode }) => {
     };
     setLoading(true);
     const url = new URL(
-      `${window.location.protocol}//${window.location.host}/v1/order`
+      `${window.location.protocol}//${window.location.host}/api/order/create`
     );
     try {
       const fetchData = await fetch(url, {
