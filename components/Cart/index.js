@@ -36,6 +36,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       couponCode
     } = getPrice(cart);
     setError(false);
+    console.log(couponId, couponCode)
     const bodyData = {
       userId: guid(),
       discountCode: {
@@ -62,6 +63,11 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         quantity: product.quantity,
       })),
     };
+    if(bodyData.discountCode.id == null) {
+      delete bodyData.discountCode
+    }
+    console.log(bodyData)
+        
     setLoading(true);
     const url = new URL(
       `${window.location.protocol}//${window.location.host}/api/order/create`
