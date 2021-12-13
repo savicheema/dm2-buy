@@ -19,8 +19,17 @@ export default function CheckoutPage(props) {
       window.location.href = "/";
     }
   });
+  useEffect(() => {
+    return () => {
+      removePromoCode()
+    }
+  }, []);
   function applyPromoCode(percentageDiscount, couponId, couponCode) {
     setCart({...cart, percentageDiscount, couponId, couponCode})
+  }
+  function removePromoCode() {
+    const { percentageDiscount, couponId, couponCode, ...withoutPromo } = cart;  
+    setCart({...withoutPromo})
   }
 
   if (cart.products.length === 0 || !store) {
@@ -60,7 +69,7 @@ export default function CheckoutPage(props) {
         />
         <meta property="og:image:secure" content="/favicon.ico" />
       </Head>
-      <Cart cart={cart} store={store} applyPromoCode={applyPromoCode} />
+      <Cart cart={cart} store={store} applyPromoCode={applyPromoCode} removePromoCode={removePromoCode} />
     </div>
   );
 }

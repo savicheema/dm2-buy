@@ -150,7 +150,7 @@ const AnimateGiftCode = ({status, discountedAmount, handleChange, handleValidate
       break;
   }
 }
-const GiftCode = ({price, applyPromoCode}) => {
+const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
   const [code, setCode] = useState('');
   const storeData = useStoreContext();
   function asyncReducer(state, action) {
@@ -167,6 +167,7 @@ const GiftCode = ({price, applyPromoCode}) => {
         return {status: ACTION_TYPE.rejected, data: null, error: action.error}
       }
       case ACTION_TYPE.reset: {
+        removePromoCode();
         return {status: ACTION_TYPE.idle, data: null, error: null}
       }
       default: {
