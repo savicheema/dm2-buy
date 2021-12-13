@@ -108,7 +108,7 @@ async function validatePromoCodeFromDB(giftCode, storeName) {
             console.log(typeof (record.active), '<----- typeof')
             if(record.active!='false') {
               console.log(record.active, '<----- active')
-              if(record.["store_name (from Store)"].includes(storeName)){
+              if(record["store_name (from Store)"].includes(storeName)){
                 console.log(record.active, '<----- active resolve')
                 resolve(record);
               } else {
