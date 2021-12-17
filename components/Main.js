@@ -7,6 +7,7 @@ import { ShareButton, ImageButton } from "./Buttons";
 import Footer from "./Footer";
 import EllipsisText from "react-ellipsis-text";
 import Toast from "./Toast";
+import NavBar from "./NavBar"
 
 const Main = ({ store, endLoading, loading }) => {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,7 @@ const Main = ({ store, endLoading, loading }) => {
         transition: "max-height 0.2s",
       }}
     >
+      <NavBar />
       <div className={styles.profile}>
         {store.fields && (
           <div className={styles.social}>
