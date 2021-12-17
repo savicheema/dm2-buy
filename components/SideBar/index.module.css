@@ -1,0 +1,84 @@
+.sideBar {
+  /* display: none; */
+  opacity: 0;
+  overflow-x: hidden;
+  /* visibility: hidden; */
+  position: fixed;
+  top: 72px;
+  left: 0%;
+  /* left: 50%; */
+  height: 0vh;
+  /* height: 100vh; */
+  min-height: 100vh;
+  /* max-height: 1px; */
+  overflow-y: auto;
+  width: 100%;
+  /* width: 0; */
+  max-width: var(--max-width);
+  /* transition: visibility 0s linear 0.6s, transform 0.5s ease-out; */
+  /* transform: translateX(-150%); */
+  background-color: white;
+  transition: all 0.5s;
+
+  z-index: 1;
+  margin: 0 auto;
+}
+.sideBarOpen{
+  opacity: 1;
+  /* width: 100%; */
+  height: 100vh;
+  /* visibility: visible; */
+  /* display: block; */
+  /* left: 50%; */
+  /* max-height: 100vh; */
+  /* transition: 0.6s transform, visibility ease-out; */
+  transition: all 0.5s;
+  /* transition: visibility 0s linear 0s, transform 0.5s ease-out; */
+  /* transform: translateX(-50%); */
+
+}
+.sideBarContainer {
+  padding: 0 2rem;
+
+}
+.categoryTitleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+.seeAll{
+  display: block;
+  margin: 0 auto;
+  background-color: transparent;
+  border: none;
+  color: #07a5ff;
+  font-family: inherit;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.productContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 1.2rem;
+  margin: 1rem 0;
+}
+.productPrice{
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.chevron {
+  background-color: transparent;
+  border: none;
+  transition: transform 0.3s;
+}
+.accordContent {
+  width: 100%;
+  /* height: 0; */
+  display: block;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
