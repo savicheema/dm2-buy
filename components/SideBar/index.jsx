@@ -59,26 +59,9 @@ const SideBar = ({isHamOpen}) => {
   return (
     <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
       <div className={styles.sideBarContainer}>
-      <CategoryAccordian />
-      <CategoryAccordian />
-      <CategoryAccordian />
-      {/* <CategoryTitle />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryTitle />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryTitle />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryTitle />
-      <CategoryProduct />
-      <CategoryProduct />
-      <CategoryProduct /> */}
+        <CategoryAccordian />
+        <CategoryAccordian />
+        <CategoryAccordian />
       </div>
 
     </aside>
