@@ -1,0 +1,242 @@
+.basketContainer {
+    /* display: none; */
+    opacity: 0;
+    overflow-x: hidden;
+    /* visibility: hidden; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* left: 50%; */
+    height: 0vh;
+    /* height: 100vh; */
+    /* min-height: 100vh; */
+    /* max-height: 1px; */
+    overflow-y: auto;
+    width: 100%;
+    /* width: 0; */
+    max-width: var(--max-width);
+    /* transition: visibility 0s linear 0.6s, transform 0.5s ease-out; */
+    /* transform: translateX(-150%); */
+    background-color: white;
+    transition: all 0.5s;
+    /* padding-bottom: 2rem; */
+    z-index: 1;
+    margin: 0 auto;
+}
+.basketContainerOpen {
+    opacity: 1;
+    /* width: 100%; */
+    height: calc(100vh - 0px);
+    /* visibility: visible; */
+    /* display: block; */
+    /* left: 50%; */
+    /* max-height: 100vh; */
+    /* transition: 0.6s transform, visibility ease-out; */
+    transition: all 0.5s;
+    /* transition: visibility 0s linear 0s, transform 0.5s ease-out; */
+    /* transform: translateX(-50%); */
+}
+
+.hamBtn{
+    /* position: relative; */
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    width: 22px;
+    position: fixed;
+    top: 27px;
+    right: 22px;
+}
+
+.hamTitleContainer{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    z-index: 10;
+}
+
+.hamBtn>div {
+    width: 100%;
+    
+    height: 15px;
+    position: relative;
+    /* margin: 50px auto; */
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+}
+  
+.hamBtn>div span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+}
+  
+  /* Icon 3 */
+  
+.hamBtn>div span:nth-child(1) {
+    top: 0px;
+}
+  
+.hamBtn>div span:nth-child(2),
+.hamBtn>div span:nth-child(3) {
+    top: 7px;
+}
+  
+.hamBtn>div span:nth-child(4) {
+    top: 14px;
+}
+  
+.hamBtn>div.open span:nth-child(1) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+}
+  
+.hamBtn>div.open span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+  
+.hamBtn>div.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+  
+.hamBtn>div.open span:nth-child(4) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+}
+
+.shippingEmoji {
+    font-size: 40px;
+    width: 60px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bagContainer {
+    position: relative;
+  
+    /* min-height: 100vh; */
+}
+  
+.orderTitle {
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    width: 100%;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+  
+.orderTitle > span {
+    margin-right: 12px;
+}
+  
+.orderList {
+    margin: 40px 0;
+    width: 100%;
+    overflow-y: scroll;
+}
+  
+.order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    padding: 36px 24px;
+}
+  
+.orderButton {
+    background: none;
+    border: none;
+    outline: none;
+    /*
+      width: 80vw;
+      max-width: 304px; */
+    width: 100%;
+    /* height: 48px; */
+    padding: 16px 0;
+    /* margin: 13px 12px 8px; */
+    border-radius: 16px;
+    background-color: #000000;
+    color: white;
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+  
+.continueShoppingButton {
+    background: none;
+    border: none;
+    outline: none;
+    /*
+      width: 80vw;
+      max-width: 304px; */
+    width: 100%;
+    /* height: 48px; */
+    padding: 16px 0;
+    /* margin: 0 0 32px 0; */
+    border-radius: 16px;
+    background-color: white;
+    color: black;
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+.empty_div {
+    height: 120px;
+    width: 100%;
+}
+.bottomCTASection {
+    position: fixed;
+    left: 50%;
+    width: 100%;
+    bottom: 0;
+    transform: translate(-50%, 0);
+    background-color: #ffffff;
+    max-width: var(--max-width);
+    padding: 13px 12px 18px;
+    box-shadow: 0 -1px 4.5px 0 #ccc;
+    /*padding: 2rem;*/
+    /*position: fixed;*/
+    /*bottom: 2rem;*/
+    /*margin-left: 1rem;*/
+}
+  
