@@ -9,7 +9,7 @@
   /* left: 50%; */
   height: 0vh;
   /* height: 100vh; */
-  min-height: 100vh;
+  /* min-height: 100vh; */
   /* max-height: 1px; */
   overflow-y: auto;
   width: 100%;
@@ -19,14 +19,14 @@
   /* transform: translateX(-150%); */
   background-color: white;
   transition: all 0.5s;
-
+  padding-bottom: 2rem;
   z-index: 1;
   margin: 0 auto;
 }
 .sideBarOpen{
   opacity: 1;
   /* width: 100%; */
-  height: 100vh;
+  height: calc(100vh - 72px);
   /* visibility: visible; */
   /* display: block; */
   /* left: 50%; */
