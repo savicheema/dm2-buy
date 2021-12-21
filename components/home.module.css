@@ -21,7 +21,9 @@
 
 .bannerImage {
     object-fit: cover;
-    height: calc(90vw * 1.5);
-    width: 90vw;
+    height: calc(var(--max-width) * 1.5);
+    max-height: calc(var(--max-width));
+    width: 100%;
+    max-width: calc(var(--max-width) - 35px);
     border-radius: 10px;
 }
