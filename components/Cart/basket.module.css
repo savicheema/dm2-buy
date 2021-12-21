@@ -29,12 +29,12 @@
     height: calc(100vh - 0px);
     /* visibility: visible; */
     /* display: block; */
-    /* left: 50%; */
+    left: 50%;
     /* max-height: 100vh; */
     /* transition: 0.6s transform, visibility ease-out; */
     transition: all 0.5s;
     /* transition: visibility 0s linear 0s, transform 0.5s ease-out; */
-    /* transform: translateX(-50%); */
+    transform: translateX(-50%);
 }
 
 .hamBtn{
