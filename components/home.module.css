@@ -1,0 +1,27 @@
+.homePage {
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    width: 100%;
+    padding: 0.5rem 22px;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    max-width: var(--max-width);
+    background-color: rgb(255, 255, 255);
+    transform: translateX(-50%); */
+}
+
+.bannerContainer {
+    
+}
+
+.bannerImage {
+    object-fit: cover;
+    height: calc(90vw * 1.5);
+    width: 90vw;
+    border-radius: 10px;
+}

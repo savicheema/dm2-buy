@@ -5,7 +5,7 @@ import Image from "next/image";
 import SideBar from '../SideBar';
 
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [isHamOpen, setIsHamOpen] = useState(false);
   return (
     <header className={styles.navBar}>
@@ -34,7 +34,16 @@ const NavBar = () => {
         </h2>
       </div>
       <span className={styles.cartIcon}>
-        <Image src='/cart-icon.svg' layout="fixed" width="21" height="21" />  
+        {
+          props.cartActive
+          ? <Image
+              onClick={() => props.handleShowCart(true)}
+              src='/cart-icon.svg'
+              layout="fixed"
+              width="21"
+              height="21" />
+          : ''
+        }
       </span>
       <SideBar isHamOpen={isHamOpen} />
     </header>
