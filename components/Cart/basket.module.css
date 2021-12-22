@@ -5,9 +5,10 @@
     /* visibility: hidden; */
     position: fixed;
     top: 0;
-    left: 0;
+    left: 100vw;
+    width: 0vw;
     /* left: 50%; */
-    height: 0vh;
+    height: calc(100vh - 0px);
     /* height: 100vh; */
     /* min-height: 100vh; */
     /* max-height: 1px; */
@@ -24,6 +25,7 @@
     margin: 0 auto;
 }
 .basketContainerOpen {
+    width: 100vw;
     opacity: 1;
     /* width: 100%; */
     height: calc(100vh - 0px);
