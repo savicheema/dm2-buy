@@ -144,28 +144,27 @@ class StoreProducts extends React.Component {
         )} */}
 
         {!this.state.loading && (
-          <div
-            className={styles.storeItems}
-            style={{
-              paddingTop: `${collectionsHeight + 16}px`,
-            }}
-          >
+          <>
             <StoreCollections
               collections={storeCollections}
               setCollectionsHeight={this.setCollectionsHeight}
               setFilter={this.setFilter}
             />
-
-            {products.length > 0 ? (
-              products
-                .filter(this.filterCollectionProducts)
-                .map((product, index) => {
-                  return <StoreItem product={product} key={index} />;
-                })
-            ) : (
-              <EmptyStore />
-            )}
-          </div>
+            <div
+              className={styles.storeItems}
+              style={{}}
+            >
+              {products.length > 0 ? (
+                products
+                  .filter(this.filterCollectionProducts)
+                  .map((product, index) => {
+                    return <StoreItem product={product} key={index} />;
+                  })
+              ) : (
+                <EmptyStore />
+              )}
+            </div>
+          </>
         )}
       </div>
     );
