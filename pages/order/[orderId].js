@@ -10,12 +10,19 @@ import BuyerDetails from "../../components/OrderDetails/BuyerDetails";
 import { getOrderDetail } from "../../services/backend/serverSideProps";
 import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { initialCart } from "../../services/ObjectsInitialValues";
+import Basket from "../../components/Cart/Basket";
+import NavBar from "../../components/NavBar";
 
 export async function getServerSideProps(context) {
   return getOrderDetail(context);
 }
 
 export default function Order(props) {
+  const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
+  const homePageEnabled = props.store?.fields?.homePageEnabled;
+  const [showCart, setShowCart] = useState(false);
   const { errorCode, order, store, retryLink } = props;
   const [loading, setLoading] = useState(false);
   const status = order?.payment_status;
@@ -43,12 +50,32 @@ export default function Order(props) {
     return <Error404 statusCode={errorCode} />;
   }
 
+  const handleShowCart = (boolVal = false) => {
+    setShowCart(boolVal);
+  }
+
   const creatorThankYouPagePhoto = store?.fields?.creator_thank_you_page_photo
     ? store?.fields?.creator_thank_you_page_photo[0].url
     : false;
 
   return (
     <div className={orderStyles.container}>
+      <Basket
+        isBasketOpen={showCart}
+        setCart={setCart}
+        cartData={cart}
+        StorageManager={StorageManager}
+        CART_KEY={CART_KEY}
+        handleShowCart={handleShowCart}/>
+      {
+        !showCart
+        && <NavBar
+          cartActive={cart.products.length ? true : false}
+          handleShowCart={handleShowCart}
+          homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          storeName={store?.fields?.store_name || ''}
+        />
+      }
       <Head>
         <title>{meta.title}</title>
         <meta
