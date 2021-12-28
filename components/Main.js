@@ -58,6 +58,7 @@ const Main = ({ store, endLoading, loading }) => {
         && <NavBar
           cartActive={cart.products.length ? true : false}
           handleShowCart={handleShowCart}
+          homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
           storeName={store?.fields?.store_name || ''}
         />
       }

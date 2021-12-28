@@ -17,17 +17,20 @@ const NavBar = (props) => {
               "ham"
             )
           } */}
-          <div className={isHamOpen ? styles.open : null} >
-            <span></span>
-            <span></span>
-            {
-              isHamOpen 
-              ? <>
-                <span></span>
-                <span></span>
-              </> : ''
-            }
-          </div>
+          {
+            props.homeActive
+            ? <div className={isHamOpen ? styles.open : null} >
+              <span></span>
+              <span></span>
+              {
+                isHamOpen 
+                ? <>
+                  <span></span>
+                  <span></span>
+                </> : ''
+              }
+            </div> : ''
+          }
         </button>
         <h2 className={styles.storeName}>
           <EllipsisText
