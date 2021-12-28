@@ -22,7 +22,10 @@ export default class Home extends React.Component {
         return (
             !this.props.loading
             && <div className={styles.homePage}>
-                <div className={styles.bannerContainer} onClick={() => this.props.updateHomeActive(false)}>
+                <div
+                    className={styles.bannerContainer}
+                    // onClick={() => this.props.updateHomeActive(false)}
+                >
                     <video
                         ref={ref => this.videoTag = ref}
                         className={styles.bannerImage}
