@@ -58,6 +58,8 @@ const Main = ({ store, endLoading, loading }) => {
         && <NavBar
           cartActive={cart.products.length ? true : false}
           handleShowCart={handleShowCart}
+          homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          storeName={store?.fields?.store_name || ''}
         />
       }
       {
@@ -69,7 +71,7 @@ const Main = ({ store, endLoading, loading }) => {
           loading={loading}/>
         : <>
             <div className={styles.profile}>
-              {store.fields && (
+              {/* {store.fields && (
                 <div className={styles.social}>
                   <Image
                     width={102}
@@ -97,7 +99,7 @@ const Main = ({ store, endLoading, loading }) => {
                     ></p>
                   )}
                 </div>
-              )}
+              )} */}
               {/* {store.fields && (
                 <div className={styles.socialButtons}>
                   <ImageButton
