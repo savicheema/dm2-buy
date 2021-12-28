@@ -20,31 +20,36 @@ const NavBar = (props) => {
           <div className={isHamOpen ? styles.open : null} >
             <span></span>
             <span></span>
-            <span></span>
-            <span></span>
+            {
+              isHamOpen 
+              ? <>
+                <span></span>
+                <span></span>
+              </> : ''
+            }
           </div>
         </button>
         <h2 className={styles.storeName}>
           <EllipsisText
             // text={store.fields.store_name}
-            text={"Cowrie Collective"}
+            text={props.storeName}
             length={20}
             tail="..."
           />
         </h2>
+        <span className={styles.cartIcon}>
+          {
+            props.cartActive
+            ? <Image
+                onClick={() => props.handleShowCart(true)}
+                src='/cart-icon.svg'
+                layout="fixed"
+                width="21"
+                height="21" />
+            : ''
+          }
+        </span>
       </div>
-      <span className={styles.cartIcon}>
-        {
-          props.cartActive
-          ? <Image
-              onClick={() => props.handleShowCart(true)}
-              src='/cart-icon.svg'
-              layout="fixed"
-              width="21"
-              height="21" />
-          : ''
-        }
-      </span>
       <SideBar isHamOpen={isHamOpen} />
     </header>
   )
