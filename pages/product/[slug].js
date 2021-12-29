@@ -255,7 +255,11 @@ class Product extends React.Component {
     const { product } = this.state;
     if (await this.validated(product)) {
       this.storeProductToLocalStorage(product);
-      window.location.href = `/cart`;
+      // window.location.href = `/cart`;
+      const cartData = StorageManager.getJson(CART_KEY, initialCart);
+      this.setState({cart: cartData}, () => {
+        this.setState({showCart: true});
+      });
     }
   };
   storeProductToLocalStorage = (product) => {

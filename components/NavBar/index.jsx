@@ -32,7 +32,7 @@ const NavBar = (props) => {
             </div> : ''
           }
         </button>
-        <h2 className={styles.storeName}>
+        <h2 className={styles.storeName} onClick={() => window.location.href = window.location.origin}>
           <EllipsisText
             // text={store.fields.store_name}
             text={props.storeName}
