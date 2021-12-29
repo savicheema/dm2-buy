@@ -45,19 +45,19 @@ export default class Basket extends React.Component {
 
         return (
             <aside className={styles.basketContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
-                {/* <button className={styles.hamBtn} onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}>
-                    <div className={this.props.isBasketOpen ? styles.open : null} >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button> */}
                 {this.state.loading && <LoaderComponent />}
                 <div className={styles.bagContainer}>
                     <div className={styles.order}>
                     <h2 className={styles.orderTitle}>
                         <span>🛍️</span> Your Bag
+                        <button className={styles.hamBtn} onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}>
+                            <div className={this.props.isBasketOpen ? styles.open : null} >
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </button>
                     </h2>
                     <div className={styles.orderList}>
                         {this.props.cartData.products.map((product, index) => (
@@ -80,12 +80,12 @@ export default class Basket extends React.Component {
                     >
                         Checkout — ₹{price}
                     </button>
-                    <button
+                    {/* <button
                         className={styles.continueShoppingButton}
                         onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}
                     >
                         Continue Shopping
-                    </button>
+                    </button> */}
                     </div>
                 </div>
             </aside>

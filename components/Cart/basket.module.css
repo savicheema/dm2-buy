@@ -45,9 +45,10 @@
     background-color: transparent;
     border: none;
     width: 22px;
-    position: fixed;
-    top: 27px;
-    right: 22px;
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    z-index: 20;
 }
 
 .hamTitleContainer{
@@ -59,7 +60,6 @@
 
 .hamBtn>div {
     width: 100%;
-    
     height: 15px;
     position: relative;
     /* margin: 50px auto; */
@@ -155,6 +155,7 @@
     font-weight: bold;
     letter-spacing: 0.5px;
     margin: 0;
+    position: relative;
 }
   
 .orderTitle > span {
@@ -164,15 +165,17 @@
 .orderList {
     margin: 40px 0;
     width: 100%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    margin-bottom: 50px;
 }
   
 .order {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100%;
-    padding: 36px 24px;
+    height: 100vh;
+    padding: 26px 24px;
+    overflow-y: auto;
 }
   
 .orderButton {
