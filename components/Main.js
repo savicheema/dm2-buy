@@ -21,6 +21,7 @@ const Main = ({ store, endLoading, loading }) => {
   const homePageEnabled = store?.fields?.homePageEnabled;
   const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? true : false);
   const [showCart, setShowCart] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const updateHomeActive = (boolVal = false) => {
     setHomeActive(boolVal);
@@ -37,6 +38,14 @@ const Main = ({ store, endLoading, loading }) => {
     }, 3000);
   };
 
+  const handleRefresh = () => {
+    setCart({
+      products: [],
+      shippingFee: 0,
+      shippingFeeCap: 0
+    });
+  }
+
   if (!store) return null;
 
   return (
@@ -47,6 +56,7 @@ const Main = ({ store, endLoading, loading }) => {
       }}
     >
       <Basket
+        setRefresh={handleRefresh}
         isBasketOpen={showCart}
         setCart={setCart}
         cartData={cart}

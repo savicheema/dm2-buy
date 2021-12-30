@@ -102,6 +102,7 @@ class Product extends React.Component {
         {
           this.state.cart?.products?.length
           ? <Basket
+            fromProductPage={true}
             isBasketOpen={this.state.showCart}
             setCart={(value) => this.setState({cart: value})}
             cartData={this.state.cart}

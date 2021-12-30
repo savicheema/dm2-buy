@@ -18,11 +18,16 @@ export default class Basket extends React.Component {
         const filteredProducts = cartData.products.filter((product) => product.id !== productId);
         if (filteredProducts.length === 0) {
             this.props.handleShowCart(false);
+            if (!this.props.fromProductPage) this.props.setRefresh();
         }
         setTimeout(() => {
             cartData.products = filteredProducts;
             this.props.StorageManager.putJson(this.props.CART_KEY, cartData);
-            this.props.setCart(cartData, true);
+            if (this.props.fromProductPage) {
+                this.props.setCart(cartData, true);
+            } else {
+                this.props.setCart(cartData);
+            }
             this.setState({refresh: !this.state.refresh});
         }, 300);
     };
