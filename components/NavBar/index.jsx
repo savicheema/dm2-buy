@@ -42,7 +42,7 @@ const NavBar = (props) => {
         </h2>
         <span className={styles.cartIcon}>
           {
-            props.cartActive
+            props.cartActive && !props.hideInAdvance
             ? <Image
                 onClick={() => props.handleShowCart(true)}
                 src='/cart-icon.svg'
