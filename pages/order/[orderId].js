@@ -30,7 +30,8 @@ export default function Order(props) {
     title: "Dm 2 Buy",
   });
   useEffect(() => {
-    StorageManager.removeItem(CART_KEY);    
+    StorageManager.removeItem(CART_KEY);
+    setCart(useLocalStorage(CART_KEY, initialCart));
   }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
@@ -71,7 +72,7 @@ export default function Order(props) {
         !showCart
         && <NavBar
           hideInAdvance={false}
-          cartActive={cart.products.length > 1 ? true : false}
+          cartActive={cart.products.length ? true : false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
           storeName={store?.fields?.store_name || ''}
