@@ -55,31 +55,29 @@ export default class Basket extends React.Component {
         return (
             <aside className={styles.basketContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
                 {this.state.loading && <LoaderComponent />}
-                <div className={styles.bagContainer}>
-                    <div className={styles.order}>
-                    <h2 className={styles.orderTitle}>
-                        <span>🛍️</span> Your Bag
-                        <button className={styles.hamBtn} onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}>
-                            <div className={this.props.isBasketOpen ? styles.open : null} >
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </button>
-                    </h2>
-                    <div className={styles.orderList}>
-                        {this.props.cartData.products.map((product, index) => (
-                        <BagItem
-                            item={product}
-                            removeProductFromCart={this.removeProductFromCart}
-                            updateProductCount={this.updateProductCount}
-                            key={index}
-                        />
-                        ))}
-                    </div>
-                    <div className={styles.empty_div}></div>
-                    </div>
+                <div className={styles.order}>
+                <h2 className={styles.orderTitle}>
+                    <span>🛍️</span> Your Bag
+                    <button className={styles.hamBtn} onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}>
+                        <div className={this.props.isBasketOpen ? styles.open : null} >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                </h2>
+                <div className={styles.orderList}>
+                    {this.props.cartData.products.map((product, index) => (
+                    <BagItem
+                        item={product}
+                        removeProductFromCart={this.removeProductFromCart}
+                        updateProductCount={this.updateProductCount}
+                        key={index}
+                    />
+                    ))}
+                </div>
+                <div className={styles.empty_div}></div>
                 </div>
                 <div className={styles.bottomCTASection}>
                     <button
