@@ -49,7 +49,8 @@ class Product extends React.Component {
       open: false,
       productAlreadyInCart: false,
       showCart: false,
-      cart: {}
+      cart: {},
+      hideInAdvance: false
     };
   }
 
@@ -107,6 +108,7 @@ class Product extends React.Component {
             setCart={(value) => this.setState({cart: value})}
             cartData={this.state.cart}
             StorageManager={StorageManager}
+            setHideInAdvance={() => this.setState({hideInAdvance: true})}
             CART_KEY={CART_KEY}
             handleShowCart={this.handleShowCart}/>
           : ''
@@ -114,6 +116,7 @@ class Product extends React.Component {
         {
           !this.state.showCart
           && <NavBar
+            hideInAdvance={this.state.hideInAdvance || false}
             cartActive={this.state.cart?.products?.length ? true : false}
             handleShowCart={this.handleShowCart}
             homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
@@ -259,7 +262,7 @@ class Product extends React.Component {
       // window.location.href = `/cart`;
       const cartData = StorageManager.getJson(CART_KEY, initialCart);
       this.setState({cart: cartData}, () => {
-        this.setState({showCart: true});
+        this.setState({showCart: true, hideInAdvance: false});
       });
     }
   };

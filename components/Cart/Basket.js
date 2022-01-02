@@ -19,6 +19,7 @@ export default class Basket extends React.Component {
         if (filteredProducts.length === 0) {
             this.props.handleShowCart(false);
             if (!this.props.fromProductPage) this.props.setRefresh();
+            this.props.setHideInAdvance(true);
         }
         setTimeout(() => {
             cartData.products = filteredProducts;

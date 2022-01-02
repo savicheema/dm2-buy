@@ -70,6 +70,7 @@ export default function Order(props) {
       {
         !showCart
         && <NavBar
+          hideInAdvance={false}
           cartActive={cart.products.length ? true : false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
