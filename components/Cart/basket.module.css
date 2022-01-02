@@ -175,7 +175,7 @@
     align-items: center;
     height: 100vh;
     padding: 26px 24px;
-    overflow-y: auto;
+    margin-bottom: 50px;
 }
   
 .orderButton {
@@ -230,11 +230,11 @@
     width: 100%;
 }
 .bottomCTASection {
-    position: fixed;
+    position: sticky;
     left: 50%;
     width: 100%;
-    bottom: 0;
-    transform: translate(-50%, 0);
+    bottom: 38px;
+    transform: translate(0%, 50%);
     background-color: #ffffff;
     max-width: var(--max-width);
     padding: 13px 12px 18px;
