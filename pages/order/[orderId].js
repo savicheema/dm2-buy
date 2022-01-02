@@ -31,7 +31,6 @@ export default function Order(props) {
   });
   useEffect(() => {
     StorageManager.removeItem(CART_KEY);
-    setCart(useLocalStorage(CART_KEY, initialCart));
   }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
@@ -72,7 +71,7 @@ export default function Order(props) {
         !showCart
         && <NavBar
           hideInAdvance={false}
-          cartActive={cart.products.length ? true : false}
+          cartActive={false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
           storeName={store?.fields?.store_name || ''}
