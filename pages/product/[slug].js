@@ -261,8 +261,14 @@ class Product extends React.Component {
       this.storeProductToLocalStorage(product);
       // window.location.href = `/cart`;
       const cartData = StorageManager.getJson(CART_KEY, initialCart);
-      this.setState({cart: cartData}, () => {
-        this.setState({showCart: true, hideInAdvance: false});
+      this.setState({cart: cartData, hideInAdvance: true}, () => {
+        if (this.state.cart.products && this.state.cart.products.length === 1) {
+          setTimeout(() => {
+            this.setState({showCart: true, hideInAdvance: false});
+          }, 100);
+        } else {
+          this.setState({showCart: true, hideInAdvance: false});
+        }
       });
     }
   };
