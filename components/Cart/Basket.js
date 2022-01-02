@@ -80,7 +80,8 @@ export default class Basket extends React.Component {
                     </div>
                     <div className={styles.empty_div}></div>
                     </div>
-                    <div className={styles.bottomCTASection}>
+                </div>
+                <div className={styles.bottomCTASection}>
                     <button
                         className={styles.orderButton}
                         onClick={async () => {
@@ -95,7 +96,6 @@ export default class Basket extends React.Component {
                     >
                         Continue Shopping
                     </button> */}
-                    </div>
                 </div>
             </aside>
         );

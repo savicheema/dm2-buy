@@ -144,8 +144,7 @@
 }
 .bagContainer {
     position: relative;
-  
-    /* min-height: 100vh; */
+    min-height: 85.6vh;
 }
   
 .orderTitle {
@@ -166,16 +165,17 @@
     margin: 40px 0;
     width: 100%;
     /* overflow-y: scroll; */
-    margin-bottom: 50px;
+    margin-bottom: 0px;
 }
   
 .order {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: auto;
     padding: 26px 24px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
+    padding-bottom: 0px;
 }
   
 .orderButton {
