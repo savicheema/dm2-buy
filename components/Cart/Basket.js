@@ -53,49 +53,51 @@ export default class Basket extends React.Component {
         const price = productTotalPrice - shippingFee;
 
         return (
-            <aside className={styles.basketContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
-                {this.state.loading && <LoaderComponent />}
-                <div className={styles.order}>
-                <h2 className={styles.orderTitle}>
-                    <span>🛍️</span> Your Bag
-                    <button className={styles.hamBtn} onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}>
-                        <div className={this.props.isBasketOpen ? styles.open : null} >
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </button>
-                </h2>
-                <div className={styles.orderList}>
-                    {this.props.cartData.products.map((product, index) => (
-                    <BagItem
-                        item={product}
-                        removeProductFromCart={this.removeProductFromCart}
-                        updateProductCount={this.updateProductCount}
-                        key={index}
-                    />
-                    ))}
-                </div>
-                <div className={styles.empty_div}></div>
-                </div>
-                <div className={styles.bottomCTASection}>
-                    <button
-                        className={styles.orderButton}
-                        onClick={async () => {
-                        window.location.href = `/cart/checkout`;
-                        }}
-                    >
-                        Checkout — ₹{price}
-                    </button>
-                    {/* <button
-                        className={styles.continueShoppingButton}
-                        onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}
-                    >
-                        Continue Shopping
-                    </button> */}
-                </div>
-            </aside>
+            <div className={styles.basketMainContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
+                <aside className={styles.basketContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
+                    {this.state.loading && <LoaderComponent />}
+                    <div className={styles.order}>
+                    <h2 className={styles.orderTitle}>
+                        <span>🛍️</span> Your Bag
+                        <button className={styles.hamBtn} onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}>
+                            <div className={this.props.isBasketOpen ? styles.open : null} >
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </button>
+                    </h2>
+                    <div className={styles.orderList}>
+                        {this.props.cartData.products.map((product, index) => (
+                        <BagItem
+                            item={product}
+                            removeProductFromCart={this.removeProductFromCart}
+                            updateProductCount={this.updateProductCount}
+                            key={index}
+                        />
+                        ))}
+                    </div>
+                    <div className={styles.empty_div}></div>
+                    </div>
+                    <div className={styles.bottomCTASection}>
+                        <button
+                            className={styles.orderButton}
+                            onClick={async () => {
+                            window.location.href = `/cart/checkout`;
+                            }}
+                        >
+                            Checkout — ₹{price}
+                        </button>
+                        {/* <button
+                            className={styles.continueShoppingButton}
+                            onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}
+                        >
+                            Continue Shopping
+                        </button> */}
+                    </div>
+                </aside>
+            </div>
         );
     }
 }
