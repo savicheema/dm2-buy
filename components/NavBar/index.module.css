@@ -28,6 +28,8 @@
   max-width: var(--max-width);
   background-color: rgb(255, 255, 255);
   transform: translateX(-50%);
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
   /* 
   display: none;
   left: 0; 
@@ -45,6 +47,11 @@
   */
 }
 
+.hide {
+  top: -60px;
+  /* opacity: 0; */
+  transition: all 0.4s ease-in-out;
+}
 
 .hamBtn{
   position: absolute;

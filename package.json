@@ -22,6 +22,7 @@
     "react-lines-ellipsis": "^0.14.1",
     "react-loader-spinner": "^4.0.0",
     "react-responsive-carousel": "^3.2.18",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "react-use-scroll-direction": "^0.1.0"
   }
 }
