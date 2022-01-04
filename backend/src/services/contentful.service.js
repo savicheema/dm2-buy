@@ -1,4 +1,4 @@
-import * as contentful from 'contentful';
+const contentful = require('contentful');
 
 const client = contentful.createClient({
     // This is the space ID. A space is like a project folder in Contentful terms
@@ -21,8 +21,11 @@ function responseSanitizer(incomingData, referenceArray) {
     let structuredObject = {};
     for (let prop in incomingData) {
         if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
-            let extractedData = findFromReference(referenceArray.Asset, incomingData[prop][0].sys.id);
-            structuredObject[prop] = extractedData;
+            structuredObject[prop] = [];
+            incomingData[prop].forEach(asset => {
+                let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);
+                structuredObject[prop].push(extractedData);
+            });
         } else if (incomingData[prop] instanceof Object && incomingData[prop].sys.type === 'Asset') {
             let extractedData = findFromReference(referenceArray.Asset, incomingData[prop].sys.id);
             structuredObject[prop] = extractedData;
@@ -39,14 +42,38 @@ function responseSanitizer(incomingData, referenceArray) {
 }
 
 function getProductByStoreId(storeId) {
-    console.log('storeId: ', storeId);
     return new Promise((resolve, reject) => {
         client
             .getEntries({ content_type: 'product', 'fields.store.sys.id': storeId })
             .then(entry => {
+                let sanitizedData = [];
                 if (entry && entry.items && entry.items.length) {
-                    let sanitizedData = responseSanitizer(entry.items[0].fields, entry.includes);
-                    console.log('product data: ', sanitizedData);
+                    entry.items.forEach(product => {
+                        let productData = responseSanitizer(product.fields, entry.includes);
+                        productData.id = product.sys.id;
+                        sanitizedData.push(productData);
+                    })
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
+function getProductById(productId) {
+    return new Promise((resolve, reject) => {
+        client
+            .getEntry(productId)
+            .then(entry => {
+                if (entry && entry.fields) {
+                    let sanitizedData = entry.fields;
+                    sanitizedData.id = entry.sys.id;
+                    sanitizedData.store.fields.id = sanitizedData.store.sys.id;
                     resolve(sanitizedData);
                 } else {
                     reject();
@@ -66,6 +93,7 @@ function getRecordBySubdomain(subdomain) {
             .then(entry => {
                 if (entry && entry.items && entry.items.length) {
                     let sanitizedData = responseSanitizer(entry.items[0].fields, entry.includes);
+                    sanitizedData.id = entry.items[0].sys.id;
                     resolve(sanitizedData);
                 } else {
                     reject();
@@ -78,7 +106,29 @@ function getRecordBySubdomain(subdomain) {
     });
 }
 
-export {
+function getStoreById(storeId) {
+    return new Promise((resolve, reject) => {
+        client
+            .getEntry(storeId)
+            .then(entry => {
+                if (entry && entry.fields) {
+                    let sanitizedData = entry.fields;
+                    sanitizedData.id = entry.sys.id;
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
+module.exports = {
   getRecordBySubdomain,
-  getProductByStoreId
+  getProductByStoreId,
+  getProductById,
+  getStoreById
 };

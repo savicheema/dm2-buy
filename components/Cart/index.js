@@ -109,7 +109,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
     <div className={styles.checkout_container}>
       <div className={styles.cart}>
         {loading && <LoaderComponent />}
-        <CartMessage message={store.thankYouPage} />
+        <CartMessage message={store.thankYouNote} />
 
         <PersonalForm ref={personalFormRef} />
 

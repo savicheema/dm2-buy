@@ -1,6 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const { Order } = require('../models');
-const { orderService, cashfreeService, airtableService } = require('../services');
+const { orderService, cashfreeService, airtableService, contentfulService } = require('../services');
 const { success } = require('../utils/responseHandler');
 
 const getAll = catchAsync(async (req, res) => {
@@ -38,11 +38,11 @@ const createOrder = catchAsync(async (req, res) => {
   const { seller_id: storeId } = req.body.seller;
   const order = new Order({ ...req.body });
   await order.save();
-  const store = await airtableService.getStoreById(storeId);
-  if (store.fields.CASHFREE_APP_ID && store.fields.CASHFREE_APP_SECRET) {
+  const store = await contentfulService.getStoreById(storeId);
+  if (store.paymentGateway.fields.appId && store.paymentGateway.fields.appSecret) {
     const cashfree = {
-      appId: store.fields.CASHFREE_APP_ID,
-      appSecret: store.fields.CASHFREE_APP_SECRET,
+      appId: store.paymentGateway.fields.appId,
+      appSecret: store.paymentGateway.fields.appSecret,
     };
     response = await cashfreeService.createOrder(order, { cashfree });
   } else {
