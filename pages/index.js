@@ -27,9 +27,9 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{storeData?.fields?.store_name}</title>
-        <meta name="title" content={storeData?.fields?.store_name} />
-        <meta name="description" content={storeData?.fields?.store_bio} />
+        <title>{storeData?.storeName}</title>
+        <meta name="title" content={storeData?.storeName} />
+        <meta name="description" content={storeData?.storeBio} />
         <link rel="icon" href="/favicon.ico" />
         <link href="/fonts/fonts.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -43,28 +43,28 @@ export default function Home(props) {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={storeData?.fields?.store_name} />
+        <meta property="og:title" content={storeData?.storeName} />
         <meta
           property="og:description"
-          content={storeData?.fields?.store_bio}
+          content={storeData?.storeBio}
         />
         <meta
           property="og:image"
-          content={store?.fields?.store_profile_photo[0]?.url}
+          content={store?.storeLogo?.file?.url}
         />
         <meta property="og:site_name" content="Dm 2 Buy" />
         <meta property="og:url" content={storeUrl} />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content={storeUrl} />
-        <meta name="twitter:title" content={storeData?.fields?.store_name} />
+        <meta name="twitter:title" content={storeData?.storeName} />
         <meta
           property="twitter:description"
-          content={storeData?.fields?.store_bio}
+          content={storeData?.storeBio}
         />
         <meta
           property="twitter:image"
-          content={store?.fields?.store_profile_photo[0]?.url}
+          content={store?.storeLogo?.file?.url}
         />
       </Head>
 

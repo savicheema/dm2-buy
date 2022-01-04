@@ -5,8 +5,8 @@ import ImageButton from "../Buttons/ImageButton";
 
 const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   const [count, setCount] = useState(item.quantity || 1);
-  const availableProductQuantity = item?.fields?.product_count
-    ? parseInt(item?.fields?.product_count)
+  const availableProductQuantity = item?.productCount
+    ? parseInt(item?.productCount)
     : Number.MAX_SAFE_INTEGER;
   const isProductCustomised = item.customAttributes.length > 0;
 
@@ -20,7 +20,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
       <div className={styles.productDetails}>
         <div className={styles.thumbnailContainer}>
           <Image
-            src={item.fields["header_photo"][0].url}
+            src={'https:' + item.headerPhoto?.fields?.file?.url}
             height={60}
             width={60}
             alt="Order name"
@@ -35,7 +35,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
           ) : null}
         </div>
         <div className={styles.productName}>
-          <span>{item.fields.Name}</span>
+          <span>{item.name}</span>
           {isProductCustomised && (
             <div className={styles.product_specs}>
               {item.customAttributes
@@ -75,7 +75,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
       </div>
       <div className={styles.details_right}>
         <div className={styles.productPrice}>
-          {`${String.fromCharCode(0x20b9)}${count * item.fields.Price}`}
+          {`${String.fromCharCode(0x20b9)}${count * item.price}`}
         </div>
         <img
           onClick={removeProductFromCart(item.id)}

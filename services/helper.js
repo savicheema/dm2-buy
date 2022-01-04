@@ -28,7 +28,7 @@ const getSubDomainOfPage = () => {
         splitHost[0] = res.subdomain;
         console.log('splitHost[0] ==========: ', splitHost[0]);
         resolve(splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-          ? "chubb"
+          ? "cowrie"
           : splitHost[0]);
       })
       .catch(err => reject());
@@ -36,7 +36,7 @@ const getSubDomainOfPage = () => {
   } else {
     return new Promise((resolve, reject) => {
       resolve(splitHost[0] == "localhost:3000" || splitHost[0] == "192"
-        ? "chubb"
+        ? "cowrie"
         : splitHost[0]);
     });
   }

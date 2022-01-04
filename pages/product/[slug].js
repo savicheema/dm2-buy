@@ -25,20 +25,22 @@ class Product extends React.Component {
     super(props);
     let isFetched = true;
     const { product } = props;
-    if (product.fields) {
-      product.allPhotos = product?.fields["Other photos"];
-      product.headerPhoto = product?.fields["header_photo"];
+
+    if (product) {
+      product.allPhotos = product?.["otherPhotos"];
+      product.headerPhoto = product?.["headerPhoto"];
       product.headerDescription = this.cleanProductDescription(
-        product?.fields?.description
+        product?.description
       );
-      product.shippingFee = product?.store?.fields["Shipping Fee"] || 0;
-      product.shippingFeeCap = product?.store?.fields["Shipping fee Cap"];
+      product.shippingFee = product?.store?.fields?.["shippingFee"] || 0;
+      product.shippingFeeCap = product?.store?.fields?.["shippingFeeCap"];
       product.quantity = 1; // set default product quantity to 1
-      const customAttributes = product.customAttributes.map((attribute) => {
+      const customAttributes = product.customAttributes && product.customAttributes.length
+      ? product.customAttributes.map((attribute) => {
         const attrib = { ...attribute };
         attrib.ref = React.createRef();
         return attrib;
-      });
+      }) : [];
       product.customAttributes = customAttributes;
     }
     this.state = {
@@ -120,14 +122,14 @@ class Product extends React.Component {
             cartActive={this.state.cart?.products?.length ? true : false}
             handleShowCart={this.handleShowCart}
             homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-            storeName={this.props.product?.store?.fields?.store_name || ''}
+            storeName={this.props.product?.store?.fields?.storeName || ''}
           />
         }
         <div className={styles.product}>
           <Head>
             <title>DM 2 BUY</title>
             <meta name="description" content={product.headerDescription} />
-            <meta name="title" content={product?.fields?.Name} />
+            <meta name="title" content={product?.name} />
             <link rel="icon" href="/favicon.ico" />
             <link href="/fonts/fonts.css" rel="stylesheet" />
             <link
@@ -139,25 +141,25 @@ class Product extends React.Component {
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
             />
             <meta property="og:type" content="product" />
-            <meta property="og:title" content={product?.fields?.Name} />
+            <meta property="og:title" content={product?.name} />
             <meta
               property="og:description"
               content={product.headerDescription}
             />
-            <meta property="og:image" content={product?.headerPhoto[0]?.url} />
+            <meta property="og:image" content={product?.headerPhoto?.fields?.file?.url} />
             <meta property="og:site_name" content="Dm 2 Buy" />
             <meta property="og:url" content={productUrl} />
 
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:url" content={productUrl} />
-            <meta name="twitter:title" content={product?.fields?.Name} />
+            <meta name="twitter:title" content={product?.name} />
             <meta
               property="twitter:description"
               content={product.headerDescription}
             />
             <meta
               property="twitter:image"
-              content={product?.headerPhoto[0]?.url}
+              content={product?.headerPhoto?.fields?.file?.url}
             />
           </Head>
           {/* <Header /> */}
@@ -165,18 +167,18 @@ class Product extends React.Component {
           <DM2BuyCarousel product={product} />
           <div className={styles.productSub}>
             <div className={styles.productHead}>
-              <h1 className={styles.productHeading}>{product.fields.Name}</h1>
+              <h1 className={styles.productHeading}>{product.name}</h1>
               {/* <ShareButton /> */}
               <ProductShareButton
-                name={product.fields.Name}
+                name={product.name}
                 toast={this.showToast}
               />
             </div>
 
-            {product.fields && <div className={styles.priceContainer}></div>}
-            {product.fields["colour variants"] ? (
+            {product && <div className={styles.priceContainer}></div>}
+            {product["colourVariants"] ? (
               <ProductColors
-                colors={product.fields["colour variants"]}
+                colors={product["colourVariants"]}
                 selectedColorInStorage={selectedColor}
                 setProductColor={(color) => {
                   let product = {...this.state.product};
@@ -188,7 +190,7 @@ class Product extends React.Component {
 
             <p
               className={styles.description}
-              dangerouslySetInnerHTML={{ __html: product.fields.description }}
+              dangerouslySetInnerHTML={{ __html: product.description }}
             ></p>
 
             {/* Custom product fields */}
@@ -199,7 +201,7 @@ class Product extends React.Component {
             />
 
             <div className={styles.callToAction}>
-              {product.fields?.product_count === 0 ? (
+              {product?.product_count === 0 ? (
                 <button className={styles.soldOutButton}>Sold Out</button>
               ) : (
                 <button
@@ -212,14 +214,14 @@ class Product extends React.Component {
                       : "Add to Bag"}
                   </div>
                   <div>
-                    {`${String.fromCharCode(0x20b9)}${product.fields.Price}`}
+                    {`${String.fromCharCode(0x20b9)}${product.price}`}
                   </div>
                 </button>
               )}
             </div>
             {/* <NoticeConditions /> */}
           </div>
-          {/* <SellerCard sellerId={product.fields.Stores[0]} /> */}
+          {/* <SellerCard sellerId={product.Stores[0]} /> */}
 
           {/* <footer className={homeStyles.footer}>
           <Image src="/instagram.png" width="36" height="36" />
@@ -277,7 +279,7 @@ class Product extends React.Component {
     for (const ca of product.customAttributes) {
       if (ca.ref.current.state.inputValue.trim() !== "") {
         customAttributes.push({
-          name: ca?.fields?.Name,
+          name: ca?.name,
           value: ca.ref.current.state.inputValue,
         });
       }

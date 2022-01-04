@@ -12,28 +12,29 @@ const StoreItem = ({ product }) => {
       let strikeOutMRP = <span className={styles.strikeOutText}>{`${String.fromCharCode(0x20b9)}${mrp}`}</span>;
       return <>{`${String.fromCharCode(0x20b9)}${price}`} {strikeOutMRP}</>;
     } else {
-      return `${String.fromCharCode(0x20b9)}${product.fields.Price}`
+      return `${String.fromCharCode(0x20b9)}${product.price}`
     }
   }
-  if (!product.fields) return "";
+  if (!product) return "";
+
   return (
     <div
       className={styles.storeItem}
       onClick={() => {
-        window.location.href = `/product/${product.fields.Slug}-${product.id}`;
+        window.location.href = `/product/${product.id}`;
       }}
     >
       <div className={styles.thumbnail}>
-        {product.fields && product.fields?.header_photo?.[0].url && (
+        {product && product.headerPhoto.file.url && (
           <div className={styles.image_container}>
-            {product.fields?.product_count === 0 && (
+            {product.productCount === 0 && (
               <div className={styles.item_overlay}>
                 <p>SOLD</p>
               </div>
             )}
             <Image
               className={styles.productImg}
-              src={`${product?.fields?.header_photo?.[0].url}`}
+              src={`https://${product?.headerPhoto?.file?.url}`}
               width={204}
               height={204}
               objectFit="cover"
@@ -46,9 +47,9 @@ const StoreItem = ({ product }) => {
 
       <div className={styles.details}>
         <div className={styles.title}>
-          {product.fields && (
+          {product && (
             <LinesEllipsis
-              text={`${product.fields.Name}`}
+              text={`${product.name}`}
               maxLine="2"
               ellipsis="..."
               trimRight
@@ -57,7 +58,7 @@ const StoreItem = ({ product }) => {
           )}
         </div>
         <div className={styles.price}>
-          {product.fields && getProductPrice(product.fields.Price, product.fields.mrp)}
+          {product && getProductPrice(product.price, product.mrp)}
         </div>
       </div>
     </div>

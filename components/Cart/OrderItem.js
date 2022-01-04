@@ -8,7 +8,7 @@ const OrderItem = ({ item }) => (
       </div>
 
       <div className={styles.productName}>
-        {item.fields.Name} {' x '} {item.quantity}
+        {item.name} {' x '} {item.quantity}
         { item.colour ? (
           <span
             className={styles.productQuantity}
@@ -30,7 +30,7 @@ const OrderItem = ({ item }) => (
       </div>
     </div>
     <div className={styles.productPrice}>
-      {`${String.fromCharCode(0x20b9)}${item.quantity * item.fields.Price}`}
+      {`${String.fromCharCode(0x20b9)}${item.quantity * item.price}`}
     </div>
   </div>
 );

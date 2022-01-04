@@ -29,8 +29,8 @@ class StoreProducts extends React.Component {
   componentDidMount() {
     let { store } = this.props;
     getSubDomainOfPage().then(subdomain => {
-      if (store.fields.hasOwnProperty("Products")) {
-        this.fetchAllProducts(store.fields.Products, subdomain);
+      if (store.hasOwnProperty("Products")) {
+        this.fetchAllProducts(store.Products, subdomain);
       } else {
         const { endLoading } = this.props;
         endLoading();
@@ -41,15 +41,14 @@ class StoreProducts extends React.Component {
 
   fetchAllProducts = (products, subdomain) => {
     return new Promise((resolve, reject) => {
-      fetch(`/api/airtable/getAllProducts?subdomain=${subdomain}`)
+      fetch(`/api/contentful/getAllProducts?subdomain=${subdomain}`)
         .then((response) => {
-          console.log("product RESPONSE", response);
           return response.json();
         })
         .then((productValues) => {
           this.setState(
             {
-              products: productValues.records.filter(this.filterStoreProducts),
+              products: productValues.records,
               loading: false
             },
             () => {
@@ -75,7 +74,7 @@ class StoreProducts extends React.Component {
 
   filterStoreProducts = (product) => {
     let { store } = this.props;
-    return product.fields.Stores?.includes(store.id);
+    return product.store?.includes(store.id);
   };
 
   setFilter = (collection) => {
@@ -86,12 +85,12 @@ class StoreProducts extends React.Component {
     let { selectedFilter } = this.state;
     if (!selectedFilter || selectedFilter === "all") return true;
 
-    return product.fields.collections?.includes(selectedFilter);
+    return product.collections?.includes(selectedFilter);
   };
 
   getCollectionsOfProductAddToStore = (product) => {
     // if product callection name doesn't already exist in tag add it
-    const { collections } = product?.fields;
+    const { collections } = product;
     if (!collections?.length) return;
     let { storeCollections } = this.state;
     for (let i = 0; i < collections.length; i++) {

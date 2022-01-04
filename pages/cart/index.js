@@ -15,7 +15,7 @@ export default function CartPage(props) {
   const [store, setStore] = useLocalStorage("store", props.storeData);
 
   useEffect(() => {
-    if (!store.fields) {
+    if (!store) {
       window.location.href = "/";
     }
   });

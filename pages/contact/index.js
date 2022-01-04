@@ -8,15 +8,15 @@ export async function getServerSideProps(context) {
   
 const Contact = (props) => {
     const { storeData } = props;
-    const { contact } = storeData.fields;
+    const { contacts } = storeData.legal;
     return (
         <div className={styles.container}>
             <main>
                 <h2 className={styles.headline}>Contact Us</h2>
-                {contact.trim() != "" ? 
+                {contacts.trim() != "" ? 
                     <div 
                         className={styles.content}
-                        dangerouslySetInnerHTML={{ __html: contact }}    
+                        dangerouslySetInnerHTML={{ __html: contacts }}    
                     ></div> : null}
             </main>
             <Footer />

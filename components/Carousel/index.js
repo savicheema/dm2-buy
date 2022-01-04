@@ -34,7 +34,7 @@ const DM2BuyCarousel = ({ product }) => (
     >
       {product.allPhotos &&
         product.allPhotos.map((photo, index) => {
-          return <Image className={styles.caraouselImage} src={photo.url} height={425} width={360} key={index} priority/>;
+          return <Image className={styles.caraouselImage} src={'https:' + photo.fields.file.url} height={425} width={360} key={index} priority/>;
         })}
     </Carousel>
   </div>

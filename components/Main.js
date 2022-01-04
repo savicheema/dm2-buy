@@ -18,7 +18,7 @@ import Basket from "./Cart/Basket";
 const Main = ({ store, endLoading, loading }) => {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
-  const homePageEnabled = store?.fields?.homePageEnabled;
+  const homePageEnabled = store?.homePageEnabled;
   const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? true : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -70,68 +70,68 @@ const Main = ({ store, endLoading, loading }) => {
           handleShowCart={handleShowCart}
           hideInAdvance={false}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-          storeName={store?.fields?.store_name || ''}
+          storeName={store?.storeName || ''}
         />
       }
       {
         homeActive ?
         <Home
           updateHomeActive={updateHomeActive}
-          heroMedia={store?.fields?.heroMedia}
+          heroMedia={store?.heroMedia}
           endLoading={endLoading}
           loading={loading}/>
         : <>
             <div className={styles.profile}>
-              {/* {store.fields && (
+              {/* {store && (
                 <div className={styles.social}>
                   <Image
                     width={102}
                     height={102}
-                    src={store.fields.store_profile_photo[0].url}
+                    src={store.store_profile_photo[0].url}
                     alt="profile-pic"
                     className={homeStyles.profilePic}
                   />
                 </div>
               )}
 
-              {store.fields && (
+              {store && (
                 <div className="userInfo">
                   <h2 className={styles.userName}>
                     <EllipsisText
-                      text={store.fields.store_name}
+                      text={store.store_name}
                       length={20}
                       tail="..."
                     />
                   </h2>
-                  {store.fields.store_bio.trim() != "" && (
+                  {store.store_bio.trim() != "" && (
                     <p
                       className={styles.bio}
-                      dangerouslySetInnerHTML={{ __html: store.fields.store_bio }}
+                      dangerouslySetInnerHTML={{ __html: store.store_bio }}
                     ></p>
                   )}
                 </div>
               )} */}
-              {/* {store.fields && (
+              {/* {store && (
                 <div className={styles.socialButtons}>
                   <ImageButton
                     type="raised"
                     action={() => {
                       window.open(
-                        `https://www.instagram.com/${store.fields.store_instagram_handle}/`
+                        `https://www.instagram.com/${store.store_instagram_handle}/`
                       );
                     }}
                   >
                     <Image src="/instagram-4@2x.png" width="20" height="20" />
                   </ImageButton>
                   <ShareButton
-                    title={store?.fields?.store_name || "Dm 2 Buy"}
+                    title={store?.store_name || "Dm 2 Buy"}
                     toast={showToast}
                   />
                 </div>
               )} */}
             </div>
 
-            {store.fields && (
+            {store && (
               <StoreProducts
                 store={store}
                 endLoading={endLoading}

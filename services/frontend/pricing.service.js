@@ -14,7 +14,7 @@ const getPrice = (cart) => {
     : Number.MAX_SAFE_INTEGER;
   for (const product of cart.products) {
     const productQuantity = product.quantity ? product.quantity : 1;
-    calculatedPrice += product.fields.Price * productQuantity;
+    calculatedPrice += product.price * productQuantity;
   }
 
   let priceWithoutFees = calculatedPrice;

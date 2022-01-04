@@ -11,7 +11,7 @@ const moduleExports = {
   },
   productionBrowserSourceMaps: true,
   images: {
-    domains: ["dl.airtable.com"],
+    domains: ["dl.airtable.com", "images.ctfassets.net"],
   },
 };
 

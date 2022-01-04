@@ -27,7 +27,7 @@ export async function getStore(context) {
     }
 
     const response = await fetch(
-      `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
+      `${hostWithProtocol}/api/contentful/getRecord?subdomain=${subdomain}`
     );
     store = await response.json();
     if (store.error) {
@@ -49,7 +49,9 @@ export async function getProduct(context) {
   let product, errorCode, productUrl, storeData;
   const { req } = context;
   const splitArr = req.url.split("-");
-  const productId = splitArr[splitArr.length - 1];
+  let productId = splitArr[splitArr.length - 1].split("/");
+  productId = productId[2];
+
   const { host } = req.headers;
   // console.log('host getProduct: ', host);
   const splitHost = host.split(".");
@@ -61,19 +63,19 @@ export async function getProduct(context) {
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
   try {
     if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
-      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/airtable/getSubdomain?custom_domain=${encodeURI(host)}`);
+      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/contentful/getSubdomain?custom_domain=${encodeURI(host)}`);
       let original_subdomain = await original_subdomain_response.json();
       subdomain = original_subdomain.subdomain;
     }
 
     const response = await fetch(
-      `${hostWithProtocol}/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
+      `${hostWithProtocol}/api/contentful/getProduct?product=${productId}&subdomain=${subdomain}`
     );
     product = await response.json();
     if (product.error) {
       throw new Error(product.error);
     }
-    productUrl = `${hostWithProtocol}/product/${product?.fields?.Slug}-${product.id}`;
+    productUrl = `${hostWithProtocol}/product/${product.id}`;
     errorCode = false;
     storeData = await getStore(context);
   } catch (e) {

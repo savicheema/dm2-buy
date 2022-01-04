@@ -50,16 +50,16 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       address: addressFormRef.current.getValues(),
       seller: {
         name: await getSubDomainOfPage(),
-        instagram: store?.fields?.store_instagram_handle,
-        phone: store?.fields?.phone,
-        seller_id: cart.products[0]?.fields?.Stores[0],
+        instagram: store?.instagramHandle,
+        phone: store?.contactDetails?.contact,
+        seller_id: cart.products[0]?.store.fields.id,
       },
       products: cart.products.map((product) => ({
         customAttributes: product.customAttributes,
         colour: product?.colour,
         id: product?.id,
-        name: product?.fields?.Name,
-        price: product.fields.Price,
+        name: product?.name,
+        price: product?.price,
         quantity: product.quantity,
       })),
     };
@@ -109,7 +109,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
     <div className={styles.checkout_container}>
       <div className={styles.cart}>
         {loading && <LoaderComponent />}
-        <CartMessage message={store.fields?.thank_you_note} />
+        <CartMessage message={store.thankYouPage} />
 
         <PersonalForm ref={personalFormRef} />
 

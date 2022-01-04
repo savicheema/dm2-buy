@@ -8,7 +8,7 @@ export async function getServerSideProps(context) {
   
 const PrivacyPolicy = (props) => {
     const { storeData } = props;
-    const { privacy } = storeData.fields;
+    const { privacy } = storeData.legal;
     return (
         <div className={styles.container}>
             <main>

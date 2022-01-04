@@ -15,7 +15,7 @@ export default function CheckoutPage(props) {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [store, setStore] = useLocalStorage("store", props.storeData);
   useEffect(() => {
-    if (!cart || !store.fields) {
+    if (!cart || !store) {
       window.location.href = "/";
     }
   });
@@ -38,7 +38,7 @@ export default function CheckoutPage(props) {
   return (
     <div className={homeStyles.container}>
       <Head>
-        <title>{store?.fields?.store_name || "Dm 2 Buy"}</title>
+        <title>{store?.storeName || "Dm 2 Buy"}</title>
         <meta
           name="description"
           content="Check my shop out and bag my latest drop"
@@ -61,7 +61,7 @@ export default function CheckoutPage(props) {
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={store?.fields?.store_name || "Dm 2 Buy"}
+          content={store?.storeName || "Dm 2 Buy"}
         />
         <meta
           property="og:description"

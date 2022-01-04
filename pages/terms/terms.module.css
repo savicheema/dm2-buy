@@ -2,6 +2,7 @@
     margin: 5rem auto 4rem;
     text-align: center;
     font-weight: bold;   
+    z-index: 200;
 }
 .content {
     opacity: 0.8;
