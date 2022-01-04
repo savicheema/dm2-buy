@@ -54,8 +54,8 @@ export default function Order(props) {
     setShowCart(boolVal);
   }
 
-  const creatorThankYouPagePhoto = store?.creator_thank_you_page_photo
-    ? store?.creator_thank_you_page_photo[0].url
+  const creatorThankYouPagePhoto = store?.thankYouPagePhoto
+    ? store?.thankYouPagePhoto.file.url
     : false;
 
   return (
@@ -122,7 +122,7 @@ export default function Order(props) {
                     className={orderStyles.thankyouText}
                     dangerouslySetInnerHTML={{
                       __html:
-                        store?.order_confirmation_thank_you_message,
+                        store?.thankYouPage,
                     }}
                   ></p>
                 </div>
