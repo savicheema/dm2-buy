@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
 
 export default function Order(props) {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
-  const homePageEnabled = props.store?.fields?.homePageEnabled;
+  const homePageEnabled = props.store?.homePageEnabled;
   const [showCart, setShowCart] = useState(false);
   const { errorCode, order, store, retryLink } = props;
   const [loading, setLoading] = useState(false);
@@ -54,8 +54,8 @@ export default function Order(props) {
     setShowCart(boolVal);
   }
 
-  const creatorThankYouPagePhoto = store?.fields?.creator_thank_you_page_photo
-    ? store?.fields?.creator_thank_you_page_photo[0].url
+  const creatorThankYouPagePhoto = store?.creator_thank_you_page_photo
+    ? store?.creator_thank_you_page_photo[0].url
     : false;
 
   return (
@@ -74,7 +74,7 @@ export default function Order(props) {
           cartActive={false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-          storeName={store?.fields?.store_name || ''}
+          storeName={store?.storeName || ''}
         />
       }
       <Head>
@@ -122,7 +122,7 @@ export default function Order(props) {
                     className={orderStyles.thankyouText}
                     dangerouslySetInnerHTML={{
                       __html:
-                        store?.fields?.order_confirmation_thank_you_message,
+                        store?.order_confirmation_thank_you_message,
                     }}
                   ></p>
                 </div>
@@ -130,8 +130,8 @@ export default function Order(props) {
             </div>
             <PackageDetails order={order} />
             <PackageExtraDetails
-              dispatchTime={store?.fields["Dispatch Time"]}
-              instaUserId={store?.fields?.store_instagram_handle}
+              dispatchTime={store?.["dispatchTime"]}
+              instaUserId={store?.instagramHandle}
             />
             <BuyerDetails order={order} />
           </div>

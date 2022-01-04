@@ -103,13 +103,13 @@ export async function getOrderDetail(context) {
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
   try {
     if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
-      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/airtable/getSubdomain?custom_domain=${encodeURI(host)}`);
+      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/contentful/getSubdomain?custom_domain=${encodeURI(host)}`);
       let original_subdomain = await original_subdomain_response.json();
       subdomain = original_subdomain.subdomain;
     }
 
     const response = await fetch(
-      `${hostWithProtocol}/api/airtable/getRecord?subdomain=${subdomain}`
+      `${hostWithProtocol}/api/contentful/getRecord?subdomain=${subdomain}`
     );
     store = await response.json();
     if (store.error) {
