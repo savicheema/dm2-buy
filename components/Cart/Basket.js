@@ -30,7 +30,6 @@ export default class Basket extends React.Component {
     }
 
     handleWindowResize = () => {
-        console.log(`${window.innerHeight} !== ${this.state.pageHeight} && ${this.checkIfMobileBrowser()}`);
         if ((window.innerHeight !== this.state.pageHeight) && this.checkIfMobileBrowser()) {
             this.setState({newBottom: true});
         } else {
@@ -114,7 +113,7 @@ export default class Basket extends React.Component {
                 </div>
                 <div className={styles.empty_div}></div>
                 </div>
-                <div style={{bottom: this.state.newBottom ? '56px' : '0px'}} className={styles.bottomCTASection}>
+                <div style={{bottom: !this.state.newBottom ? '56px' : '0px'}} className={styles.bottomCTASection}>
                     <button
                         className={styles.orderButton}
                         onClick={async () => {
