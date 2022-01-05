@@ -114,22 +114,25 @@ export default class Basket extends React.Component {
                 </div>
                 <div className={styles.empty_div}></div>
                 </div>
-                <div style={{bottom: this.state.newBottom ? '0px' : (this.checkIfMobileBrowser() ? '56px' : '0px')}} className={styles.bottomCTASection}>
-                    <button
-                        className={styles.orderButton}
-                        onClick={async () => {
-                        window.location.href = `/cart/checkout`;
-                        }}
-                    >
-                        Checkout — ₹{price}
-                    </button>
-                    {/* <button
-                        className={styles.continueShoppingButton}
-                        onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}
-                    >
-                        Continue Shopping
-                    </button> */}
-                </div>
+                {
+                    this.props.isBasketOpen
+                    ? <div style={{bottom: this.state.newBottom ? '0px' : (this.checkIfMobileBrowser() ? '56px' : '0px')}} className={styles.bottomCTASection}>
+                        <button
+                            className={styles.orderButton}
+                            onClick={async () => {
+                            window.location.href = `/cart/checkout`;
+                            }}
+                        >
+                            Checkout — ₹{price}
+                        </button>
+                        {/* <button
+                            className={styles.continueShoppingButton}
+                            onClick={() => this.props.handleShowCart(!this.props.isBasketOpen)}
+                        >
+                            Continue Shopping
+                        </button> */}
+                    </div> : ''
+                }
             </aside>
         );
     }
