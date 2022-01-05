@@ -15,8 +15,18 @@ const NavBar = (props) => {
     isScrollingUp && setDirection('up');
   }, [isScrollingDown, isScrollingUp]);
 
+  const checkoutShouldHide = () => {
+    let shouldHide = false;
+    if (typeof window != 'undefined') {
+      if (window.scrollY > 50) {
+        shouldHide = true;
+      }
+    }
+    return shouldHide;
+  }
+
   return (
-    <header className={styles.navBar + ' ' + (direction === 'down' ? styles.hide : '')}>
+    <header className={styles.navBar + ' ' + (direction === 'down' && checkoutShouldHide() ? styles.hide : '')}>
       <div className={styles.hamTitleContainer}>
         <button className={styles.hamBtn} onClick={()=>setIsHamOpen((o)=>!o)}>
           {/* {isHamOpen ? (
