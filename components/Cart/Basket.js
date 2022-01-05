@@ -87,6 +87,8 @@ export default class Basket extends React.Component {
             }
         }
 
+        console.log('this.state.newBottom: ', this.state.newBottom);
+
         return (
             <aside className={styles.basketContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
                 {this.state.loading && <LoaderComponent />}
@@ -116,7 +118,7 @@ export default class Basket extends React.Component {
                 </div>
                 {
                     this.props.isBasketOpen
-                    ? <div style={{bottom: this.state.newBottom ? '0px' : (this.checkIfMobileBrowser() ? '56px' : '0px')}} className={styles.bottomCTASection}>
+                    ? <div style={{bottom: this.state.newBottom ? '0px' : '56px'}} className={styles.bottomCTASection}>
                         <button
                             className={styles.orderButton}
                             onClick={async () => {
