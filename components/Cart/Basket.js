@@ -52,6 +52,16 @@ export default class Basket extends React.Component {
         const { productTotalPrice, shippingFee } = getPrice(this.props.cartData);
         const price = productTotalPrice - shippingFee;
 
+        if (this.props.isBasketOpen) {
+            if (typeof window != 'undefined') {
+                window.document.body.style.overflowY = 'hidden';
+            }
+        } else {
+            if (typeof window != 'undefined') {
+                window.document.body.style.overflowY = 'auto';
+            }
+        }
+
         return (
             <aside className={styles.basketContainer + ' ' + (this.props.isBasketOpen ? styles.basketContainerOpen : '' )}>
                 {this.state.loading && <LoaderComponent />}
