@@ -106,8 +106,13 @@ function getRecordBySubdomain(subdomain) {
     });
 }
 
+function getSubDomain() {
+    
+}
+
 export {
   getRecordBySubdomain,
   getProductByStoreId,
-  getProductById
+  getProductById,
+  getSubDomain
 };
