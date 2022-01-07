@@ -41,7 +41,7 @@ const terms = (props) => {
 
     return (
         <div className={styles.container}>
-            <Basket
+            {/* <Basket
                 setRefresh={handleRefresh}
                 isBasketOpen={showCart}
                 setCart={setCart}
@@ -58,7 +58,7 @@ const terms = (props) => {
                 homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
                 storeName={storeData?.fields?.store_name || ''}
                 />
-            }
+            } */}
             <main>
                 <h2 className={styles.headline}>Terms & Conditions</h2>
                 {terms.trim() != "" ? 
