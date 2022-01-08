@@ -16,24 +16,24 @@ export default function ProductCustomFields({ product, selectedCustomAttributes=
       {customAttributes.map((attribute, index) =>
         attribute?.fields?.Required === "YES" ? (
           <FormInput
-            key={attribute?.fields?.Name}
+            key={attribute?.fields?.name}
             initialValue={selectedCustomAttributes[index]?.value || ''}
             ref={attribute?.ref}
             saveInLocalStorage={true}
             inputType="number"
             type="half"
-            placeholder={attribute?.fields?.Name}
+            placeholder={attribute?.fields?.name}
             regex={/^(?!\s*$).+/}
           />
         ) : (
           <FormInput
-            key={attribute?.fields?.Name}
+            key={attribute?.fields?.name}
             initialValue={selectedCustomAttributes[index]?.value || ''}
             ref={attribute?.ref}
             saveInLocalStorage={true}
             inputType="number"
             type="half"
-            placeholder={attribute?.fields?.Name}
+            placeholder={attribute?.fields?.name}
             // errorMessage={`${attribute?.fields?.Name} can't be blank`}
           />
         )

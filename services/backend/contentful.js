@@ -26,6 +26,12 @@ function responseSanitizer(incomingData, referenceArray) {
                 let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);
                 structuredObject[prop].push(extractedData);
             });
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
+            structuredObject[prop] = [];
+            incomingData[prop].forEach(entry => {
+                let extractedData = findFromReference(referenceArray.Entry, entry.sys.id);
+                structuredObject[prop].push(extractedData);
+            });
         } else if (incomingData[prop] instanceof Object && incomingData[prop].sys.type === 'Asset') {
             let extractedData = findFromReference(referenceArray.Asset, incomingData[prop].sys.id);
             structuredObject[prop] = extractedData;
