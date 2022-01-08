@@ -34,7 +34,7 @@ const StoreItem = ({ product }) => {
             )}
             <Image
               className={styles.productImg}
-              src={`https://${product?.headerPhoto?.file?.url}`}
+              src={`https:${product?.headerPhoto?.file?.url}`}
               width={204}
               height={204}
               objectFit="cover"
