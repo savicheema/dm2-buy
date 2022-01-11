@@ -20,7 +20,9 @@ function findFromReference(referenceArray, id) {
 function responseSanitizer(incomingData, referenceArray) {
     let structuredObject = {};
     for (let prop in incomingData) {
-        if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
+        if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && typeof incomingData[prop][0] === 'string') {
+            structuredObject[prop] = incomingData[prop];
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(asset => {
                 let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);

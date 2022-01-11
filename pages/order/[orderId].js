@@ -130,7 +130,7 @@ export default function Order(props) {
             </div>
             <PackageDetails order={order} />
             <PackageExtraDetails
-              dispatchTime={store?.["dispatchTime"]}
+              dispatchTime={store?.shippingInfo?.["dispatchTime"]}
               instaUserId={store?.contactInfo?.instagramHandle}
             />
             <BuyerDetails order={order} />
