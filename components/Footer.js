@@ -13,7 +13,7 @@ const Footer = () => {
     window.open(url, '_blank').focus();
   };
 
-  const { terms, contacts, returns, privacy } = storeData.legal;
+  const { terms, contacts, returns, privacy } = storeData.legalInfo;
 
   return (
     <footer className={styles.footer}>

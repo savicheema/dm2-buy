@@ -39,10 +39,10 @@ const createOrder = catchAsync(async (req, res) => {
   const order = new Order({ ...req.body });
   await order.save();
   const store = await contentfulService.getStoreById(storeId);
-  if (store.paymentGateway.fields.appId && store.paymentGateway.fields.appSecret) {
+  if (store.paymentInfo.paymentGatewayAppId && store.paymentInfo.paymentGatewayAppSecret) {
     const cashfree = {
-      appId: store.paymentGateway.fields.appId,
-      appSecret: store.paymentGateway.fields.appSecret,
+      appId: store.paymentInfo.paymentGatewayAppId,
+      appSecret: store.paymentInfo.paymentGatewayAppSecret,
     };
     response = await cashfreeService.createOrder(order, { cashfree });
   } else {

@@ -50,8 +50,8 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       address: addressFormRef.current.getValues(),
       seller: {
         name: await getSubDomainOfPage(),
-        instagram: store?.instagramHandle,
-        phone: store?.contactDetails?.contact,
+        instagram: store?.contactInfo?.instagramHandle,
+        phone: store?.contactInfo?.contact,
         seller_id: cart.products[0]?.store.fields.id,
       },
       products: cart.products.map((product) => ({

@@ -18,7 +18,7 @@ import Basket from "./Cart/Basket";
 const Main = ({ store, endLoading, loading }) => {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
-  const homePageEnabled = store?.homePageEnabled;
+  const homePageEnabled = store?.homePage?.homePageEnabled;
   const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? true : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);

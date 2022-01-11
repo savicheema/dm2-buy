@@ -54,8 +54,8 @@ export default function Order(props) {
     setShowCart(boolVal);
   }
 
-  const creatorThankYouPagePhoto = store?.thankYouPagePhoto
-    ? store?.thankYouPagePhoto.file.url
+  const creatorThankYouPagePhoto = store?.personalisations?.orderDetailPageNote
+    ? store?.personalisations?.orderDetailPageMedia?.fields?.file.url
     : false;
 
   return (
@@ -122,7 +122,7 @@ export default function Order(props) {
                     className={orderStyles.thankyouText}
                     dangerouslySetInnerHTML={{
                       __html:
-                        store?.thankYouPage,
+                        store?.personalisations?.orderDetailPageNote
                     }}
                   ></p>
                 </div>
@@ -131,7 +131,7 @@ export default function Order(props) {
             <PackageDetails order={order} />
             <PackageExtraDetails
               dispatchTime={store?.["dispatchTime"]}
-              instaUserId={store?.instagramHandle}
+              instaUserId={store?.contactInfo?.instagramHandle}
             />
             <BuyerDetails order={order} />
           </div>

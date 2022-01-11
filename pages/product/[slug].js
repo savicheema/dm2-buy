@@ -279,7 +279,7 @@ class Product extends React.Component {
     for (const ca of product.customAttributes) {
       if (ca.ref.current.state.inputValue.trim() !== "") {
         customAttributes.push({
-          name: ca?.name,
+          name: ca?.fields?.name,
           value: ca.ref.current.state.inputValue,
         });
       }
