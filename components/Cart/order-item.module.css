@@ -21,6 +21,7 @@
   height: 18px;
   /* padding: 12px; */
   object-fit: contain;
+  background-color: black;
   border-radius: 50%;
   color: white;
   font-size: 11px;
