@@ -19,7 +19,7 @@ const Main = ({ store, endLoading, loading }) => {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
   const homePageEnabled = store?.homePage?.homePageEnabled;
-  const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? true : false);
+  const [homeActive, setHomeActive] = useState(homePageEnabled ? true : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -77,7 +77,7 @@ const Main = ({ store, endLoading, loading }) => {
         homeActive ?
         <Home
           updateHomeActive={updateHomeActive}
-          heroMedia={store?.heroMedia}
+          heroMedia={store?.homePage?.heroMedia}
           endLoading={endLoading}
           loading={loading}/>
         : <>

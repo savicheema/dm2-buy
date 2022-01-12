@@ -12,8 +12,8 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.heroMedia && this.props.heroMedia.length) {
-            this.setState({heroMedia: this.props.heroMedia[0]['url']});
+        if (this.props.heroMedia) {
+            this.setState({heroMedia: this.props.heroMedia?.fields?.file?.['url']});
         }
         this.props.endLoading();
     }
@@ -32,8 +32,8 @@ export default class Home extends React.Component {
                         controls={false}
                         autoPlay={true}
                         muted>
-                        <source src={this.state.heroMedia} type="video/mp4" />
-                        <source src={this.state.heroMedia} type="video/ogg" />
+                        <source src={'https:' + this.state.heroMedia} type="video/mp4" />
+                        <source src={'https:' + this.state.heroMedia} type="video/ogg" />
                         Your browser does not support the video tag.
                     </video>
                 </div>
