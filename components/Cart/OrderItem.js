@@ -9,12 +9,11 @@ const OrderItem = ({ item }) => (
 
       <div className={styles.productName}>
         {item.fields.Name} {' x '} {item.quantity}
-        { item.colour ? (
-          <span
-            className={styles.productQuantity}
-            style={{ backgroundColor: item.colour }}
-          ></span>
-        ) : null}
+        <span
+          className={styles.productQuantity}
+          style={{ backgroundColor: item.colour }}
+        >
+        </span>
 
         {item.customAttributes.length > 0 && (
           <div className={styles.product_specs}>

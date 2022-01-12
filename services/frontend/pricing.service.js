@@ -19,7 +19,7 @@ const getPrice = (cart) => {
 
   let priceWithoutFees = calculatedPrice;
   if(percentageDiscount){
-    calculatedPrice = ((priceWithoutFees*10 - priceWithoutFees*percentageDiscount*10)/10);
+    calculatedPrice = priceWithoutFees - priceWithoutFees*percentageDiscount;
   }
 
   if (calculatedPrice < shippingFeeCap) {

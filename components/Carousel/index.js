@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./index.module.css";
+import "./index.module.css";
 import Image from "next/image";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -10,7 +10,7 @@ import NextArrow from "./NextArrow";
 import Indicator from "./Indicator";
 
 const DM2BuyCarousel = ({ product }) => (
-  <div style={{padding: '0px 18px'}}>
+  <div>
     <Carousel
       showThumbs={false}
       showStatus={false}
@@ -34,7 +34,7 @@ const DM2BuyCarousel = ({ product }) => (
     >
       {product.allPhotos &&
         product.allPhotos.map((photo, index) => {
-          return <Image className={styles.caraouselImage} src={photo.url} height={425} width={360} key={index} priority/>;
+          return <Image src={photo.url} height={425} width={360} key={index} priority/>;
         })}
     </Carousel>
   </div>
