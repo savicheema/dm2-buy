@@ -1,6 +1,6 @@
 .storeItems {
   display: grid;
-  margin-top: 24px;
+  margin-top: 14px;
   grid-gap: 11px 22px;
   grid-template-columns: 1fr 1fr;
   /* grid-template-columns: repeat(autofill, 1fr); */
@@ -12,6 +12,6 @@
   margin-right: 20px;
 } */
 .store {
-  min-height: calc(100vh - 430px);
+  min-height: calc(100vh - 268px);
   width: 100%;
 }

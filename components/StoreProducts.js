@@ -5,6 +5,7 @@ import StoreItem from "./StoreItem";
 import { getSubDomainOfPage } from "../services/helper";
 
 import StoreCollections from "./StoreCollections";
+import LoaderComponent from "./Loader";
 
 class StoreProducts extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class StoreProducts extends React.Component {
       products,
       storeCollections,
       selectedFilter,
+      loading: true
     };
 
     this.collectionsRef = React.createRef();
@@ -48,6 +50,7 @@ class StoreProducts extends React.Component {
           this.setState(
             {
               products: productValues.records.filter(this.filterStoreProducts),
+              loading: false
             },
             () => {
               let { endLoading } = this.props;
@@ -63,6 +66,7 @@ class StoreProducts extends React.Component {
           console.error(err);
           let { endLoading } = this.props;
           endLoading();
+          this.setState({loading: false});
           alert("Error Loading store products!");
           reject();
         });
@@ -129,43 +133,38 @@ class StoreProducts extends React.Component {
 
   render() {
     let { products, storeCollections, collectionsHeight } = this.state;
-    console.log(" StoreProducts STATE", products);
-
-    let { loading } = this.props;
-
-    console.log("REF", { props: this.props, loading }, this.collectionsRef);
 
     return (
       <div className={styles.store}>
+        {this.state.loading && <LoaderComponent />}
         {/* {products.length && (
           <h2
             className={styles.storeHeading}
           >{`${products.length} products listed`}</h2>
         )} */}
 
-        {!loading && (
-          <div
-            className={styles.storeItems}
-            style={{
-              paddingTop: `${collectionsHeight + 16}px`,
-            }}
-          >
+        {!this.state.loading && (
+          <>
             <StoreCollections
               collections={storeCollections}
               setCollectionsHeight={this.setCollectionsHeight}
               setFilter={this.setFilter}
             />
-
-            {products.length > 0 ? (
-              products
-                .filter(this.filterCollectionProducts)
-                .map((product, index) => {
-                  return <StoreItem product={product} key={index} />;
-                })
-            ) : (
-              <EmptyStore />
-            )}
-          </div>
+            <div
+              className={styles.storeItems}
+              style={{}}
+            >
+              {products.length > 0 ? (
+                products
+                  .filter(this.filterCollectionProducts)
+                  .map((product, index) => {
+                    return <StoreItem product={product} key={index} />;
+                  })
+              ) : (
+                <EmptyStore />
+              )}
+            </div>
+          </>
         )}
       </div>
     );

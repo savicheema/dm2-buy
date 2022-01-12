@@ -1,12 +1,12 @@
 .main {
-  padding: 8px 22px 0 22px;
+  padding: 78px 22px 0 22px;
   flex: auto;
   /* display: flex;
   flex-direction: column;
   align-items: center; */
-  width: 100vw;
+  width: 100%;
   max-width: var(--max-width);
-  margin-top: 32px;
+  /* margin-top: 32px; */
   /* margin-bottom: 50px; */
   overflow-x: hidden;
 }
