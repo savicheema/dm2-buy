@@ -103,7 +103,7 @@ async function paymentRedirectPage(req, res) {
     order.save();
   }
 
-  let customDomain = await contentfulService.getCustomDomain(order.seller.name);
+  let customDomain = await contentfulService.getCustomDomain(order.seller.subdomain);
   if (customDomain && customDomain.customDomainEnabled) {
     customDomain = customDomain.customDomain;
   }

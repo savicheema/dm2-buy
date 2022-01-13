@@ -129,11 +129,10 @@ function getStoreById(storeId) {
 async function getCustomDomain(subdomain) {
     return new Promise((resolve, reject) => {
         client
-        .getEntry({ content_type: 'RoutingInfo', 'fields.subdomain': subdomain })
+        .getEntries({ content_type: 'routingInfo', 'fields.subdomain': subdomain })
         .then(entry => {
-            if (entry && entry.fields) {
-                let sanitizedData = entry.fields;
-                sanitizedData.id = entry.sys.id;
+            if (entry && entry.items && entry.items.length) {
+                let sanitizedData = entry.items[0].fields;
                 resolve(sanitizedData);
             } else {
                 reject();

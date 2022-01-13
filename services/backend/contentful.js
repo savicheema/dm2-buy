@@ -117,11 +117,10 @@ function getRecordBySubdomain(subdomain) {
 function getSubDomain(customDomain) {
     return new Promise((resolve, reject) => {
         client
-        .getEntry({ content_type: 'RoutingInfo', 'fields.customDomain': customDomain })
+        .getEntries({ content_type: 'routingInfo', 'fields.customDomain': customDomain })
         .then(entry => {
-            if (entry && entry.fields) {
-                let sanitizedData = entry.fields;
-                sanitizedData.id = entry.sys.id;
+            if (entry && entry.items && entry.items.length) {
+                let sanitizedData = entry.items[0].fields;
                 resolve(sanitizedData);
             } else {
                 reject();
