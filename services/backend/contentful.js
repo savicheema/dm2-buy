@@ -114,8 +114,24 @@ function getRecordBySubdomain(subdomain) {
     });
 }
 
-function getSubDomain() {
-    
+function getSubDomain(customDomain) {
+    return new Promise((resolve, reject) => {
+        client
+        .getEntry({ content_type: 'RoutingInfo', 'fields.customDomain': customDomain })
+        .then(entry => {
+            if (entry && entry.fields) {
+                let sanitizedData = entry.fields;
+                sanitizedData.id = entry.sys.id;
+                resolve(sanitizedData);
+            } else {
+                reject();
+            }
+        })
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+    });
 }
 
 export {

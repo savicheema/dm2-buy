@@ -126,9 +126,30 @@ function getStoreById(storeId) {
     });
 }
 
+async function getCustomDomain(subdomain) {
+    return new Promise((resolve, reject) => {
+        client
+        .getEntry({ content_type: 'RoutingInfo', 'fields.subdomain': subdomain })
+        .then(entry => {
+            if (entry && entry.fields) {
+                let sanitizedData = entry.fields;
+                sanitizedData.id = entry.sys.id;
+                resolve(sanitizedData);
+            } else {
+                reject();
+            }
+        })
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
   getRecordBySubdomain,
   getProductByStoreId,
   getProductById,
-  getStoreById
+  getStoreById,
+  getCustomDomain
 };

@@ -13,7 +13,7 @@ async function getSubdomain(req, res) {
         return;
       }
 
-      const data = recordMeta.fields['subdomain '];
+      const data = recordMeta['subdomain'];
 
       res.status(200).json({
         subdomain: data

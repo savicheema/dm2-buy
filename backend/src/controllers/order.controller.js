@@ -35,7 +35,7 @@ function paymentRedirectPage(req, res, next) {
 
 const createOrder = catchAsync(async (req, res) => {
   let response;
-  const { seller_id: storeId } = req.body.seller;
+  const { store_id: storeId } = req.body;
   const order = new Order({ ...req.body });
   await order.save();
   const store = await contentfulService.getStoreById(storeId);

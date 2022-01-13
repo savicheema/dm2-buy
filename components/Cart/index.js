@@ -38,7 +38,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
     setError(false);
     console.log(couponId, couponCode)
     const bodyData = {
-      userId: guid(),
+      buyer_id: guid(),
       discountCode: {
         id: couponId,
         couponCode: couponCode,
@@ -47,13 +47,8 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       payment_processing_fee: processingFee,
       order_total: total,
       buyer: personalFormRef.current.getValues(),
-      address: addressFormRef.current.getValues(),
-      seller: {
-        name: await getSubDomainOfPage(),
-        instagram: store?.contactInfo?.instagramHandle,
-        phone: store?.contactInfo?.contact,
-        seller_id: cart.products[0]?.store.fields.id,
-      },
+      shipping_address: addressFormRef.current.getValues(),
+      store_id: cart.products[0]?.store.fields.id,
       products: cart.products.map((product) => ({
         customAttributes: product.customAttributes,
         colour: product?.colour,

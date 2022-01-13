@@ -4,6 +4,7 @@ const { Order } = require("../models");
 const whatsappService = require('./whatsapp.service');
 const emailService = require('./email.service');
 const airtableService = require('./airtable.service');
+const contentfulService = require('./contentful.service');
 
 
 async function getAll() {
@@ -14,8 +15,8 @@ async function getById(id, res) {
   const order = await Order.findById(id);
 
   let store;
-  if (order && order.seller) {
-    store = await airtableService.getStoreById(order.seller.seller_id);
+  if (order && order.store_id) {
+    store = await contentfulService.getStoreById(order.store_id);
   }
 
   const options = {
@@ -27,14 +28,14 @@ async function getById(id, res) {
     },
     formData: {
       appId: store 
-        && store.fields 
-        && store.fields.CASHFREE_APP_ID
-          ? store.fields.CASHFREE_APP_ID
+        && store.paymentInfo 
+        && store.paymentInfo.paymentGatewayAppId
+          ? store.paymentInfo.paymentGatewayAppId
           : config.cashfree.appId,
       secretKey: store 
-        && store.fields
-        && store.fields.CASHFREE_APP_SECRET
-          ? store.fields.CASHFREE_APP_SECRET 
+        && store.paymentInfo
+        && store.paymentInfo.paymentGatewayAppSecret
+          ? store.paymentInfo.paymentGatewayAppSecret 
           : config.cashfree.appSecret,
       orderId: order.id,
     },
@@ -51,7 +52,7 @@ async function getById(id, res) {
       buyer: order.buyer,
       createdDate: order.createdDate,
       id: order.id,
-      address: order.address,
+      address: order.shipping_address,
       payment_status: order.payment_status,
     };
     res.json(jsonData);
@@ -95,18 +96,20 @@ async function paymentRedirectPage(req, res) {
   console.log('paymentRedirectPage order id ');
   console.log(req.params.id);
   const order = await Order.findById(req.params.id);
+  order.seller = await contentfulService.getStoreById(order.store_id);
   if (req.body.txStatus == 'SUCCESS') {
     console.log('paymentRedirectPage success');
     order.payment_status = 'complete';
     order.save();
   }
 
-  let customDomain = await airtableService.getCustomDomain(order.seller.name);
-  if (customDomain) {
-    customDomain = customDomain.fields.custom_domain;
+  let customDomain = await contentfulService.getCustomDomain(order.seller.name);
+  if (customDomain && customDomain.customDomainEnabled) {
+    customDomain = customDomain.customDomain;
   }
 
-  const redirectUrl = 'https://' + (customDomain || (order.seller.name + config.baseUrl.frontend)) + '/order/' + order.id;
+  const redirectUrl = 'https://' + (customDomain && customDomain.customDomainEnabled ? customDomain : (order.seller.subdomain + config.baseUrl.frontend)) + '/order/' + order.id;
+
   res.writeHead(302, { Location: redirectUrl });
   res.end();
 }
