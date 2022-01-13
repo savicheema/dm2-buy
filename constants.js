@@ -13,7 +13,7 @@ const constants = {
   },
   endpoints: {
     dev: {
-      url: "http://dev.api.dm2buy.com",
+      url: "http://3.110.224.20",
     },
     prod: {
       url: "https://api.dm2buy.com",
