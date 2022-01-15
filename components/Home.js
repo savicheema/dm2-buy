@@ -32,6 +32,7 @@ export default class Home extends React.Component {
               width={'100%'}
               height={'calc(var(--max-width) * 1.5)'}
               muted
+              loop={true}
               playsinline={true}
               playing={true}
               url={this.state.heroMedia}
@@ -41,8 +42,9 @@ export default class Home extends React.Component {
               <div className={styles.homeDetailsTitle}>
                   {this.props.heroTitle}
               </div>
-              <div className={styles.homeDetailsDesc}>
-                {this.props.heroDescription}
+              <div
+                className={styles.homeDetailsDesc}
+                dangerouslySetInnerHTML={{ __html: this.props.heroDescription }}>
               </div>
               <div
                 onClick={() => this.props.updateHomeActive(false)}
