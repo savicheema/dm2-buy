@@ -12,7 +12,7 @@ import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { initialCart } from "../../services/ObjectsInitialValues";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar";
 
 export async function getServerSideProps(context) {
   return getOrderDetail(context);

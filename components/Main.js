@@ -7,7 +7,7 @@ import { ShareButton, ImageButton } from "./Buttons";
 import Footer from "./Footer";
 import EllipsisText from "react-ellipsis-text";
 import Toast from "./Toast";
-import NavBar from "./NavBar"
+import NavBar from "./Navbar"
 import Home from "./Home";
 import useLocalStorage from "./../hooks/useLocalStorage";
 import { CART_KEY } from "./../services/frontend/StorageKeys";
