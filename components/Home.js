@@ -39,8 +39,9 @@ export default class Home extends React.Component {
             />
           </div>
           <div className={styles.homeDetailsContainer}>
-              <div className={styles.homeDetailsTitle}>
-                  {this.props.heroTitle}
+              <div
+                className={styles.homeDetailsTitle}
+                dangerouslySetInnerHTML={{ __html: this.props.heroTitle }}>
               </div>
               <div
                 className={styles.homeDetailsDesc}
