@@ -79,7 +79,7 @@ export default function Bag() {
           <button
             className={styles.continueShoppingButton}
             onClick={async () => {
-              window.location.href = `/`;
+              window.location.href = `/shop`;
             }}
           >
             Continue Shopping
