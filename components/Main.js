@@ -24,6 +24,9 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
 
   const updateHomeActive = (boolVal = false) => {
     setHomeActive(boolVal);
+    if (typeof window !== 'undefined') {
+      window.history.pushState("object or string", "Title", "shop");
+    }
   }
 
   const showToast = () => {
