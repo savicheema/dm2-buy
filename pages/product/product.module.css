@@ -1,4 +1,5 @@
 .container {
+  margin-top: 76px;
   min-height: 100vh;
   max-width: 100%;
   /* max-width: var(--max-width); */

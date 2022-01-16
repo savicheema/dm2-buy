@@ -13,6 +13,7 @@ import { CART_KEY } from "../../services/frontend/StorageKeys";
 import { initialCart } from "../../services/ObjectsInitialValues";
 import ProductCustomFields from "../../components/ProductCustomFields";
 import ProductColors from "../../components/ProductColors";
+import NavBar from "../../components/Navbar";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -46,6 +47,9 @@ class Product extends React.Component {
       productUrl: props.productUrl,
       open: false,
       productAlreadyInCart: false,
+      showCart: false,
+      cart: {},
+      hideInAdvance: false
     };
   }
 
@@ -85,6 +89,8 @@ class Product extends React.Component {
     }
 
     if (!product) return <LoaderComponent />;
+
+    const homePageEnabled = this.props?.product?.store?.fields?.homePageEnabled;
 
     return (
       <div className={styles.container}>
@@ -126,6 +132,12 @@ class Product extends React.Component {
             />
           </Head>
           {/* <Header /> */}
+          <NavBar
+            cartActive={this.state.cart?.products?.length ? true : false}
+            handleShowCart={this.handleShowCart}
+            homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+            storeName={this.props.product?.store?.fields?.store_name || ''}
+          />
 
           <DM2BuyCarousel product={product} />
           <div className={styles.productSub}>
