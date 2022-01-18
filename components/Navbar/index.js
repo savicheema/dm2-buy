@@ -18,7 +18,17 @@ const NavBar = (props) => {
   const checkoutShouldHide = () => {
     let shouldHide = false;
     if (typeof window != 'undefined') {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 120) {
+        shouldHide = true;
+      }
+    }
+    return shouldHide;
+  }
+
+  const makeBGWhite = () => {
+    let shouldHide = false;
+    if (typeof window != 'undefined') {
+      if (window.scrollY > 30) {
         shouldHide = true;
       }
     }
@@ -26,7 +36,14 @@ const NavBar = (props) => {
   }
 
   return (
-    <header className={styles.navBar + ' ' + (direction === 'up' ? styles.hideFade : '') + ' ' + (direction === 'down' && checkoutShouldHide() ? styles.hide : '')}>
+    <header className={
+      styles.navBar + ' '
+      + (direction === 'up' ? styles.hideFade : '')
+      + ' '
+      + (direction === 'down' && checkoutShouldHide() ? styles.hide : '')
+      + ' '
+      + (direction === 'down' && makeBGWhite() ? styles.addBGWhite : '')
+      }>
       <div className={styles.hamTitleContainer}>
         {/* <button className={styles.hamBtn} onClick={()=>setIsHamOpen((o)=>!o)}>
           {
