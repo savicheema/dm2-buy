@@ -20,10 +20,18 @@ function findFromReference(referenceArray, id) {
 function responseSanitizer(incomingData, referenceArray) {
     let structuredObject = {};
     for (let prop in incomingData) {
-        if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
+        if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && typeof incomingData[prop][0] === 'string') {
+            structuredObject[prop] = incomingData[prop];
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(asset => {
                 let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);
+                structuredObject[prop].push(extractedData);
+            });
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
+            structuredObject[prop] = [];
+            incomingData[prop].forEach(entry => {
+                let extractedData = findFromReference(referenceArray.Entry, entry.sys.id);
                 structuredObject[prop].push(extractedData);
             });
         } else if (incomingData[prop] instanceof Object && incomingData[prop].sys.type === 'Asset') {
