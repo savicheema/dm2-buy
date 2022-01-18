@@ -20,10 +20,18 @@ function findFromReference(referenceArray, id) {
 function responseSanitizer(incomingData, referenceArray) {
     let structuredObject = {};
     for (let prop in incomingData) {
-        if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
+        if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && typeof incomingData[prop][0] === 'string') {
+            structuredObject[prop] = incomingData[prop];
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(asset => {
                 let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);
+                structuredObject[prop].push(extractedData);
+            });
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
+            structuredObject[prop] = [];
+            incomingData[prop].forEach(entry => {
+                let extractedData = findFromReference(referenceArray.Entry, entry.sys.id);
                 structuredObject[prop].push(extractedData);
             });
         } else if (incomingData[prop] instanceof Object && incomingData[prop].sys.type === 'Asset') {
@@ -40,6 +48,7 @@ function responseSanitizer(incomingData, referenceArray) {
     }
     return structuredObject;
 }
+
 
 function getProductByStoreId(storeId) {
     return new Promise((resolve, reject) => {
@@ -126,6 +135,29 @@ function getStoreById(storeId) {
     });
 }
 
+function getStoreBySecret(secret) {
+    console.log(secret)
+
+    return new Promise((resolve, reject) => {
+        client
+        .getEntries({ content_type: 'store', 'fields.secretCode': secret })
+        .then(entry => {
+            console.log(entry)
+            if (entry && entry.items && entry.items.length) {
+                let sanitizedData = responseSanitizer(entry.items[0].fields, entry.includes);
+                sanitizedData.id = entry.items[0].sys.id;
+                resolve(sanitizedData);
+            } else {
+                reject();
+            }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
 async function getCustomDomain(subdomain) {
     return new Promise((resolve, reject) => {
         client
@@ -150,5 +182,6 @@ module.exports = {
   getProductByStoreId,
   getProductById,
   getStoreById,
-  getCustomDomain
+  getCustomDomain,
+  getStoreBySecret
 };
