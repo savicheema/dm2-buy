@@ -40,6 +40,7 @@ async function sendEmail(order) {
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL}`, // sender address
     to: `${order.buyer.email}`, // list of receivers
+    cc:[ "sgoel19922@gmail.com", "suavelambi@gmail.com"],
     subject: 'Order Confirmed', // Subject line
     html: `<div class="">
     <div class="aHl"></div>
