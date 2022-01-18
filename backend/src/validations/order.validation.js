@@ -20,6 +20,7 @@ const createOrderValidations = {
     buyer: Joi.object().keys({
       email: Joi.string().required(),
       name: Joi.string().required(),
+      instagram: Joi.string(),
       phone: Joi.string().required(),
     }),
     order_shipping: Joi.number().required(),

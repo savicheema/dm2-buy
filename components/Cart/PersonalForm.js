@@ -95,6 +95,7 @@ class PersonalForm extends React.Component {
   validate = async () => {
     const allValidations = [
       this.nameInputRef.current,
+      this.instagramInputRef.current,
       this.phoneInputRef.current,
       this.emailInputRef.current,
     ];
@@ -116,6 +117,7 @@ class PersonalForm extends React.Component {
     return {
       name: this.nameInputRef.current.state.inputValue,
       phone: this.phoneInputRef.current.state.inputValue,
+      instagram: this.instagramInputRef.current.state.inputValue,
       email: this.emailInputRef.current.state.inputValue,
     };
   };
