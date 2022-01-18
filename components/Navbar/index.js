@@ -3,22 +3,22 @@ import EllipsisText from "react-ellipsis-text";
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 // import SideBar from '../SideBar';
-// import { useScrollDirection } from 'react-use-scroll-direction';
+import { useScrollDirection } from 'react-use-scroll-direction';
 
 const NavBar = (props) => {
   const [isHamOpen, setIsHamOpen] = useState(false);
   const [direction, setDirection] = React.useState(String);
-//   const { isScrollingUp, isScrollingDown } = useScrollDirection();
+  const { isScrollingUp, isScrollingDown } = useScrollDirection();
 
-//   React.useEffect(() => {
-//     isScrollingDown && setDirection('down');
-//     isScrollingUp && setDirection('up');
-//   }, [isScrollingDown, isScrollingUp]);
+  React.useEffect(() => {
+    isScrollingDown && setDirection('down');
+    isScrollingUp && setDirection('up');
+  }, [isScrollingDown, isScrollingUp]);
 
   const checkoutShouldHide = () => {
     let shouldHide = false;
     if (typeof window != 'undefined') {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 100) {
         shouldHide = true;
       }
     }
@@ -26,7 +26,7 @@ const NavBar = (props) => {
   }
 
   return (
-    <header className={styles.navBar}>
+    <header className={styles.navBar + ' ' + (direction === 'up' ? styles.hideFade : '') + ' ' + (direction === 'down' && checkoutShouldHide() ? styles.hide : '')}>
       <div className={styles.hamTitleContainer}>
         {/* <button className={styles.hamBtn} onClick={()=>setIsHamOpen((o)=>!o)}>
           {

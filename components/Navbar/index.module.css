@@ -26,7 +26,7 @@
     top: 0;
     left: 50%;
     max-width: var(--max-width);
-    background-color: rgb(255, 255, 255);
+    background-color: transparent;
     transform: translateX(-50%);
     opacity: 1;
     transition: all 0.4s ease-in-out;
@@ -49,8 +49,12 @@
   
   .hide {
     top: -60px;
-    /* opacity: 0; */
-    transition: all 0.4s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hideFade {
+    background: rgb(255, 255, 255);;
+    transition: all 0.3s ease-in-out;
   }
   
   .hamBtn{
