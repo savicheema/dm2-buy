@@ -33,6 +33,7 @@ ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}
 ${order.address.city}, ${order.address.state} ${order.address.pincode}
 PH. +91 ${order.buyer.phone}
+${order.buyer && order.buyer.instagram ? 'Instagram: ' + order.buyer.instagram : ''}
 Email: ${order.buyer.email}
 
 Thank you and Happy Selling,
