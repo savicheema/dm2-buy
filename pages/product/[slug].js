@@ -136,6 +136,7 @@ class Product extends React.Component {
             cartActive={this.state.cart?.products?.length ? true : false}
             handleShowCart={this.handleShowCart}
             homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+            store={this.props.product?.store}
             storeName={this.props.product?.store?.fields?.store_name || ''}
           />
 

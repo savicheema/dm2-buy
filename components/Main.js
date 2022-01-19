@@ -51,6 +51,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
           cartActive={false}
           hideInAdvance={false}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          store={store}
           storeName={store?.fields?.store_name || ''}
         />
       }

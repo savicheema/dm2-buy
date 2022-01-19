@@ -66,6 +66,7 @@ export default function Order(props) {
           cartActive={false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          store={store}
           storeName={store?.fields?.store_name || ''}
         />
       }
