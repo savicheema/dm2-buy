@@ -16,7 +16,7 @@ import StorageManager from "./../services/frontend/StorageManager";
 import Basket from "./Cart/Basket";
 
 const Main = ({ store, endLoading, loading }) => {
-  console.log('contentful branch!');
+  console.log('contentful branch.');
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
   const homePageEnabled = store?.homePage?.homePageEnabled;
