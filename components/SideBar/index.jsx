@@ -9,11 +9,11 @@ const CategoryProduct = ({product}) => {
             window.location.href = `/product/${product.fields.Slug}-${product.id}`;
         }}
         className={styles.productContainer}>
-      <Image className={styles.categoryProductImage} src={product?.fields?.header_photo[0]?.url} layout="fixed" width="60" height="60" />
+      <Image className={styles.categoryProductImage} src={product?.fields?.header_photo[0]?.url} layout="fixed" width="70" height="70" />
       <div className={styles.productDesc}>
-        <h4 className={styles.productTitle}>
+        <span className={styles.productTitle}>
           {product?.fields?.Name}
-        </h4>
+        </span>
         <span className={styles.productPrice}>
           {String.fromCharCode(0x20b9)}{product?.fields?.Price}
         </span>
@@ -78,18 +78,19 @@ const constructCategoriesData = (products) => {
 }
 
 const SideBar = ({isHamOpen, products, loading}) => {
-    products = constructCategoriesData(products);
+    // products = constructCategoriesData(products);
+    products = products.filter(product => product.fields.product_count !== 0);
 
     return (
-        <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
-            <div className={styles.sideBarContainer}>
-                {
-                    products.map((category, index) => {
-                        return <CategoryAccordian category={category} key={index+1} />;
-                    })
-                }
-            </div>
-        </aside>
+      <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
+        <div className={styles.sideBarContainer}>
+          {
+            products.map((product, index) => {
+              return <CategoryProduct key={index+1} product={product} />
+            })
+          }
+        </div>
+      </aside>
     );
 }
 

@@ -65,13 +65,16 @@
     flex-direction: row;
     justify-content: start;
     gap: 1.2rem;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     align-items: center;
   }
   .productPrice{
-    font-size: 0.8rem;
-    opacity: 0.8;
+    height: 50%;
+    font-size: 0.9rem;
     color: rgba(28, 49, 66, 0.8);
+    display: flex;
+    align-items: flex-start;
+    margin-top: 5px;
   }
   .chevron {
     background-color: transparent;
@@ -87,10 +90,21 @@
   }
 
 .productTitle {
-    font-weight: 600;
+  font-weight: 500;
+  height: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 5px;
 }
   
 .categoryProductImage {
-    border-radius: 10px;
-    object-fit: cover;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.productDesc {
+  display: flex;
+  flex-direction: column;
+  height: 70px;
 }
