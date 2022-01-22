@@ -15,6 +15,7 @@ import { initialCart } from "./../services/ObjectsInitialValues";
 import StorageManager from "./../services/frontend/StorageManager";
 
 const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
+  console.log('dev-homepage branch live.');
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
   const homePageEnabled = store?.fields?.homePageEnabled;
@@ -50,6 +51,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
           cartActive={false}
           hideInAdvance={false}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          store={store}
           storeName={store?.fields?.store_name || ''}
         />
       }

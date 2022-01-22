@@ -10,7 +10,7 @@ import NextArrow from "./NextArrow";
 import Indicator from "./Indicator";
 
 const DM2BuyCarousel = ({ product }) => (
-  <div>
+  <div style={{padding: '0px 18px'}}>
     <Carousel
       showThumbs={false}
       showStatus={false}
