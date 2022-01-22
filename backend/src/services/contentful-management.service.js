@@ -18,6 +18,8 @@ function updateProductById(id, product) {
             .then(entry => {
                 if(product.name)
                     entry.fields.name['en-US'] = product.name
+                if(product.price)
+                    entry.fields.price['en-US'] = product.price
                 resolve(entry.update())
             })
             .catch(err => {
