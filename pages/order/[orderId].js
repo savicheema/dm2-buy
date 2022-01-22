@@ -25,7 +25,6 @@ export default function Order(props) {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const homePageEnabled = props.store?.fields?.homePageEnabled;
   const [showCart, setShowCart] = useState(false);
-  const { errorCode, order, store, retryLink } = props;
   const [loading, setLoading] = useState(false);
 
   const status = order?.payment_status;
