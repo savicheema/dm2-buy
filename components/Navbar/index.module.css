@@ -21,7 +21,7 @@
     height: 72px;
     width: 100%;
     padding: 0.5rem 22px;
-    z-index: 100;
+    z-index: 99;
     position: fixed;
     top: 0;
     left: 50%;

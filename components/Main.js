@@ -13,6 +13,7 @@ import useLocalStorage from "./../hooks/useLocalStorage";
 import { CART_KEY } from "./../services/frontend/StorageKeys";
 import { initialCart } from "./../services/ObjectsInitialValues";
 import StorageManager from "./../services/frontend/StorageManager";
+import Basket from "./Cart/Basket";
 
 const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   console.log('dev-homepage branch live.');
@@ -30,12 +31,24 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
     }
   }
 
+  const handleShowCart = (boolVal = false) => {
+    setShowCart(boolVal);
+  }
+
   const showToast = () => {
     setOpen(true);
     setTimeout(() => {
       setOpen(false);
     }, 3000);
   };
+
+  const handleRefresh = () => {
+    setCart({
+      products: [],
+      shippingFee: 0,
+      shippingFeeCap: 0
+    });
+  }
 
   if (!store) return null;
 
@@ -46,9 +59,18 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
         transition: "max-height 0.2s",
       }}
     >
+      <Basket
+        setRefresh={handleRefresh}
+        isBasketOpen={showCart}
+        setCart={setCart}
+        cartData={cart}
+        StorageManager={StorageManager}
+        CART_KEY={CART_KEY}
+        handleShowCart={handleShowCart}/>
       {
         <NavBar
-          cartActive={false}
+          cartActive={cart.products.length ? true : false}
+          handleShowCart={handleShowCart}
           hideInAdvance={false}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
           store={store}

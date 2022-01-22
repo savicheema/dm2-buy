@@ -13,6 +13,7 @@ import { CART_KEY } from "../../services/frontend/StorageKeys";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { initialCart } from "../../services/ObjectsInitialValues";
 import NavBar from "../../components/Navbar";
+import Basket from "../../components/Cart/Basket";
 
 export async function getServerSideProps(context) {
   return getOrderDetail(context);
@@ -24,6 +25,8 @@ export default function Order(props) {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const homePageEnabled = props.store?.fields?.homePageEnabled;
   const [showCart, setShowCart] = useState(false);
+  const { errorCode, order, store, retryLink } = props;
+  const [loading, setLoading] = useState(false);
 
   const status = order?.payment_status;
   const [meta, setMeta] = useState({
@@ -60,6 +63,13 @@ export default function Order(props) {
 
   return (
     <div className={orderStyles.container}>
+      <Basket
+        isBasketOpen={showCart}
+        setCart={setCart}
+        cartData={cart}
+        StorageManager={StorageManager}
+        CART_KEY={CART_KEY}
+        handleShowCart={handleShowCart}/>
       {
         <NavBar
           hideInAdvance={false}
