@@ -29,6 +29,29 @@ function updateProductById(id, product) {
     });
 }
 
+function createProduct(product){
+    return new Promise((resolve, reject) => {
+        console.log(client)
+        client.getSpace('vidnutv0ls36')
+        .then((space) => space.getEnvironment("master"))
+        .then((environment) => environment.createEntry('product',{
+            fields: {
+                name: {
+                    'en-US': product.name
+                },
+                price: {
+                    'en-US': product.price
+                }
+            }
+        })).then((entry)=> resolve(entry))
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
-    updateProductById
+    updateProductById,
+    createProduct
   };

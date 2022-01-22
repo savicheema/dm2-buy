@@ -4,8 +4,7 @@ const { success } = require('../utils/responseHandler');
 const { contentfulManagementService } = require('../services');
 
 const createProduct = catchAsync(async (req, res) => {
-  const product = new Product({ ...req.body });
-  const data = await product.save();
+  const data = await contentfulManagementService.createProduct({ ...req.body })
   res.send(success(data));
 });
 
