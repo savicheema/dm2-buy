@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const { Store, Product, CustomAttribute } = require('../models');
 const { success } = require('../utils/responseHandler');
+const { contentfulManagementService } = require('../services');
 
 const createProduct = catchAsync(async (req, res) => {
   const product = new Product({ ...req.body });
@@ -9,7 +10,7 @@ const createProduct = catchAsync(async (req, res) => {
 });
 
 const updateProduct = catchAsync(async (req, res) => {
-  const data = await Product.findOneAndUpdate({ _id: req.params.id }, { ...req.body });
+  const data = await contentfulManagementService.updateProductById(req.params.id, { ...req.body });
   res.send(success(data));
 });
 
