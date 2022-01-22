@@ -1,4 +1,4 @@
-import styles from './index.module.css'
+import styles from './index.module.css';
 import EllipsisText from "react-ellipsis-text";
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";

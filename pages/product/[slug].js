@@ -14,6 +14,7 @@ import { initialCart } from "../../services/ObjectsInitialValues";
 import ProductCustomFields from "../../components/ProductCustomFields";
 import ProductColors from "../../components/ProductColors";
 import NavBar from "../../components/Navbar";
+import Basket from "../../components/Cart/Basket";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -58,6 +59,7 @@ class Product extends React.Component {
     // console.log({ props: this.props });
     this.customFieldsRef = React.createRef();
     const cartData = StorageManager.getJson(CART_KEY, initialCart);
+    this.setState({cart: cartData});
     const productArr = cartData.products.filter(
       (product) => product.id === productId
     );
@@ -80,6 +82,11 @@ class Product extends React.Component {
       this.setState({ open: false });
     }, 3000);
   };
+
+  handleShowCart = (boolVal = false) => {
+    this.setState({showCart: boolVal});
+  }
+
   render() {
     let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes } = this.state;
     console.log(" Product STATE", this.state);
@@ -132,6 +139,19 @@ class Product extends React.Component {
             />
           </Head>
           {/* <Header /> */}
+          {
+            this.state.cart?.products?.length
+            ? <Basket
+              fromProductPage={true}
+              isBasketOpen={this.state.showCart}
+              setCart={(value) => this.setState({cart: value})}
+              cartData={this.state.cart}
+              StorageManager={StorageManager}
+              setHideInAdvance={() => this.setState({hideInAdvance: true})}
+              CART_KEY={CART_KEY}
+              handleShowCart={this.handleShowCart}/>
+            : ''
+          }
           <NavBar
             cartActive={this.state.cart?.products?.length ? true : false}
             handleShowCart={this.handleShowCart}
@@ -237,7 +257,17 @@ class Product extends React.Component {
     const { product } = this.state;
     if (await this.validated(product)) {
       this.storeProductToLocalStorage(product);
-      window.location.href = `/cart`;
+      // window.location.href = `/cart`;
+      const cartData = StorageManager.getJson(CART_KEY, initialCart);
+      this.setState({cart: cartData, hideInAdvance: true}, () => {
+        if (this.state.cart.products && this.state.cart.products.length === 1) {
+          setTimeout(() => {
+            this.setState({showCart: true, hideInAdvance: false});
+          }, 100);
+        } else {
+          this.setState({showCart: true, hideInAdvance: false});
+        }
+      });
     }
   };
   storeProductToLocalStorage = (product) => {
@@ -250,16 +280,18 @@ class Product extends React.Component {
         });
       }
     }
-    product.customAttributes = customAttributes;
+
+    let _product = { ...product };
+    _product.customAttributes = customAttributes;
     const cart = StorageManager.getJson(CART_KEY, initialCart);
     const productIndex = cart.products.findIndex((item) => item.id === product.id);
     if (productIndex !== -1) {
-      cart.products[productIndex] = product;
+      cart.products[productIndex] = _product;
     } else {
-      cart.products.push(product);
+      cart.products.push(_product);
     }
-    cart.shippingFee = product.shippingFee;
-    cart.shippingFeeCap = product.shippingFeeCap;
+    cart.shippingFee = _product.shippingFee;
+    cart.shippingFeeCap = _product.shippingFeeCap;
     StorageManager.putJson(CART_KEY, cart);
   };
 }
