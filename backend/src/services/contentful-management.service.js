@@ -29,10 +29,57 @@ function updateProductById(id, product) {
     });
 }
 
-function createProduct(product){
+async function createProduct(product){
     console.log(product)
+    let assetArray = [];
+
+    for (let index = 0; index < product.otherPhotos.length; index++) {
+        const element = product.otherPhotos[index];
+        let assetRes = await new Promise((resolve, reject) => {
+            client.getSpace('vidnutv0ls36')
+            .then((space) => space.getEnvironment("master"))
+            .then((environment)=> environment.createAsset({
+                fields: {
+                    title: {
+                    'en-US': product.name
+                    },
+                    description: {
+                    'en-US': product.name
+                    },
+                    file: {
+                    'en-US': {
+                        contentType: 'image/jpeg',
+                        fileName: 'example.jpeg',
+                        upload: element
+                    }
+                    }
+                }
+            }))
+            .then((asset) => asset.processForAllLocales())
+            .then((asset) => {
+                console.log(asset)
+                resolve(asset)
+            }).catch(error => reject(error))
+        });
+
+        var assetObj = {
+            sys:{
+                "type": "Link",
+                "linkType": "Asset",
+                "id": assetRes.sys.id
+            }
+        }
+        assetArray.push(assetObj)   
+    }
+
+
+
+    // create product on contentful
     return new Promise((resolve, reject) => {
-        console.log(client)
+        console.log("start asset array.................")
+        console.log(assetArray)
+        console.log("end asset array.................")
+
         client.getSpace('vidnutv0ls36')
         .then((space) => space.getEnvironment("master"))
         .then((environment) => environment.createEntry('product',{
@@ -47,6 +94,11 @@ function createProduct(product){
                     'en-US': {
                         sys: {type: "Link", linkType: "Entry", id: product.store}
                     }
+                },
+                otherPhotos: {
+                        'en-US' : [
+                            ...assetArray
+                        ]
                 }
             }
         })).then((entry)=> resolve(entry))
