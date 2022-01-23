@@ -30,6 +30,7 @@ function updateProductById(id, product) {
 }
 
 function createProduct(product){
+    console.log(product)
     return new Promise((resolve, reject) => {
         console.log(client)
         client.getSpace('vidnutv0ls36')
@@ -41,6 +42,11 @@ function createProduct(product){
                 },
                 price: {
                     'en-US': product.price
+                },
+                store: {
+                    'en-US': {
+                        sys: {type: "Link", linkType: "Entry", id: product.store}
+                    }
                 }
             }
         })).then((entry)=> resolve(entry))
