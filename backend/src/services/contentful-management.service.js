@@ -1,5 +1,6 @@
-const contentfulManagement = require('contentful-management')
-
+const contentfulManagement = require('contentful-management');
+const { util } = require('prettier');
+const convertToSlug = require('../utils/utils')
 const client = contentfulManagement.createClient({
     // This is the space ID. A space is like a project folder in Contentful terms
     space: "vidnutv0ls36",
@@ -31,17 +32,15 @@ function updateProductById(id, product) {
 
 async function createProduct(product){
     console.log(product)
-    let assetArray = [];
-
-    for (let index = 0; index < product.otherPhotos.length; index++) {
-        const element = product.otherPhotos[index];
+    var assetHeaderImageObj = {}
+    if(product.headerPhoto){
         let assetRes = await new Promise((resolve, reject) => {
             client.getSpace('vidnutv0ls36')
             .then((space) => space.getEnvironment("master"))
             .then((environment)=> environment.createAsset({
                 fields: {
                     title: {
-                    'en-US': product.name
+                    'en-US': convertToSlug.convertToSlug(product.name)+"-header"
                     },
                     description: {
                     'en-US': product.name
@@ -50,28 +49,66 @@ async function createProduct(product){
                     'en-US': {
                         contentType: 'image/jpeg',
                         fileName: 'example.jpeg',
-                        upload: element
+                        upload: product.headerPhoto
                     }
                     }
                 }
             }))
             .then((asset) => asset.processForAllLocales())
-            .then((asset) => {
-                console.log(asset)
-                resolve(asset)
-            }).catch(error => reject(error))
+            .then((asset) => asset.publish())
+            .then((asset) => resolve(asset))
+            .catch(error => reject(error))
         });
-
-        var assetObj = {
+        assetHeaderImageObj = {
             sys:{
                 "type": "Link",
                 "linkType": "Asset",
                 "id": assetRes.sys.id
             }
         }
-        assetArray.push(assetObj)   
     }
 
+    let assetArray = [];
+    if(product.otherPhotos){
+        for (let index = 0; index < product.otherPhotos.length; index++) {
+            const element = product.otherPhotos[index];
+            let assetRes = await new Promise((resolve, reject) => {
+                client.getSpace('vidnutv0ls36')
+                .then((space) => space.getEnvironment("master"))
+                .then((environment)=> environment.createAsset({
+                    fields: {
+                        title: {
+                        'en-US': product.name
+                        },
+                        description: {
+                        'en-US': product.name
+                        },
+                        file: {
+                        'en-US': {
+                            contentType: 'image/jpeg',
+                            fileName: 'example.jpeg',
+                            upload: element
+                        }
+                        }
+                    }
+                }))
+                .then((asset) => asset.processForAllLocales())
+                .then((asset) => {
+                    console.log(asset)
+                    resolve(asset)
+                }).catch(error => reject(error))
+            });
+
+            var assetObj = {
+                sys:{
+                    "type": "Link",
+                    "linkType": "Asset",
+                    "id": assetRes.sys.id
+                }
+            }
+            assetArray.push(assetObj)   
+        }
+    }
 
 
     // create product on contentful
@@ -79,6 +116,7 @@ async function createProduct(product){
         console.log("start asset array.................")
         console.log(assetArray)
         console.log("end asset array.................")
+        console.log(new Date().toISOString())
 
         client.getSpace('vidnutv0ls36')
         .then((space) => space.getEnvironment("master"))
@@ -86,6 +124,12 @@ async function createProduct(product){
             fields: {
                 name: {
                     'en-US': product.name
+                },
+                slug:{
+                    'en-US': convertToSlug.convertToSlug(product.name)
+                },
+                createdDate:{
+                    'en-US': new Date().toISOString()
                 },
                 price: {
                     'en-US': product.price
@@ -96,12 +140,17 @@ async function createProduct(product){
                     }
                 },
                 otherPhotos: {
-                        'en-US' : [
+                    'en-US' : [
                             ...assetArray
                         ]
+                },
+                headerPhoto:{
+                    'en-US': assetHeaderImageObj
                 }
             }
-        })).then((entry)=> resolve(entry))
+        }))
+        .then((entry)=> entry.publish())
+        .then((entry)=>  resolve(entry))
         .catch(err => {
             console.log('contentful err: ', err);
             reject(err);
