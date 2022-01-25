@@ -56,6 +56,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       },
       products: cart.products.map((product) => ({
         customAttributes: product.customAttributes,
+        size: product.size || '',
         colour: product?.colour,
         id: product?.id,
         name: product?.fields?.Name,

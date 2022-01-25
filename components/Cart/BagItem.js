@@ -47,6 +47,12 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
                 .reduce((prev, curr) => [prev, ", ", curr])}
             </div>
           )}
+          <div className={styles.product_specs}>
+            {
+              item.size
+                ? 'Size - ' + item.size : ''
+            }
+          </div>
           {availableProductQuantity > 1 && !isProductCustomised && (
             <div className={styles.quantityControls}>
               <ImageButton

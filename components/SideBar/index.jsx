@@ -3,13 +3,22 @@ import Image from "next/image";
 import { useState } from "react";
 
 const CategoryProduct = ({product}) => {
+  const[imageLoaded, setImageLoaded] = useState(false);
   return (
     <div
         onClick={() => {
             window.location.href = `/product/${product.fields.Slug}-${product.id}`;
         }}
         className={styles.productContainer}>
-      <Image className={styles.categoryProductImage} src={product?.fields?.header_photo[0]?.url} layout="fixed" width="70" height="70" />
+      {
+        !imageLoaded ? <span className={styles.categoryProductImage + ' ' + styles.imagePlaceholder}></span> : ''
+      }
+      <img
+        style={!imageLoaded ? { display: 'none' } : {}}
+        className={styles.categoryProductImage}
+        onLoad={() => setImageLoaded(true)}
+        src={product?.fields?.header_photo[0]?.url}
+        layout="fixed" width="70" height="70" />
       <div className={styles.productDesc}>
         <span className={styles.productTitle}>
           {product?.fields?.Name}
