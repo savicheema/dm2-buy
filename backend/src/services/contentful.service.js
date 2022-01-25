@@ -58,6 +58,9 @@ function getProductByStoreId(storeId) {
                 let sanitizedData = [];
                 if (entry && entry.items && entry.items.length) {
                     entry.items.forEach(product => {
+                        console.log("<-------product------>")
+                        console.log(product)
+                        console.log(product.fields.otherPhotos)
                         let productData = responseSanitizer(product.fields, entry.includes);
                         productData.id = product.sys.id;
                         sanitizedData.push(productData);

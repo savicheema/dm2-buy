@@ -70,6 +70,7 @@ async function createProduct(product){
 
     let assetArray = [];
     if(product.otherPhotos){
+        console.log("processing other images....")
         for (let index = 0; index < product.otherPhotos.length; index++) {
             const element = product.otherPhotos[index];
             let assetRes = await new Promise((resolve, reject) => {
@@ -93,10 +94,12 @@ async function createProduct(product){
                     }
                 }))
                 .then((asset) => asset.processForAllLocales())
+                .then((asset) => asset.publish())
                 .then((asset) => {
-                    console.log(asset)
-                    resolve(asset)
-                }).catch(error => reject(error))
+                            console.log(`processing ${index} image done....`)
+                            resolve(asset)
+                        })
+                .catch(error => reject(error))
             });
 
             var assetObj = {
@@ -113,9 +116,8 @@ async function createProduct(product){
 
     // create product on contentful
     return new Promise((resolve, reject) => {
-        console.log("start asset array.................")
+        console.log(".............asset array.................")
         console.log(assetArray)
-        console.log("end asset array.................")
         console.log(new Date().toISOString())
 
         client.getSpace('vidnutv0ls36')
