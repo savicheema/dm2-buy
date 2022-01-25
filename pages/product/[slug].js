@@ -15,6 +15,7 @@ import ProductCustomFields from "../../components/ProductCustomFields";
 import ProductColors from "../../components/ProductColors";
 import NavBar from "../../components/Navbar";
 import Basket from "../../components/Cart/Basket";
+import ProductSizeFields from "../../components/ProductSizeFields";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -50,7 +51,9 @@ class Product extends React.Component {
       productAlreadyInCart: false,
       showCart: false,
       cart: {},
-      hideInAdvance: false
+      hideInAdvance: false,
+      selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
+      ? product.fields.sizeVariants[0] : ''
     };
   }
 
@@ -70,9 +73,14 @@ class Product extends React.Component {
       const product = {...this.state.product}
       let selectedColor =  productArr[0].colour;
       let selectedCustomAttributes = productArr[0].customAttributes;
+      let selectedSize = productArr[0]['sizeVariants'] && productArr[0]['sizeVariants'].length
+       ? productArr[0]['sizeVariants'][0] : (
+         product.fields.sizeVariants && product.fields.sizeVariants.length
+         ? product.fields.sizeVariants[0] : ''
+       );
       
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
-      this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes });
+      this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
     }
   }
@@ -88,7 +96,7 @@ class Product extends React.Component {
   }
 
   render() {
-    let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes } = this.state;
+    let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
     console.log(" Product STATE", this.state);
 
     if (errorCode) {
@@ -183,6 +191,15 @@ class Product extends React.Component {
                 }}
               />
             ) : null}
+
+            {
+              product.fields["sizeVariants"] && product.fields["sizeVariants"].length
+              ? <ProductSizeFields
+                  product={product}
+                  selectedSize={selectedSize}
+                  updateSelectedSize={(size) => this.setState({selectedSize: size})}
+                /> : ''
+            }
 
             <p
               className={styles.description}
@@ -279,6 +296,10 @@ class Product extends React.Component {
           value: ca.ref.current.state.inputValue,
         });
       }
+    }
+
+    if (this.state.selectedSize) {
+      product.size = this.state.selectedSize;
     }
 
     let _product = { ...product };
