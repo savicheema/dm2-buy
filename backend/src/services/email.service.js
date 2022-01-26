@@ -82,6 +82,9 @@ async function sendEmail(order) {
                                           `<span class="m_-7969646897801254430middot" style="display:inline-block;padding-top:0;padding-bottom:0;padding-right:.15em;padding-left:.15em;line-height:.7">·</span>`
                                         )}
                                     </div>
+                                    <div class="m_-7969646897801254430line-item-description" style="font-size:.9em;font-weight:normal;color:#83889e;line-height:1.9">
+                                      ${product.size ? 'Size - ' + product.size : ''}
+                                    </div>
                                     </div>
                                   </td>
                                   <td style="border-collapse:collapse;border-spacing:0;border-style:none;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;vertical-align:top;padding-top:.6em;padding-bottom:.6em;padding-right:0;padding-left:0">
