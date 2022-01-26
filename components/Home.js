@@ -7,6 +7,7 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       heroMedia: "",
+      videoReady: false
     };
 
     this.videoTag = React.createRef();
@@ -27,11 +28,18 @@ export default class Home extends React.Component {
             className={styles.bannerContainer}
             // onClick={() => this.props.updateHomeActive(false)}
           >
+            {
+              !this.state.videoReady
+              ? <div style={{backgroundColor: '#ebebeb'}} className={styles.bannerImage}></div>
+              : ''
+            }
             <ReactPlayer
               className={styles.bannerImage}
+              style={!this.state.videoReady ? {display: 'none'} : {}}
               width={'100%'}
               height={'calc(var(--max-width) * 1.5)'}
               muted
+              onReady={() => this.setState({videoReady: true})}
               loop={true}
               playsinline={true}
               playing={true}
