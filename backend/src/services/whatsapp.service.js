@@ -20,6 +20,9 @@ ${order.products
     if (product.colour) {
       product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
     }
+    if (product.size) {
+      product.customAttributes.push({ name: 'Size', value: product.size });
+    }
     const customAttrib =
       product.customAttributes.length > 0
         ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(' · ')}_ )`
