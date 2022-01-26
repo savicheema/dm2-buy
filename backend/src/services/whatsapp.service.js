@@ -25,7 +25,7 @@ ${order.products
     }
     const customAttrib =
       product.customAttributes.length > 0
-        ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(' · ')}_ )`
+        ? `( _${product.customAttributes.map((ca) => `${ca.name} - ${ca.value}`).join(' · ')}_ )`
         : '';
     return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
   })
