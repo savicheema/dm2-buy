@@ -8,20 +8,66 @@ const client = contentfulManagement.createClient({
     accessToken: "CFPAT-N2xxF9WUPucWikke_jFaYYC75So1KWXC-i9_Lo5_dR8"
 });
 
-function updateProductById(id, product) {
+async function updateProductById(id, product) {
     console.log(product)
     console.log(id)
+    var assetHeaderImageObj = null
+
+    if(product.headerPhoto){
+        let assetRes = await new Promise((resolve, reject) => {
+            client.getSpace('vidnutv0ls36')
+            .then((space) => space.getEnvironment("master"))
+            .then((environment)=> environment.createAsset({
+                fields: {
+                    title: {
+                    'en-US': convertToSlug.convertToSlug(product.name)+"-header"
+                    },
+                    description: {
+                    'en-US': product.name
+                    },
+                    file: {
+                    'en-US': {
+                        contentType: 'image/jpeg',
+                        fileName: `${convertToSlug.convertToSlug(product.name)}-header.jpeg`,
+                        upload: product.headerPhoto
+                    }
+                    }
+                }
+            }))
+            .then((asset) => asset.processForAllLocales())
+            .then((asset) => asset.publish())
+            .then((asset) => resolve(asset))
+            .catch(error => reject(error))
+        });
+        assetHeaderImageObj = {
+            sys:{
+                "type": "Link",
+                "linkType": "Asset",
+                "id": assetRes.sys.id
+            }
+        }
+    }
+
     return new Promise((resolve, reject) => {
         console.log(client)
         client.getSpace('vidnutv0ls36')
             .then((space) => space.getEnvironment("master"))
             .then((environment) => environment.getEntry(id))
             .then(entry => {
+                console.log(entry)
                 if(product.name)
                     entry.fields.name['en-US'] = product.name
                 if(product.price)
                     entry.fields.price['en-US'] = product.price
-                resolve(entry.update())
+                if(product.availableStock)
+                    entry.fields.availableStock['en-US'] = product.availableStock
+                if(product.description)
+                    entry.fields.description['en-US'] = product.description
+                if(assetHeaderImageObj)
+                    entry.fields.headerPhoto['en-US'] = assetHeaderImageObj
+                
+                entry.update()
+                .then((entry)=> resolve(entry.publish()))
             })
             .catch(err => {
                 console.log('contentful err: ', err);
