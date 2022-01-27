@@ -158,8 +158,50 @@ async function createProduct(product){
             assetArray.push(assetObj)   
         }
     }
+    let customAttributeArray = [];
 
+    if(product.customAttributes){
+        for (let index = 0; index < product.customAttributes.length; index++) {
+            const element = product.customAttributes[index];
+            console.log(element)
+            let customAttributeRes = await  new Promise((resolve, reject) => {
 
+                client.getSpace('vidnutv0ls36')
+                .then((space) => space.getEnvironment("master"))
+                .then((environment) => environment.createEntry('customAttributes',{
+                    fields: {
+                        name: {
+                            'en-US': element.name
+                        },
+                        attributeType:{
+                            'en-US': convertToSlug.convertToSlug(element.attributeType)
+                        },
+                        required:{
+                            'en-US': element.required
+                        }
+                    }
+                }))
+                .then((entry)=> entry.publish())
+                .then((entry)=>  {
+                    console.log(entry)
+                    resolve(entry)
+                })
+                .catch(err => {
+                    console.log('contentful err: ', err);
+                    reject(err);
+                });
+            });
+
+            var custAttrObj = {
+                sys:{
+                    "type": "Link",
+                    "linkType": "Entry",
+                    "id": customAttributeRes.sys.id
+                }
+            }
+            customAttributeArray.push(custAttrObj) 
+        }
+    }
     // create product on contentful
     return new Promise((resolve, reject) => {
         console.log(".............asset array.................")
@@ -188,12 +230,13 @@ async function createProduct(product){
                     }
                 },
                 otherPhotos: {
-                    'en-US' : [
-                            ...assetArray
-                        ]
+                    'en-US' : [...assetArray]
                 },
                 headerPhoto:{
                     'en-US': assetHeaderImageObj
+                },
+                customAttributes:{
+                    'en-US':[...customAttributeArray]
                 }
             }
         }))
