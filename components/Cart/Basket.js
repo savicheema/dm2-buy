@@ -74,6 +74,9 @@ export default class Basket extends React.Component {
         this.props.setCart(cartData);
       }
       this.setState({ refresh: !this.state.refresh });
+      if (this.props.updateAddedToCart) {
+        this.props.updateAddedToCart(productId, false);
+      }
     }, 300);
   };
 

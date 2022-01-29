@@ -95,6 +95,12 @@ class Product extends React.Component {
     this.setState({showCart: boolVal});
   }
 
+  updateAddedToCart = (productId, value) => {
+    if (this.state.product.id === productId) {
+      this.setState({productAlreadyInCart: value});
+    }
+  }
+
   render() {
     let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
     console.log(" Product STATE", this.state);
@@ -155,6 +161,7 @@ class Product extends React.Component {
               setCart={(value) => this.setState({cart: value})}
               cartData={this.state.cart}
               StorageManager={StorageManager}
+              updateAddedToCart={this.updateAddedToCart}
               setHideInAdvance={() => this.setState({hideInAdvance: true})}
               CART_KEY={CART_KEY}
               handleShowCart={this.handleShowCart}/>
@@ -284,6 +291,7 @@ class Product extends React.Component {
         } else {
           this.setState({showCart: true, hideInAdvance: false});
         }
+        this.updateAddedToCart(product.id, true);
       });
     }
   };
