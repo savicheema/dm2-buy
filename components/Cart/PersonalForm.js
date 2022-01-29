@@ -113,12 +113,17 @@ class PersonalForm extends React.Component {
   };
 
   getValues = () => {
-    return {
+    let personalInfoObj = {
       name: this.nameInputRef.current.state.inputValue,
       phone: this.phoneInputRef.current.state.inputValue,
-      instagram: this.instagramInputRef.current.state.inputValue,
       email: this.emailInputRef.current.state.inputValue,
     };
+
+    if (this.instagramInputRef.current.state.inputValue) {
+      personalInfoObj.instagram = this.instagramInputRef.current.state.inputValue;
+    }
+  
+    return personalInfoObj;
   };
 
   focus = () => {
