@@ -1,6 +1,8 @@
 import styles from "./index.module.css"
 import Image from "next/image";
 import { useState } from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 const CategoryProduct = ({product}) => {
   const[imageLoaded, setImageLoaded] = useState(false);
@@ -94,7 +96,17 @@ const SideBar = ({isHamOpen, products, loading}) => {
       <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
         <div className={styles.sideBarContainer}>
           {
-            products.map((product, index) => {
+            loading ?
+              <div className={styles.sidebarLoadingContainer}>
+                <Loader
+                  type="Oval"
+                  color="#ccc"
+                  height={40}
+                  width={40}
+                  timeout={3000} //3 secs
+                />
+              </div>
+            : products.map((product, index) => {
               return <CategoryProduct key={index+1} product={product} />
             })
           }
