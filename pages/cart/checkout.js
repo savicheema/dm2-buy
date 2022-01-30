@@ -24,11 +24,11 @@ export default function CheckoutPage(props) {
       removePromoCode()
     }
   }, []);
-  function applyPromoCode(percentageDiscount, couponId, couponCode) {
-    setCart({...cart, percentageDiscount, couponId, couponCode})
+  function applyPromoCode(discountedAmount, couponId, couponCode) {
+    setCart({...cart, discountedAmount, couponId, couponCode})
   }
   function removePromoCode() {
-    const { percentageDiscount, couponId, couponCode, ...withoutPromo } = cart;  
+    const { discountedAmount, couponId, couponCode, ...withoutPromo } = cart;  
     setCart({...withoutPromo})
   }
 

@@ -159,8 +159,12 @@ const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
         return {status: ACTION_TYPE.pending, data: null, error: null}
       }
       case ACTION_TYPE.resolved: {
-        action.data.discountedAmount = action.data.percentageDiscount * price;
-        applyPromoCode(action.data.percentageDiscount, action.data.id, action.data.couponCode)
+        if (action.data.discountType === 'percentage') {
+          action.data.discountedAmount = action.data.discountValue * (price/100);
+        } else {
+          action.data.discountedAmount = action.data.discountValue;
+        }
+        applyPromoCode(action.data.discountedAmount, action.data.id, action.data.couponCode)
         return {status: ACTION_TYPE.resolved, data: action.data, error: null}
       }
       case ACTION_TYPE.rejected: {
@@ -200,6 +204,7 @@ const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
     resetStatus();
     setCode('');
   }
+
   return ( <>
   <TransitionGroup className={styles.giftCodeContainer}>
     <CSSTransition
