@@ -5,8 +5,8 @@ export default function useLocalStorage(key, initialValue) {
       const item = window.localStorage.getItem(key);
       if(item) {
         const itemJson = JSON.parse(item);
-        if(itemJson.percentageDiscount != null) {
-          const { percentageDiscount, couponId, couponCode, ...withoutPromo } = itemJson; 
+        if(itemJson.discountedAmount != null) {
+          const { discountedAmount, couponId, couponCode, ...withoutPromo } = itemJson; 
           console.log('useLOCAL INITIAL--->',key, {withoutPromo})
           return withoutPromo; 
         } else {

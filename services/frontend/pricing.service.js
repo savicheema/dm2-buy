@@ -2,9 +2,9 @@ const getPrice = (cart) => {
   let calculatedPrice = 0;
   let shippingFeeApplied = false;
   let shippingFee = cart.shippingFee;
-  let percentageDiscount = cart?.percentageDiscount;
+  let discountedAmount = cart?.discountedAmount;
   let couponId, couponCode;
-  if(percentageDiscount) {
+  if(discountedAmount) {
     couponId = cart.couponId;
     couponCode = cart.couponCode;
   }
@@ -18,8 +18,8 @@ const getPrice = (cart) => {
   }
 
   let priceWithoutFees = calculatedPrice;
-  if(percentageDiscount){
-    calculatedPrice = priceWithoutFees - priceWithoutFees*percentageDiscount;
+  if(discountedAmount){
+    calculatedPrice = priceWithoutFees - discountedAmount;
   }
 
   if (calculatedPrice < shippingFeeCap) {
