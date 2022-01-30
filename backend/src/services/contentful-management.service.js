@@ -285,7 +285,7 @@ async function createProduct(product){
     }
     let customAttributeArray = [];
 
-    if(product.customAttributes){
+    if(product.customAttributes && product.customAttributes.length > 0){
         for (let index = 0; index < product.customAttributes.length; index++) {
             const element = product.customAttributes[index];
             console.log(element)
@@ -327,6 +327,8 @@ async function createProduct(product){
             customAttributeArray.push(custAttrObj) 
         }
     }
+    let variantsArray = await createVariantsArrray(product)
+
     // create product on contentful
     return new Promise((resolve, reject) => {
         console.log(".............asset array.................")
@@ -362,17 +364,75 @@ async function createProduct(product){
                 },
                 customAttributes:{
                     'en-US':[...customAttributeArray]
+                },
+                variantOptions:{
+                    'en-US':[...variantsArray]
                 }
             }
         }))
         .then((entry)=> entry.publish())
-        .then((entry)=>  resolve(entry))
+        .then((entry)=>  {
+            console.log(entry)
+            resolve({
+                success:true,
+                status_code:200
+            })
+        } )
         .catch(err => {
             console.log('contentful err: ', err);
             reject(err);
         });
     });
 }
+
+
+//Create variant options
+async function createVariantsArrray(product){
+    
+    let variantsArray = [];
+    if(product.variantOptions){
+        for (let index = 0; index < product.variantOptions.length; index++) {
+            const element = product.variantOptions[index];
+            console.log(element)
+            let variantOptionsRes = await  new Promise((resolve, reject) => {
+
+                client.getSpace('vidnutv0ls36')
+                .then((space) => space.getEnvironment("master"))
+                .then((environment) => environment.createEntry('productVariants',{
+                    fields: {
+                        name: {
+                            'en-US': element.name
+                        },
+                        type:{
+                            'en-US': element.type
+                        }
+                    }
+                }))
+                .then((entry)=> entry.publish())
+                .then((entry)=>  {
+                    console.log(entry)
+                    resolve(entry)
+                })
+                .catch(err => {
+                    console.log('contentful err: ', err);
+                    reject(err);
+                });
+            });
+
+            var variantObj = {
+                sys:{
+                    "type": "Link",
+                    "linkType": "Entry",
+                    "id": variantOptionsRes.sys.id
+                }
+            }
+            variantsArray.push(variantObj) 
+            console.log("variantsArray " + variantsArray)
+        }
+    }
+    return variantsArray
+}
+
 
 module.exports = {
     updateProductById,
