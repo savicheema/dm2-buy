@@ -115,3 +115,11 @@
   width: 70px;
   background-color: #e5e5e5;
 }
+
+.sidebarLoadingContainer {
+  height: calc(100vh - 72px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
