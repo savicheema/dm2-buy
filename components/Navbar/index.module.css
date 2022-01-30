@@ -29,7 +29,7 @@
     background-color: transparent;
     transform: translateX(-50%);
     opacity: 1;
-    transition: all 0.4s ease-in-out;
+    /* transition: all 0.4s ease-in-out; */
     /* 
     display: none;
     left: 0; 
