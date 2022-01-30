@@ -79,7 +79,9 @@ const NavBar = (props) => {
       + (direction === 'down' && checkoutShouldHide() ? styles.hide : '')
       + ' '
       + (direction === 'down' && makeBGWhite() ? styles.addBGWhite : '')
-      }>
+      } style={isHamOpen ? {
+        backgroundColor: 'white'
+      } : {}}>
       <div className={styles.hamTitleContainer}>
         <button className={styles.hamBtn} onClick={()=>setIsHamOpen((o)=>!o)}>
           {
