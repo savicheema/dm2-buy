@@ -50,9 +50,10 @@ function updateProductStatus({ productId, quantity }) {
   });
 }
 
-async function getProductByStoreId(storeId) {
+async function getProductByStoreId(storeName) {
   const query = {
     view: "Grid view",
+    filterByFormula: `SEARCH("${storeName}", ARRAYJOIN(Stores))`,
     sort: [{ field: "Created Date", direction: "desc" }],
     // ...filterByRelatedTable("Stores", storeId),
   };
