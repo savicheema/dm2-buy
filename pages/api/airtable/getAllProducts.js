@@ -12,7 +12,7 @@ async function getAllProducts(req, res) {
       res.status(400).json({ error: "Store not found!" });
       return;
     }
-    const data = await getProductByStoreId(recordMeta.id);
+    const data = await getProductByStoreId(recordMeta?.fields?.store_name);
     res.status(200).json({
       store: recordMeta,
       records: data,
