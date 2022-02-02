@@ -73,15 +73,17 @@ async function updateProductStatus({ productId, quantity }) {
   });
 }
 
-function updateCouponStatus({ couponId, couponCode }) {
-  
+async function updateCouponStatus({ couponId, couponCode }) {
+  const metaToUpdate = {};
+  const couponData = await getCouponById(couponId);
+  metaToUpdate.count = parseInt(couponData.fields.count) - 1 < 0 ? 0 : parseInt(couponData.fields.count) - 1;
   return new Promise((resolve, reject) => {
-    base("DiscountCodes").update(couponId, {"active":"false"}, (err, record) => {
+    base("DiscountCodes").update(couponId, metaToUpdate, (err, record) => {
       if (err) {
         console.log("DiscountCodes -> " + err)
         reject(err);
       } else {
-        resolve(record.get("active"));
+        resolve(record.get("count"));
       }
     });
   });
@@ -120,6 +122,25 @@ async function getAllProducts(storeId) {
         sort: [{ field: 'Created Date', direction: 'desc' }],
       })
       .eachPage(processPage, processRecords);
+  });
+}
+
+function getCouponById(couponId) {
+  return new Promise((resolve, reject) => {
+    base('DiscountCodes')
+      .select({
+        view: 'Grid view',
+        filterByFormula: `SEARCH(RECORD_ID(),"${couponId}")`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
   });
 }
 

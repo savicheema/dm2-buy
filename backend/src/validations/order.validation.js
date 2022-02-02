@@ -24,6 +24,7 @@ const createOrderValidations = {
     }),
     order_shipping: Joi.number().required(),
     order_total: Joi.number().required(),
+    payment_mode: Joi.string().allow(''),
     payment_processing_fee: Joi.number().required(),
     products: Joi.array().items(productValue).required(),
     seller: Joi.object().keys({
