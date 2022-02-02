@@ -20,9 +20,12 @@ ${order.products
     if (product.colour) {
       product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
     }
+    if (product.size) {
+      product.customAttributes.push({ name: 'Size', value: product.size });
+    }
     const customAttrib =
       product.customAttributes.length > 0
-        ? `( _${product.customAttributes.map((ca) => `${ca.name}- ${ca.value}`).join(' · ')}_ )`
+        ? `( _${product.customAttributes.map((ca) => `${ca.name} - ${ca.value}`).join(' · ')}_ )`
         : '';
     return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
   })
@@ -33,6 +36,7 @@ ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}
 ${order.address.city}, ${order.address.state} ${order.address.pincode}
 PH. +91 ${order.buyer.phone}
+${order.buyer && order.buyer.instagram ? 'IG. @' + order.buyer.instagram : ''}
 Email: ${order.buyer.email}
 
 Thank you and Happy Selling,

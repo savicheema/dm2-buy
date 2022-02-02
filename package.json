@@ -18,11 +18,12 @@
     "prettier": "^2.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-player": "^2.9.0",
     "react-ellipsis-text": "^1.2.1",
     "react-lines-ellipsis": "^0.14.1",
     "react-loader-spinner": "^4.0.0",
+    "react-player": "^2.9.0",
     "react-responsive-carousel": "^3.2.18",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "react-use-scroll-direction": "^0.1.0"
   }
 }

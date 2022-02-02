@@ -43,10 +43,10 @@ class StoreProducts extends React.Component {
     return new Promise((resolve, reject) => {
       fetch(`/api/airtable/getAllProducts?subdomain=${subdomain}`)
         .then((response) => {
-          console.log("product RESPONSE", response);
           return response.json();
         })
         .then((productValues) => {
+          console.log("product RESPONSE", productValues);
           this.setState(
             {
               products: productValues.records.filter(this.filterStoreProducts),

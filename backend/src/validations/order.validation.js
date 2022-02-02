@@ -7,6 +7,7 @@ const productValue = Joi.object().keys({
   price: Joi.number().required(),
   quantity: Joi.number().required(),
   colour: Joi.string(),
+  size: Joi.string().allow('')
 });
 
 const createOrderValidations = {
@@ -20,6 +21,7 @@ const createOrderValidations = {
     buyer: Joi.object().keys({
       email: Joi.string().required(),
       name: Joi.string().required(),
+      instagram: Joi.string(),
       phone: Joi.string().required(),
     }),
     order_shipping: Joi.number().required(),

@@ -13,6 +13,7 @@ import { CART_KEY } from "../../services/frontend/StorageKeys";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { initialCart } from "../../services/ObjectsInitialValues";
 import NavBar from "../../components/Navbar";
+import Basket from "../../components/Cart/Basket";
 
 export async function getServerSideProps(context) {
   return getOrderDetail(context);
@@ -60,12 +61,20 @@ export default function Order(props) {
 
   return (
     <div className={orderStyles.container}>
+      <Basket
+        isBasketOpen={showCart}
+        setCart={setCart}
+        cartData={cart}
+        StorageManager={StorageManager}
+        CART_KEY={CART_KEY}
+        handleShowCart={handleShowCart}/>
       {
         <NavBar
           hideInAdvance={false}
           cartActive={false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          store={store}
           storeName={store?.fields?.store_name || ''}
         />
       }

@@ -44,7 +44,14 @@ a {
 }
 .carousel {
   margin-bottom: 24px !important;
-  height: 465px !important;
+  height: 118vw !important;
+}
+
+@media screen and (min-width: 520px) {
+  .carousel {
+    margin-bottom: 24px !important;
+    height: 465px !important;
+  }
 }
 
 /* .carousel .control-prev.control-arrow::before {
@@ -55,6 +62,7 @@ a {
 } */
 .carousel .slide img {
   width: auto; /*100vw*/
+  border-radius: 20px;
 }
 
 .carousel .control-next.control-arrow::before {

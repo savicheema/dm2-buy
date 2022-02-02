@@ -17,6 +17,7 @@ const productSchema = mongoose.Schema(
     shippingApplicable: { type: Boolean, required: false, default: true },
     customAttributes: { type: [mongoose.SchemaTypes.ObjectId], ref: 'CustomAttribute', required: false },
     colour: { type: String, default: null, required: true },
+    size: { type: String, default: null, required: false }
   },
   {
     timestamps: true,

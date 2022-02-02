@@ -54,14 +54,20 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         phone: store?.fields?.phone,
         seller_id: cart.products[0]?.fields?.Stores[0],
       },
-      products: cart.products.map((product) => ({
-        customAttributes: product.customAttributes,
-        colour: product?.colour,
-        id: product?.id,
-        name: product?.fields?.Name,
-        price: product.fields.Price,
-        quantity: product.quantity,
-      })),
+      products: cart.products.map((product) => {
+        let productObj = {
+          customAttributes: product.customAttributes,
+          colour: product?.colour,
+          id: product?.id,
+          name: product?.fields?.Name,
+          price: product.fields.Price,
+          quantity: product.quantity,
+        };
+
+        if (product.size) productObj.size = product.size;
+
+        return productObj;
+      }),
     };
     if(bodyData.discountCode.id == null) {
       delete bodyData.discountCode
