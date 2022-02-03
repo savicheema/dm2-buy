@@ -82,7 +82,6 @@ class Product extends React.Component {
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
-      this.BasketRef = createRef();
     }
   }
   showToast = () => {
@@ -157,7 +156,6 @@ class Product extends React.Component {
           {
             this.state.cart?.products?.length
             ? <Basket
-              ref={ref => this.BasketRef = ref}
               fromProductPage={true}
               isBasketOpen={this.state.showCart}
               setCart={(value) => this.setState({cart: value})}
@@ -295,9 +293,6 @@ class Product extends React.Component {
         }
         this.updateAddedToCart(product.id, true);
       });
-      setTimeout(() => {
-        this.BasketRef.refresh();
-      }, 1000);
     }
   };
   storeProductToLocalStorage = (product) => {
