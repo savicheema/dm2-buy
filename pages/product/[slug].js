@@ -83,12 +83,6 @@ class Product extends React.Component {
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
     }
-
-    if (window != 'undefined') {
-      window.document.addEventListener("touchmove", (event) => {
-        event.preventDefault();
-      });
-    }
   }
   showToast = () => {
     this.setState({ open: true });
@@ -299,12 +293,6 @@ class Product extends React.Component {
         }
         this.updateAddedToCart(product.id, true);
       });
-      if (window != 'undefined') {
-        console.log('=====blur input focus=====');
-        window.document.querySelector('input').blur();
-        window.scrollTo(0, 0);
-        window.document.body.scrollTop = 0;
-      }
     }
   };
   storeProductToLocalStorage = (product) => {
