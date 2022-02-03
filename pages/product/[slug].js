@@ -126,10 +126,14 @@ class Product extends React.Component {
               href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
               rel="stylesheet"
             />
-            <meta
+            {/* <meta
               name="viewport"
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
-            />
+            /> */}
+
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, user-scalable=0, width=device-width, height=device-height"/>
             <meta property="og:type" content="product" />
             <meta property="og:title" content={product?.fields?.Name} />
             <meta
