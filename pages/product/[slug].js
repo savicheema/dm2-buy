@@ -296,6 +296,7 @@ class Product extends React.Component {
       if (window != 'undefined') {
         console.log('=====blur input focus=====');
         window.document.querySelector('input').blur();
+        window.scrollTo(0, 0);
       }
     }
   };
