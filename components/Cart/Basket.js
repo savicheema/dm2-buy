@@ -12,6 +12,7 @@ export default class Basket extends React.Component {
       refresh: false,
       pageHeight: 0,
       newBottom: false,
+      refresh: false
     };
   }
 
@@ -38,6 +39,10 @@ export default class Basket extends React.Component {
     this.setState({ pageHeight: window.innerHeight });
     window.addEventListener("resize", this.handleWindowResize, true);
     this.handleWindowResize()
+  }
+
+  refresh = () => {
+    this.setState({refresh: !this.state.refresh});
   }
 
   handleWindowResize = () => {
