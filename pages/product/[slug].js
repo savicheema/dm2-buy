@@ -293,6 +293,10 @@ class Product extends React.Component {
         }
         this.updateAddedToCart(product.id, true);
       });
+      if (window != 'undefined') {
+        console.log('=====blur input focus=====');
+        window.document.querySelector('input').blur();
+      }
     }
   };
   storeProductToLocalStorage = (product) => {
