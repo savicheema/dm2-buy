@@ -295,7 +295,9 @@ class Product extends React.Component {
         }
         this.updateAddedToCart(product.id, true);
       });
-      this.BasketRef.refresh();
+      setTimeout(() => {
+        this.BasketRef.refresh();
+      }, 1000);
     }
   };
   storeProductToLocalStorage = (product) => {
