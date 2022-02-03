@@ -82,7 +82,6 @@ class Product extends React.Component {
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
-      this.BasketRef = createRef();
     }
   }
   showToast = () => {
@@ -127,10 +126,14 @@ class Product extends React.Component {
               href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;700&display=swap"
               rel="stylesheet"
             />
-            <meta
+            {/* <meta
               name="viewport"
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
-            />
+            /> */}
+
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, user-scalable=0, width=device-width, height=device-height"/>
             <meta property="og:type" content="product" />
             <meta property="og:title" content={product?.fields?.Name} />
             <meta
@@ -157,7 +160,6 @@ class Product extends React.Component {
           {
             this.state.cart?.products?.length
             ? <Basket
-              ref={ref => this.BasketRef = ref}
               fromProductPage={true}
               isBasketOpen={this.state.showCart}
               setCart={(value) => this.setState({cart: value})}
@@ -295,7 +297,6 @@ class Product extends React.Component {
         }
         this.updateAddedToCart(product.id, true);
       });
-      this.BasketRef.refresh();
     }
   };
   storeProductToLocalStorage = (product) => {
