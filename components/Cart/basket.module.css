@@ -235,7 +235,7 @@
     position: fixed;
     left: 50%;
     width: 100%;
-    top: calc(100% - 70px);
+    top: calc(100vh - 70px);
     transform: translate(-50%, 0%);
     background-color: #ffffff;
     max-width: var(--max-width);
