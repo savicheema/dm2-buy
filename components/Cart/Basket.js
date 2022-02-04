@@ -37,7 +37,7 @@ export default class Basket extends React.Component {
   componentDidMount() {
     this.setState({ pageHeight: window.innerHeight });
     window.addEventListener("resize", this.handleWindowResize, true);
-    this.handleWindowResize()
+    this.handleWindowResize();
   }
 
   handleWindowResize = () => {
@@ -121,6 +121,10 @@ export default class Basket extends React.Component {
           styles.basketContainer +
           " " +
           (this.props.isBasketOpen ? styles.basketContainerOpen : "")
+        }
+        style={
+          this.props.viewHeight
+          ? { height: this.props.viewHeight + 'px !important' } : {}
         }
       >
         {this.state.loading && <LoaderComponent />}
