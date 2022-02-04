@@ -146,6 +146,7 @@ export default class Basket extends React.Component {
               </div>
             </button>
           </h2>
+          <br />
           {'View Height: ' + this.props.viewHeight}
           <div className={styles.orderList}>
             {this.props.cartData.products.map((product, index) => (
