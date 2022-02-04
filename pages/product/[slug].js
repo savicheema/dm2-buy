@@ -89,13 +89,13 @@ class Product extends React.Component {
       const viewHeight = window.innerHeight;
       this.setState({viewHeight});
 
-      let inputs = window.document.querySelectorAll('input');
-      inputs.forEach(input => {
-        input.onblur = () => {
-          window.scrollTo(0, 0);
-          window.document.body.scrollTop = 0;
-        }
-      });
+      // let inputs = window.document.querySelectorAll('input');
+      // inputs.forEach(input => {
+      //   input.onblur = () => {
+      //     window.scrollTo(0, 0);
+      //     window.document.body.scrollTop = 0;
+      //   }
+      // });
     }
   }
   showToast = () => {
@@ -296,6 +296,13 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
+      let inputs = window.document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.onblur = () => {
+          window.scrollTo(0, 0);
+          window.document.body.scrollTop = 0;
+        }
+      });
       this.storeProductToLocalStorage(product);
       // window.location.href = `/cart`;
       const cartData = StorageManager.getJson(CART_KEY, initialCart);
