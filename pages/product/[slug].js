@@ -88,6 +88,14 @@ class Product extends React.Component {
     if (window != 'undefined') {
       const viewHeight = window.innerHeight;
       this.setState({viewHeight});
+
+      let inputs = window.document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.onfocus = () => {
+          window.scrollTo(0, 0);
+          window.document.body.scrollTop = 0;
+        }
+      })
     }
   }
   showToast = () => {
