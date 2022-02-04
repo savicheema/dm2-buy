@@ -83,6 +83,9 @@ class Product extends React.Component {
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
     }
+    if (window != 'undefined') {
+      window.document.body.style.scrollBehavior = 'smooth';
+    }
   }
   showToast = () => {
     this.setState({ open: true });
@@ -300,7 +303,7 @@ class Product extends React.Component {
           }
           this.updateAddedToCart(product.id, true);
         });
-      }, 100);
+      }, 400);
     }
   };
   storeProductToLocalStorage = (product) => {
