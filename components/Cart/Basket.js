@@ -12,6 +12,7 @@ export default class Basket extends React.Component {
       refresh: false,
       pageHeight: 0,
       newBottom: false,
+      viewHeight: null
     };
   }
 
@@ -145,6 +146,7 @@ export default class Basket extends React.Component {
               </div>
             </button>
           </h2>
+          {'View Height: ' + this.props.viewHeight}
           <div className={styles.orderList}>
             {this.props.cartData.products.map((product, index) => (
               <BagItem
