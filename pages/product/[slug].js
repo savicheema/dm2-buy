@@ -296,26 +296,30 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
-      let inputs = window.document.querySelectorAll('input');
-      inputs.forEach(input => {
-        input.onblur = () => {
-          window.scrollTo(0, 0);
-          window.document.body.scrollTop = 0;
-        }
-      });
-      this.storeProductToLocalStorage(product);
-      // window.location.href = `/cart`;
-      const cartData = StorageManager.getJson(CART_KEY, initialCart);
-      this.setState({cart: cartData, hideInAdvance: true}, () => {
-        if (this.state.cart.products && this.state.cart.products.length === 1) {
-          setTimeout(() => {
+      if (window != 'undefined') {
+        let inputs = window.document.querySelectorAll('input');
+        inputs.forEach(input => {
+          input.onblur = () => {
+            window.scrollTo(0, 0);
+            window.document.body.scrollTop = 0;
+          }
+        });
+      }
+      setTimeout(() => {
+        this.storeProductToLocalStorage(product);
+        // window.location.href = `/cart`;
+        const cartData = StorageManager.getJson(CART_KEY, initialCart);
+        this.setState({cart: cartData, hideInAdvance: true}, () => {
+          if (this.state.cart.products && this.state.cart.products.length === 1) {
+            setTimeout(() => {
+              this.setState({showCart: true, hideInAdvance: false});
+            }, 100);
+          } else {
             this.setState({showCart: true, hideInAdvance: false});
-          }, 100);
-        } else {
-          this.setState({showCart: true, hideInAdvance: false});
-        }
-        this.updateAddedToCart(product.id, true);
-      });
+          }
+          this.updateAddedToCart(product.id, true);
+        });
+      }, 50);
     }
   };
   storeProductToLocalStorage = (product) => {
