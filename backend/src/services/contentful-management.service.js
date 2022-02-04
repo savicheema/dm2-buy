@@ -351,6 +351,12 @@ async function createProduct(product){
                 price: {
                     'en-US': product.price
                 },
+                availableStock:{
+                    'en-US': product.availableStock
+                },
+                description:{
+                    'en-US': product.description
+                },
                 store: {
                     'en-US': {
                         sys: {type: "Link", linkType: "Entry", id: product.store}
