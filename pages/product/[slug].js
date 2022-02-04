@@ -91,11 +91,11 @@ class Product extends React.Component {
 
       let inputs = window.document.querySelectorAll('input');
       inputs.forEach(input => {
-        input.onfocus = () => {
+        input.onblur = () => {
           window.scrollTo(0, 0);
           window.document.body.scrollTop = 0;
         }
-      })
+      });
     }
   }
   showToast = () => {
