@@ -53,8 +53,7 @@ class Product extends React.Component {
       cart: {},
       hideInAdvance: false,
       selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
-      ? product.fields.sizeVariants[0] : '',
-      viewHeight: null
+      ? product.fields.sizeVariants[0] : ''
     };
   }
 
@@ -83,19 +82,6 @@ class Product extends React.Component {
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
-    }
-    
-    if (window != 'undefined') {
-      const viewHeight = window.innerHeight;
-      this.setState({viewHeight});
-
-      // let inputs = window.document.querySelectorAll('input');
-      // inputs.forEach(input => {
-      //   input.onblur = () => {
-      //     window.scrollTo(0, 0);
-      //     window.document.body.scrollTop = 0;
-      //   }
-      // });
     }
   }
   showToast = () => {
@@ -171,7 +157,6 @@ class Product extends React.Component {
           {
             this.state.cart?.products?.length
             ? <Basket
-              viewHeight={this.state.viewHeight}
               fromProductPage={true}
               isBasketOpen={this.state.showCart}
               setCart={(value) => this.setState({cart: value})}
@@ -319,7 +304,7 @@ class Product extends React.Component {
           }
           this.updateAddedToCart(product.id, true);
         });
-      }, 50);
+      }, 100);
     }
   };
   storeProductToLocalStorage = (product) => {
