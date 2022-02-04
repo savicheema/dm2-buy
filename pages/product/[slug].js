@@ -53,7 +53,8 @@ class Product extends React.Component {
       cart: {},
       hideInAdvance: false,
       selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
-      ? product.fields.sizeVariants[0] : ''
+      ? product.fields.sizeVariants[0] : '',
+      focusActive: false
     };
   }
 
@@ -85,6 +86,17 @@ class Product extends React.Component {
     }
     if (window != 'undefined') {
       window.document.body.style.scrollBehavior = 'smooth';
+      let inputs = window.document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.onfocus = () => {
+          this.setState({focusActive: true});
+        }
+        input.onblur = () => {
+          setTimeout(() => {
+            this.setState({focusActive: false});
+          }, 2000);
+        }
+      });
     }
   }
   showToast = () => {
@@ -285,8 +297,10 @@ class Product extends React.Component {
     const { product } = this.state;
     if (await this.validated(product)) {
       if (window != 'undefined') {
-        window.scrollTo(0, 0);
-        window.document.body.scrollTop = 0;
+        if (this.state.focusActive) {
+          window.scrollTo(0, 0);
+          window.document.body.scrollTop = 0;
+        }
       }
 
       setTimeout(() => {
