@@ -282,14 +282,10 @@ class Product extends React.Component {
     const { product } = this.state;
     if (await this.validated(product)) {
       if (window != 'undefined') {
-        let inputs = window.document.querySelectorAll('input');
-        inputs.forEach(input => {
-          input.onblur = () => {
-            window.scrollTo(0, 0);
-            window.document.body.scrollTop = 0;
-          }
-        });
+        window.scrollTo(0, 0);
+        window.document.body.scrollTop = 0;
       }
+
       setTimeout(() => {
         this.storeProductToLocalStorage(product);
         // window.location.href = `/cart`;
