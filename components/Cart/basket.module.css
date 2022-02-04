@@ -28,7 +28,6 @@
     width: 100vw;
     opacity: 1;
     /* width: 100%; */
-    height: calc(100vh - 0px);
     height: calc(var(--vh, 1vh) * 100);
     /* visibility: visible; */
     /* display: block; */
@@ -235,7 +234,7 @@
     position: fixed;
     left: 50%;
     width: 100%;
-    top: calc(100vh - 70px);
+    bottom: 0;
     transform: translate(-50%, 0%);
     background-color: #ffffff;
     max-width: var(--max-width);
