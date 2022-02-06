@@ -11,7 +11,7 @@ export default class Basket extends React.Component {
       loading: false,
       refresh: false,
       pageHeight: 0,
-      newBottom: false,
+      newBottom: false
     };
   }
 
@@ -37,7 +37,7 @@ export default class Basket extends React.Component {
   componentDidMount() {
     this.setState({ pageHeight: window.innerHeight });
     window.addEventListener("resize", this.handleWindowResize, true);
-    this.handleWindowResize()
+    this.handleWindowResize();
   }
 
   handleWindowResize = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import Head from "next/head";
 import Error404 from "../404";
 import styles from "./product.module.css";
@@ -53,7 +53,8 @@ class Product extends React.Component {
       cart: {},
       hideInAdvance: false,
       selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
-      ? product.fields.sizeVariants[0] : ''
+      ? product.fields.sizeVariants[0] : '',
+      focusActive: false
     };
   }
 
@@ -82,6 +83,20 @@ class Product extends React.Component {
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
+    }
+    if (window != 'undefined') {
+      window.document.body.style.scrollBehavior = 'smooth';
+      let inputs = window.document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.onfocus = () => {
+          this.setState({focusActive: true});
+        }
+        input.onblur = () => {
+          setTimeout(() => {
+            this.setState({focusActive: false});
+          }, 2000);
+        }
+      });
     }
   }
   showToast = () => {
@@ -130,6 +145,7 @@ class Product extends React.Component {
               name="viewport"
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
             />
+
             <meta property="og:type" content="product" />
             <meta property="og:title" content={product?.fields?.Name} />
             <meta
@@ -280,19 +296,28 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
-      this.storeProductToLocalStorage(product);
-      // window.location.href = `/cart`;
-      const cartData = StorageManager.getJson(CART_KEY, initialCart);
-      this.setState({cart: cartData, hideInAdvance: true}, () => {
-        if (this.state.cart.products && this.state.cart.products.length === 1) {
-          setTimeout(() => {
-            this.setState({showCart: true, hideInAdvance: false});
-          }, 100);
-        } else {
-          this.setState({showCart: true, hideInAdvance: false});
+      if (window != 'undefined') {
+        if (this.state.focusActive) {
+          window.scrollTo(0, 0);
+          window.document.body.scrollTop = 0;
         }
-        this.updateAddedToCart(product.id, true);
-      });
+      }
+
+      setTimeout(() => {
+        this.storeProductToLocalStorage(product);
+        // window.location.href = `/cart`;
+        const cartData = StorageManager.getJson(CART_KEY, initialCart);
+        this.setState({cart: cartData, hideInAdvance: true}, () => {
+          if (this.state.cart.products && this.state.cart.products.length === 1) {
+            setTimeout(() => {
+              this.setState({showCart: true, hideInAdvance: false});
+            }, 100);
+          } else {
+            this.setState({showCart: true, hideInAdvance: false});
+          }
+          this.updateAddedToCart(product.id, true);
+        });
+      }, 400);
     }
   };
   storeProductToLocalStorage = (product) => {
