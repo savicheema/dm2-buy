@@ -54,7 +54,7 @@ class Product extends React.Component {
       hideInAdvance: false,
       selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
       ? product.fields.sizeVariants[0] : '',
-      viewHeight: null
+      focusActive: false
     };
   }
 
@@ -84,10 +84,19 @@ class Product extends React.Component {
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
     }
-    
     if (window != 'undefined') {
-      const viewHeight = window.innerHeight;
-      this.setState({viewHeight});
+      window.document.body.style.scrollBehavior = 'smooth';
+      let inputs = window.document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.onfocus = () => {
+          this.setState({focusActive: true});
+        }
+        input.onblur = () => {
+          setTimeout(() => {
+            this.setState({focusActive: false});
+          }, 2000);
+        }
+      });
     }
   }
   showToast = () => {
@@ -163,7 +172,6 @@ class Product extends React.Component {
           {
             this.state.cart?.products?.length
             ? <Basket
-              viewHeight={this.state.viewHeight}
               fromProductPage={true}
               isBasketOpen={this.state.showCart}
               setCart={(value) => this.setState({cart: value})}
@@ -288,19 +296,28 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
-      this.storeProductToLocalStorage(product);
-      // window.location.href = `/cart`;
-      const cartData = StorageManager.getJson(CART_KEY, initialCart);
-      this.setState({cart: cartData, hideInAdvance: true}, () => {
-        if (this.state.cart.products && this.state.cart.products.length === 1) {
-          setTimeout(() => {
-            this.setState({showCart: true, hideInAdvance: false});
-          }, 100);
-        } else {
-          this.setState({showCart: true, hideInAdvance: false});
+      if (window != 'undefined') {
+        if (this.state.focusActive) {
+          window.scrollTo(0, 0);
+          window.document.body.scrollTop = 0;
         }
-        this.updateAddedToCart(product.id, true);
-      });
+      }
+
+      setTimeout(() => {
+        this.storeProductToLocalStorage(product);
+        // window.location.href = `/cart`;
+        const cartData = StorageManager.getJson(CART_KEY, initialCart);
+        this.setState({cart: cartData, hideInAdvance: true}, () => {
+          if (this.state.cart.products && this.state.cart.products.length === 1) {
+            setTimeout(() => {
+              this.setState({showCart: true, hideInAdvance: false});
+            }, 100);
+          } else {
+            this.setState({showCart: true, hideInAdvance: false});
+          }
+          this.updateAddedToCart(product.id, true);
+        });
+      }, 400);
     }
   };
   storeProductToLocalStorage = (product) => {
