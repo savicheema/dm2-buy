@@ -35,14 +35,9 @@ ${order.products
 ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}
 ${order.address.city}, ${order.address.state} ${order.address.pincode}
-${
-  order.buyer && order.buyer.instagram
-  ? `PH. +91 ${order.buyer.phone}`
-    `IG. @${order.buyer.instagram}`
-    `Email: ${order.buyer.email}`
-  : `PH. +91 ${order.buyer.phone}`
-    `Email: ${order.buyer.email}`
-}
+PH. +91 ${order.buyer.phone}
+${order.buyer && order.buyer.instagram ? 'IG. @' + order.buyer.instagram : '\n'}
+Email: ${order.buyer.email}
 
 Thank you and Happy Selling,
 dm2buy crew 😇`;
