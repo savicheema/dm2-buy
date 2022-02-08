@@ -45,7 +45,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       },
       order_shipping: shippingFee,
       payment_processing_fee: processingFee,
-      order_total: total,
+      order_total: parseInt(total).toFixed(2),
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
