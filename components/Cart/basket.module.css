@@ -5,8 +5,8 @@
     /* visibility: hidden; */
     position: fixed;
     top: 0;
-    left: 100vw;
-    width: 0vw;
+    left: 100%;
+    width: 100%;
     /* left: 50%; */
     height: calc(100vh - 0px);
     height: calc(var(--vh, 1vh) * 100);
@@ -16,28 +16,22 @@
     width: 100%;
     /* width: 0; */
     max-width: var(--max-width);
-    /* transition: visibility 0s linear 0.6s, transform 0.5s ease-out; */
-    /* transform: translateX(-150%); */
     background-color: white;
-    transition: all 0.5s;
-    /* padding-bottom: 2rem; */
+    transition: all 0.5s ease-in-out;
     z-index: 100;
     margin: 0 auto;
 }
 .basketContainerOpen {
-    width: 100vw;
+    width: 100%;
     opacity: 1;
     /* width: 100%; */
     height: calc(var(--vh, 1vh) * 100);
     /* visibility: visible; */
     /* display: block; */
-    left: 50%;
+    left: 0%;
     overflow: hidden;
     /* max-height: 100vh; */
-    /* transition: 0.6s transform, visibility ease-out; */
-    transition: all 0.5s;
-    /* transition: visibility 0s linear 0s, transform 0.5s ease-out; */
-    transform: translateX(-50%);
+    transition: all 0.5s ease-in-out;
 }
 
 .hamBtn{
