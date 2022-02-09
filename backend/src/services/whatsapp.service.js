@@ -14,65 +14,65 @@ function sendMessage(order) {
   let message = order.buyer && order.buyer.instagram
     ? `Hello ${order.seller.name},
 
-    You have received a new order for ₹ ${totalMinusPaymentProcessingFee} ${discountCode} 🙌
+  You have received a new order for ₹ ${totalMinusPaymentProcessingFee} ${discountCode} 🙌
 
-    *Order Details*
-    ${order.products
-      .map((product) => {
-        if (product.colour) {
-          product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
-        }
-        if (product.size) {
-          product.customAttributes.push({ name: 'Size', value: product.size });
-        }
-        const customAttrib =
-          product.customAttributes.length > 0
-            ? `( _${product.customAttributes.map((ca) => `${ca.name} - ${ca.value}`).join(' · ')}_ )`
-            : '';
-        return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
-      })
-      .join('\n')}
+  *Order Details*
+  ${order.products
+    .map((product) => {
+      if (product.colour) {
+        product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
+      }
+      if (product.size) {
+        product.customAttributes.push({ name: 'Size', value: product.size });
+      }
+      const customAttrib =
+        product.customAttributes.length > 0
+          ? `( _${product.customAttributes.map((ca) => `${ca.name} - ${ca.value}`).join(' · ')}_ )`
+          : '';
+      return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
+    })
+    .join('\n')}
 
-    *Customer Details*
-    ${order.buyer.name}
-    ${order.address.complete_address || order.address.address_line_1}
-    ${order.address.city}, ${order.address.state} ${order.address.pincode}
-    PH. +91 ${order.buyer.phone}
-    IG. @${order.buyer.instagram}
-    Email: ${order.buyer.email}
+  *Customer Details*
+  ${order.buyer.name}
+  ${order.address.complete_address || order.address.address_line_1}
+  ${order.address.city}, ${order.address.state} ${order.address.pincode}
+  PH. +91 ${order.buyer.phone}
+  IG. @${order.buyer.instagram}
+  Email: ${order.buyer.email}
 
-    Thank you and Happy Selling,
-    dm2buy crew 😇`
+  Thank you and Happy Selling,
+  dm2buy crew 😇`
     : `Hello ${order.seller.name},
 
-    You have received a new order for ₹ ${totalMinusPaymentProcessingFee} ${discountCode} 🙌
+  You have received a new order for ₹ ${totalMinusPaymentProcessingFee} ${discountCode} 🙌
 
-    *Order Details*
-    ${order.products
-      .map((product) => {
-        if (product.colour) {
-          product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
-        }
-        if (product.size) {
-          product.customAttributes.push({ name: 'Size', value: product.size });
-        }
-        const customAttrib =
-          product.customAttributes.length > 0
-            ? `( _${product.customAttributes.map((ca) => `${ca.name} - ${ca.value}`).join(' · ')}_ )`
-            : '';
-        return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
-      })
-      .join('\n')}
+  *Order Details*
+  ${order.products
+    .map((product) => {
+      if (product.colour) {
+        product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
+      }
+      if (product.size) {
+        product.customAttributes.push({ name: 'Size', value: product.size });
+      }
+      const customAttrib =
+        product.customAttributes.length > 0
+          ? `( _${product.customAttributes.map((ca) => `${ca.name} - ${ca.value}`).join(' · ')}_ )`
+          : '';
+      return `- ${product.name}${customAttrib} x ${product.quantity} - ₹${product.price * Number(product.quantity)}`;
+    })
+    .join('\n')}
 
-    *Customer Details*
-    ${order.buyer.name}
-    ${order.address.complete_address || order.address.address_line_1}
-    ${order.address.city}, ${order.address.state} ${order.address.pincode}
-    PH. +91 ${order.buyer.phone}
-    Email: ${order.buyer.email}
+  *Customer Details*
+  ${order.buyer.name}
+  ${order.address.complete_address || order.address.address_line_1}
+  ${order.address.city}, ${order.address.state} ${order.address.pincode}
+  PH. +91 ${order.buyer.phone}
+  Email: ${order.buyer.email}
 
-    Thank you and Happy Selling,
-    dm2buy crew 😇`;
+  Thank you and Happy Selling,
+  dm2buy crew 😇`;
   console.log(message);
   if (order.seller.phone) {
     var options = {
