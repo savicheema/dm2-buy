@@ -65,6 +65,10 @@ a {
   border-radius: 20px;
 }
 
+.slider-wrapper {
+  border-radius: 20px;
+}
+
 .carousel .control-next.control-arrow::before {
   border-left: 8px solid #333333 !important;
   /* position: absolute;

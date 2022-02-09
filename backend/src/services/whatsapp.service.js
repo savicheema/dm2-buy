@@ -1,6 +1,7 @@
 const request = require('request');
 const config = require('../config/config');
 const colorMap = require('../utils/ColorCodes');
+const { sendEmailAlert } = require('./emailAlert.service');
 
 function sendMessage(order) {
   console.log('sending whatsapp message' + order);
@@ -36,7 +37,7 @@ ${order.buyer.name}
 ${order.address.complete_address || order.address.address_line_1}
 ${order.address.city}, ${order.address.state} ${order.address.pincode}
 PH. +91 ${order.buyer.phone}
-${order.buyer && order.buyer.instagram ? 'IG. @' + order.buyer.instagram : ''}
+${order.buyer && order.buyer.instagram ? 'IG. @' + order.buyer.instagram : '\n'}
 Email: ${order.buyer.email}
 
 Thank you and Happy Selling,
@@ -59,7 +60,10 @@ dm2buy crew 😇`;
     };
 
     request(options, function (error, response, body) {
-      if (error) throw new Error(error);
+      if (error) {
+        sendEmailAlert(["sgoel19922@gmail.com", "suavelambi@gmail.com"], 'Whatsapp service failed to execute', message);
+        throw new Error(error);
+      }
 
       console.log(body);
     });
