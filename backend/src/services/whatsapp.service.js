@@ -1,6 +1,7 @@
 const request = require('request');
 const config = require('../config/config');
 const colorMap = require('../utils/ColorCodes');
+const { sendEmailAlert } = require('./emailAlert.service');
 
 function sendMessage(order) {
   console.log('sending whatsapp message' + order);
@@ -59,7 +60,10 @@ dm2buy crew 😇`;
     };
 
     request(options, function (error, response, body) {
-      if (error) throw new Error(error);
+      if (error) {
+        sendEmailAlert(["sgoel19922@gmail.com", "suavelambi@gmail.com"], 'Whatsapp service failed to execute', message);
+        throw new Error(error);
+      }
 
       console.log(body);
     });
