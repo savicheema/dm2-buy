@@ -54,8 +54,9 @@ class Product extends React.Component {
       hideInAdvance: false,
       selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
       ? product.fields.sizeVariants[0] : '',
-      focusActive: false
     };
+
+    this.focusActive = false;
   }
 
   componentDidMount() {
@@ -89,11 +90,11 @@ class Product extends React.Component {
       let inputs = window.document.querySelectorAll('input');
       inputs.forEach(input => {
         input.onfocus = () => {
-          this.setState({focusActive: true});
+          this.focusActive = true;
         }
         input.onblur = () => {
           setTimeout(() => {
-            this.setState({focusActive: false});
+            this.focusActive = false;
           }, 2000);
         }
       });
@@ -287,8 +288,10 @@ class Product extends React.Component {
     let isValid = true;
     const isFocusAble = true;
     for (const ca of product.customAttributes) {
-      if (!(await ca.ref.current.validate(isFocusAble))) {
-        isValid = false;
+      if ((ca?.fields?.Required === 'Yes') || !ca.fields || !ca) {
+        if (!(await ca.ref.current.validate(isFocusAble))) {
+          isValid = false;
+        }
       }
     }
     return isValid;
@@ -297,7 +300,7 @@ class Product extends React.Component {
     const { product } = this.state;
     if (await this.validated(product)) {
       if (window != 'undefined') {
-        if (this.state.focusActive) {
+        if (this.focusActive) {
           window.scrollTo(0, 0);
           window.document.body.scrollTop = 0;
         }
