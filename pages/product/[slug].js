@@ -280,9 +280,12 @@ class Product extends React.Component {
   }
 
   cleanProductDescription = (desc) => {
-    let plainText = desc.replace(/<[^>]+>/g, "");
-    plainText = plainText.replace(/(\n)+/, "");
-    return plainText.slice(0, 200);
+    if (desc && desc.length) {
+      let plainText = desc.replace(/<[^>]+>/g, "");
+      plainText = plainText.replace(/(\n)+/, "");
+      return plainText.slice(0, 200);
+    }
+    return '';
   };
   validated = async (product) => {
     let isValid = true;
