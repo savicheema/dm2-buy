@@ -65,6 +65,10 @@ a {
   border-radius: 20px;
 }
 
+.carousel.carousel-slider {
+  border-radius: 20px;
+}
+
 @media screen and (max-width: 400px) {
   .carousel .slide img {
     width: auto; /*100vw*/
