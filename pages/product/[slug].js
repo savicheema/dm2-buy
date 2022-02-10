@@ -85,7 +85,7 @@ class Product extends React.Component {
       this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
     }
-    if (window != 'undefined') {
+    if (typeof window != 'undefined') {
       window.document.body.style.scrollBehavior = 'smooth';
       let inputs = window.document.querySelectorAll('input');
       inputs.forEach(input => {
@@ -302,7 +302,7 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
-      if (window != 'undefined') {
+      if (typeof window != 'undefined') {
         if (this.focusActive) {
           window.scrollTo(0, 0);
           window.document.body.scrollTop = 0;

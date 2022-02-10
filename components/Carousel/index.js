@@ -12,7 +12,7 @@ import Indicator from "./Indicator";
 const DM2BuyCarousel = ({ product }) => {
   let imageWidth = 350;
 
-  if (window != 'undefined') {
+  if (typeof window != 'undefined') {
     imageWidth = window.innerWidth - (18 * 2);
   }
 
