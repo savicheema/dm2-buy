@@ -65,6 +65,13 @@ a {
   border-radius: 20px;
 }
 
+@media screen and (max-width: 400px) {
+  .carousel .slide img {
+    width: auto; /*100vw*/
+    border-radius: 0px;
+  }
+}
+
 .slider-wrapper {
   border-radius: 20px;
 }
