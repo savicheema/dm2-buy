@@ -69,12 +69,12 @@ a {
   /* border-radius: 20px; */
 }
 
-/* @media screen and (max-width: 400px) {
+@media screen and (min-width: 400px) {
   .carousel .slide img {
     width: auto;
-    border-radius: 0px;
+    border-radius: 20px;
   }
-} */
+}
 
 .slider-wrapper {
   border-radius: 20px;
