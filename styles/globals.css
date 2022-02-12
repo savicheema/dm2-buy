@@ -62,7 +62,7 @@ a {
 } */
 .carousel .slide img {
   width: auto; /*100vw*/
-  /* border-radius: 20px; */
+  border-radius: 20px;
 }
 
 .carousel .slider-wrapper {
