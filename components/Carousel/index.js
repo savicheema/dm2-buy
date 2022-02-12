@@ -10,11 +10,11 @@ import NextArrow from "./NextArrow";
 import Indicator from "./Indicator";
 
 const DM2BuyCarousel = ({ product }) => {
-  let imageWidth = 350;
+  // let imageWidth = 350;
 
-  if (typeof window != 'undefined') {
-    imageWidth = window.innerWidth - (18 * 2);
-  }
+  // if (typeof window != 'undefined') {
+  //   imageWidth = window.innerWidth - (18 * 2);
+  // }
 
   return (
     <div style={{padding: '0px 18px'}}>
@@ -41,7 +41,7 @@ const DM2BuyCarousel = ({ product }) => {
       >
         {product.allPhotos &&
           product.allPhotos.map((photo, index) => {
-            return <Image src={photo.url} height={425} width={imageWidth} key={index} priority/>;
+            return <Image src={photo.url} height={525} width={460} key={index} priority/>;
           })}
       </Carousel>
     </div>
