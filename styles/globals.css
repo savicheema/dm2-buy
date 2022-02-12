@@ -62,19 +62,19 @@ a {
 } */
 .carousel .slide img {
   width: auto; /*100vw*/
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
 .carousel.carousel-slider {
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
-@media screen and (max-width: 400px) {
+/* @media screen and (max-width: 400px) {
   .carousel .slide img {
-    width: auto; /*100vw*/
+    width: auto;
     border-radius: 0px;
   }
-}
+} */
 
 .slider-wrapper {
   border-radius: 20px;
