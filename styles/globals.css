@@ -61,7 +61,7 @@ a {
   z-index: 99;
 } */
 .carousel .slide img {
-  width: auto; /*100vw*/
+  width: auto;
   border-radius: 20px;
 }
 
