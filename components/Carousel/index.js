@@ -15,6 +15,8 @@ const DM2BuyCarousel = ({ product }) => (
       showThumbs={false}
       showStatus={false}
       infiniteLoop={true}
+      centerMode={true}
+      centerSlidePercentage={110}
       renderArrowPrev={(onClickHandler) => {
         return <PrevArrow handler={onClickHandler} />;
       }}
@@ -34,7 +36,7 @@ const DM2BuyCarousel = ({ product }) => (
     >
       {product.allPhotos &&
         product.allPhotos.map((photo, index) => {
-          return <Image src={photo.url} height={425} width={360} key={index} priority/>;
+          return <Image src={photo.url} height={425} width={350} key={index} priority/>;
         })}
     </Carousel>
   </div>

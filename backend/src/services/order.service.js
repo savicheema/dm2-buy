@@ -113,6 +113,25 @@ async function paymentRedirectPage(req, res) {
   res.end();
 }
 
+async function updateOrderPaymentStatusForGiftcard(orderId) {
+  console.log('notify update api called ');
+  const order = await Order.findById(orderId);
+  const productList = order.products;
+  productList.forEach(product => {
+    airtableService.updateProductStatus({ productId: product.id, quantity: product.quantity });
+  });
+  if(order.discountCode){
+    airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
+  }
+  order.payment_status = 'complete';
+  order.save();
+  console.log('order status updated ' + order.id);
+
+  whatsappService.sendMessage(order);
+  emailService.sendEmail(order);
+  airtableService.updateProductStock(order);
+}
+
 module.exports = {
   getAll,
   getById,
@@ -120,4 +139,5 @@ module.exports = {
   updateOrderPaymentStatus,
   paymentRedirectPage,
   delete: _delete,
+  updateOrderPaymentStatusForGiftcard
 };

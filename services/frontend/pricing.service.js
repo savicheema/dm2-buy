@@ -34,6 +34,8 @@ const getPrice = (cart) => {
   const processingFee = Number((calculatedPrice * 0.02).toFixed(2));
 
   calculatedPrice += processingFee;
+  calculatedPrice = calculatedPrice != 0 ? calculatedPrice.toFixed(2) : calculatedPrice;
+
   return {
     productTotalPrice: productTotalPrice,
     total: calculatedPrice,

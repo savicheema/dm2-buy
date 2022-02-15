@@ -39,8 +39,8 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
           {isProductCustomised && (
             <div className={styles.product_specs}>
               {item.customAttributes
-                .map((ca) => (
-                  <span>
+                .map((ca, index) => (
+                  <span key={index + 1}>
                     {ca.name} - {ca.value + ""}
                   </span>
                 ))

@@ -160,10 +160,11 @@ const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
       }
       case ACTION_TYPE.resolved: {
         if (action.data.discountType === 'percentage') {
-          action.data.discountedAmount = action.data.discountValue * (price/100);
+          action.data.discountedAmount = (action.data.discountValue * (price/100)).toFixed(2);
         } else {
-          action.data.discountedAmount = action.data.discountValue;
+          action.data.discountedAmount = action.data.discountValue >= price ? price : action.data.discountValue;
         }
+
         applyPromoCode(action.data.discountedAmount, action.data.id, action.data.couponCode)
         return {status: ACTION_TYPE.resolved, data: action.data, error: null}
       }
