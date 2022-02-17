@@ -15,8 +15,8 @@ const DM2BuyCarousel = ({ product }) => (
       showThumbs={false}
       showStatus={false}
       infiniteLoop={true}
-      centerMode={true}
-      centerSlidePercentage={110}
+      // centerMode={true}
+      // centerSlidePercentage={110}
       renderArrowPrev={(onClickHandler) => {
         return <PrevArrow handler={onClickHandler} />;
       }}
