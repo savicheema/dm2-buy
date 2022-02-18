@@ -1,6 +1,6 @@
 .storeCollections {
   position: absolute;
-  top: 56px;
+  top: 60px;
   left: 0;
   right: 0;
   display: flex;
@@ -13,7 +13,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   max-width: max-content;
-  height: 66px;
+  height: 56px;
   scroll-behavior: smooth;
   z-index: 200;
 }
@@ -25,4 +25,8 @@
 /* Optional: show position indicator in white */
 .storeCollections::-webkit-scrollbar-thumb {
   background: #ffffff;
+}
+
+.storeCollections::-webkit-scrollbar {
+  display: none;
 }
