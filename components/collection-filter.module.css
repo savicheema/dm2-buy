@@ -1,7 +1,7 @@
 .collectionFilter {
   margin: 4px 5px 5px 4px;
   padding: 4px 20px 4px 20px;
-  border-radius: 20px;
+  border-radius: 50px;
   background-color: #f5f5f5;
   text-transform: capitalize;
   font-size: 13px;
@@ -15,7 +15,7 @@
 .selectedFilter {
   margin: 4px 5px 5px 4px;
   padding: 5px 20px;
-  border-radius: 20px;
+  border-radius: 50px;
   background-color: #000;
 
   font-size: 13px;
