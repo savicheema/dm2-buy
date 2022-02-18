@@ -1,6 +1,6 @@
 .storeCollections {
   position: absolute;
-  top: 0;
+  top: 56px;
   left: 0;
   right: 0;
   display: flex;
@@ -8,12 +8,14 @@
   /* flex-wrap: wrap; */
   line-height: 2rem;
   margin-top: 5px;
-  padding-left: 64px;
+  padding-left: 78px;
+  padding-right: 20px;
   overflow-x: auto;
   overflow-y: hidden;
   max-width: max-content;
   height: 66px;
   scroll-behavior: smooth;
+  z-index: 200;
 }
 
 .storeCollections::-webkit-scrollbar {
