@@ -4,11 +4,9 @@
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
-  /* flex-wrap: wrap; */
   line-height: 2rem;
   margin-top: 5px;
-  padding-left: 9rem;
+  padding-left: 20px;
   padding-right: 20px;
   overflow-x: auto;
   overflow-y: hidden;
