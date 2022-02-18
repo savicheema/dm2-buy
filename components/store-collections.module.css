@@ -5,7 +5,22 @@
   right: 0;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   line-height: 2rem;
   margin-top: 5px;
+  padding-left: 64px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: max-content;
+  height: 66px;
+  scroll-behavior: smooth;
+}
+
+.storeCollections::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in white */
+.storeCollections::-webkit-scrollbar-thumb {
+  background: #ffffff;
 }
