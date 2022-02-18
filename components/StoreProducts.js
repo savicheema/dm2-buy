@@ -84,7 +84,7 @@ class StoreProducts extends React.Component {
 
   filterCollectionProducts = (product) => {
     let { selectedFilter } = this.state;
-    if (!selectedFilter || selectedFilter === "all") return true;
+    if (!selectedFilter || selectedFilter === "all products") return true;
 
     return product.fields.collections?.includes(selectedFilter);
   };
