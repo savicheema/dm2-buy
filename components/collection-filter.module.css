@@ -10,6 +10,10 @@
   align-items: center;
   letter-spacing: 1px;
   white-space: nowrap;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .selectedFilter {
@@ -31,4 +35,9 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
