@@ -149,13 +149,13 @@ class StoreProducts extends React.Component {
         )} */}
 
         {
-          !this.state.loading && (
+          !this.state.loading && storeCollections.length ? (
             <StoreCollections
               collections={storeCollections}
               setCollectionsHeight={this.setCollectionsHeight}
               setFilter={this.setFilter}
             />
-          )
+          ) : ''
         }
 
         {!this.state.loading && (
