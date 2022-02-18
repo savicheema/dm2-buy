@@ -1,11 +1,32 @@
 .storeCollections {
   position: absolute;
-  top: 0;
+  top: 68px;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   line-height: 2rem;
   margin-top: 5px;
+  padding-left: 9rem;
+  padding-right: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: max-content;
+  height: 56px;
+  scroll-behavior: smooth;
+  z-index: 10;
+}
+
+.storeCollections::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in white */
+.storeCollections::-webkit-scrollbar-thumb {
+  background: #ffffff;
+}
+
+.storeCollections::-webkit-scrollbar {
+  display: none;
 }

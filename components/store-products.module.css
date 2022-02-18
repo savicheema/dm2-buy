@@ -14,4 +14,5 @@
 .store {
   min-height: calc(100vh - 268px);
   width: 100%;
+  margin-top: 38px;
 }
