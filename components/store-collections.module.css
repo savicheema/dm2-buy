@@ -16,6 +16,12 @@
   z-index: 10;
 }
 
+@media screen and (min-width: 520px) {
+  .storeCollections {
+    padding-left: calc(((100vw - var(--max-width))/2) + 20px);
+  }
+}
+
 .storeCollections::-webkit-scrollbar {
   width: 0;  /* Remove scrollbar space */
   background: transparent;  /* Optional: just make scrollbar invisible */
