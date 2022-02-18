@@ -3,7 +3,7 @@ import styles from "./store-collections.module.css";
 
 import CollectionFilter from "./CollectionFilter";
 
-const all = "all";
+const all = "all products";
 
 const StoreCollections = ({ collections, setCollectionsHeight, setFilter }) => {
   const [selectedCollection, setSelectedCollection] = useState();
