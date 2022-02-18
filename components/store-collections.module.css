@@ -1,6 +1,6 @@
 .storeCollections {
   position: absolute;
-  top: 60px;
+  top: 68px;
   left: 0;
   right: 0;
   display: flex;
@@ -15,7 +15,7 @@
   max-width: max-content;
   height: 56px;
   scroll-behavior: smooth;
-  z-index: 200;
+  z-index: 10;
 }
 
 .storeCollections::-webkit-scrollbar {
