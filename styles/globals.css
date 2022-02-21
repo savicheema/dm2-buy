@@ -44,15 +44,15 @@ a {
 }
 .carousel {
   margin-bottom: 24px !important;
-  height: 120vw !important;
+  height: 118vw !important;
 }
 
-@media screen and (max-width: 380px) {
+/* @media screen and (max-width: 380px) {
   .carousel {
     margin-bottom: 24px !important;
     height: 132vw !important;
   }
-}
+} */
 
 @media screen and (min-width: 520px) {
   .carousel {
