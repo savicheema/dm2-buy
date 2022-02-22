@@ -1,0 +1,36 @@
+.shopTags {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    display: flex;
+    line-height: 2rem;
+    margin-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: max-content;
+    height: 56px;
+    scroll-behavior: smooth;
+    z-index: 10;
+  }
+  
+  @media screen and (min-width: 520px) {
+    .shopTags {
+      padding-left: calc(((100vw - var(--max-width))/2) + 20px);
+    }
+  }
+  
+  .shopTags::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in white */
+  .shopTags::-webkit-scrollbar-thumb {
+    background: #ffffff;
+  }
+  
+  .shopTags::-webkit-scrollbar {
+    display: none;
+  }

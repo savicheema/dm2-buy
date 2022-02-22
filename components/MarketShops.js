@@ -48,7 +48,7 @@ class MarketShops extends React.Component {
               let { endLoading } = this.props;
               let { stores } = this.state;
 
-              // stores.forEach(this.getCollectionsOfProductAddToStore);
+              stores.forEach(this.getCategoriesOfStoreAddToMarket);
 
               endLoading();
               this.setState({loading: false});
@@ -69,50 +69,30 @@ class MarketShops extends React.Component {
     this.setState({ selectedFilter: collection });
   };
 
-  filterCollectionProducts = (product) => {
+  filterTagStores = (store) => {
     let { selectedFilter } = this.state;
-    if (!selectedFilter || selectedFilter === "all stores") return true;
+    if (!selectedFilter || selectedFilter === "all shops") return true;
 
-    return store.fields.category?.includes(selectedFilter);
+    return store.fields.Categories?.includes(selectedFilter);
   };
 
-//   getCollectionsOfProductAddToStore = (product) => {
-//     // if product callection name doesn't already exist in tag add it
-//     const { collections } = product?.fields;
-//     if (!collections?.length) return;
-//     let { storeCollections } = this.state;
-//     for (let i = 0; i < collections.length; i++) {
-//       const collection = collections[i];
-//       if (storeCollections?.includes(collection)) continue;
+  getCategoriesOfStoreAddToMarket = (store) => {
+    // if store category name doesn't already exist in tag add it
+    const { Categories } = store?.fields;
+    if (!Categories?.length) return;
+    let { shopTags } = this.state;
+    for (let i = 0; i < Categories.length; i++) {
+      const collection = Categories[i];
+      if (shopTags?.includes(collection)) continue;
 
-//       storeCollections.push(collection);
-//     }
+      shopTags.push(collection);
+    }
 
-//     this.setState({ storeCollections }, () => {
-//       let { storeCollections } = this.state;
-//       console.log("COLLECTIONS", storeCollections);
-//     });
-//   };
-
-//   fetchProduct = (productId, subdomain) => {
-//     return new Promise((resolve, reject) => {
-//       fetch(
-//         `/api/airtable/getProduct?product=${productId}&subdomain=${subdomain}`
-//       )
-//         .then((response) => {
-//           console.log("product RESPONSE", response);
-//           return response.json();
-//         })
-//         .then((data) => {
-//           console.log("product DATA", data);
-//           resolve(data);
-//         })
-//         .catch((err) => {
-//           console.error(err);
-//           reject();
-//         });
-//     });
-//   };
+    this.setState({ shopTags }, () => {
+      let { shopTags } = this.state;
+      console.log("Categories", shopTags);
+    });
+  };
 
   setTagHeight = (tagHeight) => {
     this.setState({ tagHeight });
@@ -126,16 +106,11 @@ class MarketShops extends React.Component {
     return (
       <div className={styles.market}>
         {this.state.loading && <LoaderComponent />}
-        {/* {products.length && (
-          <h2
-            className={styles.storeHeading}
-          >{`${products.length} products listed`}</h2>
-        )} */}
 
         {
           !this.state.loading && shopTags.length ? (
             <ShopTags
-              tags={marketTags}
+              tags={shopTags}
               setTagHeight={this.setTagHeight}
               setFilter={this.setFilter}
             />
@@ -151,7 +126,7 @@ class MarketShops extends React.Component {
           >
             {stores && stores.length > 0 ? (
               stores
-                .filter(this.filterCollectionProducts)
+                .filter(this.filterTagStores)
                 .map((store, index) => {
                   return <MarketItem store={store} key={index} />;
                 })
