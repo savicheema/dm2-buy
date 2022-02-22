@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./market-shops.module.css";
 import EmptyMarket from "./EmptyMarket";
 import MarketItem from "./MarketItem";
-import { getSubDomainOfPage } from "../services/helper";
 
 import ShopTags from "./ShopTags";
 import LoaderComponent from "./Loader";
@@ -13,7 +12,6 @@ class MarketShops extends React.Component {
 
     let stores = [];
     let shopTags = [];
-    let tagHeight = 0;
     let selectedFilter = undefined;
 
     this.state = {
@@ -73,16 +71,16 @@ class MarketShops extends React.Component {
     let { selectedFilter } = this.state;
     if (!selectedFilter || selectedFilter === "all shops") return true;
 
-    return store.fields.Categories?.includes(selectedFilter);
+    return store.fields.category?.includes(selectedFilter);
   };
 
   getCategoriesOfStoreAddToMarket = (store) => {
     // if store category name doesn't already exist in tag add it
-    const { Categories } = store?.fields;
-    if (!Categories?.length) return;
+    const { category } = store?.fields;
+    if (!category?.length) return;
     let { shopTags } = this.state;
-    for (let i = 0; i < Categories.length; i++) {
-      const collection = Categories[i];
+    for (let i = 0; i < category.length; i++) {
+      const collection = category[i];
       if (shopTags?.includes(collection)) continue;
 
       shopTags.push(collection);
@@ -90,7 +88,7 @@ class MarketShops extends React.Component {
 
     this.setState({ shopTags }, () => {
       let { shopTags } = this.state;
-      console.log("Categories", shopTags);
+      console.log("category", shopTags);
     });
   };
 
