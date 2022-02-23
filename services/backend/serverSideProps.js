@@ -1,7 +1,7 @@
 import constants from "../../constants";
 
 export async function getStore(context) {
-  let store, errorCode, storeUrl;
+  let store, errorCode, storeUrl, market, marketUrl;
   const { req } = context;
   const { host } = req.headers;
   //console.log('host: ', host);
@@ -11,8 +11,31 @@ export async function getStore(context) {
     splitHost[0] == "localhost:3000" || splitHost[0] == "192"
       ? constants.devEnv.storeSubdomain
       : splitHost[0];
+
   const hostWithProtocol =
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
+
+  if (subdomain === 'market') {
+    const marketName = splitHost[1];
+    try {
+      const response = await fetch(
+        `${hostWithProtocol}/api/airtable/getMarketRecord?subdomain=${marketName}`
+      );
+      market = await response.json();
+      if (market.error) {
+        throw new Error(market.error);
+      }
+      marketUrl = `${hostWithProtocol}/`;
+      errorCode = false;
+    } catch (e) {
+      console.log(e)
+      errorCode = 404;
+      marketUrl = "";
+    }
+    return {
+      props: { storeData: null, errorCode: null, storeUrl: null, market: true, marketData: market, marketUrl }
+    };
+  }
   try {
     //console.log('splitHost --------: ', splitHost);
     //console.log('subdomain before: ', subdomain);
