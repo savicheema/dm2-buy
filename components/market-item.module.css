@@ -7,6 +7,30 @@
     margin-bottom: 12px;
 }
 
+@media screen and (min-width: 410px) {
+    .shopContainer {
+        height: 265px;
+    }
+}
+
+@media screen and (min-width: 440px) {
+    .shopContainer {
+        height: 275px;
+    }
+}
+
+@media screen and (min-width: 440px) {
+    .shopContainer {
+        height: 285px;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .shopContainer {
+        height: 300px;
+    }
+}
+
 .shopImage {
     width: 100%;
     border-radius: 20px;

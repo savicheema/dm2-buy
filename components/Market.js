@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./main.module.css";
+import styles from "./market.module.css";
 import homeStyles from "../styles/Home.module.css";
 import Image from "next/image";
 import MarketShops from "./MarketShops";
@@ -46,7 +46,7 @@ const Market = ({ market, endLoading, loading}) => {
 
   return (
     <main
-      className={styles.main}
+      className={styles.market}
       style={{
         transition: "max-height 0.2s",
       }}
