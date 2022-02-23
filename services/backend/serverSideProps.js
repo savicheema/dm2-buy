@@ -15,8 +15,8 @@ export async function getStore(context) {
   const hostWithProtocol =
     host === "localhost:3000" ? `http://${host}` : `https://${host}`;
 
-  if (subdomain === 'market') {
-    const marketName = splitHost[1];
+  if (splitHost[1] === 'shop') {
+    const marketName = splitHost[0];
     try {
       const response = await fetch(
         `${hostWithProtocol}/api/airtable/getMarketRecord?subdomain=${marketName}`
