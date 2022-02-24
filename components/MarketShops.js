@@ -18,7 +18,8 @@ class MarketShops extends React.Component {
       stores,
       shopTags,
       selectedFilter,
-      loading: true
+      loading: true,
+      dynamicMarginTop: 0
     };
 
     this.collectionsRef = React.createRef();
@@ -27,8 +28,30 @@ class MarketShops extends React.Component {
   componentDidMount() {
     let { market } = this.props;
     this.fetchAllStores(market.fields.Shops, market.fields.subdomain);
+
+    if (typeof window != 'undefined') {
+      window.addEventListener('resize', this.onPageResize);
+      if (this.props.market?.fields?.heroMedia[0]?.url) {
+        const dynamicMarginTop = window.document.getElementById("heroImage")
+          ? window.document.getElementById("heroImage").clientHeight : 0;
+
+        this.setState({dynamicMarginTop});
+      }
+    }
   }
+
   componentWillUnmount() {}
+
+  onPageResize = (event) => {
+    if (this.props.market?.fields?.heroMedia[0]?.url) {
+      if (typeof window != 'undefined') {
+        const dynamicMarginTop = window.document.getElementById("heroImage")
+          ? window.document.getElementById("heroImage").clientHeight : 0;
+
+        this.setState({dynamicMarginTop});
+      }
+    }
+  }
 
   fetchAllStores = (stores, subdomain) => {
     return new Promise((resolve, reject) => {
@@ -101,21 +124,14 @@ class MarketShops extends React.Component {
 
     let { loading } = this.props;
 
-    let dynamicMarginTop = 0;
-    if (this.props.market?.fields?.heroMedia[0]?.url) {
-      if (typeof window != 'undefined')
-      dynamicMarginTop = window.document.getElementById("heroImage")
-       ? window.document.getElementById("heroImage").clientHeight : 0;
-    }
-
     return (
-      <div className={styles.market} style={{marginTop: dynamicMarginTop + 38}}>
+      <div className={styles.market} style={{marginTop: this.state.dynamicMarginTop + 38}}>
         {this.state.loading && <LoaderComponent />}
 
         {
           !this.state.loading && shopTags.length ? (
             <ShopTags
-              dynamicMarginTop={dynamicMarginTop}
+              dynamicMarginTop={this.state.dynamicMarginTop}
               tags={shopTags}
               setTagHeight={this.setTagHeight}
               setFilter={this.setFilter}

@@ -17,6 +17,12 @@
     width: calc(100% - 44px);
 }
 
+@media screen and (min-width: 520px) {
+    .heroImageContainer {
+        width: calc(var(--max-width) - 64px);
+    }
+}
+
 .heroImage {
     width: 100%;
     border-radius: 16px;
