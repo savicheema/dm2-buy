@@ -10,6 +10,17 @@
     /* margin-bottom: 50px; */
     overflow-x: hidden;
 }
+
+.heroImageContainer {
+    margin-top: 30px;
+    position: absolute;
+    width: calc(100% - 44px);
+}
+
+.heroImage {
+    width: 100%;
+    border-radius: 16px;
+}
   
 .scrollMain {
     padding: 8px 20px;

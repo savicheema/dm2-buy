@@ -56,6 +56,12 @@ const Market = ({ market, endLoading, loading}) => {
             market={market}
             marketName={market?.fields?.name || ''}
         />
+        {
+          market?.fields?.heroMedia[0]?.url
+          ? <div id="heroImage" className={styles.heroImageContainer}>
+            <img className={styles.heroImage} src={market?.fields?.heroMedia[0]?.url} alt={market?.fields?.name} />
+          </div> : ''
+        }
         {market.fields && (
             <MarketShops
                 market={market}

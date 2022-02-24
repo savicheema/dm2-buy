@@ -101,13 +101,21 @@ class MarketShops extends React.Component {
 
     let { loading } = this.props;
 
+    let dynamicMarginTop = 0;
+    if (this.props.market?.fields?.heroMedia[0]?.url) {
+      if (typeof window != 'undefined')
+      dynamicMarginTop = window.document.getElementById("heroImage")
+       ? window.document.getElementById("heroImage").clientHeight : 0;
+    }
+
     return (
-      <div className={styles.market}>
+      <div className={styles.market} style={{marginTop: dynamicMarginTop + 38}}>
         {this.state.loading && <LoaderComponent />}
 
         {
           !this.state.loading && shopTags.length ? (
             <ShopTags
+              market={this.props.market}
               tags={shopTags}
               setTagHeight={this.setTagHeight}
               setFilter={this.setFilter}

@@ -53,7 +53,7 @@ export default function Home(props) {
         />
         <meta
           property="og:image"
-          content={marketData?.fields?.heroImage[0]?.url}
+          content={marketData?.fields?.heroMedia[0]?.thumbnails?.small?.url}
         />
         <meta property="og:site_name" content="Dm 2 Buy" />
         <meta property="og:url" content={marketUrl} />
@@ -67,7 +67,7 @@ export default function Home(props) {
         />
         <meta
           property="twitter:image"
-          content={marketData?.fields?.heroImage[0]?.url}
+          content={marketData?.fields?.heroMedia[0]?.thumbnails?.small?.url}
         />
       </Head>
       {/* <Header store={store} /> */}

@@ -5,7 +5,7 @@ import TagFilter from "./TagFilter";
 
 const all = "all shops";
 
-const ShopTags = ({ tags, setTagHeight, setFilter }) => {
+const ShopTags = ({ market, tags, setTagHeight, setFilter }) => {
   const [selectedTag, setSelectedTag] = useState();
   const tagRef = useRef(null);
 
@@ -51,6 +51,7 @@ const ShopTags = ({ tags, setTagHeight, setFilter }) => {
       .sort(sortFilter)
       .map((tag, i) => (
         <TagFilter
+          key={i+1}
           tag={tag}
           selectedTag={selectedTag}
           setSelectedTag={setSelectedTag}
@@ -60,8 +61,16 @@ const ShopTags = ({ tags, setTagHeight, setFilter }) => {
     return list.concat(tagList);
   }, [tags, selectedTag]);
 
+  let dynamicMarginTop = 0;
+  if (typeof window != 'undefined') {
+    if (market?.fields?.heroMedia[0]?.url) {
+      dynamicMarginTop = window.document.getElementById("heroImage")
+       ? window.document.getElementById("heroImage").clientHeight : 0;
+    }
+  }
+
   return (
-    <div className={styles.shopTags} ref={tagRef}>
+    <div className={styles.shopTags} ref={tagRef} style={{top: dynamicMarginTop + 68}}>
       {!!tags.length ? storeTags : null}
     </div>
   );
