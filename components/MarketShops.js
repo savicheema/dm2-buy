@@ -115,7 +115,7 @@ class MarketShops extends React.Component {
         {
           !this.state.loading && shopTags.length ? (
             <ShopTags
-              market={this.props.market}
+              dynamicMarginTop={dynamicMarginTop}
               tags={shopTags}
               setTagHeight={this.setTagHeight}
               setFilter={this.setFilter}
