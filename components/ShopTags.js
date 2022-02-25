@@ -42,6 +42,7 @@ const ShopTags = ({ dynamicMarginTop, tags, setTagHeight, setFilter }) => {
     const list = [];
     list.push(
       <TagFilter
+        key={'all-shops'}
         tag={all}
         selectedTag={selectedTag}
         setSelectedTag={setSelectedTag}

@@ -1,33 +1,40 @@
+.marketItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
 .shopContainer {
     width: 100%;
-    height: 255px;
+    height: 218px;
     background-color: rgb(237, 239, 241);
     border-radius: 20px;
     padding: 10px;
-    margin-bottom: 12px;
 }
 
-@media screen and (min-width: 410px) {
+@media screen and (min-width: 400px) {
     .shopContainer {
-        height: 265px;
+        height: 236px;
     }
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 430px) {
     .shopContainer {
-        height: 275px;
+        height: 246px;
     }
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 450px) {
     .shopContainer {
-        height: 285px;
+        height: 256px;
     }
 }
 
 @media screen and (min-width: 500px) {
     .shopContainer {
-        height: 300px;
+        height: 276px;
     }
 }
 
@@ -36,6 +43,7 @@
     border-radius: 20px;
     margin-bottom: 10px;
     object-fit: cover;
+    aspect-ratio: 4/4;
 }
 
 .infoSec {
@@ -44,7 +52,7 @@
 }
 
 .storeName {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -53,6 +61,7 @@
     text-align: center;
     color: #000;
     margin-bottom: 5px;
+    word-wrap: break-word;
 }
 
 .storeBio {
@@ -64,5 +73,5 @@
     letter-spacing: 0.26px;
     text-align: center;
     color: #1d1d1f;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
