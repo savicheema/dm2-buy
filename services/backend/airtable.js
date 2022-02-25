@@ -184,6 +184,35 @@ function getSubDomain(customDomain) {
   });
 }
 
+function getMarketBySubdomain(subdomain) {
+  return new Promise((resolve, reject) => {
+    base("Marketplace")
+      .select({
+        view: "Grid view",
+        filterByFormula: `{subdomain}="${subdomain}"`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
+  });
+}
+
+async function getStoresByMarket(marketName) {
+  const query = {
+    view: "Grid view",
+    filterByFormula: `SEARCH("${marketName}", ARRAYJOIN(Marketplace))`,
+    sort: [{ field: "date joined", direction: "desc" }]
+  };
+  const records = await base("Stores").select(query).firstPage();
+  return records.map((record) => record?._rawJson);
+}
+
 export {
   base,
   getRecordBySubdomain,
@@ -193,5 +222,7 @@ export {
   getAllProducts,
   fetchCustomAttributesByProduct,
   getSubDomain,
-  validatePromoCodeFromDB
+  validatePromoCodeFromDB,
+  getMarketBySubdomain,
+  getStoresByMarket
 };

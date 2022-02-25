@@ -1,0 +1,180 @@
+.market {
+    padding: 8px 22px 5rem 22px;
+    flex: auto;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    width: 100vw;
+    max-width: var(--max-width);
+    margin-top: 32px;
+    /* margin-bottom: 50px; */
+    overflow-x: hidden;
+}
+
+.heroImageContainer {
+    margin-top: 30px;
+    position: absolute;
+    width: calc(100% - 44px);
+}
+
+@media screen and (min-width: 520px) {
+    .heroImageContainer {
+        width: calc(var(--max-width) - 64px);
+    }
+}
+
+.heroImage {
+    width: 100%;
+    border-radius: 16px;
+}
+  
+.scrollMain {
+    padding: 8px 20px;
+  
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-width: var(--max-width);
+  
+    margin: 12px 0;
+  
+    max-height: 91vh;
+  
+    overflow-y: auto;
+  
+    overflow-x: hidden;
+}
+  
+.profile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.social {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.socialButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 20vw;
+    min-height: 20px;
+    max-width: 80px;
+    margin-top: 12px;
+    /* position: relative;
+    top: -8px; */
+}
+
+.store {
+    width: 100vw;
+    max-width: var(--max-width);
+}
+
+.footer {
+    width: calc(100% + 44px);
+    /* height: 100px; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: var(--max-width);
+
+    background-color: #e0dede;
+
+    padding: 44px 36px;
+}
+
+.footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.tagline {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+
+    height: 105px;
+    width: 300px;
+
+    margin-bottom: 44px;
+}
+
+.instruction {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inviteButton {
+    width: 100%;
+    height: 52px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ea2ba0;
+
+    margin: 24px 0;
+}
+
+.numberInput {
+    width: 100%;
+    height: 51px;
+    margin: 25px 16px 23px 0;
+    padding: 14px 81px 16px 14px;
+    border-radius: 20px;
+    background-color: #f2f3f5;
+}
+
+.instagramHandle {
+    font-size: 18px;
+    font-weight: 300;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #8e8e8e;
+}
+.bio {
+    color: #656565;
+    margin: 12px 10px 0 10px;
+    font-size: 16px;
+    margin-bottom: 0;
+    font-weight: normal;
+    font-family: "Roboto", sans-serif;
+    max-width: 325px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    text-align: center;
+}
+.bioNone {
+    display: none;
+}
+.userName {
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    font-family: "Lato", sans-serif;
+    margin: 12px 0 0 0;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    text-align: center;
+}

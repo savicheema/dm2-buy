@@ -1,0 +1,170 @@
+.marketName {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    font-family: "Lato", sans-serif;
+    /* margin: 12px 0 0 0; */
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    text-align: center;
+    /* margin-left: 1.5rem; */
+  }
+  
+  .navBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    width: 100%;
+    padding: 0.5rem 22px;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    max-width: var(--max-width);
+    background-color: transparent;
+    transform: translateX(-50%);
+    opacity: 1;
+    /* transition: all 0.4s ease-in-out; */
+    /* 
+    display: none;
+    left: 0; 
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    width: 100%;
+    transition: 1s all;
+    transform: translateX(-100vw);
+    padding: 72px 2rem;
+    z-index: 1;
+    margin: 0 auto;
+  
+    */
+  }
+  
+  .hide {
+    top: -60px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hideFade {
+    background: rgb(255, 255, 255);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .addBGWhite {
+    background: rgb(255, 255, 255) !important;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .hamBtn{
+    position: absolute;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    left: 0;
+    /* height: 30px; */
+    /* padding: 1rem; */
+  }
+  .hamTitleContainer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
+  }
+  .cartIcon{
+    z-index: 10;
+    position: absolute;
+    right: 0;
+  }
+  
+  
+  
+  
+  /* ham icon */
+  
+  .hamBtn>div {
+    width: 100%;
+    
+    height: 15px;
+    position: relative;
+    /* margin: 50px auto; */
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    margin-top: 7px;
+  }
+  
+  .hamBtn>div span {
+    display: block;
+    position: absolute;
+    height: 0.5px;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+  
+  /* Icon 3 */
+  
+  .hamBtn>div span:nth-child(1) {
+    top: 0px;
+  }
+  
+  .hamBtn>div span:nth-child(2),
+  .hamBtn>div span:nth-child(3) {
+    top: 7px;
+  }
+  
+  .hamBtn>div span:nth-child(4) {
+    top: 14px;
+  }
+  
+  .hamBtn>div.open span:nth-child(1) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+  }
+  
+  .hamBtn>div.open span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  .hamBtn>div.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  
+  .hamBtn>div.open span:nth-child(4) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+  }
