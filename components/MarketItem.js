@@ -3,7 +3,7 @@ import styles from "./market-item.module.css";
 
 const MarketItem = ({ store }) => {
   const storeData = store.fields;
-
+  console.log('storeData: ', storeData);
   return (
     <div
       className={styles.marketItem}
@@ -17,8 +17,15 @@ const MarketItem = ({ store }) => {
           <span className={styles.storeName}>
             {storeData.store_name}
           </span>
-          <span className={styles.storeBio} dangerouslySetInnerHTML={{ __html: storeData.store_bio }}>
-          </span>
+          {
+            storeData?.category && storeData?.category[0]
+            ? <span className={styles.storeBio}>
+              {storeData?.category[0]}
+            </span>
+            : ''
+          }
+          {/* <span className={styles.storeBio} dangerouslySetInnerHTML={{ __html: storeData.store_bio }}>
+          </span> */}
         </div>
       </div>
     </div>
