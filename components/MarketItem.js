@@ -3,7 +3,7 @@ import styles from "./market-item.module.css";
 
 const MarketItem = ({ store }) => {
   const storeData = store.fields;
-  console.log('storeData: ', storeData);
+
   return (
     <div
       className={styles.marketItem}

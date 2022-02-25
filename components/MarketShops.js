@@ -60,7 +60,6 @@ class MarketShops extends React.Component {
           return response.json();
         })
         .then((storeValues) => {
-          console.log("store RESPONSE", storeValues);
           this.setState(
             {
               stores: storeValues.records,
@@ -111,7 +110,6 @@ class MarketShops extends React.Component {
 
     this.setState({ shopTags }, () => {
       let { shopTags } = this.state;
-      console.log("category", shopTags);
     });
   };
 
@@ -150,7 +148,7 @@ class MarketShops extends React.Component {
               stores
                 .filter(this.filterTagStores)
                 .map((store, index) => {
-                  return <MarketItem store={store} key={index} />;
+                  return <MarketItem store={store} key={index + 1} />;
                 })
             ) : (
               <EmptyMarket />
