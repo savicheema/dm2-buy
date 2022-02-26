@@ -29,15 +29,17 @@ class MarketShops extends React.Component {
     let { market } = this.props;
     this.fetchAllStores(market.fields.Shops, market.fields.subdomain);
 
-    if (typeof window != 'undefined') {
-      window.addEventListener('resize', this.onPageResize);
-      if (this.props.market?.fields?.heroMedia[0]?.url) {
-        const dynamicMarginTop = window.document.getElementById("heroImage")
-          ? window.document.getElementById("heroImage").clientHeight : 0;
-
-        this.setState({dynamicMarginTop});
+    setTimeout(() => {
+      if (typeof window != 'undefined') {
+        window.addEventListener('resize', this.onPageResize);
+        if (this.props.market?.fields?.heroMedia[0]?.url) {
+          const dynamicMarginTop = window.document.getElementById("heroImage")
+            ? window.document.getElementById("heroImage").clientHeight : 0;
+  
+          this.setState({dynamicMarginTop});
+        }
       }
-    }
+    }, 0);
   }
 
   componentWillUnmount() {}
