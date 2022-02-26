@@ -4,13 +4,11 @@ import { environment } from "../services/helper";
 
 const MarketItem = ({ store }) => {
   const storeData = store.fields;
-  console.log('storeData: ', storeData);
   return (
     <div
       className={styles.marketItem}
       onClick={() => {
-        const endpoint = environment === 'PROD' ? '' : '.dev';
-        window.location.href = `https://${storeData['subdomain ']}${endpoint}.dm2buy.com`;
+        window.location.href = `https://${storeData['subdomain ']}.dm2buy.com`;
       }}
     >
       <div className={styles.shopContainer}>
