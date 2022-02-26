@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./market-item.module.css";
+import { environment } from "../services/helper";
 
 const MarketItem = ({ store }) => {
   const storeData = store.fields;
@@ -8,7 +9,8 @@ const MarketItem = ({ store }) => {
     <div
       className={styles.marketItem}
       onClick={() => {
-        window.location.href = `https://${storeData['subdomain ']}.dev.dm2buy.com`;
+        const endpoint = environment === 'PROD' ? '' : '.dev';
+        window.location.href = `https://${storeData['subdomain ']}${endpoint}.dm2buy.com`;
       }}
     >
       <div className={styles.shopContainer}>
