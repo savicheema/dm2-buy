@@ -10,7 +10,6 @@
 .shopContainer {
     width: 100%;
     border-radius: 20px;
-    padding: 10px;
 }
 
 /* @media screen and (min-width: 400px) {
@@ -40,7 +39,7 @@
 .shopImage {
     width: 100%;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     object-fit: cover;
     aspect-ratio: 4/4;
 }
@@ -51,7 +50,7 @@
 }
 
 .storeName {
-    margin: 0 0 0 0;
+    margin: 0 0 5px 0;
     font-family: Lato;
     font-size: 1.6rem;
     font-weight: bold;
