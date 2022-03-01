@@ -9,12 +9,11 @@
 
 .shopContainer {
     width: 100%;
-    height: auto;
     border-radius: 20px;
     padding: 10px;
 }
 
-@media screen and (min-width: 400px) {
+/* @media screen and (min-width: 400px) {
     .shopContainer {
         height: 236px;
     }
@@ -36,7 +35,7 @@
     .shopContainer {
         height: 276px;
     }
-}
+} */
 
 .shopImage {
     width: 100%;
