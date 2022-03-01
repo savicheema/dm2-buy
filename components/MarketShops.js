@@ -39,7 +39,7 @@ class MarketShops extends React.Component {
           this.setState({dynamicMarginTop});
         }
       }
-    }, 0);
+    }, 100);
   }
 
   componentWillUnmount() {}

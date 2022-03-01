@@ -13,7 +13,7 @@ const MarketItem = ({ store }) => {
       }}
     >
       <div className={styles.shopContainer}>
-        <img className={styles.shopImage} src={storeData?.store_profile_photo[0]?.url} alt={storeData.store_name} />
+        <img className={styles.shopImage} src={storeData?.coverImage[0]?.url} alt={storeData.store_name} />
         <div className={styles.infoSec}>
           <span className={styles.storeName}>
             {storeData.store_name}
