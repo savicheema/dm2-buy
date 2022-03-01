@@ -17,7 +17,9 @@ const MarketItem = ({ store }) => {
         <div className={styles.infoSec}>
           <span className={styles.storeName}>
             {storeData.store_name}
-            <img onClick={() => {
+            <img onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
               window.location.href = `instagram://user?username=${storeData.store_instagram_handle}`
               return;
             }} className={styles.instagramLogo} src="/instagram-4@3x-black.png" width="23" />
