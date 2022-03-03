@@ -143,7 +143,7 @@ class MarketShops extends React.Component {
           <div
             className={styles.marketItems}
             style={{
-              paddingTop: `${tagHeight + 16}px`,
+              // paddingTop: `${tagHeight + 16}px`,
             }}
           >
             {stores && stores.length > 0 ? (
