@@ -1,14 +1,14 @@
 .marketItems {
-    display: grid;
+    display: block;
     margin-top: 24px;
-    grid-gap: 5px 22px;
-    grid-template-columns: 47% 47%;
+    /* grid-gap: 5px 22px;
+    grid-template-columns: 47% 47%; */
     position: relative;
 }
   
 .market {
     min-height: calc(100vh - 268px);
     width: 100%;
-    margin-top: 38px;
+    margin-top: 18px;
 }
   

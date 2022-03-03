@@ -13,8 +13,7 @@
 
 .heroImageContainer {
     margin-top: 30px;
-    position: absolute;
-    width: calc(100% - 44px);
+    width: 100%;
 }
 
 @media screen and (min-width: 520px) {

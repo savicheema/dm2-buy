@@ -29,17 +29,17 @@ class MarketShops extends React.Component {
     let { market } = this.props;
     this.fetchAllStores(market.fields.Shops, market.fields.subdomain);
 
-    setTimeout(() => {
-      if (typeof window != 'undefined') {
-        window.addEventListener('resize', this.onPageResize);
-        if (this.props.market?.fields?.heroMedia[0]?.url) {
-          const dynamicMarginTop = window.document.getElementById("heroImage")
-            ? window.document.getElementById("heroImage").clientHeight : 0;
+    // setTimeout(() => {
+    //   if (typeof window != 'undefined') {
+    //     window.addEventListener('resize', this.onPageResize);
+    //     if (this.props.market?.fields?.heroMedia[0]?.url) {
+    //       const dynamicMarginTop = window.document.getElementById("heroImage")
+    //         ? window.document.getElementById("heroImage").clientHeight : 0;
   
-          this.setState({dynamicMarginTop});
-        }
-      }
-    }, 0);
+    //       this.setState({dynamicMarginTop});
+    //     }
+    //   }
+    // }, 100);
   }
 
   componentWillUnmount() {}
@@ -125,7 +125,9 @@ class MarketShops extends React.Component {
     let { loading } = this.props;
 
     return (
-      <div className={styles.market} style={{marginTop: this.state.dynamicMarginTop + 38}}>
+      <div className={styles.market} style={{
+        // marginTop: this.state.dynamicMarginTop + 38
+      }}>
         {this.state.loading && <LoaderComponent />}
 
         {
@@ -143,7 +145,7 @@ class MarketShops extends React.Component {
           <div
             className={styles.marketItems}
             style={{
-              paddingTop: `${tagHeight + 16}px`,
+              // paddingTop: `${tagHeight + 16}px`,
             }}
           >
             {stores && stores.length > 0 ? (
