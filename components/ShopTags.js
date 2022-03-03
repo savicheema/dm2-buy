@@ -63,7 +63,13 @@ const ShopTags = ({ dynamicMarginTop, tags, setTagHeight, setFilter }) => {
   }, [tags, selectedTag]);
 
   return (
-    <div className={styles.shopTags} ref={tagRef} style={{top: dynamicMarginTop + 68}}>
+    <div
+      className={styles.shopTags}
+      ref={tagRef}
+      style={{
+        // top: dynamicMarginTop + 68
+      }}
+      >
       {!!tags.length ? storeTags : null}
     </div>
   );
