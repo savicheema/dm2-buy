@@ -110,6 +110,8 @@ class MarketShops extends React.Component {
       shopTags.push(collection);
     }
 
+    shopTags = shopTags.filter(tag => tag !== 'Featured');
+
     this.setState({ shopTags }, () => {
       let { shopTags } = this.state;
     });
