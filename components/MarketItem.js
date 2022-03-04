@@ -9,7 +9,7 @@ const MarketItem = ({ store }) => {
     <div
       className={styles.marketItem}
       onClick={() => {
-        window.location.href = `https://${storeData['subdomain ']}.dm2buy.com`;
+        window.location.href = `https://${storeData['subdomain ']}.dev.dm2buy.com`;
       }}
     >
       <div className={styles.shopContainer}>

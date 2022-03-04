@@ -3,7 +3,7 @@ import styles from "./shop-tags.module.css";
 
 import TagFilter from "./TagFilter";
 
-const all = "all shops";
+const all = "Featured";
 
 const ShopTags = ({ dynamicMarginTop, tags, setTagHeight, setFilter }) => {
   const [selectedTag, setSelectedTag] = useState();
