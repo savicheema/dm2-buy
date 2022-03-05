@@ -70,6 +70,7 @@ a {
 .carousel .slide img {
   width: auto;
   border-radius: 20px;
+  object-fit: contain;
 }
 
 .carousel .slider-wrapper {
