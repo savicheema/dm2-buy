@@ -46,6 +46,8 @@ const airtableBaseId = process.env.AIRTABLE_BASE_ID;
 
 const serverEndpoint = process.env.SERVER_ENDPOINT;
 
+const environment = process.env.ENV;
+
 const guid = () => {
   var result, i, j;
   result = "";
@@ -65,4 +67,4 @@ function isNumeric(str) {
     !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 
-export { getSubDomainOfPage, Sentry, airtableBaseId, serverEndpoint, guid, isNumeric };
+export { getSubDomainOfPage, Sentry, airtableBaseId, serverEndpoint, guid, isNumeric, environment };

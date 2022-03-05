@@ -23,9 +23,12 @@ export default function Bag() {
     const cartData = cart;
     // const cartData = StorageManager.getJson(CART_KEY, initialCart);
     const filteredProducts = cartData.products.filter((product) => product.id !== productId);
-    cartData.products = filteredProducts;
-    StorageManager.putJson(CART_KEY, cartData);
-    setCart(cartData);
+    const newCartData = {
+      ...cart,
+      products: filteredProducts
+    };
+    StorageManager.putJson(CART_KEY, newCartData);
+    setCart(newCartData);
     if (filteredProducts.length === 0) {
       setLoading(true);
       window.location.href = "/";
@@ -79,7 +82,7 @@ export default function Bag() {
           <button
             className={styles.continueShoppingButton}
             onClick={async () => {
-              window.location.href = `/`;
+              window.location.href = `/shop`;
             }}
           >
             Continue Shopping

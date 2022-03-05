@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import Head from "next/head";
 import Error404 from "../404";
 import styles from "./product.module.css";
@@ -13,8 +13,9 @@ import { CART_KEY } from "../../services/frontend/StorageKeys";
 import { initialCart } from "../../services/ObjectsInitialValues";
 import ProductCustomFields from "../../components/ProductCustomFields";
 import ProductColors from "../../components/ProductColors";
+import NavBar from "../../components/Navbar";
 import Basket from "../../components/Cart/Basket";
-import NavBar from "../../components/NavBar";
+import ProductSizeFields from "../../components/ProductSizeFields";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -52,8 +53,12 @@ class Product extends React.Component {
       productAlreadyInCart: false,
       showCart: false,
       cart: {},
-      hideInAdvance: false
+      hideInAdvance: false,
+      selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
+      ? product.fields.sizeVariants[0] : '',
     };
+
+    this.focusActive = false;
   }
 
   componentDidMount() {
@@ -72,10 +77,29 @@ class Product extends React.Component {
       const product = {...this.state.product}
       let selectedColor =  productArr[0].colour;
       let selectedCustomAttributes = productArr[0].customAttributes;
+      let selectedSize = productArr[0]['sizeVariants'] && productArr[0]['sizeVariants'].length
+       ? productArr[0]['sizeVariants'][0] : (
+         product.fields.sizeVariants && product.fields.sizeVariants.length
+         ? product.fields.sizeVariants[0] : ''
+       );
       
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
-      this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes });
+      this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
       // this.setState({  });
+    }
+    if (typeof window != 'undefined') {
+      window.document.body.style.scrollBehavior = 'smooth';
+      let inputs = window.document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.onfocus = () => {
+          this.focusActive = true;
+        }
+        input.onblur = () => {
+          setTimeout(() => {
+            this.focusActive = false;
+          }, 2000);
+        }
+      });
     }
   }
   showToast = () => {
@@ -89,8 +113,15 @@ class Product extends React.Component {
     this.setState({showCart: boolVal});
   }
 
+  updateAddedToCart = (productId, value) => {
+    if (this.state.product.id === productId) {
+      this.setState({productAlreadyInCart: value});
+    }
+  }
+
   render() {
-    let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes } = this.state;
+    let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
+    console.log(" Product STATE", this.state);
 
     if (errorCode) {
       return <Error404 statusCode={errorCode} />;
@@ -102,29 +133,6 @@ class Product extends React.Component {
 
     return (
       <div className={styles.container}>
-        {
-          this.state.cart?.products?.length
-          ? <Basket
-            fromProductPage={true}
-            isBasketOpen={this.state.showCart}
-            setCart={(value) => this.setState({cart: value})}
-            cartData={this.state.cart}
-            StorageManager={StorageManager}
-            setHideInAdvance={() => this.setState({hideInAdvance: true})}
-            CART_KEY={CART_KEY}
-            handleShowCart={this.handleShowCart}/>
-          : ''
-        }
-        {
-          !this.state.showCart
-          && <NavBar
-            hideInAdvance={this.state.hideInAdvance || false}
-            cartActive={this.state.cart?.products?.length ? true : false}
-            handleShowCart={this.handleShowCart}
-            homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-            storeName={this.props.product?.store?.fields?.storeName || ''}
-          />
-        }
         <div className={styles.product}>
           <Head>
             <title>DM 2 BUY</title>
@@ -140,6 +148,7 @@ class Product extends React.Component {
               name="viewport"
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
             />
+
             <meta property="og:type" content="product" />
             <meta property="og:title" content={product?.name} />
             <meta
@@ -163,6 +172,27 @@ class Product extends React.Component {
             />
           </Head>
           {/* <Header /> */}
+          {
+            this.state.cart?.products?.length
+            ? <Basket
+              fromProductPage={true}
+              isBasketOpen={this.state.showCart}
+              setCart={(value) => this.setState({cart: value})}
+              cartData={this.state.cart}
+              StorageManager={StorageManager}
+              updateAddedToCart={this.updateAddedToCart}
+              setHideInAdvance={() => this.setState({hideInAdvance: true})}
+              CART_KEY={CART_KEY}
+              handleShowCart={this.handleShowCart}/>
+            : ''
+          }
+          <NavBar
+            cartActive={this.state.cart?.products?.length ? true : false}
+            handleShowCart={this.handleShowCart}
+            homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+            store={this.props.product?.store}
+            storeName={this.props.product?.store?.fields?.store_name || ''}
+          />
 
           <DM2BuyCarousel product={product} />
           <div className={styles.productSub}>
@@ -187,6 +217,15 @@ class Product extends React.Component {
                 }}
               />
             ) : null}
+
+            {
+              product.fields["sizeVariants"] && product.fields["sizeVariants"].length
+              ? <ProductSizeFields
+                  product={product}
+                  selectedSize={selectedSize}
+                  updateSelectedSize={(size) => this.setState({selectedSize: size})}
+                /> : ''
+            }
 
             <p
               className={styles.description}
@@ -243,16 +282,21 @@ class Product extends React.Component {
   }
 
   cleanProductDescription = (desc) => {
-    let plainText = desc.replace(/<[^>]+>/g, "");
-    plainText = plainText.replace(/(\n)+/, "");
-    return plainText.slice(0, 200);
+    if (desc && desc.length) {
+      let plainText = desc.replace(/<[^>]+>/g, "");
+      plainText = plainText.replace(/(\n)+/, "");
+      return plainText.slice(0, 200);
+    }
+    return '';
   };
   validated = async (product) => {
     let isValid = true;
     const isFocusAble = true;
     for (const ca of product.customAttributes) {
-      if (!(await ca.ref.current.validate(isFocusAble))) {
-        isValid = false;
+      if ((ca?.fields?.Required === 'Yes') || !ca.fields || !ca) {
+        if (!(await ca.ref.current.validate(isFocusAble))) {
+          isValid = false;
+        }
       }
     }
     return isValid;
@@ -260,18 +304,28 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
-      this.storeProductToLocalStorage(product);
-      // window.location.href = `/cart`;
-      const cartData = StorageManager.getJson(CART_KEY, initialCart);
-      this.setState({cart: cartData, hideInAdvance: true}, () => {
-        if (this.state.cart.products && this.state.cart.products.length === 1) {
-          setTimeout(() => {
-            this.setState({showCart: true, hideInAdvance: false});
-          }, 100);
-        } else {
-          this.setState({showCart: true, hideInAdvance: false});
+      if (typeof window != 'undefined') {
+        if (this.focusActive) {
+          window.scrollTo(0, 0);
+          window.document.body.scrollTop = 0;
         }
-      });
+      }
+
+      setTimeout(() => {
+        this.storeProductToLocalStorage(product);
+        // window.location.href = `/cart`;
+        const cartData = StorageManager.getJson(CART_KEY, initialCart);
+        this.setState({cart: cartData, hideInAdvance: true}, () => {
+          if (this.state.cart.products && this.state.cart.products.length === 1) {
+            setTimeout(() => {
+              this.setState({showCart: true, hideInAdvance: false});
+            }, 100);
+          } else {
+            this.setState({showCart: true, hideInAdvance: false});
+          }
+          this.updateAddedToCart(product.id, true);
+        });
+      }, 400);
     }
   };
   storeProductToLocalStorage = (product) => {
@@ -284,16 +338,22 @@ class Product extends React.Component {
         });
       }
     }
-    product.customAttributes = customAttributes;
+
+    if (this.state.selectedSize) {
+      product.size = this.state.selectedSize;
+    }
+
+    let _product = { ...product };
+    _product.customAttributes = customAttributes;
     const cart = StorageManager.getJson(CART_KEY, initialCart);
     const productIndex = cart.products.findIndex((item) => item.id === product.id);
     if (productIndex !== -1) {
-      cart.products[productIndex] = product;
+      cart.products[productIndex] = _product;
     } else {
-      cart.products.push(product);
+      cart.products.push(_product);
     }
-    cart.shippingFee = product.shippingFee;
-    cart.shippingFeeCap = product.shippingFeeCap;
+    cart.shippingFee = _product.shippingFee;
+    cart.shippingFeeCap = _product.shippingFeeCap;
     StorageManager.putJson(CART_KEY, cart);
   };
 }

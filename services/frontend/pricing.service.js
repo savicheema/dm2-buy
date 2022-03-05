@@ -1,10 +1,11 @@
 const getPrice = (cart) => {
+  console.log('cart=======: ', cart);
   let calculatedPrice = 0;
   let shippingFeeApplied = false;
   let shippingFee = cart.shippingFee;
-  let percentageDiscount = cart?.percentageDiscount;
+  let discountedAmount = cart?.discountedAmount;
   let couponId, couponCode;
-  if(percentageDiscount) {
+  if(discountedAmount) {
     couponId = cart.couponId;
     couponCode = cart.couponCode;
   }
@@ -18,8 +19,8 @@ const getPrice = (cart) => {
   }
 
   let priceWithoutFees = calculatedPrice;
-  if(percentageDiscount){
-    calculatedPrice = ((priceWithoutFees*10 - priceWithoutFees*percentageDiscount*10)/10);
+  if(discountedAmount){
+    calculatedPrice = priceWithoutFees - discountedAmount;
   }
 
   if (calculatedPrice < shippingFeeCap) {
@@ -33,6 +34,8 @@ const getPrice = (cart) => {
   const processingFee = Number((calculatedPrice * 0.02).toFixed(2));
 
   calculatedPrice += processingFee;
+  calculatedPrice = calculatedPrice != 0 ? calculatedPrice.toFixed(2) : calculatedPrice;
+
   return {
     productTotalPrice: productTotalPrice,
     total: calculatedPrice,

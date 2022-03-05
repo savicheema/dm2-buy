@@ -12,25 +12,26 @@ import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { initialCart } from "../../services/ObjectsInitialValues";
+import NavBar from "../../components/Navbar";
 import Basket from "../../components/Cart/Basket";
-import NavBar from "../../components/NavBar";
 
 export async function getServerSideProps(context) {
   return getOrderDetail(context);
 }
 
 export default function Order(props) {
+  const { errorCode, order, store, retryLink } = props;
+  const [loading, setLoading] = useState(false);
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const homePageEnabled = props.store?.homePageEnabled;
   const [showCart, setShowCart] = useState(false);
-  const { errorCode, order, store, retryLink } = props;
-  const [loading, setLoading] = useState(false);
+
   const status = order?.payment_status;
   const [meta, setMeta] = useState({
     title: "Dm 2 Buy",
   });
   useEffect(() => {
-    StorageManager.removeItem(CART_KEY);
+    StorageManager.removeItem(CART_KEY);    
   }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
@@ -68,13 +69,13 @@ export default function Order(props) {
         CART_KEY={CART_KEY}
         handleShowCart={handleShowCart}/>
       {
-        !showCart
-        && <NavBar
+        <NavBar
           hideInAdvance={false}
           cartActive={false}
           handleShowCart={handleShowCart}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-          storeName={store?.storeName || ''}
+          store={store}
+          storeName={store?.fields?.store_name || ''}
         />
       }
       <Head>

@@ -7,7 +7,7 @@ import { ShareButton, ImageButton } from "./Buttons";
 import Footer from "./Footer";
 import EllipsisText from "react-ellipsis-text";
 import Toast from "./Toast";
-import NavBar from "./NavBar"
+import NavBar from "./Navbar"
 import Home from "./Home";
 import useLocalStorage from "./../hooks/useLocalStorage";
 import { CART_KEY } from "./../services/frontend/StorageKeys";
@@ -15,17 +15,20 @@ import { initialCart } from "./../services/ObjectsInitialValues";
 import StorageManager from "./../services/frontend/StorageManager";
 import Basket from "./Cart/Basket";
 
-const Main = ({ store, endLoading, loading }) => {
-  console.log('contentful branch.');
+const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
+  console.log('dev-homepage branch live.');
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
-  const homePageEnabled = store?.homePage?.homePageEnabled;
-  const [homeActive, setHomeActive] = useState(homePageEnabled ? true : false);
+  const homePageEnabled = store?.fields?.homePageEnabled;
+  const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? (hideHeroMedia ? false : true) : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const updateHomeActive = (boolVal = false) => {
     setHomeActive(boolVal);
+    if (typeof window !== 'undefined') {
+      window.history.pushState("object or string", "Title", "shop");
+    }
   }
 
   const handleShowCart = (boolVal = false) => {
@@ -65,23 +68,25 @@ const Main = ({ store, endLoading, loading }) => {
         CART_KEY={CART_KEY}
         handleShowCart={handleShowCart}/>
       {
-        !showCart
-        && <NavBar
+        <NavBar
           cartActive={cart.products.length ? true : false}
           handleShowCart={handleShowCart}
           hideInAdvance={false}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-          storeName={store?.storeName || ''}
+          store={store}
+          storeName={store?.fields?.store_name || ''}
         />
       }
       {
-        homeActive ?
-        <Home
-          updateHomeActive={updateHomeActive}
-          heroMedia={store?.homePage?.heroMedia}
-          endLoading={endLoading}
-          loading={loading}/>
-        : <>
+         homeActive ?
+         <Home
+           updateHomeActive={updateHomeActive}
+           heroMedia={store?.fields?.heroMedia}
+           heroTitle={store?.fields?.heroTitle}
+           heroDescription={store?.fields?.heroDescription}
+           endLoading={endLoading}
+           loading={loading}/>
+         : <>
             <div className={styles.profile}>
               {/* {store && (
                 <div className={styles.social}>
@@ -93,9 +98,9 @@ const Main = ({ store, endLoading, loading }) => {
                     className={homeStyles.profilePic}
                   />
                 </div>
-              )}
+              )} */}
 
-              {store && (
+              {/* {store.fields && (
                 <div className="userInfo">
                   <h2 className={styles.userName}>
                     <EllipsisText
@@ -136,11 +141,11 @@ const Main = ({ store, endLoading, loading }) => {
               <StoreProducts
                 store={store}
                 endLoading={endLoading}
-                loading={loading}
+                loading={true}
               />
             )}
-          </>
-        }
+        </>
+      }
       <Footer />
       <Toast type="success" message="Link copied successfully" open={open} />
     </main>

@@ -45,23 +45,36 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       },
       order_shipping: shippingFee,
       payment_processing_fee: processingFee,
-      order_total: total,
+      order_total: parseInt(total).toFixed(2),
       buyer: personalFormRef.current.getValues(),
-      shipping_address: addressFormRef.current.getValues(),
-      store_id: cart.products[0]?.store.fields.id,
-      products: cart.products.map((product) => ({
-        customAttributes: product.customAttributes,
-        colour: product?.colour,
-        id: product?.id,
-        name: product?.name,
-        price: product?.price,
-        quantity: product.quantity,
-      })),
+      address: addressFormRef.current.getValues(),
+      seller: {
+        name: await getSubDomainOfPage(),
+        instagram: store?.fields?.store_instagram_handle,
+        phone: store?.fields?.phone,
+        seller_id: cart.products[0]?.fields?.Stores[0],
+      },
+      products: cart.products.map((product) => {
+        let productObj = {
+          customAttributes: product.customAttributes,
+          colour: product?.colour,
+          id: product?.id,
+          name: product?.fields?.Name,
+          price: product.fields.Price,
+          quantity: product.quantity,
+        };
+
+        if (product.size) productObj.size = product.size;
+
+        return productObj;
+      }),
     };
     if(bodyData.discountCode.id == null) {
       delete bodyData.discountCode
     }
-    console.log(bodyData)
+    if (total === 0 && bodyData.discountCode.id) {
+      bodyData.payment_mode = 'giftcard';
+    }
         
     setLoading(true);
     const url = new URL(
@@ -78,7 +91,12 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       });
       const res = await fetchData.json();
       if (res && res.status === "OK") {
-        popUpFrame(res.paymentLink);
+        console.log('res: ', res);
+        if (res.payment && res.payment === 'completed') {
+          window.location.href = `${window.location.protocol}//${window.location.host}/order/${res._id}`
+        } else {
+          popUpFrame(res.paymentLink);
+        }
       } else {
         showError();
         setLoading(false);

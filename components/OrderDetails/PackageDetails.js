@@ -39,6 +39,12 @@ export default function PackageDetails(props) {
                   </span>
                 </div>
               ) : null}
+              <div className={styles.product_specs}>
+                {
+                  item.size
+                    ? 'Size - ' + item.size : ''
+                }
+              </div>
             </div>
             <div className={orderStyles.orderTotal}>
               ₹{item.quantity * item.price}{" "}

@@ -1,30 +1,39 @@
 import styles from "./index.module.css"
 import Image from "next/image";
 import { useState } from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
-// const CategoryTitle = ({title, link}) => {
-//   return (
-
-//   )
-// }
-
-const CategoryProduct = ({title, link, imageSrc}) => {
+const CategoryProduct = ({product}) => {
+  const[imageLoaded, setImageLoaded] = useState(false);
   return (
-    <div className={styles.productContainer}>
-      <Image src="/placeholder.webp" layout="fixed" width="50" height="50" />
+    <div
+        onClick={() => {
+            window.location.href = `/product/${product.fields.Slug}-${product.id}`;
+        }}
+        className={styles.productContainer}>
+      {
+        !imageLoaded ? <span className={styles.categoryProductImage + ' ' + styles.imagePlaceholder}></span> : ''
+      }
+      <img
+        style={!imageLoaded ? { display: 'none' } : {}}
+        className={styles.categoryProductImage}
+        onLoad={() => setImageLoaded(true)}
+        src={product?.fields?.header_photo[0]?.url}
+        layout="fixed" width="70" height="70" />
       <div className={styles.productDesc}>
-        <h4 className={styles.productTitle}>
-          Bluebell
-        </h4>
+        <span className={styles.productTitle}>
+          {product?.fields?.Name}
+        </span>
         <span className={styles.productPrice}>
-          {String.fromCharCode(0x20b9)}2850
+          {String.fromCharCode(0x20b9)}{product?.fields?.Price}
         </span>
       </div>
     </div>
   )
 }
 
-const CategoryAccordian = ({}) => {
+const CategoryAccordian = ({category}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.accordBar}>
@@ -32,9 +41,9 @@ const CategoryAccordian = ({}) => {
         onClick={()=>setIsOpen(o => !o)}
         className={styles.categoryTitleContainer}
       >
-        <h2 className={styles.categoryTitle}>
-          Dresses
-        </h2>
+        <div className={styles.categoryTitle}>
+          {category.name}
+        </div>
         <button 
           style={{transform: `rotate(${isOpen ? '0' : '-90'}deg)`}} 
           className={styles.chevron}
@@ -44,28 +53,66 @@ const CategoryAccordian = ({}) => {
         </button>
       </div>
       <div style={{maxHeight: `${isOpen ? '300px': '0'}`}} className={styles.accordContent}>
-        <CategoryProduct />
-        <CategoryProduct />
-        <CategoryProduct />
-        <CategoryProduct />
-        <button className={styles.seeAll}>See All</button>
+        {
+            category.products && category.products.length
+            ? category.products.map((product, index) => {
+                return <CategoryProduct key={index+1} product={product} />
+            })
+            : ''
+        }
+        {/* <button className={styles.seeAll}>See All</button> */}
       </div>
     </div>
   )
 }
 
-const SideBar = ({isHamOpen}) => {
+const constructCategoriesData = (products) => {
+    const categories = {};
+    products.forEach(product => {
+        if (!categories[product.fields['Name (from Categories)']]) {
+            categories[product.fields['Name (from Categories)']] = [];
+            categories[product.fields['Name (from Categories)']].push(product);
+        } else {
+            categories[product.fields['Name (from Categories)']].push(product);
+        }
+    });
 
-  return (
-    <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
-      <div className={styles.sideBarContainer}>
-        <CategoryAccordian />
-        <CategoryAccordian />
-        <CategoryAccordian />
-      </div>
+    const categoryData = [];
+    for (let category in categories) {
+        categoryData.push({
+            name: category,
+            products: categories[category]
+        });
+    }
 
-    </aside>
-  )
+    return categoryData;
+}
+
+const SideBar = ({isHamOpen, products, loading}) => {
+    // products = constructCategoriesData(products);
+    products = products.filter(product => product.fields.product_count !== 0);
+
+    return (
+      <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
+        <div className={styles.sideBarContainer}>
+          {
+            loading ?
+              <div className={styles.sidebarLoadingContainer}>
+                <Loader
+                  type="Oval"
+                  color="#ccc"
+                  height={40}
+                  width={40}
+                  timeout={3000} //3 secs
+                />
+              </div>
+            : products.map((product, index) => {
+              return <CategoryProduct key={index+1} product={product} />
+            })
+          }
+        </div>
+      </aside>
+    );
 }
 
 export default SideBar

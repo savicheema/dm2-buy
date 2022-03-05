@@ -50,9 +50,10 @@ function updateProductStatus({ productId, quantity }) {
   });
 }
 
-async function getProductByStoreId(storeId) {
+async function getProductByStoreId(storeName) {
   const query = {
     view: "Grid view",
+    filterByFormula: `SEARCH("${storeName}", ARRAYJOIN(Stores))`,
     sort: [{ field: "Created Date", direction: "desc" }],
     // ...filterByRelatedTable("Stores", storeId),
   };
@@ -106,9 +107,9 @@ async function validatePromoCodeFromDB(giftCode, storeName) {
             let [record] = records;
             record = {...record._rawJson, ...record._rawJson.fields}
             console.log(typeof (record.active), '<----- typeof')
-            if(record.active!='false') {
+            if(record.count && parseInt(record.count) > 0) {
               console.log(record.active, '<----- active')
-              if(record.["store_name (from Store)"].includes(storeName)){
+              if(record["store_name (from Store)"].includes(storeName)){
                 console.log(record.active, '<----- active resolve')
                 resolve(record);
               } else {
@@ -183,6 +184,35 @@ function getSubDomain(customDomain) {
   });
 }
 
+function getMarketBySubdomain(subdomain) {
+  return new Promise((resolve, reject) => {
+    base("Marketplace")
+      .select({
+        view: "Grid view",
+        filterByFormula: `{subdomain}="${subdomain}"`,
+      })
+      .firstPage((err, records) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const [record] = records;
+          resolve(record ? record._rawJson : null);
+        }
+      });
+  });
+}
+
+async function getStoresByMarket(marketName) {
+  const query = {
+    view: "Grid view",
+    filterByFormula: `SEARCH("${marketName}", ARRAYJOIN(Marketplace))`,
+    sort: [{ field: "date joined", direction: "desc" }]
+  };
+  const records = await base("Stores").select(query).firstPage();
+  return records.map((record) => record?._rawJson);
+}
+
 export {
   base,
   getRecordBySubdomain,
@@ -192,5 +222,7 @@ export {
   getAllProducts,
   fetchCustomAttributesByProduct,
   getSubDomain,
-  validatePromoCodeFromDB
+  validatePromoCodeFromDB,
+  getMarketBySubdomain,
+  getStoresByMarket
 };

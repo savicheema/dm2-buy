@@ -39,14 +39,20 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
           {isProductCustomised && (
             <div className={styles.product_specs}>
               {item.customAttributes
-                .map((ca) => (
-                  <span>
+                .map((ca, index) => (
+                  <span key={index + 1}>
                     {ca.name} - {ca.value + ""}
                   </span>
                 ))
                 .reduce((prev, curr) => [prev, ", ", curr])}
             </div>
           )}
+          <div className={styles.product_specs}>
+            {
+              item.size
+                ? 'Size - ' + item.size : ''
+            }
+          </div>
           {availableProductQuantity > 1 && !isProductCustomised && (
             <div className={styles.quantityControls}>
               <ImageButton

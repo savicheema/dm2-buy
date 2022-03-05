@@ -38,6 +38,15 @@ const createOrder = catchAsync(async (req, res) => {
   const { store_id: storeId } = req.body;
   const order = new Order({ ...req.body });
   await order.save();
+
+  if (req.body.payment_mode && req.body.payment_mode === 'giftcard' && req.body.order_total === 0) {
+    if (order && order['_doc']) {
+      orderService.updateOrderPaymentStatusForGiftcard(order['_doc']);
+      res.send({status: 'OK', payment: 'completed', ...order['_doc'] });
+      return;
+    }
+  }
+
   const store = await contentfulService.getStoreById(storeId);
   if (store.paymentInfo.paymentGatewayAppId && store.paymentInfo.paymentGatewayAppSecret) {
     const cashfree = {

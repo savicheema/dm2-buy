@@ -1,0 +1,83 @@
+.marketItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 45px;
+    z-index: 20;
+}
+
+.shopContainer {
+    width: 100%;
+    border-radius: 20px;
+}
+
+/* @media screen and (min-width: 400px) {
+    .shopContainer {
+        height: 236px;
+    }
+}
+
+@media screen and (min-width: 430px) {
+    .shopContainer {
+        height: 246px;
+    }
+}
+
+@media screen and (min-width: 450px) {
+    .shopContainer {
+        height: 256px;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .shopContainer {
+        height: 276px;
+    }
+} */
+
+.shopImage {
+    width: 100%;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    object-fit: cover;
+    aspect-ratio: 4/4;
+}
+
+.infoSec {
+    display: flex;
+    flex-direction: column;
+}
+
+.storeName {
+    margin: 0 0 5px 0;
+    font-family: Lato;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.58;
+    letter-spacing: normal;
+    color: #000;
+    position: relative;
+}
+
+.storeBio {
+    margin: 4px 0 0;
+    word-break: break-word;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: 0.34px;
+    color: #1d1d1f;
+}
+
+.instagramLogo {
+    position: absolute;
+    right: 2px;
+    top: 8px;
+    z-index: 80;
+}

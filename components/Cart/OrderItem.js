@@ -27,6 +27,12 @@ const OrderItem = ({ item }) => (
               .reduce((prev, curr) => [prev, ", ", curr])}
           </div>
         )}
+        <div className={styles.product_specs}>
+          {
+            item.size
+              ? 'Size - ' + item.size : ''
+          }
+        </div>
       </div>
     </div>
     <div className={styles.productPrice}>
