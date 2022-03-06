@@ -49,7 +49,8 @@ class StoreProducts extends React.Component {
           console.log("product RESPONSE", productValues);
           this.setState(
             {
-              products: productValues.records.filter(this.filterStoreProducts),
+              // products: productValues.records.filter(this.filterStoreProducts),
+              products: productValues.records,
             },
             () => {
               let { endLoading } = this.props;

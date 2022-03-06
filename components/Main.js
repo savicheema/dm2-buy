@@ -19,7 +19,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   console.log('dev-homepage branch live.');
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
-  const homePageEnabled = store?.fields?.homePageEnabled;
+  const homePageEnabled = store?.homePage?.homePageEnabled;
   const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? (hideHeroMedia ? false : true) : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -59,14 +59,14 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
         transition: "max-height 0.2s",
       }}
     >
-      <Basket
+      {/* <Basket
         setRefresh={handleRefresh}
         isBasketOpen={showCart}
         setCart={setCart}
         cartData={cart}
         StorageManager={StorageManager}
         CART_KEY={CART_KEY}
-        handleShowCart={handleShowCart}/>
+        handleShowCart={handleShowCart}/> */}
       {
         <NavBar
           cartActive={cart.products.length ? true : false}
@@ -74,16 +74,16 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
           hideInAdvance={false}
           homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
           store={store}
-          storeName={store?.fields?.store_name || ''}
+          storeName={store?.storeName || ''}
         />
       }
       {
          homeActive ?
          <Home
            updateHomeActive={updateHomeActive}
-           heroMedia={store?.fields?.heroMedia}
-           heroTitle={store?.fields?.heroTitle}
-           heroDescription={store?.fields?.heroDescription}
+           heroMedia={store?.homePage?.heroMedia}
+           heroTitle={store?.homePage?.heroTitle}
+           heroDescription={store?.homePage?.heroDescription}
            endLoading={endLoading}
            loading={loading}/>
          : <>

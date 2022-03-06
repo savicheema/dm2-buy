@@ -15,7 +15,7 @@ const NavBar = (props) => {
   useEffect(() => {
     setLoading(true);
     let { store } = props;
-    fetchAllProducts(store?.fields['subdomain ']);
+    fetchAllProducts(store?.subdomain);
   }, []);
 
   useEffect(() => {
