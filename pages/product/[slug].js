@@ -77,14 +77,19 @@ class Product extends React.Component {
       const product = {...this.state.product}
       let selectedColor =  productArr[0].colour;
       let selectedCustomAttributes = productArr[0].customAttributes;
-      let selectedSize = productArr[0]['sizeVariants'] && productArr[0]['sizeVariants'].length
-       ? productArr[0]['sizeVariants'][0] : (
-         product.fields.sizeVariants && product.fields.sizeVariants.length
-         ? product.fields.sizeVariants[0] : ''
-       );
+      // let selectedSize = productArr[0]['sizeVariants'] && productArr[0]['sizeVariants'].length
+      //  ? productArr[0]['sizeVariants'][0] : (
+      //    product.fields.sizeVariants && product.fields.sizeVariants.length
+      //    ? product.fields.sizeVariants[0] : ''
+      //  );
       
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
-      this.setState({ productAlreadyInCart: true, selectedColor, selectedCustomAttributes, selectedSize });
+      this.setState({
+        productAlreadyInCart: true,
+        selectedColor,
+        selectedCustomAttributes,
+        // selectedSize
+      });
       // this.setState({  });
     }
     if (typeof window != 'undefined') {
