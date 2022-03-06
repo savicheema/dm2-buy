@@ -59,14 +59,14 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
         transition: "max-height 0.2s",
       }}
     >
-      {/* <Basket
+      <Basket
         setRefresh={handleRefresh}
         isBasketOpen={showCart}
         setCart={setCart}
         cartData={cart}
         StorageManager={StorageManager}
         CART_KEY={CART_KEY}
-        handleShowCart={handleShowCart}/> */}
+        handleShowCart={handleShowCart}/>
       {
         <NavBar
           cartActive={cart.products.length ? true : false}

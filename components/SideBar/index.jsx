@@ -9,7 +9,7 @@ const CategoryProduct = ({product}) => {
   return (
     <div
         onClick={() => {
-            window.location.href = `/product/${product.fields.Slug}-${product.id}`;
+            window.location.href = `/product/${product.slug}-${product.id}`;
         }}
         className={styles.productContainer}>
       {
@@ -19,14 +19,14 @@ const CategoryProduct = ({product}) => {
         style={!imageLoaded ? { display: 'none' } : {}}
         className={styles.categoryProductImage}
         onLoad={() => setImageLoaded(true)}
-        src={product?.fields?.header_photo[0]?.url}
+        src={product?.headerPhoto[0]?.fields?.file?.url}
         layout="fixed" width="70" height="70" />
       <div className={styles.productDesc}>
         <span className={styles.productTitle}>
-          {product?.fields?.Name}
+          {product?.name}
         </span>
         <span className={styles.productPrice}>
-          {String.fromCharCode(0x20b9)}{product?.fields?.Price}
+          {String.fromCharCode(0x20b9)}{product?.price}
         </span>
       </div>
     </div>
@@ -90,7 +90,7 @@ const constructCategoriesData = (products) => {
 
 const SideBar = ({isHamOpen, products, loading}) => {
     // products = constructCategoriesData(products);
-    products = products.filter(product => product.fields.product_count !== 0);
+    products = products.filter(product => product.availableStock !== 0);
 
     return (
       <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>

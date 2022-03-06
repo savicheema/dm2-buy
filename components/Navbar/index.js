@@ -15,7 +15,7 @@ const NavBar = (props) => {
   useEffect(() => {
     setLoading(true);
     let { store } = props;
-    fetchAllProducts(store?.subdomain);
+    fetchAllProducts(store?.fields?.subdomain);
   }, []);
 
   useEffect(() => {
@@ -28,12 +28,12 @@ const NavBar = (props) => {
 
   const fetchAllProducts = (subdomain) => {
     return new Promise((resolve, reject) => {
-      fetch(`/api/airtable/getAllProducts?subdomain=${subdomain}`)
+      fetch(`/api/contentful/getAllProducts?subdomain=${subdomain}`)
         .then((response) => {
           return response.json();
         })
         .then((productValues) => {
-          setProducts(productValues.records.filter(filterStoreProducts));
+          setProducts(productValues.records);
           setLoading(false);
         })
         .catch((err) => {
@@ -120,7 +120,7 @@ const NavBar = (props) => {
           }
         </span>
       </div>
-      <SideBar loading={loading} products={products} isHamOpen={isHamOpen} />
+      {/* <SideBar loading={loading} products={products} isHamOpen={isHamOpen} /> */}
     </header>
   )
 }

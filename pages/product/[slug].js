@@ -54,8 +54,8 @@ class Product extends React.Component {
       showCart: false,
       cart: {},
       hideInAdvance: false,
-      selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
-      ? product.fields.sizeVariants[0] : '',
+      // selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
+      // ? product.fields.sizeVariants[0] : '',
     };
 
     this.focusActive = false;
@@ -129,7 +129,7 @@ class Product extends React.Component {
 
     if (!product) return <LoaderComponent />;
 
-    const homePageEnabled = this.props?.product?.store?.fields?.homePageEnabled;
+    const homePageEnabled = this.props?.product?.store?.homePageEnabled;
 
     return (
       <div className={styles.container}>
@@ -191,7 +191,7 @@ class Product extends React.Component {
             handleShowCart={this.handleShowCart}
             homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
             store={this.props.product?.store}
-            storeName={this.props.product?.store?.fields?.store_name || ''}
+            storeName={this.props.product?.store?.fields?.storeName || ''}
           />
 
           <DM2BuyCarousel product={product} />
@@ -218,14 +218,14 @@ class Product extends React.Component {
               />
             ) : null}
 
-            {
+            {/* {
               product.fields["sizeVariants"] && product.fields["sizeVariants"].length
               ? <ProductSizeFields
                   product={product}
                   selectedSize={selectedSize}
                   updateSelectedSize={(size) => this.setState({selectedSize: size})}
                 /> : ''
-            }
+            } */}
 
             <p
               className={styles.description}
