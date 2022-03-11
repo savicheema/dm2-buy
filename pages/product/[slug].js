@@ -44,6 +44,16 @@ class Product extends React.Component {
       }) : [];
       product.customAttributes = customAttributes;
     }
+
+    let pdSizeVariantOptions = [];
+    let pdColorVariants = [];
+    if (product) {
+      pdSizeVariantOptions = product.variantOptions && product.variantOptions.length
+        ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+      pdColorVariants = product.variantOptions && product.variantOptions.length
+        ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+    }
+    
     this.state = {
       isFetched,
       product,
@@ -55,8 +65,9 @@ class Product extends React.Component {
       cart: {},
       hideInAdvance: false,
       selectedCustomAttributes: [],
-      // selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
-      // ? product.fields.sizeVariants[0] : '',
+      selectedSize: pdSizeVariantOptions && pdSizeVariantOptions.length
+        ? pdSizeVariantOptions[0]?.fields?.name : '',
+      selectedColor: pdColorVariants && pdColorVariants.length ? pdColorVariants[0]?.fields?.name: ''
     };
 
     this.focusActive = false;
@@ -75,18 +86,26 @@ class Product extends React.Component {
       // let { product } = this.state;
       // product.colour = productArr[0].colour;
       const product = {...this.state.product}
-      let selectedColor =  productArr[0].colour;
+
+      const colorVariants = productArr[0].variantOptions && productArr[0].variantOptions.length
+        ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+
+      let selectedColor =  colorVariants && colorVariants.length ? colorVariants[0]?.fields?.name : '';
       let selectedCustomAttributes = productArr[0].customAttributes;
 
       const sizeVariantOptions = productArr[0].variantOptions && productArr[0].variantOptions.length
       ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
-      const productSizeVariantOptions = productArr[0].variantOptions && productArr[0].variantOptions.length
-      ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+
+      let productSizeVariantOptions = [];
+      if (product) {
+        productSizeVariantOptions = product.variantOptions && product.variantOptions.length
+          ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+      }
 
       let selectedSize = sizeVariantOptions && sizeVariantOptions.length
-       ? sizeVariantOptions[0] : (
+       ? sizeVariantOptions[0]?.fields?.name : (
          productSizeVariantOptions && productSizeVariantOptions.length
-         ? productSizeVariantOptions[0] : ''
+         ? productSizeVariantOptions[0]?.fields?.name : ''
        );
       
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
