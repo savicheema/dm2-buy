@@ -182,6 +182,18 @@ class Product extends React.Component {
     return variantObj[size][colour]?.price;
   }
 
+  checkStock = (product) => {
+    let stockAvailable = false;
+    if (product.variantPrice && product.variantPrice.length) {
+      product.variantPrice.forEach(variant => {
+        if (variant?.fields?.stockAvailable > 0) {
+          stockAvailable = true;
+        }
+      });
+    }
+    return stockAvailable;
+  }
+
   render() {
     let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
 
@@ -313,7 +325,7 @@ class Product extends React.Component {
             />
 
             <div className={styles.callToAction}>
-              {product?.product_count === 0 ? (
+              {!this.checkStock(product) ? (
                 <button className={styles.soldOutButton}>Sold Out</button>
               ) : (
                 <button
