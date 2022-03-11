@@ -15,7 +15,7 @@ const NavBar = (props) => {
   useEffect(() => {
     setLoading(true);
     let { store } = props;
-    fetchAllProducts(store?.fields?.subdomain);
+    fetchAllProducts(store?.subdomain);
   }, []);
 
   useEffect(() => {
@@ -120,7 +120,7 @@ const NavBar = (props) => {
           }
         </span>
       </div>
-      {/* <SideBar loading={loading} products={products} isHamOpen={isHamOpen} /> */}
+      <SideBar loading={loading} products={products} isHamOpen={isHamOpen} />
     </header>
   )
 }
