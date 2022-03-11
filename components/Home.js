@@ -14,8 +14,8 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.heroMedia && this.props.heroMedia.length) {
-      this.setState({ heroMedia: this.props.heroMedia[0]["url"] });
+    if (this.props.heroMedia) {
+      this.setState({ heroMedia: this.props.heroMedia?.fields?.file?.url });
     }
     this.props.endLoading();
   }

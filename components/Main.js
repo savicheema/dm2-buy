@@ -20,7 +20,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
   const homePageEnabled = store?.homePage?.homePageEnabled;
-  const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === 'true' ? (hideHeroMedia ? false : true) : false);
+  const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === true ? (hideHeroMedia ? false : true) : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -72,7 +72,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
           cartActive={cart.products.length ? true : false}
           handleShowCart={handleShowCart}
           hideInAdvance={false}
-          homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          homeActive={homePageEnabled && homePageEnabled === true ? true : false}
           store={store}
           storeName={store?.storeName || ''}
         />
