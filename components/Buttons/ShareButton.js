@@ -7,7 +7,7 @@ import ImageButton from "./ImageButton";
 class ShareButton extends React.Component {
   render() {
     let { isShared } = this.state;
-    console.log(" ShareButton STATE", isShared);
+    // console.log(" ShareButton STATE", isShared);
 
     const imageButtonType = isShared ? "disabled" : "raised";
     return (
