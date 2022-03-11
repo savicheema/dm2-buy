@@ -238,14 +238,11 @@ class Product extends React.Component {
             ></p>
 
             {/* Custom product fields */}
-            {
-              selectedCustomAttributes && selectedCustomAttributes.length
-              ? <ProductCustomFields
-                selectedCustomAttributes={selectedCustomAttributes}
-                product={product} 
-                ref={this.customFieldsRef}
-              /> : ''
-            }
+            <ProductCustomFields
+              selectedCustomAttributes={selectedCustomAttributes}
+              product={product} 
+              ref={this.customFieldsRef}
+            />
 
             <div className={styles.callToAction}>
               {product?.product_count === 0 ? (
