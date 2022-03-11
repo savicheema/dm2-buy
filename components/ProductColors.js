@@ -20,8 +20,8 @@ const ProductColors = ({ colors, selectedColorInStorage='', setProductColor }) =
       <div className={styles.colorsHeading}>colour</div>
       {colors.map((color, index) => (
         <ColorRadioButton
-          key={index + color}
-          color={color}
+          key={index + color?.fields?.name}
+          color={color?.fields?.name}
           setColor={setSelectedColor}
           selectedColor={selectedColor}
         />

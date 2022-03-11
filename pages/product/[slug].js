@@ -144,6 +144,9 @@ class Product extends React.Component {
     const sizeVariants = product.variantOptions && product.variantOptions.length
       ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
 
+    const colorVariants = product.variantOptions && product.variantOptions.length
+      ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+
     return (
       <div className={styles.container}>
         <div className={styles.product}>
@@ -219,9 +222,9 @@ class Product extends React.Component {
             </div>
 
             {product && <div className={styles.priceContainer}></div>}
-            {product["colourVariants"] ? (
+            {colorVariants && colorVariants.length ? (
               <ProductColors
-                colors={product["colourVariants"]}
+                colors={colorVariants}
                 selectedColorInStorage={selectedColor}
                 setProductColor={(color) => {
                   let product = {...this.state.product};
