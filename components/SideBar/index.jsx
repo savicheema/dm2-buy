@@ -9,7 +9,7 @@ const CategoryProduct = ({product}) => {
   return (
     <div
         onClick={() => {
-            window.location.href = `/product/${product.slug}-${product.id}`;
+            window.location.href = `/product/${product.id}`;
         }}
         className={styles.productContainer}>
       {
