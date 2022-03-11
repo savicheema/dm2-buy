@@ -72,24 +72,29 @@ class Product extends React.Component {
       (product) => product.id === productId
     );
     if (productArr.length > 0) {
-
       // let { product } = this.state;
       // product.colour = productArr[0].colour;
       const product = {...this.state.product}
       let selectedColor =  productArr[0].colour;
       let selectedCustomAttributes = productArr[0].customAttributes;
-      // let selectedSize = productArr[0]['sizeVariants'] && productArr[0]['sizeVariants'].length
-      //  ? productArr[0]['sizeVariants'][0] : (
-      //    product.fields.sizeVariants && product.fields.sizeVariants.length
-      //    ? product.fields.sizeVariants[0] : ''
-      //  );
+
+      const sizeVariantOptions = productArr[0].variantOptions && productArr[0].variantOptions.length
+      ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+      const productSizeVariantOptions = productArr[0].variantOptions && productArr[0].variantOptions.length
+      ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+
+      let selectedSize = sizeVariantOptions && sizeVariantOptions.length
+       ? sizeVariantOptions[0] : (
+         productSizeVariantOptions && productSizeVariantOptions.length
+         ? productSizeVariantOptions[0] : ''
+       );
       
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
       this.setState({
         productAlreadyInCart: true,
         selectedColor,
         selectedCustomAttributes,
-        // selectedSize
+        selectedSize
       });
       // this.setState({  });
     }
@@ -135,6 +140,9 @@ class Product extends React.Component {
     if (!product) return <LoaderComponent />;
 
     const homePageEnabled = this.props?.product?.store?.fields?.homePage?.homePageEnabled;
+
+    const sizeVariants = product.variantOptions && product.variantOptions.length
+      ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
 
     return (
       <div className={styles.container}>
@@ -223,14 +231,14 @@ class Product extends React.Component {
               />
             ) : null}
 
-            {/* {
-              product.fields["sizeVariants"] && product.fields["sizeVariants"].length
+            {
+              sizeVariants && sizeVariants.length
               ? <ProductSizeFields
-                  product={product}
+                  sizeVariants={sizeVariants}
                   selectedSize={selectedSize}
                   updateSelectedSize={(size) => this.setState({selectedSize: size})}
                 /> : ''
-            } */}
+            }
 
             <p
               className={styles.description}
