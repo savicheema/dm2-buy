@@ -54,6 +54,7 @@ class Product extends React.Component {
       showCart: false,
       cart: {},
       hideInAdvance: false,
+      selectedCustomAttributes: [],
       // selectedSize: product.fields.sizeVariants && product.fields.sizeVariants.length
       // ? product.fields.sizeVariants[0] : '',
     };
@@ -237,11 +238,14 @@ class Product extends React.Component {
             ></p>
 
             {/* Custom product fields */}
-            <ProductCustomFields
-              selectedCustomAttributes={selectedCustomAttributes}
-              product={product} 
-              ref={this.customFieldsRef}
-            />
+            {
+              selectedCustomAttributes && selectedCustomAttributes.length
+              ? <ProductCustomFields
+                selectedCustomAttributes={selectedCustomAttributes}
+                product={product} 
+                ref={this.customFieldsRef}
+              /> : ''
+            }
 
             <div className={styles.callToAction}>
               {product?.product_count === 0 ? (
