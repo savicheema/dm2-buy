@@ -149,6 +149,39 @@ class Product extends React.Component {
     }
   }
 
+  findProductPrice = (size, colour, product) => {
+    if (!size) {
+      size = '-';
+    }
+    if (!colour) {
+      colour = '-';
+    }
+    const variantPrice = product.variantPrice;
+    const variantObj = {};
+
+    variantPrice.forEach(variant => {
+      let vSize = variant?.fields?.options?.filter(size => size?.fields?.type === 'fit');
+      vSize = vSize && vSize.length ? vSize[0]?.fields?.name : '-';
+      let vColor = variant?.fields?.options?.filter(colour => colour?.fields?.type === 'colour');
+      vColor = vColor && vColor.length ? vColor[0]?.fields?.name : '-';
+      if (!variantObj[vSize]) {
+        variantObj[vSize] = {
+          [vColor]: {
+            price: variant?.fields?.price,
+            stockAvailable: variant?.fields?.stockAvailable
+          }
+        };
+      } else {
+        variantObj[vSize][vColor] = {
+          price: variant?.fields?.price,
+          stockAvailable: variant?.fields?.stockAvailable
+        };
+      }
+    });
+
+    return variantObj[size][colour]?.price;
+  }
+
   render() {
     let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
 
@@ -165,6 +198,11 @@ class Product extends React.Component {
 
     const colorVariants = product.variantOptions && product.variantOptions.length
       ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+
+    const price = sizeVariants.length || colorVariants.length
+      ? this.findProductPrice(selectedSize, selectedColor, product) : product.price;
+
+    product.price = price;
 
     return (
       <div className={styles.container}>
@@ -248,7 +286,7 @@ class Product extends React.Component {
                 setProductColor={(color) => {
                   let product = {...this.state.product};
                   product.colour = color;
-                  this.setState({ product });
+                  this.setState({ product, selectedColor: color });
                 }}
               />
             ) : null}
