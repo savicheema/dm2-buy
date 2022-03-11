@@ -77,11 +77,32 @@ function getProductById(productId) {
     return new Promise((resolve, reject) => {
         client
             .getEntry(productId)
-            .then(entry => {
+            .then(async (entry) => {
                 if (entry && entry.fields) {
                     let sanitizedData = entry.fields;
                     sanitizedData.id = entry.sys.id;
+                    sanitizedData.store.fields = await getStoreById(sanitizedData.store.sys.id);
                     sanitizedData.store.fields.id = sanitizedData.store.sys.id;
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
+function getStoreById(id) {
+    return new Promise((resolve, reject) => {
+        client
+            .getEntries({ content_type: 'store', 'sys.id': id })
+            .then(entry => {
+                if (entry && entry.items && entry.items.length) {
+                    let sanitizedData = responseSanitizer(entry.items[0].fields, entry.includes);
+                    sanitizedData.id = entry.items[0].sys.id;
                     resolve(sanitizedData);
                 } else {
                     reject();

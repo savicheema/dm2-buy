@@ -126,7 +126,6 @@ class Product extends React.Component {
 
   render() {
     let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
-    console.log(" Product STATE", this.state);
 
     if (errorCode) {
       return <Error404 statusCode={errorCode} />;
@@ -134,7 +133,7 @@ class Product extends React.Component {
 
     if (!product) return <LoaderComponent />;
 
-    const homePageEnabled = this.props?.product?.store?.homePageEnabled;
+    const homePageEnabled = this.props?.product?.store?.fields?.homePage?.homePageEnabled;
 
     return (
       <div className={styles.container}>
@@ -194,8 +193,8 @@ class Product extends React.Component {
           <NavBar
             cartActive={this.state.cart?.products?.length ? true : false}
             handleShowCart={this.handleShowCart}
-            homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
-            store={this.props.product?.store}
+            homeActive={homePageEnabled && homePageEnabled === true ? true : false}
+            store={this.props.product?.store?.fields}
             storeName={this.props.product?.store?.fields?.storeName || ''}
           />
 
