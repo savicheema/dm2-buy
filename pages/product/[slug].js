@@ -298,7 +298,7 @@ class Product extends React.Component {
     let isValid = true;
     const isFocusAble = true;
     for (const ca of product.customAttributes) {
-      if ((ca?.fields?.Required === 'Yes') || !ca.fields || !ca) {
+      if ((ca?.fields?.required === true) || !ca.fields || !ca) {
         if (!(await ca.ref.current.validate(isFocusAble))) {
           isValid = false;
         }
