@@ -88,9 +88,21 @@ const constructCategoriesData = (products) => {
     return categoryData;
 }
 
+const checkStock = (product) => {
+  let stockAvailable = false;
+  if (product.variantPrice && product.variantPrice.length) {
+    product.variantPrice.forEach(variant => {
+      if (variant.stockAvailable > 0) {
+        stockAvailable = true;
+      }
+    });
+  }
+  return stockAvailable;
+}
+
 const SideBar = ({isHamOpen, products, loading}) => {
     // products = constructCategoriesData(products);
-    products = products.filter(product => product.availableStock !== 0);
+    products = products.filter(product => checkStock(product));
 
     return (
       <aside className={styles.sideBar+' '+(isHamOpen ? styles.sideBarOpen : '' )}>
