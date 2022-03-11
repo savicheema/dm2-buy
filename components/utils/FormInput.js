@@ -6,7 +6,7 @@ import InputLoader from "./InputLoader";
 class FormInput extends React.Component {
   render() {
     let { isError, inputValue, isFocus, isInvalid, isLoading } = this.state;
-    console.log(" FormInput STATE", isError, isInvalid);
+
     const {
       type,
       placeholder,
