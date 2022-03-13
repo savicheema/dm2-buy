@@ -3,6 +3,7 @@ import styles from "./basket.module.css";
 import { getPrice } from "./../../services/frontend/pricing.service";
 import BagItem from "./BagItem";
 import LoaderComponent from "../Loader";
+import { getStockAvailability } from "../../services/helper";
 
 export default class Basket extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class Basket extends React.Component {
       loading: false,
       refresh: false,
       pageHeight: 0,
-      newBottom: false
+      newBottom: false,
+      isStockAvailable: false
     };
   }
 
@@ -38,6 +40,9 @@ export default class Basket extends React.Component {
     this.setState({ pageHeight: window.innerHeight });
     window.addEventListener("resize", this.handleWindowResize, true);
     this.handleWindowResize();
+    getStockAvailability(this.props.cartData.products).then((isStockAvailable) => {
+      this.setState({isStockAvailable});
+    });
   }
 
   handleWindowResize = () => {

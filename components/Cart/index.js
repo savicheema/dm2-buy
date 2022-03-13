@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./cart.module.css";
 
 import CartMessage from "./CartMessage";
@@ -13,10 +13,14 @@ import { getPrice } from "../../services/frontend/pricing.service";
 import StorageManager from "../../services/frontend/StorageManager";
 import { CART_KEY } from "../../services/frontend/StorageKeys";
 
+import { getStockAvailability } from "../../services/helper";
+
 const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [stockError, setStockError] = useState(false);
   const personalFormRef = React.createRef();
+  const [isStockAvailable, setIsStockAvailable] = useState(false);
   const addressFormRef = React.createRef();
   const showError = () => {
     setError(true);
@@ -36,7 +40,11 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       couponCode
     } = getPrice(cart);
     setError(false);
-    console.log(couponId, couponCode)
+    setStockError(false);
+    if (!isStockAvailable) {
+      setStockError(true);
+      return;
+    }
     const bodyData = {
       buyer_id: guid(),
       discountCode: {
@@ -118,6 +126,12 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       console.log("Pop up close");
     };
   };
+
+  useEffect(async () => {
+    const stockAvailable = await getStockAvailability(cart.products);
+    setIsStockAvailable(stockAvailable);
+  }, [isStockAvailable]);
+
   return (
     <div className={styles.checkout_container}>
       <div className={styles.cart}>
@@ -152,6 +166,11 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         type="error"
         message="Something went wrong! Please try again"
         open={error}
+      />
+      <Toast
+        type="error"
+        message="Some of the products from your cart is out of stock"
+        open={stockError}
       />
     </div>
   );

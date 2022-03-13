@@ -67,4 +67,71 @@ function isNumeric(str) {
     !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 
-export { getSubDomainOfPage, Sentry, airtableBaseId, serverEndpoint, guid, isNumeric, environment };
+const findProductStock = (size, colour, product) => {
+  if (!size) {
+    size = '-';
+  }
+  if (!colour) {
+    colour = '-';
+  }
+  const variantPrice = product.variantPrice;
+  const variantObj = {};
+
+  variantPrice.forEach(variant => {
+    let vSize = variant?.options?.filter(size => size?.fields?.type === 'fit');
+    vSize = vSize && vSize.length ? vSize[0]?.fields?.name : '-';
+    let vColor = variant?.options?.filter(colour => colour?.fields?.type === 'colour');
+    vColor = vColor && vColor.length ? vColor[0]?.fields?.name : '-';
+    if (!variantObj[vSize]) {
+      variantObj[vSize] = {
+        [vColor]: {
+          price: variant?.price,
+          stockAvailable: variant?.stockAvailable
+        }
+      };
+    } else {
+      variantObj[vSize][vColor] = {
+        price: variant?.price,
+        stockAvailable: variant?.stockAvailable
+      };
+    }
+  });
+
+  return variantObj[size][colour]?.stockAvailable;
+}
+
+async function getStockAvailability(cartProducts) {
+  if (!cartProducts || !cartProducts.length) return false;
+  let isStockAvailable = true;
+  const productIds = cartProducts && cartProducts.length
+      ? cartProducts.map((product) => product.id) : [];
+  const productIdsStr = "" + productIds;
+  const productList = await new Promise((resolve, reject) => {
+    fetch(`/api/contentful/getProductListByIds?productIds=${productIdsStr}`)
+      .then(response => response.json())
+      .then(response => {
+        resolve(response.productList);
+      }).catch(err => reject(err));
+  });
+
+  cartProducts.forEach(cartProduct => {
+    let currentProduct = productList.filter(pd => pd.id === cartProduct.id);
+    currentProduct = currentProduct && currentProduct.length
+      ? currentProduct[0] : {};
+
+    const stockAvailable = findProductStock(cartProduct.size, cartProduct.colour, currentProduct);
+    if (stockAvailable <= 0) isStockAvailable = false;
+  });
+  return isStockAvailable;
+}
+
+export {
+  getSubDomainOfPage,
+  Sentry,
+  airtableBaseId,
+  serverEndpoint,
+  guid,
+  isNumeric,
+  environment,
+  getStockAvailability
+};

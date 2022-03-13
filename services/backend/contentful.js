@@ -154,9 +154,34 @@ function getSubDomain(customDomain) {
     });
 }
 
+function getProductListById(productIds) {
+    return new Promise((resolve, reject) => {
+        client
+            .getEntries({ content_type: 'product', 'sys.id[in]': productIds })
+            .then(entry => {
+                let sanitizedData = [];
+                if (entry && entry.items && entry.items.length) {
+                    entry.items.forEach(product => {
+                        let productData = responseSanitizer(product.fields, entry.includes);
+                        productData.id = product.sys.id;
+                        sanitizedData.push(productData);
+                    })
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
 export {
   getRecordBySubdomain,
   getProductByStoreId,
   getProductById,
-  getSubDomain
+  getSubDomain,
+  getProductListById
 };
