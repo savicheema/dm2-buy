@@ -149,7 +149,7 @@ class Product extends React.Component {
     }
   }
 
-  findProductPrice = (size, colour, product) => {
+  findProductStockAndPrice = (size, colour, product) => {
     if (!size) {
       size = '-';
     }
@@ -179,7 +179,7 @@ class Product extends React.Component {
       }
     });
 
-    return variantObj[size][colour]?.price;
+    return variantObj[size][colour];
   }
 
   checkStock = (product) => {
@@ -212,7 +212,7 @@ class Product extends React.Component {
       ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
 
     const price = sizeVariants.length || colorVariants.length
-      ? this.findProductPrice(selectedSize, selectedColor, product) : product.price;
+      ? this.findProductStockAndPrice(selectedSize, selectedColor, product)?.price : product.price;
 
     product.price = price;
 
@@ -325,7 +325,7 @@ class Product extends React.Component {
             />
 
             <div className={styles.callToAction}>
-              {!this.checkStock(product) ? (
+              {this.findProductStockAndPrice(selectedSize, selectedColor, product)?.stockAvailable <= 0 ? (
                 <button className={styles.soldOutButton}>Sold Out</button>
               ) : (
                 <button
