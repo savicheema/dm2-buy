@@ -45,6 +45,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       setStockError(true);
       return;
     }
+
     const bodyData = {
       buyer_id: guid(),
       discountCode: {
@@ -58,17 +59,17 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       address: addressFormRef.current.getValues(),
       seller: {
         name: await getSubDomainOfPage(),
-        instagram: store?.fields?.store_instagram_handle,
-        phone: store?.fields?.phone,
-        seller_id: cart.products[0]?.fields?.Stores[0],
+        instagram: store?.contactInfo?.instagramHandle,
+        phone: store?.contactInfo?.contact,
+        seller_id: store?.id,
       },
       products: cart.products.map((product) => {
         let productObj = {
           customAttributes: product.customAttributes,
           colour: product?.colour,
           id: product?.id,
-          name: product?.fields?.Name,
-          price: product.fields.Price,
+          name: product?.name,
+          price: product?.price,
           quantity: product.quantity,
         };
 
@@ -77,6 +78,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         return productObj;
       }),
     };
+
     if(bodyData.discountCode.id == null) {
       delete bodyData.discountCode
     }
