@@ -17,6 +17,18 @@ const StoreItem = ({ product }) => {
   }
   if (!product) return "";
 
+  const checkStock = (product) => {
+    let stockAvailable = false;
+    if (product.variantPrice && product.variantPrice.length) {
+      product.variantPrice.forEach(variant => {
+        if (variant?.stockAvailable > 0) {
+          stockAvailable = true;
+        }
+      });
+    }
+    return stockAvailable;
+  }
+
   return (
     <div
       className={styles.storeItem}
@@ -27,7 +39,7 @@ const StoreItem = ({ product }) => {
       <div className={styles.thumbnail}>
         {product && product.headerPhoto.file.url && (
           <div className={styles.image_container}>
-            {product.productCount === 0 && (
+            {!checkStock(product) && (
               <div className={styles.item_overlay}>
                 <p>SOLD</p>
               </div>
