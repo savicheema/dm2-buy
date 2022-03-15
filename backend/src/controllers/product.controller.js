@@ -2,6 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const { Store, Product, CustomAttribute } = require('../models');
 const { success } = require('../utils/responseHandler');
 const { contentfulManagementService } = require('../services');
+const { contentfulService } = require('../services');
 
 const createProduct = catchAsync(async (req, res) => {
   const data = await contentfulManagementService.createProduct({ ...req.body })
@@ -35,10 +36,16 @@ const updateProductCustomAttribute = catchAsync(async (req, res) => {
   res.send(success(data));
 });
 
+const fetchVariantOptions =  catchAsync(async (req, res) => {
+  const data = await contentfulService.getVariantOptions();
+  res.send(success(data));
+});
+
 module.exports = {
   createProduct,
   updateProduct,
   fetchProductCustomAttribute,
   createProductCustomAttribute,
   updateProductCustomAttribute,
+  fetchVariantOptions
 };

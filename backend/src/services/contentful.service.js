@@ -181,11 +181,37 @@ async function getCustomDomain(subdomain) {
     });
 }
 
+
+async function getVariantOptions(){
+    return new Promise((resolve, reject) =>{
+        client
+        .getEntries({ content_type: 'productVariants' })
+            .then(entry => {
+                let sanitizedData = [];
+                if (entry && entry.items && entry.items.length) {
+                    entry.items.forEach(productOption => {
+                        console.log(productOption)
+                        let productOptionData = responseSanitizer(productOption.fields, entry.includes);
+                        sanitizedData.push(productOptionData);
+                    })
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
 module.exports = {
   getRecordBySubdomain,
   getProductByStoreId,
   getProductById,
   getStoreById,
   getCustomDomain,
-  getStoreBySecret
+  getStoreBySecret,
+  getVariantOptions
 };
