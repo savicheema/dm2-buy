@@ -22,24 +22,24 @@ function responseSanitizer(incomingData, referenceArray) {
     for (let prop in incomingData) {
         if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && typeof incomingData[prop][0] === 'string') {
             structuredObject[prop] = incomingData[prop];
-        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
+        } else if (referenceArray && incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(asset => {
                 let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);
                 structuredObject[prop].push(extractedData);
             });
-        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
+        } else if (referenceArray && incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(entry => {
                 let extractedData = findFromReference(referenceArray.Entry, entry.sys.id);
                 structuredObject[prop].push(extractedData);
             });
-        } else if (incomingData[prop] instanceof Object && incomingData[prop].sys.type === 'Asset') {
+        } else if (referenceArray && incomingData[prop] instanceof Object && incomingData[prop].sys && incomingData[prop].sys.type === 'Asset') {
             let extractedData = findFromReference(referenceArray.Asset, incomingData[prop].sys.id);
             structuredObject[prop] = extractedData;
         } else if (incomingData[prop] instanceof Object && incomingData[prop].fields) {
             structuredObject[prop] = incomingData[prop].fields;
-        } else if (incomingData[prop] instanceof Object) {
+        } else if ( referenceArray && incomingData[prop] instanceof Object && incomingData[prop].sys) {
             let extractedData = findFromReference(referenceArray.Entry, incomingData[prop].sys.id);
             structuredObject[prop] = extractedData;
         } else {
@@ -57,10 +57,11 @@ function getProductByStoreId(storeId) {
             .then(entry => {
                 let sanitizedData = [];
                 if (entry && entry.items && entry.items.length) {
+                    console.log(entry.items[0])
                     entry.items.forEach(product => {
-                        console.log("<-------product------>")
-                        console.log(product)
-                        console.log(product.fields.otherPhotos)
+                        // console.log("<-------product------>")
+                        // console.log(product)
+                        // console.log(product.fields.otherPhotos)
                         let productData = responseSanitizer(product.fields, entry.includes);
                         productData.id = product.sys.id;
                         sanitizedData.push(productData);
@@ -83,9 +84,8 @@ function getProductById(productId) {
             .getEntry(productId)
             .then(entry => {
                 if (entry && entry.fields) {
-                    let sanitizedData = entry.fields;
+                    let sanitizedData = responseSanitizer(entry.fields, entry.includes);
                     sanitizedData.id = entry.sys.id;
-                    sanitizedData.store.fields.id = sanitizedData.store.sys.id;
                     resolve(sanitizedData);
                 } else {
                     reject();

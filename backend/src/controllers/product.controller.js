@@ -41,11 +41,18 @@ const fetchVariantOptions =  catchAsync(async (req, res) => {
   res.send(success(data));
 });
 
+const getProductById =  catchAsync(async (req, res) => {
+  const data = await contentfulService.getProductById(req.params.id);
+  res.send(success(data));
+});
+
+
 module.exports = {
   createProduct,
   updateProduct,
   fetchProductCustomAttribute,
   createProductCustomAttribute,
   updateProductCustomAttribute,
-  fetchVariantOptions
+  fetchVariantOptions,
+  getProductById
 };
