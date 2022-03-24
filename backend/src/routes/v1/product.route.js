@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.route('/').post(productController.createProduct);
 router.route('/:id').put(productController.updateProduct).get(productController.getProductById)
-
+router.route('/createAsset').post(productController.createImageAssetInContentful)
 // custom attribute related apis
 router
   .route('/:id/custom-attribute')

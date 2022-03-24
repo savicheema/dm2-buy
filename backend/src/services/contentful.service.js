@@ -57,7 +57,7 @@ function getProductByStoreId(storeId) {
             .then(entry => {
                 let sanitizedData = [];
                 if (entry && entry.items && entry.items.length) {
-                    console.log(entry.items[0])
+                    //console.log(entry.items[0])
                     entry.items.forEach(product => {
                         // console.log("<-------product------>")
                         // console.log(product)

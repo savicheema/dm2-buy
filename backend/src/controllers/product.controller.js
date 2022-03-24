@@ -14,6 +14,11 @@ const updateProduct = catchAsync(async (req, res) => {
   res.send(success(data));
 });
 
+const createImageAssetInContentful = catchAsync( async (req, res) =>{
+  const data = await contentfulManagementService.uploadImageToContentful(req.params.productName, req.params.imageUrl)
+  res.send(success(data));
+})
+
 const fetchProductCustomAttribute = catchAsync(async (req, res) => {
   const data = await Product.findOne({ _id: req.params.id }).populate('CustomAttribute');
   res.send(success(data));
@@ -54,5 +59,6 @@ module.exports = {
   createProductCustomAttribute,
   updateProductCustomAttribute,
   fetchVariantOptions,
-  getProductById
+  getProductById,
+  createImageAssetInContentful
 };

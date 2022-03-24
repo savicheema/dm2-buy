@@ -8,28 +8,26 @@ const client = contentfulManagement.createClient({
     accessToken: "CFPAT-N2xxF9WUPucWikke_jFaYYC75So1KWXC-i9_Lo5_dR8"
 });
 
-async function updateProductById(id, product) {
-    console.log(product)
-    console.log(id)
-    var assetHeaderImageObj = null
 
-    if(product.headerPhoto){
+async function uploadImageToContentful(productName, imageUrl){
+
+    if(imageUrl){
         let assetRes = await new Promise((resolve, reject) => {
             client.getSpace('vidnutv0ls36')
             .then((space) => space.getEnvironment("master"))
             .then((environment)=> environment.createAsset({
                 fields: {
                     title: {
-                    'en-US': convertToSlug.convertToSlug(product.name)+"-header"
+                    'en-US': convertToSlug.convertToSlug(productName)+"_image"
                     },
                     description: {
-                    'en-US': product.name
+                    'en-US': productName
                     },
                     file: {
                     'en-US': {
                         contentType: 'image/jpeg',
-                        fileName: `${convertToSlug.convertToSlug(product.name)}-header.jpeg`,
-                        upload: product.headerPhoto
+                        fileName: `${convertToSlug.convertToSlug(productName) + Date.now()}.jpeg`,
+                        upload: imageUrl
                     }
                     }
                 }
@@ -39,14 +37,21 @@ async function updateProductById(id, product) {
             .then((asset) => resolve(asset))
             .catch(error => reject(error))
         });
-        assetHeaderImageObj = {
+        assetImageObj = {
             sys:{
                 "type": "Link",
                 "linkType": "Asset",
                 "id": assetRes.sys.id
             }
         }
+        return assetImageObj
     }
+}
+
+async function updateProductById(id, product) {
+    console.log(product)
+    console.log(id)
+    var assetHeaderImageObj = null
 
 
     let assetArray = [];
@@ -365,9 +370,6 @@ async function createProduct(product){
                 otherPhotos: {
                     'en-US' : [...assetArray]
                 },
-                headerPhoto:{
-                    'en-US': assetHeaderImageObj
-                },
                 customAttributes:{
                     'en-US':[...customAttributeArray]
                 },
@@ -442,5 +444,6 @@ async function createVariantsArrray(product){
 
 module.exports = {
     updateProductById,
-    createProduct
+    createProduct,
+    uploadImageToContentful
   };
