@@ -15,7 +15,7 @@ const updateProduct = catchAsync(async (req, res) => {
 });
 
 const createImageAssetInContentful = catchAsync( async (req, res) =>{
-  const data = await contentfulManagementService.uploadImageToContentful(req.params.productName, req.params.imageUrl)
+  const data = await contentfulManagementService.uploadImageToContentful(req.body.productName, req.body.imageUrl)
   res.send(success(data));
 })
 

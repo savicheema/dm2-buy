@@ -51,53 +51,9 @@ async function uploadImageToContentful(productName, imageUrl){
 async function updateProductById(id, product) {
     console.log(product)
     console.log(id)
-    var assetHeaderImageObj = null
 
 
     let assetArray = [];
-    if(product.otherPhotos){
-        console.log("processing other images....")
-        for (let index = 0; index < product.otherPhotos.length; index++) {
-            const element = product.otherPhotos[index];
-            let assetRes = await new Promise((resolve, reject) => {
-                client.getSpace('vidnutv0ls36')
-                .then((space) => space.getEnvironment("master"))
-                .then((environment)=> environment.createAsset({
-                    fields: {
-                        title: {
-                        'en-US': product.name+"-" + convertToSlug.convertToSlug(new Date().toISOString())
-                        },
-                        description: {
-                        'en-US': product.name
-                        },
-                        file: {
-                        'en-US': {
-                            contentType: 'image/jpeg',
-                            fileName: 'example.jpeg',
-                            upload: element
-                        }
-                        }
-                    }
-                }))
-                .then((asset) => asset.processForAllLocales())
-                .then((asset) => asset.publish())
-                .then((asset) => {
-                            console.log(`processing ${index} image done....`)
-                            resolve(asset)
-                        })
-                .catch(error => reject(error))
-            });
-
-            var assetObj = {
-                sys:{
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": assetRes.sys.id
-                }
-            }
-            assetArray.push(assetObj)   
-        }
-    }
     var customAttributeArray = []
     if(product.customAttributes){
         for (let index = 0; index < product.customAttributes.length; index++) {
@@ -148,11 +104,7 @@ async function updateProductById(id, product) {
             .then((space) => space.getEnvironment("master"))
             .then((environment) => environment.getEntry(id))
             .then(entry => {
-                // console.log(entry)
-                 // if(assetArray.length>0)
-                //     entry.fields.otherPhotos['en-US'] = [...assetArray]
-                //entry.update()
-                
+                   
                 let patchArray = []
                 if(product.name)
                     patchArray.push({
@@ -178,17 +130,11 @@ async function updateProductById(id, product) {
                         path: '/fields/availableStock',
                         value:{'en-US':product.availableStock} 
                     });
-                if(assetHeaderImageObj)
+                if(product.productPhotos && product.productPhotos.length>0)
                     patchArray.push({
                         op: 'add',
-                        path: '/fields/headerPhoto',
-                        value:{'en-US':assetHeaderImageObj} 
-                    });
-                if(assetArray.length>0)
-                    patchArray.push({
-                        op: 'add',
-                        path: '/fields/otherPhotos',
-                        value:{'en-US':[...assetArray]} 
+                        path: '/fields/productPhotos',
+                        value:{'en-US':[...product.productPhotos]} 
                     });
                 if(customAttributeArray.length>0)
                     patchArray.push({
@@ -208,86 +154,7 @@ async function updateProductById(id, product) {
 
 async function createProduct(product){
     console.log(product)
-    var assetHeaderImageObj = {}
-    if(product.headerPhoto){
-        let assetRes = await new Promise((resolve, reject) => {
-            client.getSpace('vidnutv0ls36')
-            .then((space) => space.getEnvironment("master"))
-            .then((environment)=> environment.createAsset({
-                fields: {
-                    title: {
-                    'en-US': convertToSlug.convertToSlug(product.name)+"-header"
-                    },
-                    description: {
-                    'en-US': product.name
-                    },
-                    file: {
-                    'en-US': {
-                        contentType: 'image/jpeg',
-                        fileName: 'example.jpeg',
-                        upload: product.headerPhoto
-                    }
-                    }
-                }
-            }))
-            .then((asset) => asset.processForAllLocales())
-            .then((asset) => asset.publish())
-            .then((asset) => resolve(asset))
-            .catch(error => reject(error))
-        });
-        assetHeaderImageObj = {
-            sys:{
-                "type": "Link",
-                "linkType": "Asset",
-                "id": assetRes.sys.id
-            }
-        }
-    }
-
-    let assetArray = [];
-    if(product.otherPhotos){
-        console.log("processing other images....")
-        for (let index = 0; index < product.otherPhotos.length; index++) {
-            const element = product.otherPhotos[index];
-            let assetRes = await new Promise((resolve, reject) => {
-                client.getSpace('vidnutv0ls36')
-                .then((space) => space.getEnvironment("master"))
-                .then((environment)=> environment.createAsset({
-                    fields: {
-                        title: {
-                        'en-US': product.name
-                        },
-                        description: {
-                        'en-US': product.name
-                        },
-                        file: {
-                        'en-US': {
-                            contentType: 'image/jpeg',
-                            fileName: 'example.jpeg',
-                            upload: element
-                        }
-                        }
-                    }
-                }))
-                .then((asset) => asset.processForAllLocales())
-                .then((asset) => asset.publish())
-                .then((asset) => {
-                            console.log(`processing ${index} image done....`)
-                            resolve(asset)
-                        })
-                .catch(error => reject(error))
-            });
-
-            var assetObj = {
-                sys:{
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": assetRes.sys.id
-                }
-            }
-            assetArray.push(assetObj)   
-        }
-    }
+    
     let customAttributeArray = [];
 
     if(product.customAttributes && product.customAttributes.length > 0){
@@ -336,10 +203,8 @@ async function createProduct(product){
 
     // create product on contentful
     return new Promise((resolve, reject) => {
-        console.log(".............asset array.................")
-        console.log(assetArray)
         console.log(new Date().toISOString())
-
+        console.log(product.productPhotos)
         client.getSpace('vidnutv0ls36')
         .then((space) => space.getEnvironment("master"))
         .then((environment) => environment.createEntry('product',{
@@ -367,8 +232,8 @@ async function createProduct(product){
                         sys: {type: "Link", linkType: "Entry", id: product.store}
                     }
                 },
-                otherPhotos: {
-                    'en-US' : [...assetArray]
+                productPhotos: {
+                    'en-US' : [...product.productPhotos]
                 },
                 customAttributes:{
                     'en-US':[...customAttributeArray]
