@@ -37,7 +37,7 @@ const StoreItem = ({ product }) => {
       }}
     >
       <div className={styles.thumbnail}>
-        {product && product.headerPhoto.file.url && (
+        {product && product?.productPhotos[0] && (
           <div className={styles.image_container}>
             {!checkStock(product) && (
               <div className={styles.item_overlay}>
@@ -46,7 +46,7 @@ const StoreItem = ({ product }) => {
             )}
             <Image
               className={styles.productImg}
-              src={`https:${product?.headerPhoto?.file?.url}`}
+              src={`${product?.productPhotos[0]}`}
               width={204}
               height={204}
               objectFit="cover"

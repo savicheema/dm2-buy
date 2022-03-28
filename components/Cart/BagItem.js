@@ -20,7 +20,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
       <div className={styles.productDetails}>
         <div className={styles.thumbnailContainer}>
           <Image
-            src={'https:' + item.headerPhoto?.fields?.file?.url}
+            src={item.productPhotos[0]}
             height={60}
             width={60}
             alt="Order name"
