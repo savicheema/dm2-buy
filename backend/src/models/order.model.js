@@ -9,7 +9,7 @@ const orderSchema = mongoose.Schema(
     payment_processing_fee: { type: Number, required: true },
     order_total: { type: Number, required: true },
     buyer: { type: mongoose.Schema.Types.Object, ref: 'User' },
-    seller: { type: mongoose.Schema.Types.Object, ref: 'Store', required: true },
+    seller: { type: Object, required: true },
     createdDate: { type: Date, default: Date.now },
     userId: { type: String },
     products: [{ type: mongoose.Schema.Types.Object, ref: 'Product' }],
