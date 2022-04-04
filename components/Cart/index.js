@@ -47,14 +47,14 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
     }
 
     const bodyData = {
-      buyer_id: guid(),
+      userId: guid(),
       discountCode: {
         id: couponId,
         couponCode: couponCode,
       },
       order_shipping: shippingFee,
       payment_processing_fee: processingFee,
-      order_total: parseInt(total).toFixed(2),
+      order_total: total,
       buyer: personalFormRef.current.getValues(),
       address: addressFormRef.current.getValues(),
       seller: {
@@ -62,6 +62,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         instagram: store?.contactInfo?.instagramHandle,
         phone: store?.contactInfo?.contact,
         seller_id: store?.id,
+        orderGoogleSheetId: store?.orderGoogleSheetID
       },
       products: cart.products.map((product) => {
         let productObj = {

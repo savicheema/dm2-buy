@@ -25,6 +25,8 @@ const StoreItem = ({ product }) => {
           stockAvailable = true;
         }
       });
+    } else {
+      return product.availableStock;
     }
     return stockAvailable;
   }

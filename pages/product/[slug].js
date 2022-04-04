@@ -158,6 +158,10 @@ class Product extends React.Component {
     }
     const variantPrice = product.variantPrice;
     const variantObj = {};
+    
+    if (!variantPrice || (variantPrice && !variantPrice.length)) {
+      return product.price;
+    }
 
     variantPrice.forEach(variant => {
       let vSize = variant?.fields?.options?.filter(size => size?.fields?.type === 'fit');

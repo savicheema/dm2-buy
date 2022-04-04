@@ -77,6 +77,10 @@ const findProductStock = (size, colour, product) => {
   const variantPrice = product.variantPrice;
   const variantObj = {};
 
+  if (!variantPrice || (variantPrice && !variantPrice.length)) {
+    return product.availableStock;
+  }
+
   variantPrice.forEach(variant => {
     let vSize = variant?.options?.filter(size => size?.fields?.type === 'fit');
     vSize = vSize && vSize.length ? vSize[0]?.fields?.name : '-';
