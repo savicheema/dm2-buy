@@ -12,7 +12,7 @@ const productValue = Joi.object().keys({
 
 const createOrderValidations = {
   body: Joi.object().keys({
-    shipping_address: Joi.object().keys({
+    address: Joi.object().keys({
       complete_address: Joi.string().required(),
       pincode: Joi.string().required(),
       city: Joi.string().required(),
@@ -29,8 +29,14 @@ const createOrderValidations = {
     payment_mode: Joi.string().allow(''),
     payment_processing_fee: Joi.number().required(),
     products: Joi.array().items(productValue).required(),
-    store_id: Joi.string().required(),
-    buyer_id: Joi.string().required(),
+    seller: Joi.object().keys({
+      instagram: Joi.string().required(),
+      name: Joi.string().required(),
+      phone: Joi.string().required(),
+      seller_id: Joi.string().required(),
+      orderGoogleSheetId:Joi.string()
+    }),
+    userId: Joi.string().required(),
     discountCode: Joi.object().keys({
       couponCode: Joi.string(),
       id:Joi.string().required()

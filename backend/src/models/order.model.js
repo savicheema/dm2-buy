@@ -9,14 +9,11 @@ const orderSchema = mongoose.Schema(
     payment_processing_fee: { type: Number, required: true },
     order_total: { type: Number, required: true },
     buyer: { type: mongoose.Schema.Types.Object, ref: 'User' },
-    store_id: {
-      type: String,
-      required: true
-    },
+    seller: { type: mongoose.Schema.Types.Object, ref: 'Store', required: true },
     createdDate: { type: Date, default: Date.now },
-    buyer_id: { type: String },
+    userId: { type: String },
     products: [{ type: mongoose.Schema.Types.Object, ref: 'Product' }],
-    shipping_address: { type: mongoose.Schema.Types.Object },
+    address: { type: mongoose.Schema.Types.Object, ref: 'Address' },
     payment_status: { type: String, required: true, default: 'payment_pending' },
     payment_mode: { type: String, required: true, default: 'online' },
     discountCode:{type: mongoose.Schema.Types.Object, ref: 'DiscountCode', required: false }

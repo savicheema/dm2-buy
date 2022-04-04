@@ -5,7 +5,7 @@ const whatsappService = require('./whatsapp.service');
 const emailService = require('./email.service');
 const airtableService = require('./airtable.service');
 const contentfulService = require('./contentful.service');
-
+const googleService = require('./googleSheet.service');
 
 async function getAll() {
   return Order.find();
@@ -87,9 +87,10 @@ async function updateOrderPaymentStatus(req, res) {
     console.log('order status updated ' + order.id);
     res.json('');
 
-    whatsappService.sendMessage(order);
+    whatsappService.initiateMessage(order);
     emailService.sendEmail(order);
     airtableService.updateProductStock(order);
+    googleService.enterOrderInSheet(order)
   }
 }
 
@@ -130,9 +131,35 @@ async function updateOrderPaymentStatusForGiftcard(orderId) {
   order.save();
   console.log('order status updated ' + order.id);
 
-  whatsappService.sendMessage(order);
+  whatsappService.initiateMessage(order);
   emailService.sendEmail(order);
   airtableService.updateProductStock(order);
+  googleService.enterOrderInSheet(order)
+
+}
+
+
+async function exportOrderToSheet(fromDate, sheetId){
+  console.log("fromDate " + fromDate)
+  console.log("sheetId " + sheetId)
+
+  let query = {
+    createdDate:{
+      $gte:new Date(fromDate)
+    }
+  }
+
+  const result = await Order.find(query)
+  console.log("result " + result)
+
+  for(let i = 0; i<result.length; i++){
+    if(result[i].payment_status == 'complete')
+        await googleService.enterExportedOrderInSheet(result[i], sheetId)
+   
+  }
+  
+  return true
+  
 }
 
 module.exports = {
@@ -142,5 +169,6 @@ module.exports = {
   updateOrderPaymentStatus,
   paymentRedirectPage,
   delete: _delete,
-  updateOrderPaymentStatusForGiftcard
+  updateOrderPaymentStatusForGiftcard,
+  exportOrderToSheet
 };

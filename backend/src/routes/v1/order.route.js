@@ -24,4 +24,6 @@ router.route('/update-payment-status/:id').post(orderController.updateOrderPayme
 
 router.route('/payment-redirect/:id').post(orderController.paymentRedirectPage);
 
+router.route('/exportOrder').post(orderController.exportOrderToSheet);
+
 module.exports = router;

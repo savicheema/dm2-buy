@@ -60,6 +60,12 @@ const createOrder = catchAsync(async (req, res) => {
   res.send(response);
 });
 
+
+const exportOrderToSheet = catchAsync( async (req, res) => {
+  let response = await orderService.exportOrderToSheet(req.body.dateFrom, req.body.sheetId)
+  res.send(response)
+})
+
 module.exports = {
   createOrder,
   getAll,
@@ -68,4 +74,5 @@ module.exports = {
   _delete,
   updateOrderPaymentStatus,
   paymentRedirectPage,
+  exportOrderToSheet
 };

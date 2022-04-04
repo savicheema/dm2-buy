@@ -1,5 +1,7 @@
 const request = require('request');
 const config = require('../config/config');
+const whatsappService = require('./whatsapp.service');
+
 
 const callToCashFree = async (order, { cashfree }) => {
   return new Promise((resolve, reject) => {
@@ -39,7 +41,7 @@ const callToCashFree = async (order, { cashfree }) => {
 
       var jsonData = JSON.parse(body);
       jsonData.order = order;
-
+      //whatsappService.initiateMessage(order)
       resolve(jsonData);
     });
   });
