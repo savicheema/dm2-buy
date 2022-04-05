@@ -77,7 +77,12 @@ async function updateOrderPaymentStatus(req, res) {
     const order = await Order.findById(req.params.id);
     const productList = order.products;
     productList.forEach(product => {
-      contentfulManagementService.updateProductStatus(product.id, {}, product.quantity);
+      const variant = product.colour || product.size
+       ? {
+         colour: product.colour,
+         size: product.size
+       } : false;
+      contentfulManagementService.updateProductStatus(product.id, variant, product.quantity);
     });
     // if(order.discountCode){
     //   airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})

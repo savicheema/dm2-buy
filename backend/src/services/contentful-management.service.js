@@ -311,6 +311,13 @@ async function updateProductStatus(productId, variant, quantity) {
         space.getEnvironment('master').then((environment) => {
             environment.getEntry(productId).then((entry) => {
                 console.log('entry: ', entry);
+                if (!variant) {
+                    entry.fields.availableStock['en-US'] = parseInt(entry.fields.availableStock['en-US']) - quantity < 0
+                        ? 0 : parseInt(entry.fields.availableStock['en-US']) - quantity;
+                }
+                entry.update().then((updatedData) => {
+                    console.log('updatedData: ', updatedData);
+                });
             });
         });
     });
