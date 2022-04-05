@@ -6,6 +6,7 @@ const emailService = require('./email.service');
 const airtableService = require('./airtable.service');
 const contentfulService = require('./contentful.service');
 const googleService = require('./googleSheet.service');
+const { contentfulManagementService } = require('./contentful-management.service');
 
 async function getAll() {
   return Order.find();
@@ -76,7 +77,7 @@ async function updateOrderPaymentStatus(req, res) {
     const order = await Order.findById(req.params.id);
     const productList = order.products;
     productList.forEach(product => {
-      contentfulService.updateProductStatus(product.id, {}, product.quantity);
+      contentfulManagementService.updateProductStatus(product.id, {}, product.quantity);
     });
     // if(order.discountCode){
     //   airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
