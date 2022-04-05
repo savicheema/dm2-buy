@@ -314,6 +314,8 @@ async function updateProductStatus(productId, variant, quantity) {
                 if (!variant) {
                     entry.fields.availableStock['en-US'] = parseInt(entry.fields.availableStock['en-US']) - quantity < 0
                         ? 0 : parseInt(entry.fields.availableStock['en-US']) - quantity;
+                } else {
+                    console.log('entry: ', entry.fields.variantOptions['en-US']);
                 }
                 entry.update().then((updatedData) => {
                     console.log('updatedData: ', updatedData);
