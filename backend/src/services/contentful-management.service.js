@@ -306,9 +306,20 @@ async function createVariantsArrray(product){
     return variantsArray
 }
 
+async function updateProductStatus(productId, variant, quantity) {
+    client.getSpace('vidnutv0ls36').then((space) => {
+        space.getEnvironment('master').then((environment) => {
+            environment.getEntry(productId).then((entry) => {
+                console.log('entry: ', entry);
+            });
+        });
+    });
+}
+
 
 module.exports = {
     updateProductById,
     createProduct,
-    uploadImageToContentful
-  };
+    uploadImageToContentful,
+    updateProductStatus
+};

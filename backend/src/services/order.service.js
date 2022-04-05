@@ -72,13 +72,12 @@ async function _delete(id) {
 
 async function updateOrderPaymentStatus(req, res) {
   console.log('notify update api called ');
-  console.log(req.body);
   if (req.body.txStatus == 'SUCCESS') {
     const order = await Order.findById(req.params.id);
-    // const productList = order.products;
-    // productList.forEach(product => {
-    //   airtableService.updateProductStatus({ productId: product.id, quantity: product.quantity });
-    // });
+    const productList = order.products;
+    productList.forEach(product => {
+      contentfulService.updateProductStatus(product.id, {}, product.quantity);
+    });
     // if(order.discountCode){
     //   airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
     // }
