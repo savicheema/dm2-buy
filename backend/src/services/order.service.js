@@ -95,7 +95,7 @@ async function updateOrderPaymentStatus(req, res) {
     // whatsappService.initiateMessage(order);
     // emailService.sendEmail(order);
     // airtableService.updateProductStock(order);
-    googleService.enterOrderInSheet(order)
+    // googleService.enterOrderInSheet(order);
   }
 }
 
