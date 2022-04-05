@@ -35,10 +35,7 @@ const callToCashFree = async (order, { cashfree }) => {
     };
 
     request(options,  (error, response, body) => {
-      console.log({error, response, body})
       if (error) reject(error);
-      console.log(JSON.parse(body).paymentLink);
-
       var jsonData = JSON.parse(body);
       jsonData.order = order;
       //whatsappService.initiateMessage(order)
