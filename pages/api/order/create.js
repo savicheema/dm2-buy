@@ -3,7 +3,8 @@ import { serverEndpoint } from "../../../services/helper";
 
 async function handler(req, res) {
   console.log('serverEndpoint=============: ', serverEndpoint);
-  const url = `${serverEndpoint}/order`;
+  // const url = `${serverEndpoint}/order`;
+  const url = `https://dev.api.dm2buy.com/v1/order`;
   try {
     const response = await fetch(url, {
       method: "POST",
