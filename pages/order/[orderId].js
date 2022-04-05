@@ -23,15 +23,16 @@ export default function Order(props) {
   const { errorCode, order, store, retryLink } = props;
   const [loading, setLoading] = useState(false);
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
-  const homePageEnabled = props.store?.homePageEnabled;
+  const homePageEnabled = store?.homePage?.homePageEnabled;
   const [showCart, setShowCart] = useState(false);
 
   const status = order?.payment_status;
+
   const [meta, setMeta] = useState({
-    title: "Dm 2 Buy",
+    title: store.storeName || "dm2buy",
   });
   useEffect(() => {
-    StorageManager.removeItem(CART_KEY);    
+    StorageManager.removeItem(CART_KEY);
   }, []);
   const popUpFrame = (paymentLink) => {
     const popup = window.open(
@@ -73,13 +74,13 @@ export default function Order(props) {
           hideInAdvance={false}
           cartActive={false}
           handleShowCart={handleShowCart}
-          homeActive={homePageEnabled && homePageEnabled === 'true' ? true : false}
+          homeActive={homePageEnabled}
           store={store}
-          storeName={store?.fields?.store_name || ''}
+          storeName={store.storeName || ''}
         />
       }
       <Head>
-        <title>{meta.title}</title>
+        <title>{store.storeName}</title>
         <meta
           name="description"
           content="Check my shop out and bag my latest drop"
@@ -97,7 +98,7 @@ export default function Order(props) {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={meta.title} />
+        <meta property="og:title" content={store.storeName} />
         <meta
           property="og:description"
           content="Check my shop out and bag my latest drop"
