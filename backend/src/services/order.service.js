@@ -6,7 +6,7 @@ const emailService = require('./email.service');
 const airtableService = require('./airtable.service');
 const contentfulService = require('./contentful.service');
 const googleService = require('./googleSheet.service');
-const { contentfulManagementService } = require('./contentful-management.service');
+const contentfulManagementService = require('./contentful-management.service');
 
 async function getAll() {
   return Order.find();
