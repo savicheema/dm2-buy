@@ -4,11 +4,10 @@ const { google } = require("googleapis");
 const moment = require('moment');
 
 async function enterOrderInSheet(order) {
-    console.log("enter in sheet ")
-    console.log(order)
-    if( !order.seller.orderGoogleSheetId ) {
-        console.log("google sheet id not found in order")
-        return
+    console.log("entered in sheet!");
+    if( !order?.seller?.orderGoogleSheetId ) {
+        console.log("google sheet id not found in order: ", order.seller.orderGoogleSheetId);
+        return;
     }
 
     const auth = new google.auth.GoogleAuth({

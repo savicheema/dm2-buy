@@ -75,21 +75,21 @@ async function updateOrderPaymentStatus(req, res) {
   console.log(req.body);
   if (req.body.txStatus == 'SUCCESS') {
     const order = await Order.findById(req.params.id);
-    const productList = order.products;
-    productList.forEach(product => {
-      airtableService.updateProductStatus({ productId: product.id, quantity: product.quantity });
-    });
-    if(order.discountCode){
-      airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
-    }
+    // const productList = order.products;
+    // productList.forEach(product => {
+    //   airtableService.updateProductStatus({ productId: product.id, quantity: product.quantity });
+    // });
+    // if(order.discountCode){
+    //   airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
+    // }
     order.payment_status = 'complete';
     order.save();
     console.log('order status updated ' + order.id);
     res.json('');
 
-    whatsappService.initiateMessage(order);
-    emailService.sendEmail(order);
-    airtableService.updateProductStock(order);
+    // whatsappService.initiateMessage(order);
+    // emailService.sendEmail(order);
+    // airtableService.updateProductStock(order);
     googleService.enterOrderInSheet(order)
   }
 }

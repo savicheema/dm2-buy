@@ -62,7 +62,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         instagram: store?.contactInfo?.instagramHandle,
         phone: store?.contactInfo?.contact,
         seller_id: store?.id,
-        orderGoogleSheetId: store?.orderGoogleSheetID
+        orderGoogleSheetId: store?.googleSheetId
       },
       products: cart.products.map((product) => {
         let productObj = {
