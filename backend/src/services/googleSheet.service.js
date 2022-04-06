@@ -26,7 +26,11 @@ async function enterOrderInSheet(order) {
     const productOrdered = `${order.products
         .map((product) => {
           if (product.colour) {
-            product.customAttributes.push({ name: 'Colour', value: colorMap.map.get(product.colour) });
+            product.customAttributes.push({
+              name: 'Colour',
+              // value: colorMap.map.get(product.colour),
+              value: product.colour
+            });
           }
           if (product.size) {
             product.customAttributes.push({ name: 'Size', value: product.size });

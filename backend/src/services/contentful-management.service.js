@@ -309,17 +309,34 @@ async function createVariantsArrray(product){
 async function updateProductStatus(productId, variant, quantity) {
     client.getSpace('vidnutv0ls36').then((space) => {
         space.getEnvironment('master').then((environment) => {
-            environment.getEntry(productId).then((entry) => {
-                console.log('entry: ', entry);
+            environment.getEntry(productId).then(async (entry) => {
                 if (!variant) {
                     entry.fields.availableStock['en-US'] = parseInt(entry.fields.availableStock['en-US']) - quantity < 0
                         ? 0 : parseInt(entry.fields.availableStock['en-US']) - quantity;
+                    
+                    entry.update().then((updatedData) => {
+                        // console.log('updatedData: ', updatedData);
+                    });
                 } else {
-                    console.log('entry: ', entry.fields.variantOptions['en-US']);
+                    for (let i = 0; i < entry?.fields?.variantPrice['en-US']?.length; i++) {
+                        let entryData = await environment.getEntry(entry?.fields?.variantPrice['en-US'][i].sys.id);
+                        const variantObj = {};
+                        for (let j = 0; j < entryData?.fields?.options['en-US']?.length; j++) {
+                            let priceStock = await environment.getEntry(entryData?.fields?.options['en-US'][j].sys.id)
+                            variantObj[priceStock?.fields?.type['en-US']] = priceStock?.fields?.name['en-US'] || '';
+                        }
+
+                        if (variant.colour === variantObj.colour
+                            && variant.fit === variantObj.fit) {
+                                entryData.fields.stockAvailable['en-US'] = parseInt(entryData.fields.stockAvailable['en-US']) - quantity < 0
+                                    ? 0 : parseInt(entryData.fields.stockAvailable['en-US']) - quantity;
+
+                            entryData.update().then((updatedData) => {
+                                // console.log('updatedData: ', updatedData);
+                            });  
+                        }
+                    }
                 }
-                entry.update().then((updatedData) => {
-                    console.log('updatedData: ', updatedData);
-                });
             });
         });
     });

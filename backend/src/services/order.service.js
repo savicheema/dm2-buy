@@ -79,8 +79,8 @@ async function updateOrderPaymentStatus(req, res) {
     productList.forEach(product => {
       const variant = product.colour || product.size
        ? {
-         colour: product.colour,
-         size: product.size
+         colour: product.colour || '',
+         fit: product.size || ''
        } : false;
       contentfulManagementService.updateProductStatus(product.id, variant, product.quantity);
     });
@@ -92,10 +92,9 @@ async function updateOrderPaymentStatus(req, res) {
     console.log('order status updated ' + order.id);
     res.json('');
 
-    // whatsappService.initiateMessage(order);
-    // emailService.sendEmail(order);
-    // airtableService.updateProductStock(order);
-    // googleService.enterOrderInSheet(order);
+    whatsappService.initiateMessage(order);
+    emailService.sendEmail(order);
+    googleService.enterOrderInSheet(order);
   }
 }
 
