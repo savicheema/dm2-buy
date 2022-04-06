@@ -1,5 +1,6 @@
 const contentfulManagement = require('contentful-management');
 const { util } = require('prettier');
+const decode = require('decode-html');
 const convertToSlug = require('../utils/utils')
 const client = contentfulManagement.createClient({
     // This is the space ID. A space is like a project folder in Contentful terms
@@ -122,7 +123,7 @@ async function updateProductById(id, product) {
                     patchArray.push({
                         op: 'add',
                         path: '/fields/description',
-                        value:{'en-US':product.description} 
+                        value:{'en-US':decode(product.description)} 
                     });
                 if(product.availableStock)
                     patchArray.push({
