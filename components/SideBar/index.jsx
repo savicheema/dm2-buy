@@ -19,7 +19,7 @@ const CategoryProduct = ({product}) => {
         style={!imageLoaded ? { display: 'none' } : {}}
         className={styles.categoryProductImage}
         onLoad={() => setImageLoaded(true)}
-        src={product?.headerPhoto?.file?.url}
+        src={product?.productPhotos[0]}
         layout="fixed" width="70" height="70" />
       <div className={styles.productDesc}>
         <span className={styles.productTitle}>
