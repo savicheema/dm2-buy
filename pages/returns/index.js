@@ -8,7 +8,7 @@ export async function getServerSideProps(context) {
   
 const Returns = (props) => {
     const { storeData } = props;
-    const { returns } = storeData.legalInfo;
+    const { returns } = storeData?.legalInfo;
     return (
         <div className={styles.container}>
             <main>
