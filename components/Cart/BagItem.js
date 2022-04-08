@@ -15,12 +15,16 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   };
   useEffect(countEffect, [count]);
 
+  if (!item?.productPhotos[0]) {
+    localStorage.clear();
+  }
+
   return (
     <div className={styles.orderItem}>
       <div className={styles.productDetails}>
         <div className={styles.thumbnailContainer}>
           <Image
-            src={item.productPhotos[0]}
+            src={item?.productPhotos[0]}
             height={60}
             width={60}
             alt="Order name"
