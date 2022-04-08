@@ -226,7 +226,7 @@ async function createProduct(product){
                     'en-US': product.availableStock
                 },
                 description:{
-                    'en-US': product.description
+                    'en-US': decode(product.description)
                 },
                 store: {
                     'en-US': {
