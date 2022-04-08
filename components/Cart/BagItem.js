@@ -17,7 +17,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
 
   if (!item?.productPhotos[0]) {
     localStorage.clear();
-    console.log('cleared the local storage.');
+    // console.log('cleared the local storage.');
   }
 
   return (
