@@ -14,7 +14,7 @@ import { CART_KEY } from "./../services/frontend/StorageKeys";
 import { initialCart } from "./../services/ObjectsInitialValues";
 import StorageManager from "./../services/frontend/StorageManager";
 import Basket from "./Cart/Basket";
-// import CollectionSection from "./CollectionSection";
+import CollectionSection from "./CollectionSection";
 
 const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   console.log('dev-homepage branch live.');
@@ -56,25 +56,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
 
     setCollectionTitle(collectionTitle);
 
-    // if (collectionData && collectionData.length) {
-    //   collectionData = JSON.stringify(collectionData);
-    //   return new Promise((resolve, reject) => {
-    //     fetch(
-    //       `/api/airtable/getCollections?collectionIds=${collectionData}`
-    //     )
-    //       .then((response) => {
-    //         return response.json();
-    //       })
-    //       .then((data) => {
-    //         setCollections(data);
-    //         resolve(data);
-    //       })
-    //       .catch((err) => {
-    //         console.error(err);
-    //         reject();
-    //       });
-    //   });
-    // }
+    setCollections(collectionData);
   }
 
   const showToast = () => {
@@ -96,17 +78,17 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
 
   useEffect(() => {
     getCollections();
-    // if (typeof window !== 'undefined') {
-    //   const params = new Proxy(new URLSearchParams(window.location.search), {
-    //     get: (searchParams, prop) => searchParams.get(prop),
-    //   });
+    if (typeof window !== 'undefined') {
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
     
-    //   setCollectionName(params.collection);
+      setCollectionName(params.collection);
 
-    //   setTimeout(() => {
-    //     window.scrollTo(0, 0);
-    //   }, 2000);
-    // }
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 2000);
+    }
   }, []);
 
   return (
@@ -196,12 +178,22 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
 
             {store && (
               <StoreProducts
+                collectionName={collectionName}
                 store={store}
                 endLoading={endLoading}
                 loading={true}
               />
             )}
         </>
+      }
+      {
+        homeActive && collections && collections.length
+        ? <CollectionSection
+          collectionSection={collectionSection}
+          title={collectionTitle}
+          collections={collections}
+        />
+        : ''
       }
       <Footer />
       <Toast type="success" message="Link copied successfully" open={open} />

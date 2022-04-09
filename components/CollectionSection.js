@@ -27,35 +27,35 @@ export default class CollectionSection extends React.Component {
                     {
                         this.props.collections.map((collection, index) => {
                             return (
-                                collection?.fields?.header[0]?.url.split('.').pop() === 'jpeg'
-                                || collection?.fields?.header[0]?.url.split('.').pop() === 'jpg'
-                                || collection?.fields?.header[0]?.url.split('.').pop() === 'png'
+                                collection?.header?.fields?.file?.url.split('.').pop() === 'jpeg'
+                                || collection?.header?.fields?.file?.url.split('.').pop() === 'jpg'
+                                || collection?.header?.fields?.file?.url.split('.').pop() === 'png'
                                 ? <div
                                     onClick={() => {
-                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.fields?.Name}`);
+                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.name}`);
                                         window.location.reload();
                                     }} 
-                                    key={collection?.fields?.Name + index}
+                                    key={collection?.name + index}
                                     style={{
-                                        backgroundImage: `url(${collection?.fields?.header[0]?.url})`
+                                        backgroundImage: `url(${'https:' + collection?.header?.fields?.file?.url})`
                                     }}
                                     className={styles.collectionCard}>
                                         <div className={styles.cardContainer}>
                                         </div>
-                                        <span className={styles.cardText}>{collection?.fields?.title}</span>
+                                        <span className={styles.cardText}>{collection?.title}</span>
                                 </div>
                                 : <div
                                     onClick={() => {
-                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.fields?.Name}`);
+                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.name}`);
                                         window.location.reload();
                                     }} 
-                                    key={collection?.fields?.Name + index}
+                                    key={collection?.name + index}
                                     className={styles.collectionCard}>
                                     <div className={styles.cardContainer}>
                                     </div>
                                     {
-                                        collection?.fields?.title
-                                        ? <span className={styles.cardText}>{collection?.fields?.title}</span>
+                                        collection?.title
+                                        ? <span className={styles.cardText}>{collection?.title}</span>
                                         : ''
                                     }
                                     <ReactPlayer
@@ -68,7 +68,7 @@ export default class CollectionSection extends React.Component {
                                         loop={true}
                                         playsinline={true}
                                         playing={true}
-                                        url={collection?.fields?.header[0]?.url}
+                                        url={'https:' + collection?.header?.fields?.file?.url}
                                     />
                                 </div>
                             )
