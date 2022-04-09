@@ -1,5 +1,4 @@
 const getPrice = (cart) => {
-  console.log('cart=======: ', cart);
   let calculatedPrice = 0;
   let shippingFeeApplied = false;
   let shippingFee = cart.shippingFee;

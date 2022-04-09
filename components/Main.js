@@ -14,15 +14,21 @@ import { CART_KEY } from "./../services/frontend/StorageKeys";
 import { initialCart } from "./../services/ObjectsInitialValues";
 import StorageManager from "./../services/frontend/StorageManager";
 import Basket from "./Cart/Basket";
+// import CollectionSection from "./CollectionSection";
 
 const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   console.log('dev-homepage branch live.');
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
   const homePageEnabled = store?.homePage?.homePageEnabled;
+  console.log('store?.homePage?: ', store?.homePage);
   const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === true ? (hideHeroMedia ? false : true) : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [collections, setCollections] = useState([]);
+  const [collectionTitle, setCollectionTitle] = useState('');
+  const [collectionSection, setCollectionSection] = useState({});
+  const [collectionName, setCollectionName] = useState('');
 
   const updateHomeActive = (boolVal = false) => {
     setHomeActive(boolVal);
@@ -33,6 +39,42 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
 
   const handleShowCart = (boolVal = false) => {
     setShowCart(boolVal);
+  }
+
+  const getCollections = () => {
+    let collectionData = store?.homePage?.sections && store?.homePage?.sections.length
+    ? store?.homePage?.sections.filter(section => section?.type === 'collections list') : null;
+
+    if (collectionData && collectionData?.length) {
+      setCollectionSection(collectionData[0]);
+    }
+    
+    let collectionTitle = collectionData && collectionData.length && collectionData[0]
+    ? collectionData[0]?.title : null;
+    collectionData = collectionData && collectionData.length && collectionData[0]
+      ? collectionData[0]?.collections : null;
+
+    setCollectionTitle(collectionTitle);
+
+    // if (collectionData && collectionData.length) {
+    //   collectionData = JSON.stringify(collectionData);
+    //   return new Promise((resolve, reject) => {
+    //     fetch(
+    //       `/api/airtable/getCollections?collectionIds=${collectionData}`
+    //     )
+    //       .then((response) => {
+    //         return response.json();
+    //       })
+    //       .then((data) => {
+    //         setCollections(data);
+    //         resolve(data);
+    //       })
+    //       .catch((err) => {
+    //         console.error(err);
+    //         reject();
+    //       });
+    //   });
+    // }
   }
 
   const showToast = () => {
@@ -51,6 +93,21 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   }
 
   if (!store) return null;
+
+  useEffect(() => {
+    getCollections();
+    // if (typeof window !== 'undefined') {
+    //   const params = new Proxy(new URLSearchParams(window.location.search), {
+    //     get: (searchParams, prop) => searchParams.get(prop),
+    //   });
+    
+    //   setCollectionName(params.collection);
+
+    //   setTimeout(() => {
+    //     window.scrollTo(0, 0);
+    //   }, 2000);
+    // }
+  }, []);
 
   return (
     <main

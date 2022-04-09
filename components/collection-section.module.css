@@ -1,0 +1,69 @@
+.title {
+    height: 38px;
+    margin: 0 1px 24px;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.58;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #000;
+}
+
+.collectionCard {
+    width: calc(100% - 20px);
+    margin: 30px 10px;
+    height: calc(var(--max-width) - 200px);
+    border-radius: 16px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.collectionVideoCard {
+    height: calc(var(--max-width) - 200px);
+    border-radius: 16px;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.collectionVideoCard > video {
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.cardContainer {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    border-radius: 16px;
+    opacity: 0.3;
+    position: absolute;
+}
+
+.cardText {
+    width: 201px;
+    font-family: Roboto;
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #fff;
+    z-index: 100;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}

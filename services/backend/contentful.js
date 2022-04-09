@@ -178,10 +178,71 @@ function getProductListById(productIds) {
     });
 }
 
+function getSectionByIds(ids) {
+    return new Promise((resolve, reject) => {
+        client
+            .getEntries({ content_type: 'section', 'sys.id[in]': ids.join() })
+            .then(entry => {
+                let sanitizedData = [];
+                if (entry && entry.items && entry.items.length) {
+                    entry.items.forEach(product => {
+                        let productData = responseSanitizer(product.fields, entry.includes);
+                        productData.id = product.sys.id;
+                        sanitizedData.push(productData);
+                    })
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+    // return new Promise((resolve, reject) => {
+    //   base("Sections")
+    //     .select({
+    //       view: "Grid view",
+    //       filterByFormula: `SEARCH(RECORD_ID(), "${ids.join()}")`,
+    //     })
+    //     .firstPage((err, records) => {
+    //       if (err) {
+    //         console.error(err);
+    //         reject(err);
+    //       } else {
+    //         const response = records.map(record => record._rawJson ? record._rawJson : null);
+    //         resolve(response);
+    //       }
+    //     });
+    // });
+}
+  
+function getCollectionByIds(ids) {
+    ids = JSON.parse(ids);
+    return new Promise((resolve, reject) => {
+      base("Collections")
+        .select({
+          view: "Grid view",
+          filterByFormula: `SEARCH(RECORD_ID(), "${ids.join()}")`,
+        })
+        .firstPage((err, records) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            const response = records.map(record => record._rawJson ? record._rawJson : null);
+            resolve(response);
+          }
+        });
+    });
+}
+
 export {
   getRecordBySubdomain,
   getProductByStoreId,
   getProductById,
   getSubDomain,
-  getProductListById
+  getProductListById,
+  getSectionByIds
 };
