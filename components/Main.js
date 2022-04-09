@@ -86,7 +86,7 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
 
       setTimeout(() => {
         window.scrollTo(0, 0);
-      }, 2000);
+      }, 500);
     }
   }, []);
 
