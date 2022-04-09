@@ -14,6 +14,7 @@ function findFromReference(referenceArray, id) {
             data = entry.fields;
         }
     });
+    data.id = id;
     return data;
 }
 
@@ -49,10 +50,14 @@ function responseSanitizer(incomingData, referenceArray) {
     return structuredObject;
 }
 
-function getProductByStoreId(storeId) {
+function getProductByStoreId(storeId, collection) {
+    let query = { content_type: 'product', 'fields.store.sys.id': storeId };
+    if (collection) {
+        query = { content_type: 'product', 'fields.store.sys.id': storeId, 'fields.collection.sys.id': collection };
+    }
     return new Promise((resolve, reject) => {
         client
-            .getEntries({ content_type: 'product', 'fields.store.sys.id': storeId })
+            .getEntries(query)
             .then(entry => {
                 let sanitizedData = [];
                 if (entry && entry.items && entry.items.length) {

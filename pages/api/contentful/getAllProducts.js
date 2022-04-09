@@ -5,7 +5,7 @@ import {
 import { Sentry } from "../../../services/helper";
 
 async function getAllProducts(req, res) {
-  const { subdomain } = req.query;
+  const { subdomain, collection } = req.query;
   try {
     const recordMeta = await getRecordBySubdomain(subdomain);
     if (!recordMeta) {
@@ -13,7 +13,7 @@ async function getAllProducts(req, res) {
       return;
     }
 
-    const productData = await getProductByStoreId(recordMeta.id);
+    const productData = await getProductByStoreId(recordMeta.id, collection);
     recordMeta.Products = productData;
 
     res.status(200).json({

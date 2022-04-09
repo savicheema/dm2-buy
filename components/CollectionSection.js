@@ -32,7 +32,7 @@ export default class CollectionSection extends React.Component {
                                 || collection?.header?.fields?.file?.url.split('.').pop() === 'png'
                                 ? <div
                                     onClick={() => {
-                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.name}`);
+                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.id}`);
                                         window.location.reload();
                                     }} 
                                     key={collection?.name + index}
@@ -46,7 +46,7 @@ export default class CollectionSection extends React.Component {
                                 </div>
                                 : <div
                                     onClick={() => {
-                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.name}`);
+                                        window.history.pushState("object or string", "Title", `shop?collection=${collection?.id}`);
                                         window.location.reload();
                                     }} 
                                     key={collection?.name + index}

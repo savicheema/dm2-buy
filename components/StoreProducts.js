@@ -41,7 +41,8 @@ class StoreProducts extends React.Component {
 
   fetchAllProducts = (products, subdomain) => {
     return new Promise((resolve, reject) => {
-      fetch(`/api/contentful/getAllProducts?subdomain=${subdomain}`)
+      const collectionQuery = this.props.collectionName && this.props.collectionName.length ? `&collection=${this.props.collectionName}` : '';
+      fetch(`/api/contentful/getAllProducts?subdomain=${subdomain}${collectionQuery}`)
         .then((response) => {
           return response.json();
         })
@@ -56,7 +57,9 @@ class StoreProducts extends React.Component {
               let { endLoading } = this.props;
               let { products } = this.state;
 
-              products.forEach(this.getCollectionsOfProductAddToStore);
+              if (products?.length) {
+                products.forEach(this.getCollectionsOfProductAddToStore);
+              }
 
               endLoading();
               this.setState({loading: false});
@@ -134,11 +137,8 @@ class StoreProducts extends React.Component {
 
   render() {
     let { products, storeCollections, collectionsHeight } = this.state;
-    console.log(" StoreProducts STATE", products);
 
     let { loading } = this.props;
-
-    console.log("REF", { props: this.props, loading }, this.collectionsRef);
 
     return (
       <div className={styles.store}>
@@ -166,7 +166,7 @@ class StoreProducts extends React.Component {
               paddingTop: `${collectionsHeight + 16}px`,
             }}
           >
-            {products.length > 0 ? (
+            {products?.length > 0 ? (
               products
                 .filter(this.filterCollectionProducts)
                 .map((product, index) => {

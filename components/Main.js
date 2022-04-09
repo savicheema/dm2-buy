@@ -21,7 +21,6 @@ const Main = ({ store, endLoading, loading, hideHeroMedia}) => {
   const [cart, setCart] = useLocalStorage(CART_KEY, initialCart);
   const [open, setOpen] = useState(false);
   const homePageEnabled = store?.homePage?.homePageEnabled;
-  console.log('store?.homePage?: ', store?.homePage);
   const [homeActive, setHomeActive] = useState(homePageEnabled && homePageEnabled === true ? (hideHeroMedia ? false : true) : false);
   const [showCart, setShowCart] = useState(false);
   const [refresh, setRefresh] = useState(false);
