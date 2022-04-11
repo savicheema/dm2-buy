@@ -13,6 +13,11 @@ const Footer = () => {
     window.open(url, '_blank').focus();
   };
 
+  if (!storeData?.legalInfo?.terms
+    || !storeData?.legalInfo?.contacts
+    || !storeData?.legalInfo?.returns
+    || !storeData?.legalInfo?.privacy) return <></>;
+
   const { terms, contacts, returns, privacy } = storeData?.legalInfo;
 
   return (
