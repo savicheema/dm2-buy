@@ -28,8 +28,8 @@ class Product extends React.Component {
     const { product } = props;
 
     if (product) {
-      product.allPhotos = product?.["otherPhotos"];
-      product.headerPhoto = product?.["headerPhoto"];
+      product.allPhotos = product?.["productPhotos"];
+      product.headerPhoto = product?.["productPhotos"][0];
       product.headerDescription = this.cleanProductDescription(
         product?.description
       );
@@ -244,7 +244,7 @@ class Product extends React.Component {
               property="og:description"
               content={product.headerDescription}
             />
-            <meta property="og:image" content={product?.headerPhoto?.fields?.file?.url} />
+            <meta property="og:image" content={product?.headerPhoto} />
             <meta property="og:site_name" content="Dm 2 Buy" />
             <meta property="og:url" content={productUrl} />
 
@@ -257,7 +257,7 @@ class Product extends React.Component {
             />
             <meta
               property="twitter:image"
-              content={product?.headerPhoto?.fields?.file?.url}
+              content={product?.headerPhoto}
             />
           </Head>
           {/* <Header /> */}
