@@ -51,9 +51,9 @@ function responseSanitizer(incomingData, referenceArray) {
 }
 
 function getProductByStoreId(storeId, collection) {
-    let query = { content_type: 'product', 'fields.store.sys.id': storeId };
+    let query = { content_type: 'product', 'fields.store.sys.id': storeId, order: '-fields.createdDate' };
     if (collection) {
-        query = { content_type: 'product', 'fields.store.sys.id': storeId, 'fields.collection.sys.id': collection };
+        query = { content_type: 'product', 'fields.store.sys.id': storeId, 'fields.collection.sys.id': collection, order: '-fields.createdDate' };
     }
     return new Promise((resolve, reject) => {
         client
