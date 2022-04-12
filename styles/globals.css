@@ -69,12 +69,12 @@ a {
 } */
 .carousel .slide img {
   width: auto;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   object-fit: contain;
 }
 
 .carousel .slider-wrapper {
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
 .carousel .control-next.control-arrow::before {
