@@ -15,7 +15,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   };
   useEffect(countEffect, [count]);
 
-  if (!item?.productPhotos?.[0]) {
+  if (item?.otherPhotos?.length) {
     localStorage.clear();
     // console.log('cleared the local storage.');
   }
