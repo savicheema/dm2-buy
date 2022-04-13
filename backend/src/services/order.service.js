@@ -16,8 +16,8 @@ async function getById(id, res) {
   const order = await Order.findById(id);
 
   let store;
-  if (order && order?.seller?.seller_id) {
-    store = await contentfulService.getStoreById(order?.seller?.seller_id);
+  if (order && order.seller && order.seller.seller_id) {
+    store = await contentfulService.getStoreById(order.seller.seller_id);
   }
 
   const options = {
@@ -103,7 +103,7 @@ async function paymentRedirectPage(req, res) {
   console.log('paymentRedirectPage order id ');
   console.log(req.params.id);
   const order = await Order.findById(req.params.id);
-  const sellerData = await contentfulService.getStoreById(order?.seller?.seller_id);
+  const sellerData = await contentfulService.getStoreById(order.seller.seller_id);
   if (req.body.txStatus == 'SUCCESS') {
     console.log('paymentRedirectPage success');
     order.payment_status = 'complete';
