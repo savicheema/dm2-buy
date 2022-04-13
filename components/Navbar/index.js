@@ -83,7 +83,7 @@ const NavBar = (props) => {
         backgroundColor: 'white'
       } : {}}>
       <div className={styles.hamTitleContainer}>
-        <button className={styles.hamBtn} onClick={()=>setIsHamOpen((o)=>!o)}>
+        {/* <button className={styles.hamBtn} onClick={()=>setIsHamOpen((o)=>!o)}>
           {
             props.homeActive
             ? <div className={isHamOpen ? styles.open : null} >
@@ -98,7 +98,7 @@ const NavBar = (props) => {
               }
             </div> : ''
           }
-        </button>
+        </button> */}
         <h2 className={styles.storeName} onClick={() => window.location.href = window.location.origin}>
           <EllipsisText
             // text={store.fields.store_name}
@@ -120,7 +120,7 @@ const NavBar = (props) => {
           }
         </span>
       </div>
-      <SideBar loading={loading} products={products} isHamOpen={isHamOpen} />
+      {/* <SideBar loading={loading} products={products} isHamOpen={isHamOpen} /> */}
     </header>
   )
 }
