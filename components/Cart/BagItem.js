@@ -16,7 +16,7 @@ const BagItem = ({ item, removeProductFromCart, updateProductCount }) => {
   useEffect(countEffect, [count]);
 
   console.log('item: ', item);
-  if (item?.otherPhotos?.length) {
+  if (item?.fields?.['Other photos']?.length) {
     localStorage.clear();
     console.log('1123123112312312');
     // window.location.reload();
