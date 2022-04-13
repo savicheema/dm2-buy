@@ -125,7 +125,7 @@ function getStoreById(storeId) {
             .getEntry(storeId)
             .then(entry => {
                 if (entry && entry.fields) {
-                    let sanitizedData = entry.fields;
+                    let sanitizedData = responseSanitizer(entry.fields, entry.includes);
                     sanitizedData.id = entry.sys.id;
                     resolve(sanitizedData);
                 } else {
