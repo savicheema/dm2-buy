@@ -68,7 +68,7 @@ function getProductByStoreId(storeId, collection) {
                     })
                     resolve(sanitizedData);
                 } else {
-                    reject();
+                    resolve([]);
                 }
             })
             .catch(err => {
@@ -110,7 +110,7 @@ function getStoreById(id) {
                     sanitizedData.id = entry.items[0].sys.id;
                     resolve(sanitizedData);
                 } else {
-                    reject();
+                    resolve([]);
                 }
             })
             .catch(err => {
@@ -130,7 +130,7 @@ function getRecordBySubdomain(subdomain) {
                     sanitizedData.id = entry.items[0].sys.id;
                     resolve(sanitizedData);
                 } else {
-                    reject();
+                    resolve([]);
                 }
             })
             .catch(err => {
@@ -149,7 +149,7 @@ function getSubDomain(customDomain) {
                 let sanitizedData = entry.items[0].fields;
                 resolve(sanitizedData);
             } else {
-                reject();
+                resolve([]);
             }
         })
         .catch(err => {
@@ -173,7 +173,7 @@ function getProductListById(productIds) {
                     })
                     resolve(sanitizedData);
                 } else {
-                    reject();
+                    resolve([]);
                 }
             })
             .catch(err => {
@@ -197,7 +197,7 @@ function getSectionByIds(ids) {
                     })
                     resolve(sanitizedData);
                 } else {
-                    reject();
+                    resolve([]);
                 }
             })
             .catch(err => {
