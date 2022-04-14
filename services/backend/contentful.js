@@ -243,11 +243,32 @@ function getCollectionByIds(ids) {
     });
 }
 
+async function validatePromoCodeFromDB(giftCodeId) {
+    return new Promise((resolve, reject) => {
+        client
+            .getEntry(giftCodeId)
+            .then(async (entry) => {
+                if (entry && entry.fields) {
+                    let sanitizedData = entry.fields;
+                    sanitizedData.id = entry.sys.id;
+                    resolve(sanitizedData);
+                } else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
 export {
   getRecordBySubdomain,
   getProductByStoreId,
   getProductById,
   getSubDomain,
   getProductListById,
-  getSectionByIds
+  getSectionByIds,
+  validatePromoCodeFromDB
 };
