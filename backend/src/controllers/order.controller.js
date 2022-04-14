@@ -35,7 +35,7 @@ function paymentRedirectPage(req, res, next) {
 
 const createOrder = catchAsync(async (req, res) => {
   let response;
-  const { seller_id: storeId } = req?.body?.seller;
+  const { seller_id: storeId } = req.body.seller;
   const order = new Order({ ...req.body });
   await order.save();
 
@@ -48,7 +48,7 @@ const createOrder = catchAsync(async (req, res) => {
   }
 
   const store = await contentfulService.getStoreById(storeId);
-  if (store.paymentInfo.paymentGatewayAppId && store.paymentInfo.paymentGatewayAppSecret) {
+  if (store && store.paymentInfo && store.paymentInfo.paymentGatewayAppId && store.paymentInfo.paymentGatewayAppSecret) {
     const cashfree = {
       appId: store.paymentInfo.paymentGatewayAppId,
       appSecret: store.paymentInfo.paymentGatewayAppSecret,

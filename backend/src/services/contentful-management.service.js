@@ -319,22 +319,26 @@ async function updateProductStatus(productId, variant, quantity) {
                         // console.log('updatedData: ', updatedData);
                     });
                 } else {
-                    for (let i = 0; i < entry?.fields?.variantPrice['en-US']?.length; i++) {
-                        let entryData = await environment.getEntry(entry?.fields?.variantPrice['en-US'][i].sys.id);
-                        const variantObj = {};
-                        for (let j = 0; j < entryData?.fields?.options['en-US']?.length; j++) {
-                            let priceStock = await environment.getEntry(entryData?.fields?.options['en-US'][j].sys.id)
-                            variantObj[priceStock?.fields?.type['en-US']] = priceStock?.fields?.name['en-US'] || '';
-                        }
+                    if (entry && entry.fields && entry.fields.variantPrice && entry.fields.variantPrice['en-US'] && entry.fields.variantPrice['en-US'].length) {
+                        for (let i = 0; i < entry.fields.variantPrice['en-US'].length; i++) {
+                            let entryData = await environment.getEntry(entry.fields.variantPrice['en-US'][i].sys.id);
+                            const variantObj = {};
+                            if (entryData && entryData.fields && entryData.fields.options && entryData.fields.options['en-US']) {
+                                for (let j = 0; j < entryData.fields.options['en-US'].length; j++) {
+                                    let priceStock = await environment.getEntry(entryData.fields.options['en-US'][j].sys.id)
+                                    variantObj[priceStock.fields.type['en-US']] = priceStock.fields.name['en-US'] || '';
+                                }
+                            }
 
-                        if (variant.colour === variantObj.colour
-                            && variant.fit === variantObj.fit) {
-                                entryData.fields.stockAvailable['en-US'] = parseInt(entryData.fields.stockAvailable['en-US']) - quantity < 0
-                                    ? 0 : parseInt(entryData.fields.stockAvailable['en-US']) - quantity;
+                            if (variant.colour === variantObj.colour
+                                && variant.fit === variantObj.fit) {
+                                    entryData.fields.stockAvailable['en-US'] = parseInt(entryData.fields.stockAvailable['en-US']) - quantity < 0
+                                        ? 0 : parseInt(entryData.fields.stockAvailable['en-US']) - quantity;
 
-                            entryData.update().then((updatedData) => {
-                                // console.log('updatedData: ', updatedData);
-                            });  
+                                entryData.update().then((updatedData) => {
+                                    // console.log('updatedData: ', updatedData);
+                                });  
+                            }
                         }
                     }
                 }

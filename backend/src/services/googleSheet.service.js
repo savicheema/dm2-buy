@@ -5,7 +5,7 @@ const moment = require('moment');
 
 async function enterOrderInSheet(order) {
     console.log("entered in sheet!");
-    if( !order?.seller?.orderGoogleSheetId ) {
+    if( !order.seller.orderGoogleSheetId ) {
         console.log("google sheet id not found in order: ", order.seller.orderGoogleSheetId);
         return;
     }
