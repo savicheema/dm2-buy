@@ -317,6 +317,7 @@ async function updateProductStatus(productId, variant, quantity) {
                     
                     entry.update().then((updatedData) => {
                         // console.log('updatedData: ', updatedData);
+                        updatedData.publish()
                     });
                 } else {
                     if (entry && entry.fields && entry.fields.variantPrice && entry.fields.variantPrice['en-US'] && entry.fields.variantPrice['en-US'].length) {
