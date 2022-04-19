@@ -441,7 +441,7 @@ class Product extends React.Component {
     } else {
       cart.products.push(_product);
     }
-    cart.shippingFee = _product.shippingFee;
+    cart.shippingFee = _product?.store?.fields?.shippingInfo?.shippingCharge || 0;
     cart.shippingFeeCap = _product.shippingFeeCap;
     StorageManager.putJson(CART_KEY, cart);
   };
