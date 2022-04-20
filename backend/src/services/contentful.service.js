@@ -53,7 +53,7 @@ function responseSanitizer(incomingData, referenceArray) {
 function getProductByStoreId(storeId) {
     return new Promise((resolve, reject) => {
         client
-            .getEntries({ content_type: 'product', 'fields.store.sys.id': storeId })
+            .getEntries({ content_type: 'product', 'fields.store.sys.id': storeId, limit: 200 })
             .then(entry => {
                 let sanitizedData = [];
                 if (entry && entry.items && entry.items.length) {
