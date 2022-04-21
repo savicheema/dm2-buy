@@ -55,6 +55,7 @@
   max-width: 250px;
   letter-spacing: 1.5px;
   text-transform: capitalize;
+  word-break: all;
 }
 
 .price {

@@ -63,6 +63,7 @@ const StoreItem = ({ product }) => {
         <div className={styles.title}>
           {product && (
             <LinesEllipsis
+              className={styles.storeNameText}
               text={`${product.name}`}
               maxLine="2"
               ellipsis="..."
