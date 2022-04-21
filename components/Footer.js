@@ -16,7 +16,12 @@ const Footer = () => {
   if (!storeData?.legalInfo?.terms
     || !storeData?.legalInfo?.contacts
     || !storeData?.legalInfo?.returns
-    || !storeData?.legalInfo?.privacy) return <></>;
+    || !storeData?.legalInfo?.privacy) return (
+      <footer className={styles.footer}>
+        {/* <Image src="/instagram-4.png" width="24" height="24" /> */}
+        <div className={styles.tagline} onClick={navigateToHome}>dm2buy</div>
+      </footer>
+    );
 
   const { terms, contacts, returns, privacy } = storeData?.legalInfo;
 
