@@ -161,4 +161,5 @@
 
   font-weight: 400;
   opacity: 80%;
+  word-break: break-all;
 }
