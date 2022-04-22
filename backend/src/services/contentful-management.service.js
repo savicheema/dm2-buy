@@ -125,12 +125,11 @@ async function updateProductById(id, product) {
                         path: '/fields/description',
                         value:{'en-US':decode(product.description)} 
                     });
-                if(product.availableStock)
-                    patchArray.push({
-                        op: 'add',
-                        path: '/fields/availableStock',
-                        value:{'en-US':product.availableStock} 
-                    });
+                patchArray.push({
+                    op: 'add',
+                    path: '/fields/availableStock',
+                    value:{'en-US':product.availableStock} 
+                });
                 if(product.productPhotos && product.productPhotos.length>0)
                     patchArray.push({
                         op: 'add',

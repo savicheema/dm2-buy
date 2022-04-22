@@ -38,7 +38,7 @@ export default function CheckoutPage(props) {
   return (
     <div className={homeStyles.container}>
       <Head>
-        <title>{store?.storeName || "Dm 2 Buy"}</title>
+        <title>{store?.storeName || "dm2buy"}</title>
         <meta
           name="description"
           content="Check my shop out and bag my latest drop"
@@ -61,7 +61,7 @@ export default function CheckoutPage(props) {
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={store?.storeName || "Dm 2 Buy"}
+          content={store?.storeName || "dm2buy"}
         />
         <meta
           property="og:description"

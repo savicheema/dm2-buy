@@ -42,8 +42,8 @@ export async function getStore(context) {
     //console.log('host', host)
     if (!splitHost.includes('dm2buy') && !splitHost.includes('localhost:3000')) {
       //console.log('inside condition')
-      console.log(encodeURI(host))
-      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/airtable/getSubdomain?custom_domain=${encodeURI(host)}`);
+      console.log(encodeURI(host));
+      let original_subdomain_response = await fetch(`${hostWithProtocol}/api/contentful/getSubdomain?custom_domain=${encodeURI(host)}`);
       let original_subdomain = await original_subdomain_response.json();
       subdomain = original_subdomain.subdomain;
       console.log('subdomain after: ', subdomain);

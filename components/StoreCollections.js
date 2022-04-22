@@ -42,6 +42,7 @@ const StoreCollections = ({ collections, setCollectionsHeight, setFilter }) => {
     const list = [];
     list.push(
       <CollectionFilter
+        key={'initial'}
         collection={all}
         selectedCollection={selectedCollection}
         setSelectedCollection={setSelectedCollection}
@@ -51,6 +52,7 @@ const StoreCollections = ({ collections, setCollectionsHeight, setFilter }) => {
       .sort(sortFilter)
       .map((collection, i) => (
         <CollectionFilter
+          key={i}
           collection={collection}
           selectedCollection={selectedCollection}
           setSelectedCollection={setSelectedCollection}

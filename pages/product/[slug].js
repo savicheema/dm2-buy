@@ -238,14 +238,14 @@ class Product extends React.Component {
               content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
             />
 
-            <meta property="og:type" content="product" />
+            <meta property="og:type" content="website" />
             <meta property="og:title" content={product?.name} />
             <meta
               property="og:description"
-              content={product.headerDescription}
+              content={product?.headerDescription}
             />
-            <meta property="og:image" content={product?.headerPhoto} />
-            <meta property="og:site_name" content="Dm 2 Buy" />
+            <meta property="og:image" content={product?.productPhotos?.[0]} />
+            <meta property="og:site_name" content="dm2buy" />
             <meta property="og:url" content={productUrl} />
 
             <meta name="twitter:card" content="summary" />
@@ -253,7 +253,7 @@ class Product extends React.Component {
             <meta name="twitter:title" content={product?.name} />
             <meta
               property="twitter:description"
-              content={product.headerDescription}
+              content={product?.headerDescription}
             />
             <meta
               property="twitter:image"
