@@ -84,9 +84,9 @@ async function updateOrderPaymentStatus(req, res) {
        } : false;
       contentfulManagementService.updateProductStatus(product.id, variant, product.quantity);
     });
-    // if(order.discountCode){
-    //   airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
-    // }
+    if (order.discountCode && order.discountCode.id) {
+      contentfulManagementService.updateCouponStatus({couponId: order.discountCode.id})
+    }
     order.payment_status = 'complete';
     order.save();
     console.log('order status updated ' + order.id);
