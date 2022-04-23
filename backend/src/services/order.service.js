@@ -122,24 +122,25 @@ async function paymentRedirectPage(req, res) {
 }
 
 async function updateOrderPaymentStatusForGiftcard(orderId) {
-  console.log('notify update api called ');
   const order = await Order.findById(orderId);
   const productList = order.products;
   productList.forEach(product => {
-    airtableService.updateProductStatus({ productId: product.id, quantity: product.quantity });
+    const variant = product.colour || product.size
+      ? {
+        colour: product.colour || '',
+        fit: product.size || ''
+      } : false;
+    contentfulManagementService.updateProductStatus(product.id, variant, product.quantity);
   });
-  if(order.discountCode){
-    airtableService.updateCouponStatus({couponId: order.discountCode.id, couponCode: order.discountCode.couponCode})
+  if (order.discountCode && order.discountCode.id) {
+    contentfulManagementService.updateCouponStatus({couponId: order.discountCode.id})
   }
   order.payment_status = 'complete';
   order.save();
-  console.log('order status updated ' + order.id);
 
   whatsappService.initiateMessage(order);
   emailService.sendEmail(order);
-  airtableService.updateProductStock(order);
-  googleService.enterOrderInSheet(order)
-
+  googleService.enterOrderInSheet(order);
 }
 
 
@@ -162,7 +163,7 @@ async function exportOrderToSheet(fromDate, sheetId){
    
   }
   
-  return true
+  return true;
   
 }
 
