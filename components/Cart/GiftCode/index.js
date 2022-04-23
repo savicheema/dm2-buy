@@ -51,6 +51,7 @@ function useAsync(initialState, reducer) {
       }).then( resData => {
         if(resData.error) throw new Error('invalid code')
         console.log('here is resData', resData)
+        resData.couponCode = resData.codeName;
         dispatch({type: ACTION_TYPE.resolved, data: resData})
       }).catch(error => {
         console.log('----> error', error);
