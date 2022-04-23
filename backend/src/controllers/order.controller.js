@@ -41,7 +41,7 @@ const createOrder = catchAsync(async (req, res) => {
 
   if (req.body.payment_mode && req.body.payment_mode === 'giftcard' && req.body.order_total === 0) {
     if (order && order['_doc']) {
-      orderService.updateOrderPaymentStatusForGiftcard(order['_doc']);
+      orderService.updateOrderPaymentStatusForGiftcard(order['_doc']._id);
       res.send({status: 'OK', payment: 'completed', ...order['_doc'] });
       return;
     }

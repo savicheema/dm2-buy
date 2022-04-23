@@ -1,10 +1,9 @@
-import { validatePromoCodeFromDB } from "../../../services/backend/airtable";
+import { validatePromoCodeFromDB } from "../../../services/backend/contentful";
 
 async function validateCode(req, res) {
   console.log('validating===========')
   try{
-    let giftCodeData = await validatePromoCodeFromDB(req.query.code, req.query.store)
-    console.log('validated', giftCodeData)
+    let giftCodeData = await validatePromoCodeFromDB(req.query.codeId);
     if(giftCodeData){
       res.status(200).json(giftCodeData);
     } else {

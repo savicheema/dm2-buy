@@ -347,10 +347,24 @@ async function updateProductStatus(productId, variant, quantity) {
     });
 }
 
+async function updateCouponStatus(coupon) {
+    client.getSpace('vidnutv0ls36')
+    .then((space) => {
+        space.getEnvironment('master').then((environment) => {
+            environment.getEntry(coupon.couponId).then(async (entry) => {
+                entry.fields.count['en-US'] -= 1;
+                entry.update().then((updatedData) => {
+                    updatedData.publish()
+                });
+            });
+        });
+    });
+}
 
 module.exports = {
     updateProductById,
     createProduct,
     uploadImageToContentful,
-    updateProductStatus
+    updateProductStatus,
+    updateCouponStatus
 };

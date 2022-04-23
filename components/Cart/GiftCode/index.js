@@ -51,6 +51,7 @@ function useAsync(initialState, reducer) {
       }).then( resData => {
         if(resData.error) throw new Error('invalid code')
         console.log('here is resData', resData)
+        resData.couponCode = resData.codeName;
         dispatch({type: ACTION_TYPE.resolved, data: resData})
       }).catch(error => {
         console.log('----> error', error);
@@ -159,7 +160,7 @@ const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
         return {status: ACTION_TYPE.pending, data: null, error: null}
       }
       case ACTION_TYPE.resolved: {
-        if (action.data.discountType === 'percentage') {
+        if (action.data.discountType === 'Percentage') {
           action.data.discountedAmount = (action.data.discountValue * (price/100)).toFixed(2);
         } else {
           action.data.discountedAmount = action.data.discountValue >= price ? price : action.data.discountValue;
@@ -197,9 +198,18 @@ const GiftCode = ({price, applyPromoCode, removePromoCode}) => {
   }
   const handleValidateCode = async (e) => {
     if(!code) return;
-    let storeName = storeData.fields.store_name;
-    let validateQuery = `/api/airtable/validatePromoCode?code=${code}&store=${storeName}`;
-    run(fetch(validateQuery))
+    let storeName = storeData?.storeName;
+
+    let codeId = storeData?.discountCodes?.filter(dc => dc.codeName === code);
+    codeId = codeId?.length ? codeId[0]?.id : null;
+
+    if (codeId) {
+      let validateQuery = `/api/contentful/validatePromoCode?codeId=${codeId}`;
+      run(fetch(validateQuery));
+    } else {
+      let validateQuery = `/api/contentful/validatePromoCode?codeId=${code}`;
+      run(fetch(validateQuery));
+    }
   }
   const handleRemoveCode = () => {
     resetStatus();
