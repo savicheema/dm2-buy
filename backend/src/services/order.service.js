@@ -144,23 +144,49 @@ async function updateOrderPaymentStatusForGiftcard(orderId) {
 }
 
 
-async function exportOrderToSheet(fromDate, sheetId){
-  console.log("fromDate " + fromDate)
-  console.log("sheetId " + sheetId)
+async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, storeId = null) {
+  let query = {};
 
-  let query = {
-    createdDate:{
-      $gte:new Date(fromDate)
-    }
+  if (fromDate && toDate && storeId) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+        $lte: new Date(toDate)
+      },
+      "seller.seller_id": storeId
+    };
+  } else if (fromDate && toDate) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+        $lte: new Date(toDate)
+      }
+    };
+  } else if (fromDate && storeId) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+      },
+      "seller.seller_id": storeId
+    };
+  } else if (fromDate) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+      }
+    };
+  } else if (storeId) {
+    query = {
+      "seller.seller_id": storeId
+    };
   }
 
-  const result = await Order.find(query)
-  console.log("result " + result)
+  const result = await Order.find(query);
 
   for(let i = 0; i<result.length; i++){
     if(result[i].payment_status == 'complete')
-        await googleService.enterExportedOrderInSheet(result[i], sheetId)
-   
+      await googleService.enterExportedOrderInSheet(result[i], sheetId);
+
   }
   
   return true;
