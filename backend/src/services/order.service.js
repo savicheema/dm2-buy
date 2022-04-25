@@ -155,16 +155,23 @@ async function exportOrderToSheet(fromDate, sheetId){
   }
 
   const result = await Order.find(query)
-  console.log("result " + result)
+  console.log("result length order export" + result.length)
 
-  for(let i = 0; i<result.length; i++){
-    if(result[i].payment_status == 'complete')
-        await googleService.enterExportedOrderInSheet(result[i], sheetId)
-   
-  }
+  exportToSheet(result, 0, sheetId)
   
   return true;
   
+}
+
+function exportToSheet(result, i, sheetId){
+  console.log("export...")
+  if(i >= result.length) return;
+  setTimeout(function() { 
+    if(result[i].payment_status == 'complete'){
+      googleService.enterExportedOrderInSheet(result[i], sheetId)
+      exportToSheet(result, i+1, sheetId)
+    }
+  }, 2000);
 }
 
 module.exports = {
