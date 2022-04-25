@@ -183,10 +183,10 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
 
   const result = await Order.find(query);
 
-  for(let i = 0; i<result.length; i++){
-    if(result[i].payment_status == 'complete')
+  for(let i = 0; i < result.length; i++){
+    if(result[i].payment_status == 'complete') {
       await googleService.enterExportedOrderInSheet(result[i], sheetId);
-
+    }
   }
   
   return true;
