@@ -182,12 +182,17 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
   }
 
   const result = await Order.find(query);
-  console.log("result length order export" + result.length);
+  // console.log("result length order export" + result.length);
 
-  exportToSheet(result, 0, sheetId);
+  // exportToSheet(result, 0, sheetId);
+  
+  for(let i = 0; i < result.length; i++){
+    if(result[i].payment_status == 'complete') {
+      await googleService.enterExportedOrderInSheet(result[i], sheetId);
+    }
+  }
   
   return true;
-  
 }
 
 function exportToSheet(result, i, sheetId){
