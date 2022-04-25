@@ -62,9 +62,10 @@ const createOrder = catchAsync(async (req, res) => {
 
 
 const exportOrderToSheet = catchAsync( async (req, res) => {
-  let response = await orderService.exportOrderToSheet(req.body.dateFrom, req.body.sheetId)
+  const { dateFrom, dateTo, sheetId, storeId } = req.query;
+  let response = await orderService.exportOrderToSheet(dateFrom, dateTo, sheetId, storeId);
   res.send(response)
-})
+});
 
 module.exports = {
   createOrder,

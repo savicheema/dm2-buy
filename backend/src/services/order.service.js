@@ -144,20 +144,47 @@ async function updateOrderPaymentStatusForGiftcard(orderId) {
 }
 
 
-async function exportOrderToSheet(fromDate, sheetId){
-  console.log("fromDate " + fromDate)
-  console.log("sheetId " + sheetId)
+async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, storeId = null) {
+  let query = {};
 
-  let query = {
-    createdDate:{
-      $gte:new Date(fromDate)
-    }
+  if (fromDate && toDate && storeId) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+        $lte: new Date(toDate)
+      },
+      "seller.seller_id": storeId
+    };
+  } else if (fromDate && toDate) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+        $lte: new Date(toDate)
+      }
+    };
+  } else if (fromDate && storeId) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+      },
+      "seller.seller_id": storeId
+    };
+  } else if (fromDate) {
+    query = {
+      createdDate:{
+        $gte: new Date(fromDate),
+      }
+    };
+  } else if (storeId) {
+    query = {
+      "seller.seller_id": storeId
+    };
   }
 
-  const result = await Order.find(query)
-  console.log("result length order export" + result.length)
+  const result = await Order.find(query);
+  console.log("result length order export" + result.length);
 
-  exportToSheet(result, 0, sheetId)
+  exportToSheet(result, 0, sheetId);
   
   return true;
   
