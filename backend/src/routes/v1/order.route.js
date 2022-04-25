@@ -18,12 +18,14 @@ router
   .get(orderController.getAll)
   .post(validate(orderValidation.createOrderValidations), orderController.createOrder);
 
+router
+  .route('/exportOrder')
+  .get(orderController.exportOrderToSheet);
+
 router.route('/:id').get(orderController.getById).put(orderController.update).delete(orderController._delete);
 
 router.route('/update-payment-status/:id').post(orderController.updateOrderPaymentStatus);
 
 router.route('/payment-redirect/:id').post(orderController.paymentRedirectPage);
-
-router.route('/exportOrder').post(orderController.exportOrderToSheet);
 
 module.exports = router;

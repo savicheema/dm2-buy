@@ -108,6 +108,6 @@ async function enterExportedOrderInSheet(order, spreadsheetId) {
 
 
 module.exports = {
-    enterOrderInSheet,
-    enterExportedOrderInSheet
-  };
+  enterOrderInSheet,
+  enterExportedOrderInSheet
+};
