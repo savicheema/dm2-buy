@@ -181,18 +181,23 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
     };
   }
 
-  const result = await Order.find(query);
+  const result = await Order.find(query).sort({createdDate: -1});
   // console.log("result length order export" + result.length);
 
   // exportToSheet(result, 0, sheetId);
   
   for(let i = 0; i < result.length; i++){
     if(result[i].payment_status == 'complete') {
+      await sleep(2000);
       await googleService.enterExportedOrderInSheet(result[i], sheetId);
     }
   }
   
   return true;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function exportToSheet(result, i, sheetId){
