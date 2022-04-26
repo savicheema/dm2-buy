@@ -92,7 +92,7 @@ async function enterExportedOrderInSheet(order, spreadsheetId) {
     resource: {
         values: [[order.seller.name, 
                 order.order_total,
-                order.order_total,
+                order.payment_status,
                 moment(order.createdDate).format('MM/DD/YYYY'),
                 order.buyer.name,
                 order.products
