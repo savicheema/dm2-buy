@@ -155,31 +155,36 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
         $gte: new Date(fromDate),
         $lte: new Date(toDate)
       },
-      "seller.name": storeName
+      "seller.name": storeName,
+      payment_status: 'complete'
     };
   } else if (fromDate && toDate) {
     query = {
       createdDate:{
         $gte: new Date(fromDate),
         $lte: new Date(toDate)
-      }
+      },
+      payment_status: 'complete'
     };
   } else if (fromDate && storeName) {
     query = {
       createdDate:{
         $gte: new Date(fromDate),
       },
-      "seller.name": storeName
+      "seller.name": storeName,
+      payment_status: 'complete'
     };
   } else if (fromDate) {
     query = {
       createdDate:{
         $gte: new Date(fromDate),
-      }
+      },
+      payment_status: 'complete'
     };
   } else if (storeName) {
     query = {
-      "seller.name": storeName
+      "seller.name": storeName,
+      payment_status: 'complete'
     };
   }
 
