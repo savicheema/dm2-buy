@@ -145,7 +145,9 @@ async function updateOrderPaymentStatusForGiftcard(orderId) {
 
 
 async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, storeName = null) {
-  let query = {};
+  let query = {
+    payment_status: 'complete'
+  };
 
   if (fromDate && toDate && storeName) {
     query = {
