@@ -144,16 +144,18 @@ async function updateOrderPaymentStatusForGiftcard(orderId) {
 }
 
 
-async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, storeId = null) {
-  let query = {};
+async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, storeName = null) {
+  let query = {
+    payment_status: 'complete'
+  };
 
-  if (fromDate && toDate && storeId) {
+  if (fromDate && toDate && storeName) {
     query = {
       createdDate:{
         $gte: new Date(fromDate),
         $lte: new Date(toDate)
       },
-      "seller.seller_id": storeId
+      "seller.name": storeName
     };
   } else if (fromDate && toDate) {
     query = {
@@ -162,12 +164,12 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
         $lte: new Date(toDate)
       }
     };
-  } else if (fromDate && storeId) {
+  } else if (fromDate && storeName) {
     query = {
       createdDate:{
         $gte: new Date(fromDate),
       },
-      "seller.seller_id": storeId
+      "seller.name": storeName
     };
   } else if (fromDate) {
     query = {
@@ -175,9 +177,9 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
         $gte: new Date(fromDate),
       }
     };
-  } else if (storeId) {
+  } else if (storeName) {
     query = {
-      "seller.seller_id": storeId
+      "seller.name": storeName
     };
   }
 
@@ -187,10 +189,8 @@ async function exportOrderToSheet (fromDate = null, toDate = null, sheetId, stor
   // exportToSheet(result, 0, sheetId);
   
   for(let i = 0; i < result.length; i++){
-    if(result[i].payment_status == 'complete') {
-      await sleep(2000);
-      await googleService.enterExportedOrderInSheet(result[i], sheetId);
-    }
+    await sleep(2000);
+    await googleService.enterExportedOrderInSheet(result[i], sheetId);
   }
   
   return true;
