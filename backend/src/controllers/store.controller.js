@@ -4,11 +4,23 @@ const catchAsync = require('../utils/catchAsync');
 const { Store, Product } = require('../models');
 const { success } = require('../utils/responseHandler');
 const { pick, pickWithValueOnly } = require('../utils/pick');
-const { contentfulService } = require('../services');
+const { contentfulService, contentfulManagementService } = require('../services');
 
 const createStore = catchAsync(async (req, res) => {
   const store = new Store({...req.body});
   const data = await store.save();
+  res.send(success(data));
+});
+
+const updateStoreOnContentful = catchAsync(async (req, res) => {
+  console.log("store data receiced "+ req.body)
+  const data = await contentfulManagementService.updateStore(req.params.id, req.body)
+  res.send(success(data));
+});
+
+const createStoreOnContentful = catchAsync(async (req, res) => {
+  console.log("store data receiced "+ req.body)
+  const data = await contentfulManagementService.createStore(req.body)
   res.send(success(data));
 });
 
@@ -22,6 +34,13 @@ const getStoreDetailsBySecret = catchAsync(async (req, res) => {
   const { secret } = req.params;
   console.log(secret)
   const data = await contentfulService.getStoreBySecret(secret);
+  res.send(success(data));
+});
+
+const getStoreDetailsByPhone = catchAsync(async (req, res) => {
+  const { phone } = req.params;
+  console.log(phone)
+  const data = await contentfulService.getStoreByPhone(phone);
   res.send(success(data));
 });
 
@@ -39,8 +58,11 @@ const getStoreProductById = catchAsync(async (req, res) => {
 
 module.exports = {
   createStore,
+  createStoreOnContentful,
   getStoreDetails,
   getStoreProducts,
   getStoreProductById,
-  getStoreDetailsBySecret
+  getStoreDetailsBySecret,
+  getStoreDetailsByPhone,
+  updateStoreOnContentful
 };

@@ -9,6 +9,132 @@ const client = contentfulManagement.createClient({
     accessToken: "CFPAT-N2xxF9WUPucWikke_jFaYYC75So1KWXC-i9_Lo5_dR8"
 });
 
+async function updateStore(id, store){
+    console.log("updateStore " + id)
+    return await new Promise((resolve, reject)=>{
+
+        client.getSpace('vidnutv0ls36')
+        .then((space) => space.getEnvironment("master"))
+        .then((environment) => environment.getEntry(id))
+        .then(entry => {
+               
+            let patchArray = []
+            if(store.name)
+                patchArray.push({
+                    op: 'add',
+                    path: '/fields/storeName',
+                    value:{'en-US':store.name} 
+                });
+            if(store.subdomain)
+                patchArray.push({
+                    op:'add',
+                    path: '/fields/subdomain',
+                    value:{'en-US':store.subdomain}
+                })
+            entry.patch([...patchArray])
+            .then((entry)=> resolve(entry.publish()))
+        })
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+    })
+}
+
+async function createStore(store){
+    console.log("creating store " + {...store})
+
+    let contactInfo = await new Promise((resolve, reject)=>{
+        client.getSpace('vidnutv0ls36')
+        .then((space) => space.getEnvironment("master"))
+        .then((environment)=> environment.createEntry('storeContact', {
+            fields:{
+                instagramHandle:{
+                    'en-US': store.instagram
+                },
+                contact:{
+                    'en-US': store.phone
+                }
+            }
+        }))
+        .then((entry)=> entry.publish())
+        .then((entry)=>  {
+            console.log("contact info " + entry)
+            resolve(entry)
+        })
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+    })
+
+
+    let shippingInfo = await new Promise((resolve, reject)=>{
+        client.getSpace('vidnutv0ls36')
+        .then((space) => space.getEnvironment("master"))
+        .then((environment)=> environment.createEntry('storeShipping', {
+            fields:{
+                shippingCharge:{
+                    'en-US': 0
+                },
+                dispatchTime:{
+                    'en-US': '3'
+                },
+                shippingChargeCap:{
+                    'en-US': 0
+                }
+            }
+        }))
+        .then((entry)=> entry.publish())
+        .then((entry)=>  {
+            console.log("shipping info " + entry)
+            resolve(entry)
+        })
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+    })
+
+   
+   return new Promise((resolve, reject)=>{
+        client.getSpace('vidnutv0ls36')
+        .then((space) => space.getEnvironment("master"))
+        .then((environment)=> environment.createEntry('store', {
+            fields: {
+                storeName: {
+                    'en-US': store.name
+                },
+                subdomain:{
+                    'en-US': store.subdomain
+                },
+                contactInfo:{
+                    'en-US': {
+                        sys: {type: "Link", linkType: "Entry", id: contactInfo.sys.id}
+                    }
+                },
+                shippingInfo:{
+                    'en-US': {
+                        sys: {type: "Link", linkType: "Entry", id: shippingInfo.sys.id}
+                    }
+                }
+            }
+        }))
+        .then((entry)=> entry.publish())
+        .then((entry)=>  {
+            console.log("store " + entry)
+            resolve(entry)
+        })
+        .catch(err => {
+            console.log('contentful err: ', err);
+            reject(err);
+        });
+
+    })
+    
+       
+}
+
 
 async function uploadImageToContentful(productName, imageUrl){
 
@@ -366,5 +492,7 @@ module.exports = {
     createProduct,
     uploadImageToContentful,
     updateProductStatus,
-    updateCouponStatus
+    updateCouponStatus,
+    createStore,
+    updateStore
 };

@@ -20,26 +20,28 @@ function findFromReference(referenceArray, id) {
 function responseSanitizer(incomingData, referenceArray) {
     let structuredObject = {};
     for (let prop in incomingData) {
+        console.log(prop)
         if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && typeof incomingData[prop][0] === 'string') {
             structuredObject[prop] = incomingData[prop];
-        } else if (referenceArray && incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Asset') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(asset => {
                 let extractedData = findFromReference(referenceArray.Asset, asset.sys.id);
                 structuredObject[prop].push(extractedData);
             });
-        } else if (referenceArray && incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
+        } else if (incomingData[prop] instanceof Object && Array.isArray(incomingData[prop]) && incomingData[prop][0].sys.type === 'Entry') {
             structuredObject[prop] = [];
             incomingData[prop].forEach(entry => {
                 let extractedData = findFromReference(referenceArray.Entry, entry.sys.id);
                 structuredObject[prop].push(extractedData);
             });
-        } else if (referenceArray && incomingData[prop] instanceof Object && incomingData[prop].sys && incomingData[prop].sys.type === 'Asset') {
+        } else if (incomingData[prop] instanceof Object && incomingData[prop].sys && incomingData[prop].sys.type && incomingData[prop].sys.type === 'Asset') {
             let extractedData = findFromReference(referenceArray.Asset, incomingData[prop].sys.id);
             structuredObject[prop] = extractedData;
         } else if (incomingData[prop] instanceof Object && incomingData[prop].fields) {
             structuredObject[prop] = incomingData[prop].fields;
-        } else if ( referenceArray && incomingData[prop] instanceof Object && incomingData[prop].sys) {
+            structuredObject[prop].id = incomingData[prop].sys.id;
+        } else if (incomingData[prop] instanceof Object && incomingData[prop].sys && incomingData[prop].sys.id) {
             let extractedData = findFromReference(referenceArray.Entry, incomingData[prop].sys.id);
             structuredObject[prop] = extractedData;
         } else {
@@ -162,6 +164,32 @@ function getStoreBySecret(secret) {
     });
 }
 
+
+function getStoreByPhone(phone) {
+    console.log("get store by " + phone)
+
+    return new Promise((resolve, reject) => {
+        client
+        .getEntries({ content_type: 'store', 
+        'fields.contactInfo.sys.contentType.sys.id': 'storeContact',
+        'fields.contactInfo.fields.contact': phone })
+        .then(entry => {
+            console.log(entry)
+            if (entry && entry.items && entry.items.length) {
+                let sanitizedData = responseSanitizer(entry.items[0].fields, entry.includes);
+                sanitizedData.id = entry.items[0].sys.id;
+                resolve(sanitizedData);
+            } else {
+                reject();
+            }
+            })
+            .catch(err => {
+                console.log('contentful err: ', err);
+                reject(err);
+            });
+    });
+}
+
 async function getCustomDomain(subdomain) {
     return new Promise((resolve, reject) => {
         client
@@ -213,5 +241,6 @@ module.exports = {
   getStoreById,
   getCustomDomain,
   getStoreBySecret,
-  getVariantOptions
+  getVariantOptions,
+  getStoreByPhone
 };
