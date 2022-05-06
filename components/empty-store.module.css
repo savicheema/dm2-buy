@@ -1,11 +1,69 @@
+.noProductContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyBox {
+  margin-top: 50px;
+}
+
 .emptyStore {
-  width: auto;
+  width: calc(var(--max-width) - 200px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 10vh;
 
   /* margin: 10vh; */
+}
 
-  width: 200%;
+.title {
+  /* width: 360px; */
+  height: 38px;
+  /* margin: 21px 0 10px; */
+  font-family: Lato;
+  font-size: 28px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
+  text-align: center;
+  color: #1c3142;
+  margin-top: 21px;
+}
+
+.description {
+  /* width: 265px; */
+  height: 96px;
+  /* margin: 10px 47px 23px 48px; */
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: #1c3142;
+  margin-top: 10px;
+}
+
+.invitebutton {
+  /* width: 208px; */
+  height: 40px;
+  /* margin: 23px 76px 0; */
+  padding: 10px 70px 11px;
+  border-radius: 9px;
+  border: solid 1px #000;
+  background-color: #000;
+  color: white;
+  margin-top: 23px;
+}
+
+.invitebutton:hover {
+  cursor: pointer;
 }

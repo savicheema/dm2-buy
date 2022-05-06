@@ -161,7 +161,7 @@ class StoreProducts extends React.Component {
 
         {!this.state.loading && (
           <div
-            className={styles.storeItems}
+            className={products?.length > 0 ? styles.storeItems : {}}
             style={{
               paddingTop: `${collectionsHeight + 16}px`,
             }}
@@ -173,7 +173,7 @@ class StoreProducts extends React.Component {
                   return <StoreItem product={product} key={index} />;
                 })
             ) : (
-              <EmptyStore />
+              <EmptyStore store={this.props.store} />
             )}
           </div>
         )}
