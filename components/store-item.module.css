@@ -14,7 +14,7 @@
   width: calc((100vw / 2) - 33px);
   height: calc((100vw / 2) - 33px);
 }
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 500px) {
   .productImg {
     border-radius: 10px;
     width: calc((520px / 2) - 33px);
