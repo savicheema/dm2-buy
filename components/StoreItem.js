@@ -5,6 +5,8 @@ import Image from "next/image";
 
 import LinesEllipsis from "react-lines-ellipsis";
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 const StoreItem = ({ product }) => {
   const getProductPrice = (price, mrp='') => {
     if(!price) return;
@@ -46,11 +48,11 @@ const StoreItem = ({ product }) => {
                 <p>SOLD</p>
               </div>
             )}
-            <Image
+            <LazyLoadImage
               className={styles.productImg}
               src={`${product?.productPhotos[0]}`}
-              width={204}
-              height={204}
+              // height={204}
+              // width={204}
               objectFit="cover"
               alt="store product"
               priority

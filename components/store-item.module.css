@@ -10,7 +10,16 @@
 }
 .productImg {
   border-radius: 10px;
-  min-height: 204px;
+  /* min-height: 104px; */
+  width: calc((100vw / 2) - 33px);
+  height: calc((100vw / 2) - 33px);
+}
+@media screen and (min-width: 450px) {
+  .productImg {
+    border-radius: 10px;
+    width: calc((520px / 2) - 33px);
+    height: calc((520px / 2) - 33px);
+  }
 }
 .image_container {
   position: relative;
