@@ -55,7 +55,11 @@ const StoreItem = ({ product }) => {
             {
               !imageLoaded
               ? <div className={styles.productImg}>
-                <Lottie options={{
+                <Lottie
+                  style={{
+                    borderRadius: '10px'
+                  }}
+                  options={{
                     loop: true,
                     autoplay: true, 
                     animationData: animationData,
