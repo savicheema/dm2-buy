@@ -5,7 +5,13 @@ import Image from "next/image";
 
 import LinesEllipsis from "react-lines-ellipsis";
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import Lottie from 'react-lottie';
+import * as animationData from './shimmer.json'
+
 const StoreItem = ({ product }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const getProductPrice = (price, mrp='') => {
     if(!price) return;
     if(mrp) {
@@ -46,11 +52,38 @@ const StoreItem = ({ product }) => {
                 <p>SOLD</p>
               </div>
             )}
-            <Image
+            {
+              !imageLoaded
+              ? <div className={styles.productImg}>
+                <Lottie
+                  style={{
+                    borderRadius: '10px'
+                  }}
+                  options={{
+                    loop: true,
+                    autoplay: true, 
+                    animationData: animationData,
+                    rendererSettings: {
+                      preserveAspectRatio: 'xMidYMid slice'
+                    }
+                  }}
+                  isStopped={false}
+                  isPaused={false} />
+              </div> : ''
+            }
+            <LazyLoadImage
+              style={!imageLoaded ? {
+                visibility: 'hidden',
+                height: '0px !important',
+                width: '0px !important',
+                zIndex: 1,
+                position: 'absolute'
+              } : {}}
+              onLoad={() => setImageLoaded(true)}
               className={styles.productImg}
               src={`${product?.productPhotos[0]}`}
-              width={204}
-              height={204}
+              // height={204}
+              // width={204}
               objectFit="cover"
               alt="store product"
               priority
