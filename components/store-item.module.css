@@ -4,6 +4,7 @@
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: 20px;
+  max-width: calc((100vw / 2) - 33px);
   /* margin-bottom: 50px; */
   /* height: 300px; */
   /* margin: 40px 0; */
@@ -15,12 +16,18 @@
   width: calc((100vw / 2) - 33px);
   height: calc((100vw / 2) - 33px);
 }
+.productImg > div > svg {
+  border-radius: 10px;
+}
 @media screen and (min-width: 500px) {
   .productImg {
     border-radius: 10px;
     object-fit: cover;
     width: calc((520px / 2) - 33px);
     height: calc((520px / 2) - 33px);
+  }
+  .storeItem {
+    max-width: calc((520px / 2) - 33px);
   }
 }
 .image_container {
@@ -82,5 +89,5 @@
 }
 
 .storeNameText {
-  word-break: break-all;
+  /* word-break: break-all; */
 }
