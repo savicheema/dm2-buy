@@ -11,12 +11,14 @@
 .productImg {
   border-radius: 10px;
   /* min-height: 104px; */
+  object-fit: cover;
   width: calc((100vw / 2) - 33px);
   height: calc((100vw / 2) - 33px);
 }
 @media screen and (min-width: 500px) {
   .productImg {
     border-radius: 10px;
+    object-fit: cover;
     width: calc((520px / 2) - 33px);
     height: calc((520px / 2) - 33px);
   }
@@ -27,7 +29,7 @@
 }
 .item_overlay {
   position: absolute;
-  background-color: rgb(38, 38, 38, 0.3);
+  /* background-color: rgb(38, 38, 38, 0.3); */
   height: 98%;
   display: flex;
   justify-content: center;
