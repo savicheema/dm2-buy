@@ -185,7 +185,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
       />
       <Toast
         type="error"
-        message={<span>Minimum order about on our site is<br/>Rs. {store?.paymentInfo?.minimumCartValue}. — Sorry about that :(</span>}
+        message={<span style={{fontFamily: 'Roboto'}}>Minimum order about on our site is<br/>Rs. {store?.paymentInfo?.minimumCartValue}. — Sorry about that :(</span>}
         open={minimumCartError}
       />
     </div>
