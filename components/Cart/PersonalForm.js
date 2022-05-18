@@ -116,7 +116,7 @@ class PersonalForm extends React.Component {
   getValues = () => {
     let personalInfoObj = {
       name: this.nameInputRef.current.state.inputValue,
-      phone: this.phoneInputRef.current.state.inputValue,
+      phone: this.phoneInputRef.current.state.inputValue.replace(/ /g,''),
       email: this.emailInputRef.current.state.inputValue,
     };
 
