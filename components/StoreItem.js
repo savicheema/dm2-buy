@@ -86,7 +86,7 @@ const StoreItem = ({ product }) => {
               // width={204}
               objectFit="cover"
               alt="store product"
-              priority
+              // priority
             />
           </div>
         )}

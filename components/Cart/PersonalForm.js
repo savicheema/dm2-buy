@@ -24,7 +24,7 @@ class PersonalForm extends React.Component {
           name="insta_handle"
           saveInLocalStorage={true}
           type="full"
-          placeholder="Instagram (optional)"
+          placeholder="Instagram"
           invalidMessage="Instagram handle doesn't seem correct"
           ref={this.instagramInputRef}
           regex={
@@ -95,6 +95,7 @@ class PersonalForm extends React.Component {
   validate = async () => {
     const allValidations = [
       this.nameInputRef.current,
+      this.instagramInputRef.current,
       this.phoneInputRef.current,
       this.emailInputRef.current,
     ];
@@ -115,7 +116,7 @@ class PersonalForm extends React.Component {
   getValues = () => {
     let personalInfoObj = {
       name: this.nameInputRef.current.state.inputValue,
-      phone: this.phoneInputRef.current.state.inputValue,
+      phone: this.phoneInputRef.current.state.inputValue.replace(/ /g,''),
       email: this.emailInputRef.current.state.inputValue,
     };
 

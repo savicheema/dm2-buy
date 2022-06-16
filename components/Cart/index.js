@@ -19,6 +19,7 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [stockError, setStockError] = useState(false);
+  const [minimumCartError, setMinimumCartError] = useState(false);
   const personalFormRef = React.createRef();
   const [isStockAvailable, setIsStockAvailable] = useState(false);
   const addressFormRef = React.createRef();
@@ -41,8 +42,15 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
     } = getPrice(cart);
     setError(false);
     setStockError(false);
+    setMinimumCartError(false);
     if (!isStockAvailable) {
       setStockError(true);
+      return;
+    }
+
+    if (store?.paymentInfo?.minimumCartValue
+        && parseFloat(store?.paymentInfo?.minimumCartValue) > parseFloat(total)) {
+      setMinimumCartError(true);
       return;
     }
 
@@ -174,6 +182,11 @@ const Cart = ({ cart, store, applyPromoCode, removePromoCode }) => {
         type="error"
         message="Some of the products from your cart is out of stock"
         open={stockError}
+      />
+      <Toast
+        type="error"
+        message={<span style={{fontFamily: 'Roboto'}}>Minimum order about on our site is<br/>Rs. {store?.paymentInfo?.minimumCartValue}. — Sorry about that :(</span>}
+        open={minimumCartError}
       />
     </div>
   );
