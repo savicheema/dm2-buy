@@ -111,7 +111,8 @@ async function enterExportedOrderInSheet(order, spreadsheetId) {
     resource: {
       values: [
         [
-          order.id, 
+          order.seller.name,
+          order.id,
           order.buyer.name,
           order.buyer.phone, 
           order.buyer.email, 
