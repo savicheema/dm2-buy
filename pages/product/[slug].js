@@ -316,10 +316,10 @@ class Product extends React.Component {
                 /> : ''
             }
 
-            <p
+            <div
               className={styles.description}
               dangerouslySetInnerHTML={{ __html: product.description }}
-            ></p>
+            ></div>
 
             {/* Custom product fields */}
             <ProductCustomFields

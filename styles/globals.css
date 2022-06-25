@@ -42,6 +42,11 @@ a {
   box-sizing: border-box;
 
 }
+
+ul {
+  margin-left: 20px;
+}
+
 .carousel {
   margin-bottom: 24px !important;
   height: 118vw !important;
