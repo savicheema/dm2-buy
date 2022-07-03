@@ -53,7 +53,7 @@ function responseSanitizer(incomingData, referenceArray) {
 function getProductByStoreId(storeId, collection) {
     let query = { content_type: 'product', 'fields.store.sys.id': storeId, order: '-fields.createdDate', limit: 200 };
     if (collection) {
-        query = { content_type: 'product', 'fields.store.sys.id': storeId, 'fields.collection.sys.id': collection, order: '-fields.createdDate', limit: 200};
+        query = { content_type: 'product', 'fields.collection.sys.id': collection, order: '-fields.createdDate', limit: 200};
     }
 
     return new Promise((resolve, reject) => {
