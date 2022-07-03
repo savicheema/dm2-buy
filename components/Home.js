@@ -72,11 +72,11 @@ export default class Home extends React.Component {
                 className={styles.homeDetailsDesc}
                 dangerouslySetInnerHTML={{ __html: this.props.heroDescription }}>
               </div>
-              <div
+              {/* <div
                 onClick={() => this.props.updateHomeActive(false)}
                 className={styles.homeDetailsButton}>
                   SHOP NOW
-              </div>
+              </div> */}
           </div>
         </div>
       )
