@@ -28,7 +28,7 @@
 /* Payment Successful*/
 .paymentSuccessContainer {
   /* border: 1px solid lightgray;
-   
+
     margin-top: 20px;
     margin-bottom: 20px; */
 
@@ -179,6 +179,7 @@
 .orderInfo {
   display: flex;
   align-items: center;
+  margin: 12px 0;
 }
 .divider {
   border: 1px dashed black;

@@ -16,6 +16,7 @@ import ProductColors from "../../components/ProductColors";
 import NavBar from "../../components/Navbar";
 import Basket from "../../components/Cart/Basket";
 import ProductSizeFields from "../../components/ProductSizeFields";
+import PackageExtraDetails from "/components/OrderDetails/PackageExtraDetails";
 
 export async function getServerSideProps(context) {
   return getProduct(context);
@@ -36,24 +37,34 @@ class Product extends React.Component {
       product.shippingFee = product?.store?.fields?.["shippingFee"] || 0;
       product.shippingFeeCap = product?.store?.fields?.["shippingFeeCap"];
       product.quantity = 1; // set default product quantity to 1
-      const customAttributes = product.customAttributes && product.customAttributes.length
-      ? product.customAttributes.map((attribute) => {
-        const attrib = { ...attribute };
-        attrib.ref = React.createRef();
-        return attrib;
-      }) : [];
+      const customAttributes =
+        product.customAttributes && product.customAttributes.length
+          ? product.customAttributes.map((attribute) => {
+              const attrib = { ...attribute };
+              attrib.ref = React.createRef();
+              return attrib;
+            })
+          : [];
       product.customAttributes = customAttributes;
     }
 
     let pdSizeVariantOptions = [];
     let pdColorVariants = [];
     if (product) {
-      pdSizeVariantOptions = product.variantOptions && product.variantOptions.length
-        ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
-      pdColorVariants = product.variantOptions && product.variantOptions.length
-        ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+      pdSizeVariantOptions =
+        product.variantOptions && product.variantOptions.length
+          ? product.variantOptions.filter(
+              (vop) => vop.fields && vop.fields.type === "fit"
+            )
+          : [];
+      pdColorVariants =
+        product.variantOptions && product.variantOptions.length
+          ? product.variantOptions.filter(
+              (vop) => vop.fields && vop.fields.type === "colour"
+            )
+          : [];
     }
-    
+
     this.state = {
       isFetched,
       product,
@@ -65,9 +76,14 @@ class Product extends React.Component {
       cart: {},
       hideInAdvance: false,
       selectedCustomAttributes: [],
-      selectedSize: pdSizeVariantOptions && pdSizeVariantOptions.length
-        ? pdSizeVariantOptions[0]?.fields?.name : '',
-      selectedColor: pdColorVariants && pdColorVariants.length ? pdColorVariants[0]?.fields?.name: ''
+      selectedSize:
+        pdSizeVariantOptions && pdSizeVariantOptions.length
+          ? pdSizeVariantOptions[0]?.fields?.name
+          : "",
+      selectedColor:
+        pdColorVariants && pdColorVariants.length
+          ? pdColorVariants[0]?.fields?.name
+          : "",
     };
 
     this.focusActive = false;
@@ -78,57 +94,73 @@ class Product extends React.Component {
     // console.log({ props: this.props });
     this.customFieldsRef = React.createRef();
     const cartData = StorageManager.getJson(CART_KEY, initialCart);
-    this.setState({cart: cartData});
+    this.setState({ cart: cartData });
     const productArr = cartData.products.filter(
       (product) => product.id === productId
     );
     if (productArr.length > 0) {
       // let { product } = this.state;
       // product.colour = productArr[0].colour;
-      const product = {...this.state.product}
+      const product = { ...this.state.product };
 
-      const colorVariants = productArr[0].variantOptions && productArr[0].variantOptions.length
-        ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+      const colorVariants =
+        productArr[0].variantOptions && productArr[0].variantOptions.length
+          ? productArr[0].variantOptions.filter(
+              (vop) => vop.fields && vop.fields.type === "colour"
+            )
+          : [];
 
-      let selectedColor =  colorVariants && colorVariants.length ? colorVariants[0]?.fields?.name : '';
+      let selectedColor =
+        colorVariants && colorVariants.length
+          ? colorVariants[0]?.fields?.name
+          : "";
       let selectedCustomAttributes = productArr[0].customAttributes;
 
-      const sizeVariantOptions = productArr[0].variantOptions && productArr[0].variantOptions.length
-      ? productArr[0].variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+      const sizeVariantOptions =
+        productArr[0].variantOptions && productArr[0].variantOptions.length
+          ? productArr[0].variantOptions.filter(
+              (vop) => vop.fields && vop.fields.type === "fit"
+            )
+          : [];
 
       let productSizeVariantOptions = [];
       if (product) {
-        productSizeVariantOptions = product.variantOptions && product.variantOptions.length
-          ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+        productSizeVariantOptions =
+          product.variantOptions && product.variantOptions.length
+            ? product.variantOptions.filter(
+                (vop) => vop.fields && vop.fields.type === "fit"
+              )
+            : [];
       }
 
-      let selectedSize = sizeVariantOptions && sizeVariantOptions.length
-       ? sizeVariantOptions[0]?.fields?.name : (
-         productSizeVariantOptions && productSizeVariantOptions.length
-         ? productSizeVariantOptions[0]?.fields?.name : ''
-       );
-      
+      let selectedSize =
+        sizeVariantOptions && sizeVariantOptions.length
+          ? sizeVariantOptions[0]?.fields?.name
+          : productSizeVariantOptions && productSizeVariantOptions.length
+          ? productSizeVariantOptions[0]?.fields?.name
+          : "";
+
       // console.log('------->',{ prod: this.state.product, product, colorLocal: productArr[0].colour})
       this.setState({
         productAlreadyInCart: true,
         selectedColor,
         selectedCustomAttributes,
-        selectedSize
+        selectedSize,
       });
       // this.setState({  });
     }
-    if (typeof window != 'undefined') {
-      window.document.body.style.scrollBehavior = 'smooth';
-      let inputs = window.document.querySelectorAll('input');
-      inputs.forEach(input => {
+    if (typeof window != "undefined") {
+      window.document.body.style.scrollBehavior = "smooth";
+      let inputs = window.document.querySelectorAll("input");
+      inputs.forEach((input) => {
         input.onfocus = () => {
           this.focusActive = true;
-        }
+        };
         input.onblur = () => {
           setTimeout(() => {
             this.focusActive = false;
           }, 2000);
-        }
+        };
       });
     }
   }
@@ -140,66 +172,78 @@ class Product extends React.Component {
   };
 
   handleShowCart = (boolVal = false) => {
-    this.setState({showCart: boolVal});
-  }
+    this.setState({ showCart: boolVal });
+  };
 
   updateAddedToCart = (productId, value) => {
     if (this.state.product.id === productId) {
-      this.setState({productAlreadyInCart: value});
+      this.setState({ productAlreadyInCart: value });
     }
-  }
+  };
 
   findProductStockAndPrice = (size, colour, product) => {
     if (!size) {
-      size = '-';
+      size = "-";
     }
     if (!colour) {
-      colour = '-';
+      colour = "-";
     }
     const variantPrice = product.variantPrice;
     const variantObj = {};
-    
+
     if (!variantPrice || (variantPrice && !variantPrice.length)) {
       return product.price;
     }
 
-    variantPrice.forEach(variant => {
-      let vSize = variant?.fields?.options?.filter(size => size?.fields?.type === 'fit');
-      vSize = vSize && vSize.length ? vSize[0]?.fields?.name : '-';
-      let vColor = variant?.fields?.options?.filter(colour => colour?.fields?.type === 'colour');
-      vColor = vColor && vColor.length ? vColor[0]?.fields?.name : '-';
+    variantPrice.forEach((variant) => {
+      let vSize = variant?.fields?.options?.filter(
+        (size) => size?.fields?.type === "fit"
+      );
+      vSize = vSize && vSize.length ? vSize[0]?.fields?.name : "-";
+      let vColor = variant?.fields?.options?.filter(
+        (colour) => colour?.fields?.type === "colour"
+      );
+      vColor = vColor && vColor.length ? vColor[0]?.fields?.name : "-";
       if (!variantObj[vSize]) {
         variantObj[vSize] = {
           [vColor]: {
             price: variant?.fields?.price,
-            stockAvailable: variant?.fields?.stockAvailable
-          }
+            stockAvailable: variant?.fields?.stockAvailable,
+          },
         };
       } else {
         variantObj[vSize][vColor] = {
           price: variant?.fields?.price,
-          stockAvailable: variant?.fields?.stockAvailable
+          stockAvailable: variant?.fields?.stockAvailable,
         };
       }
     });
 
     return variantObj[size][colour];
-  }
+  };
 
   checkStock = (product) => {
     let stockAvailable = false;
     if (product.variantPrice && product.variantPrice.length) {
-      product.variantPrice.forEach(variant => {
+      product.variantPrice.forEach((variant) => {
         if (variant?.fields?.stockAvailable > 0) {
           stockAvailable = true;
         }
       });
     }
     return stockAvailable;
-  }
+  };
 
   render() {
-    let { isFetched, product, errorCode, productUrl, selectedColor, selectedCustomAttributes, selectedSize} = this.state;
+    let {
+      isFetched,
+      product,
+      errorCode,
+      productUrl,
+      selectedColor,
+      selectedCustomAttributes,
+      selectedSize,
+    } = this.state;
 
     if (errorCode) {
       return <Error404 statusCode={errorCode} />;
@@ -207,16 +251,28 @@ class Product extends React.Component {
 
     if (!product) return <LoaderComponent />;
 
-    const homePageEnabled = this.props?.product?.store?.fields?.homePage?.homePageEnabled;
+    const homePageEnabled =
+      this.props?.product?.store?.fields?.homePage?.homePageEnabled;
 
-    const sizeVariants = product.variantOptions && product.variantOptions.length
-      ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'fit') : [];
+    const sizeVariants =
+      product.variantOptions && product.variantOptions.length
+        ? product.variantOptions.filter(
+            (vop) => vop.fields && vop.fields.type === "fit"
+          )
+        : [];
 
-    const colorVariants = product.variantOptions && product.variantOptions.length
-      ? product.variantOptions.filter(vop => vop.fields && vop.fields.type === 'colour') : [];
+    const colorVariants =
+      product.variantOptions && product.variantOptions.length
+        ? product.variantOptions.filter(
+            (vop) => vop.fields && vop.fields.type === "colour"
+          )
+        : [];
 
-    const price = sizeVariants.length || colorVariants.length
-      ? this.findProductStockAndPrice(selectedSize, selectedColor, product)?.price : product.price;
+    const price =
+      sizeVariants.length || colorVariants.length
+        ? this.findProductStockAndPrice(selectedSize, selectedColor, product)
+            ?.price
+        : product.price;
 
     product.price = price;
 
@@ -255,32 +311,32 @@ class Product extends React.Component {
               property="twitter:description"
               content={product?.headerDescription}
             />
-            <meta
-              property="twitter:image"
-              content={product?.headerPhoto}
-            />
+            <meta property="twitter:image" content={product?.headerPhoto} />
           </Head>
           {/* <Header /> */}
-          {
-            this.state.cart?.products?.length
-            ? <Basket
+          {this.state.cart?.products?.length ? (
+            <Basket
               fromProductPage={true}
               isBasketOpen={this.state.showCart}
-              setCart={(value) => this.setState({cart: value})}
+              setCart={(value) => this.setState({ cart: value })}
               cartData={this.state.cart}
               StorageManager={StorageManager}
               updateAddedToCart={this.updateAddedToCart}
-              setHideInAdvance={() => this.setState({hideInAdvance: true})}
+              setHideInAdvance={() => this.setState({ hideInAdvance: true })}
               CART_KEY={CART_KEY}
-              handleShowCart={this.handleShowCart}/>
-            : ''
-          }
+              handleShowCart={this.handleShowCart}
+            />
+          ) : (
+            ""
+          )}
           <NavBar
             cartActive={this.state.cart?.products?.length ? true : false}
             handleShowCart={this.handleShowCart}
-            homeActive={homePageEnabled && homePageEnabled === true ? true : false}
+            homeActive={
+              homePageEnabled && homePageEnabled === true ? true : false
+            }
             store={this.props.product?.store?.fields}
-            storeName={this.props.product?.store?.fields?.storeName || ''}
+            storeName={this.props.product?.store?.fields?.storeName || ""}
           />
 
           <DM2BuyCarousel product={product} />
@@ -288,33 +344,44 @@ class Product extends React.Component {
             <div className={styles.productHead}>
               <h1 className={styles.productHeading}>{product.name}</h1>
               {/* <ShareButton /> */}
-              <ProductShareButton
-                name={product.name}
-                toast={this.showToast}
-              />
+              <ProductShareButton name={product.name} toast={this.showToast} />
             </div>
 
             {product && <div className={styles.priceContainer}></div>}
+
+            <PackageExtraDetails
+              dispatchTime={
+                product?.store?.fields?.shippingInfo?.["dispatchTime"]
+              }
+              instaUserId={product?.store?.fields?.contactInfo?.instagramHandle}
+              style={{
+                margin: "20px 0",
+              }}
+            />
+
             {colorVariants && colorVariants.length ? (
               <ProductColors
                 colors={colorVariants}
                 selectedColorInStorage={selectedColor}
                 setProductColor={(color) => {
-                  let product = {...this.state.product};
+                  let product = { ...this.state.product };
                   product.colour = color;
                   this.setState({ product, selectedColor: color });
                 }}
               />
             ) : null}
 
-            {
-              sizeVariants && sizeVariants.length
-              ? <ProductSizeFields
-                  sizeVariants={sizeVariants}
-                  selectedSize={selectedSize}
-                  updateSelectedSize={(size) => this.setState({selectedSize: size})}
-                /> : ''
-            }
+            {sizeVariants && sizeVariants.length ? (
+              <ProductSizeFields
+                sizeVariants={sizeVariants}
+                selectedSize={selectedSize}
+                updateSelectedSize={(size) =>
+                  this.setState({ selectedSize: size })
+                }
+              />
+            ) : (
+              ""
+            )}
 
             <div
               className={styles.description}
@@ -324,12 +391,16 @@ class Product extends React.Component {
             {/* Custom product fields */}
             <ProductCustomFields
               selectedCustomAttributes={selectedCustomAttributes}
-              product={product} 
+              product={product}
               ref={this.customFieldsRef}
             />
 
             <div className={styles.callToAction}>
-              {this.findProductStockAndPrice(selectedSize, selectedColor, product)?.stockAvailable <= 0 ? (
+              {this.findProductStockAndPrice(
+                selectedSize,
+                selectedColor,
+                product
+              )?.stockAvailable <= 0 ? (
                 <button className={styles.soldOutButton}>Sold Out</button>
               ) : (
                 <button
@@ -341,9 +412,7 @@ class Product extends React.Component {
                       ? "Added to Bag"
                       : "Add to Bag"}
                   </div>
-                  <div>
-                    {`${String.fromCharCode(0x20b9)}${product.price}`}
-                  </div>
+                  <div>{`${String.fromCharCode(0x20b9)}${product.price}`}</div>
                 </button>
               )}
             </div>
@@ -376,13 +445,13 @@ class Product extends React.Component {
       plainText = plainText.replace(/(\n)+/, "");
       return plainText.slice(0, 200);
     }
-    return '';
+    return "";
   };
   validated = async (product) => {
     let isValid = true;
     const isFocusAble = true;
     for (const ca of product.customAttributes) {
-      if ((ca?.fields?.required === true) || !ca.fields || !ca) {
+      if (ca?.fields?.required === true || !ca.fields || !ca) {
         if (!(await ca.ref.current.validate(isFocusAble))) {
           isValid = false;
         }
@@ -393,7 +462,7 @@ class Product extends React.Component {
   addToCart = async () => {
     const { product } = this.state;
     if (await this.validated(product)) {
-      if (typeof window != 'undefined') {
+      if (typeof window != "undefined") {
         if (this.focusActive) {
           window.scrollTo(0, 0);
           window.document.body.scrollTop = 0;
@@ -404,13 +473,16 @@ class Product extends React.Component {
         this.storeProductToLocalStorage(product);
         // window.location.href = `/cart`;
         const cartData = StorageManager.getJson(CART_KEY, initialCart);
-        this.setState({cart: cartData, hideInAdvance: true}, () => {
-          if (this.state.cart.products && this.state.cart.products.length === 1) {
+        this.setState({ cart: cartData, hideInAdvance: true }, () => {
+          if (
+            this.state.cart.products &&
+            this.state.cart.products.length === 1
+          ) {
             setTimeout(() => {
-              this.setState({showCart: true, hideInAdvance: false});
+              this.setState({ showCart: true, hideInAdvance: false });
             }, 100);
           } else {
-            this.setState({showCart: true, hideInAdvance: false});
+            this.setState({ showCart: true, hideInAdvance: false });
           }
           this.updateAddedToCart(product.id, true);
         });
@@ -435,13 +507,16 @@ class Product extends React.Component {
     let _product = { ...product };
     _product.customAttributes = customAttributes;
     const cart = StorageManager.getJson(CART_KEY, initialCart);
-    const productIndex = cart.products.findIndex((item) => item.id === product.id);
+    const productIndex = cart.products.findIndex(
+      (item) => item.id === product.id
+    );
     if (productIndex !== -1) {
       cart.products[productIndex] = _product;
     } else {
       cart.products.push(_product);
     }
-    cart.shippingFee = _product?.store?.fields?.shippingInfo?.shippingCharge || 0;
+    cart.shippingFee =
+      _product?.store?.fields?.shippingInfo?.shippingCharge || 0;
     cart.shippingFeeCap = _product.shippingFeeCap;
     StorageManager.putJson(CART_KEY, cart);
   };
